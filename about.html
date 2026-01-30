@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CarlVs | Sobre mí</title>
+    <style>
+        body {
+            background: #0f172a;
+            color: #f8fafc;
+            font-family: monospace;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            margin: 0;
+            padding: 2rem;
+            box-sizing: border-box;
+        }
+
+        .container {
+            max-width: 800px;
+            width: 100%;
+            border: 1px solid #334155;
+            padding: 2rem;
+            border-radius: 8px;
+            background: #1e293b;
+        }
+
+        header {
+            border-bottom: 2px solid #334155;
+            padding-bottom: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        h1 {
+            color: #38bdf8;
+            margin: 0;
+            font-size: 2em;
+        }
+
+        h2 {
+            color: #7dd3fc;
+            margin-top: 2.5rem;
+            border-bottom: 1px solid #334155;
+            padding-bottom: 0.5rem;
+        }
+
+        h3 {
+            color: #e2e8f0;
+            margin-top: 1.5rem;
+            margin-bottom: 0.25rem;
+            font-size: 1.1em;
+        }
+
+        .subtitle {
+            color: #94a3b8;
+            margin-bottom: 0.5rem;
+            font-size: 0.9em;
+            display: block;
+        }
+
+        p,
+        li {
+            color: #cbd5e1;
+            line-height: 1.6;
+            margin-top: 0.5rem;
+        }
+
+        ul {
+            padding-left: 1.2rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        li::marker {
+            color: #38bdf8;
+        }
+
+        a {
+            color: #38bdf8;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .contact-info {
+            margin-top: 0.5rem;
+            color: #94a3b8;
+        }
+
+        .badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .badge {
+            background: #334155;
+            color: #38bdf8;
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.85em;
+        }
+
+        .nav-link {
+            display: inline-block;
+            margin-top: 3rem;
+            padding: 0.5rem 1rem;
+            border: 1px solid #38bdf8;
+            border-radius: 4px;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        .nav-link:hover {
+            background: #38bdf8;
+            color: #0f172a;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>Carlos Villén Villar</h1>
+            <span class="subtitle">Ingeniero de Software / Desarrollador Backend</span>
+            <div class="contact-info">
+                <a href="mailto:cvillenv@gmail.com">cvillenv@gmail.com</a> |
+                <a href="https://linkedin.com/in/carlosvillenvillar/en" target="_blank">LinkedIn</a>
+            </div>
+        </header>
+
+        <section>
+            <h2>Experiencia Laboral</h2>
+
+            <h3>Roche | Site Reliability Engineer</h3>
+            <span class="subtitle">Febrero 2025 - Actualidad</span>
+            <p>Parte del equipo de Monitorización y Observabilidad, mejorando la fiabilidad y operación de sistemas
+                críticos.</p>
+            <ul>
+                <li>Desarrollo de scripts y automatizaciones en <strong>Python</strong> para optimizar flujos de
+                    trabajo.</li>
+                <li>Gestión de integraciones en <strong>ServiceNow</strong> (priorización de incidentes, alertas,
+                    workflows).</li>
+                <li>Implementación de funcionalidades automatizadas en <strong>LogicMonitor</strong> para
+                    observabilidad.</li>
+                <li>Gestión de pipelines en <strong>GitLab CI</strong>.</li>
+                <li>Participación en incident response y colaboración internacional.</li>
+            </ul>
+
+            <h3>Granada Dynamics | Desarrollador Back-end</h3>
+            <span class="subtitle">Marzo 2024 - Junio 2024</span>
+            <p>Responsable de mentorizar y gestionar el equipo, coordinando y supervisando tareas.</p>
+            <ul>
+                <li>Diseño y desarrollo inicial de software basado en <strong>Python</strong> para un producto educativo
+                    innovador.</li>
+                <li>Adaptación de frameworks como <strong>Django</strong> y uso de <strong>Behave</strong> con
+                    <strong>Pytest</strong> para testing.
+                </li>
+                <li>Implementación de features usando <strong>MongoDB</strong> como base de datos no relacional.</li>
+            </ul>
+
+            <h3>Full On Net / Telefónica | Desarrollador QA Automation</h3>
+            <span class="subtitle">Noviembre 2022 - Diciembre 2023</span>
+            <ul>
+                <li>Desarrollo de tests automatizados con <strong>Behave (Gherkin) con Python</strong> para módulos de
+                    Audiencia de Movistar+.</li>
+                <li>Automatización de procesos CI/CD usando <strong>Jenkins</strong>.</li>
+                <li>Uso de herramientas como Postman, Wireshark y Git.</li>
+            </ul>
+
+            <h3>Nucleoo / visualfabriq | Desarrollador Back-end</h3>
+            <span class="subtitle">Abril 2021 - Noviembre 2022</span>
+            <ul>
+                <li>Desarrollo de aplicación web <strong>Flask (Python)</strong> para gestión masiva de datos en el
+                    sector alimentario.</li>
+                <li>Uso de <strong>Pandas y NumPy</strong> para análisis de datos y optimización con cProfile.</li>
+                <li>Implementación de tests unitarios (Pytest), despliegue con <strong>Docker</strong> y uso de
+                    servicios <strong>AWS</strong> (EC2, S3, CloudWatch).</li>
+            </ul>
+
+            <h3>E-VALUA | Desarrollador Full-Stack</h3>
+            <span class="subtitle">Julio 2020 - Enero 2021</span>
+            <ul>
+                <li>Desarrollo y mantenimiento de aplicación para el sector seguros con <strong>PHP (Laravel)</strong> y
+                    MySQL.</li>
+                <li>Desarrollo frontend con <strong>Javascript (AngularJS)</strong>.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Educación</h2>
+
+            <h3>Universidad de Jaén</h3>
+            <span class="subtitle">Grado en Ingeniería Informática (2014 - 2020)</span>
+            <p>TFG: Asistente de voz para información turística (Nota: 9.5)</p>
+
+            <h3>Politechnika Opolska (Polonia)</h3>
+            <span class="subtitle">Erasmus+ (2017 - 2019)</span>
+        </section>
+
+        <section>
+            <h2>Premios y Logros</h2>
+            <ul>
+                <li><strong>VI Edición Premio "Ada Lovelace"</strong> - Universidad de Jaén (Mejor TFG).</li>
+                <li><strong>3ª Edición Premio a la mejor línea de investigación</strong> - Red PLN.NET (Procesamiento
+                    del Lenguaje Natural).</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Certificaciones y Cursos</h2>
+            <ul>
+                <li>Become a Data Scientist (MAINFOR SOLUTIONS)</li>
+                <li>Agile Project Management and SCRUM (Google)</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Stack Tecnológico</h2>
+            <div class="badges">
+                <span class="badge">Python</span>
+                <span class="badge">Django</span>
+                <span class="badge">Flask</span>
+                <span class="badge">PHP</span>
+                <span class="badge">Laravel</span>
+                <span class="badge">Docker</span>
+                <span class="badge">AWS</span>
+                <span class="badge">MongoDB</span>
+                <span class="badge">SQL</span>
+                <span class="badge">Git</span>
+                <span class="badge">Jenkins</span>
+                <span class="badge">GitLab CI</span>
+                <span class="badge">ServiceNow</span>
+                <span class="badge">Splunk</span>
+                <span class="badge">LogicMonitor</span>
+                <span class="badge">AngularJS</span>
+            </div>
+        </section>
+
+        <a href="index.html" class="nav-link">&larr; Volver al Inicio</a>
+    </div>
+</body>
+
+</html>
