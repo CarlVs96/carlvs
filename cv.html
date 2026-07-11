@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV · Carlos Villén Villar</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: #1a1a1a;
+            color: #f8f8f2;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            line-height: 1.5;
+            padding: 2rem;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+
+        .cv {
+            max-width: 210mm;
+            margin: 0 auto;
+            background: #222;
+            border: 1px solid #3a3a3a;
+            border-radius: 8px;
+            padding: 2.5rem;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            border-bottom: 2px solid #3a3a3a;
+            padding-bottom: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .header-left h1 {
+            font-size: 1.6rem;
+            color: #f92672;
+            font-weight: 700;
+        }
+
+        .header-left .role {
+            font-size: 0.9rem;
+            color: #66d9ef;
+            margin-top: 0.25rem;
+        }
+
+        .header-right {
+            text-align: right;
+            font-size: 0.8rem;
+            color: #a6a68a;
+            line-height: 1.8;
+        }
+        .header-right a { color: #66d9ef; text-decoration: none; }
+        .header-right a:hover { color: #a6e22e; }
+
+        .section-title {
+            font-size: 1rem;
+            color: #a6e22e;
+            margin: 1.5rem 0 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .section-title::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: #3a3a3a;
+        }
+
+        .entry {
+            margin-bottom: 1.25rem;
+            page-break-inside: avoid;
+        }
+
+        .entry-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            flex-wrap: wrap;
+        }
+
+        .entry-company {
+            font-size: 1rem;
+            color: #f8f8f2;
+            font-weight: 500;
+        }
+        .entry-company span { color: #f92672; }
+
+        .entry-role {
+            font-size: 0.85rem;
+            color: #66d9ef;
+        }
+
+        .entry-date {
+            font-size: 0.75rem;
+            color: #75715e;
+            white-space: nowrap;
+        }
+
+        .entry-desc {
+            color: #a6a68a;
+            font-size: 0.8rem;
+            margin: 0.4rem 0;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        li {
+            color: #a6a68a;
+            font-size: 0.8rem;
+            line-height: 1.6;
+            margin-bottom: 0.2rem;
+            padding-left: 1rem;
+            position: relative;
+        }
+        li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: #66d9ef;
+        }
+
+        .highlight {
+            color: #a6e22e;
+            font-size: 0.8rem;
+            margin-top: 0.4rem;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .card {
+            background: #2a2a2a;
+            border: 1px solid #3a3a3a;
+            border-radius: 6px;
+            padding: 1rem;
+            page-break-inside: avoid;
+        }
+        .card.full { grid-column: 1 / -1; }
+
+        .card h3 {
+            font-size: 0.85rem;
+            color: #f8f8f2;
+            margin-bottom: 0.3rem;
+        }
+        .card .sub {
+            font-size: 0.75rem;
+            color: #75715e;
+            display: block;
+            margin-bottom: 0.4rem;
+        }
+        .card p, .card li { font-size: 0.8rem; }
+
+        .badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+        }
+        .badge {
+            background: #3a3a3a;
+            color: #ae81ff;
+            padding: 0.2rem 0.5rem;
+            border-radius: 3px;
+            font-size: 0.75rem;
+        }
+        .badge-ai { color: #fd971f; border: 1px solid #fd971f; }
+        .badge-obs { color: #66d9ef; }
+        .badge-cloud { color: #a6e22e; }
+        .badge-lang { color: #f92672; }
+
+        .aiops-box {
+            border-left: 3px solid #fd971f;
+            padding: 0.8rem 1rem;
+            background: #2a2a2a;
+            border-radius: 0 6px 6px 0;
+            margin-bottom: 1rem;
+        }
+        .aiops-box li::before { color: #fd971f; }
+
+        strong { color: #fd971f; }
+
+        @media print {
+            body { padding: 0; background: #1a1a1a; }
+            .cv { border: none; border-radius: 0; padding: 1.5rem; }
+            .entry { page-break-inside: avoid; }
+            .card { break-inside: avoid; }
+        }
+
+        @media (max-width: 600px) {
+            .header { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+            .header-right { text-align: left; }
+            .grid-2 { grid-template-columns: 1fr; }
+            .entry-header { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+<div class="cv">
+
+    <!-- Header -->
+    <div class="header">
+        <div class="header-left">
+            <h1>Carlos Villén Villar</h1>
+            <div class="role">Site Reliability &amp; Observability Engineer</div>
+        </div>
+        <div class="header-right">
+            <a href="mailto:cvillenv@gmail.com">cvillenv@gmail.com</a><br>
+            <a href="https://linkedin.com/in/carlosvillenvillar/en">linkedin.com/in/carlosvillenvillar</a><br>
+            <a href="https://github.com/carlvs">github.com/carlvs</a><br>
+            +34 605 32 96 12
+        </div>
+    </div>
+
+    <!-- Profile -->
+    <div class="section-title">Perfil profesional</div>
+    <p style="color:#a6a68a;font-size:0.85rem;line-height:1.7;margin-bottom:1rem;">
+        Ingeniero Informático especializado en <strong>Site Reliability Engineering</strong>, <strong>observabilidad</strong> y <strong>automatización de operaciones</strong>.
+        Experiencia garantizando la fiabilidad de infraestructura crítica a escala global, integrando <strong>IA / AIOps</strong>
+        en el flujo de trabajo para reducir toil y acelerar la respuesta a incidentes.
+        Stack principal: <strong>Python</strong>, <strong>OpenTelemetry</strong>, plataformas de observabilidad, pipelines CI/CD y APIs REST/HMAC.
+    </p>
+
+    <!-- Experience -->
+    <div class="section-title">Experiencia laboral</div>
+
+    <div class="entry">
+        <div class="entry-header">
+            <div class="entry-company">Roche <span>·</span> <span class="entry-role">Site Reliability Engineer</span></div>
+            <div class="entry-date">Feb 2025 — Actualidad</div>
+        </div>
+        <div class="entry-desc">Equipo de Monitoring &amp; Observability — fiabilidad y operación de infraestructura crítica a escala global.</div>
+        <ul>
+            <li>Automatización en <strong>Python</strong> contra APIs de monitorización, ITSM (<strong>ServiceNow</strong>), CI/CD (<strong>GitLab CI</strong>) y on-call, con autenticación REST/HMAC.</li>
+            <li>Operación de plataformas de observabilidad (<strong>LogicMonitor</strong>, Splunk): dashboards, alert tuning, ventanas de mantenimiento y reporting de capacidad.</li>
+            <li>Integración de sistemas: <strong>sincronización CMDB</strong> (Service Graph Connector) y pipelines de <strong>OpenTelemetry</strong>.</li>
+            <li>Prácticas SRE: <strong>on-call (PagerDuty)</strong>, triage de incidentes, <strong>automatización de runbooks</strong> y colaboración internacional; reducción de toil operativo.</li>
+            <li><strong>Operaciones asistidas por IA / AIOps</strong> — integración de agentes LLM en el flujo de trabajo de observabilidad.</li>
+        </ul>
+        <div class="highlight">▸ Monitorización de {N} dispositivos · Reducción del {X}% en ruido de alertas · {X} runbooks automatizados</div>
+    </div>
+
+    <div class="entry">
+        <div class="entry-header">
+            <div class="entry-company">Granada Dynamics <span>·</span> <span class="entry-role">Desarrollador Backend</span></div>
+            <div class="entry-date">Mar 2024 — Jun 2024</div>
+        </div>
+        <ul>
+            <li>Diseño y desarrollo inicial de software basado en <strong>Python</strong> para un producto educativo innovador.</li>
+            <li>Adaptación de frameworks como <strong>Django</strong> y uso de <strong>Behave</strong> con <strong>Pytest</strong> para testing.</li>
+            <li>Implementación de features usando <strong>MongoDB</strong> como base de datos no relacional.</li>
+        </ul>
+    </div>
+
+    <div class="entry">
+        <div class="entry-header">
+            <div class="entry-company">Full On Net / Telefónica <span>·</span> <span class="entry-role">Desarrollador QA Automation</span></div>
+            <div class="entry-date">Nov 2022 — Dic 2023</div>
+        </div>
+        <ul>
+            <li>Desarrollo de tests automatizados con <strong>Behave (Gherkin) con Python</strong> para módulos de Audiencia de Movistar+.</li>
+            <li>Automatización de procesos CI/CD usando <strong>Jenkins</strong>.</li>
+            <li>Uso de herramientas como Postman, Wireshark y Git.</li>
+        </ul>
+    </div>
+
+    <div class="entry">
+        <div class="entry-header">
+            <div class="entry-company">Nucleoo / visualfabriq <span>·</span> <span class="entry-role">Desarrollador Backend</span></div>
+            <div class="entry-date">Abr 2021 — Nov 2022</div>
+        </div>
+        <ul>
+            <li>Desarrollo de aplicación web <strong>Flask (Python)</strong> para gestión masiva de datos en el sector alimentario.</li>
+            <li>Uso de <strong>Pandas y NumPy</strong> para análisis de datos y optimización con cProfile.</li>
+            <li>Implementación de tests unitarios (Pytest), despliegue con <strong>Docker</strong> y servicios <strong>AWS</strong> (EC2, S3, CloudWatch).</li>
+        </ul>
+    </div>
+
+    <div class="entry">
+        <div class="entry-header">
+            <div class="entry-company">E-VALUA <span>·</span> <span class="entry-role">Desarrollador Full-Stack</span></div>
+            <div class="entry-date">Jul 2020 — Ene 2021</div>
+        </div>
+        <ul>
+            <li>Desarrollo y mantenimiento de aplicación para el sector seguros con <strong>PHP (Laravel)</strong> y MySQL.</li>
+            <li>Desarrollo frontend con <strong>Javascript (AngularJS)</strong>.</li>
+        </ul>
+    </div>
+
+    <!-- AIOps -->
+    <div class="section-title">Operaciones potenciadas por IA (AIOps)</div>
+    <div class="aiops-box">
+        <ul>
+            <li><strong>Triage de incidentes asistido por IA</strong>: correlación automática entre señales de monitorización, ITSM y on-call para proponer causa raíz y siguiente acción.</li>
+            <li><strong>Generación automática de runbooks y documentación</strong> a partir de incidentes resueltos, reutilizables por el resto del equipo.</li>
+            <li><strong>Tooling agéntico</strong> que orquesta múltiples APIs internas (monitorización, ITSM, CI/CD, on-call) mediante skills especializadas.</li>
+            <li><strong>Automatización de tareas operativas</strong> (reporting, planificación, resúmenes) con agentes conectados a las herramientas del equipo.</li>
+            <li>Enfoque en <strong>fiabilidad y reducción de toil</strong>: convertir procedimientos manuales en flujos asistidos y verificables.</li>
+        </ul>
+    </div>
+
+    <!-- Skills -->
+    <div class="section-title">Stack tecnológico</div>
+
+    <div class="grid-2">
+        <div class="card">
+            <h3>Lenguajes</h3>
+            <div class="badges">
+                <span class="badge badge-lang">Python</span>
+                <span class="badge badge-lang">PHP</span>
+                <span class="badge badge-lang">JavaScript</span>
+            </div>
+        </div>
+        <div class="card">
+            <h3>Frameworks</h3>
+            <div class="badges">
+                <span class="badge">Django</span>
+                <span class="badge">Flask</span>
+                <span class="badge">Laravel</span>
+                <span class="badge">AngularJS</span>
+            </div>
+        </div>
+        <div class="card">
+            <h3>Observabilidad</h3>
+            <div class="badges">
+                <span class="badge badge-obs">OpenTelemetry</span>
+                <span class="badge badge-obs">LogicMonitor</span>
+                <span class="badge badge-obs">Splunk</span>
+                <span class="badge badge-obs">PagerDuty</span>
+                <span class="badge badge-obs">ServiceNow</span>
+            </div>
+        </div>
+        <div class="card">
+            <h3>Cloud / DevOps</h3>
+            <div class="badges">
+                <span class="badge badge-cloud">AWS</span>
+                <span class="badge badge-cloud">Docker</span>
+                <span class="badge badge-cloud">GitLab CI</span>
+                <span class="badge badge-cloud">Jenkins</span>
+                <span class="badge badge-cloud">Git</span>
+            </div>
+        </div>
+        <div class="card">
+            <h3>IA / Automatización</h3>
+            <div class="badges">
+                <span class="badge badge-ai">AIOps</span>
+                <span class="badge badge-ai">LLM / AI Agents</span>
+                <span class="badge badge-ai">REST / HMAC</span>
+            </div>
+        </div>
+        <div class="card">
+            <h3>Bases de datos</h3>
+            <div class="badges">
+                <span class="badge">MongoDB</span>
+                <span class="badge">SQL</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Education + Awards + Certs -->
+    <div class="section-title">Formación</div>
+
+    <div class="grid-2">
+        <div class="card full">
+            <h3>Universidad de Jaén</h3>
+            <span class="sub">Grado en Ingeniería Informática (2014 - 2020)</span>
+            <p>TFG: Asistente de voz para información turística · Nota: 9.5</p>
+        </div>
+        <div class="card">
+            <h3>Politechnika Opolska</h3>
+            <span class="sub">Erasmus+ (2017 - 2019)</span>
+            <p>Polonia</p>
+        </div>
+        <div class="card">
+            <h3>Premios</h3>
+            <ul>
+                <li><strong>VI Edición Premio Ada Lovelace</strong> — Universidad de Jaén (Mejor TFG).</li>
+                <li><strong>3ª Edición Mejor línea de investigación</strong> — Red PLN.NET (PLN).</li>
+            </ul>
+        </div>
+        <div class="card">
+            <h3>Cursos</h3>
+            <ul>
+                <li>Become a Data Scientist (MAINFOR SOLUTIONS)</li>
+                <li>Agile Project Management y SCRUM (Google)</li>
+                <li>English Courses (Twenix)</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Languages -->
+    <div class="section-title">Idiomas</div>
+    <div class="badges" style="margin-bottom:0.5rem;">
+        <span class="badge badge-lang">Español · Nativo</span>
+        <span class="badge badge-obs">Inglés · B2</span>
+    </div>
+
+</div>
+</body>
+</html>
