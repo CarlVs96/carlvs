@@ -674,53 +674,6 @@
         .health-fill.ram { background: #a6e22e; }
         .health-fill.disk { background: #fd971f; }
 
-        .incident-section {
-            margin-top: 1.5rem;
-            padding-top: 1.5rem;
-            border-top: 1px solid #2a2a2a;
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-        .btn-incident {
-            background: #f92672;
-            border-color: #f92672;
-            transition: all 0.3s ease;
-        }
-        .btn-incident:hover {
-            background: #e01e5f;
-            box-shadow: 0 0 15px rgba(249,38,114,0.3);
-        }
-        .btn-incident:disabled {
-            opacity: 0.5;
-            pointer-events: none;
-        }
-        .incident-panel { flex: 1; min-width: 200px; }
-        .incident-status {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 0.85rem;
-            font-family: 'JetBrains Mono', monospace;
-            color: #a6a68a;
-        }
-        .incident-dot {
-            width: 10px; height: 10px;
-            border-radius: 50%;
-            display: inline-block;
-            flex-shrink: 0;
-        }
-        .incident-dot.idle { background: #a6e22e; }
-        .incident-dot.triggering { background: #fd971f; animation: pulse-warn 0.8s infinite; }
-        .incident-dot.resolved { background: #a6e22e; }
-        @keyframes pulse-warn {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.5; transform: scale(1.3); }
-        }
-        .incident-timer { color: #fd971f; font-weight: bold; margin-left: auto; }
-        .incident-resolved { color: #a6e22e; }
-
         /* ── Stack ── */
         #stack { position: relative; z-index: 1; }
 
@@ -1168,8 +1121,6 @@
         html.light .aiops-box p { color: #555; }
         html.light .health-label { color: #666; }
         html.light .health-bar { background: #ddd; }
-        html.light .incident-section { border-top-color: #ddd; }
-        html.light .incident-status { color: #666; }
         html.light .terminal-window { background: #f0f0f0; border-color: #ddd; }
         html.light .term-bar { background: #e8e8e8; border-bottom-color: #ddd; }
         html.light .term-cmd { color: #2d2d2d; }
@@ -1405,17 +1356,6 @@ Ingeniero informático, <strong>SRE en Roche</strong>. Observabilidad, automatiz
                     <div class="health-bar"><div class="health-fill disk" id="diskFill"></div></div>
                 </div>
             </div>
-            <div class="incident-section">
-                <button class="btn btn-incident" id="incidentBtn" onclick="simulateIncident()">
-                    <i class="fas fa-exclamation-triangle"></i> <span class="btn-text" data-i18n="aiops_simulate">Simular incidente</span>
-                </button>
-                <div class="incident-panel" id="incidentPanel">
-                    <div class="incident-status" id="incidentStatus">
-                        <span class="incident-dot idle"></span>
-                        <span class="incident-text" data-i18n="aiops_idle">Sistema operativo normal</span>
-                    </div>
-                </div>
-            </div>
         </div>
     </section>
 
@@ -1602,11 +1542,6 @@ Ingeniero informático, <strong>SRE en Roche</strong>. Observabilidad, automatiz
                 aiops_3: '<strong>Tooling agéntico</strong> que orquesta múltiples APIs internas (monitorización, ITSM, CI/CD, on-call) mediante skills especializadas.',
                 aiops_4: '<strong>Automatización de tareas operativas</strong> (reporting, planificación, resúmenes) con agentes conectados a las herramientas del equipo.',
                 aiops_5: 'Enfoque en <strong>fiabilidad y reducción de toil</strong>: convertir procedimientos manuales en flujos asistidos y verificables.',
-                aiops_simulate: 'Simular incidente',
-                aiops_idle: 'Sistema operativo normal',
-                aiops_incident_triggered: '🚨 ¡Incidente detectado! Resolviendo...',
-                aiops_incident_resolved: '✅ Resuelto · SLA cumplido',
-                aiops_reset: 'Reiniciar',
                 stack_title: 'Stack Tecnológico',
                 filter_all: 'Todo',
                 filter_langs: 'Lenguajes',
@@ -1686,11 +1621,6 @@ Ingeniero informático, <strong>SRE en Roche</strong>. Observabilidad, automatiz
                 aiops_3: '<strong>Agentic tooling</strong> orchestrating multiple internal APIs (monitoring, ITSM, CI/CD, on-call) through specialized skills.',
                 aiops_4: '<strong>Operational task automation</strong> (reporting, scheduling, summaries) with agents connected to the team\'s tools.',
                 aiops_5: 'Focus on <strong>reliability and toil reduction</strong>: turning manual procedures into assisted, verifiable flows.',
-                aiops_simulate: 'Simulate incident',
-                aiops_idle: 'System operating normally',
-                aiops_incident_triggered: '🚨 Incident detected! Resolving...',
-                aiops_incident_resolved: '✅ Resolved · SLA met',
-                aiops_reset: 'Reset',
                 stack_title: 'Tech Stack',
                 filter_all: 'All',
                 filter_langs: 'Languages',
@@ -1766,11 +1696,6 @@ Ingeniero informático, <strong>SRE en Roche</strong>. Observabilidad, automatiz
                 evalua_2: 'Desarrollo frontend con <strong>Javascript (AngularJS)</strong>.',
                 aiops_title: 'Operacioneh potenciah por IA (AIOps)',
                 aiops_intro: 'Meto <strong>agenteh de IA (LLM)</strong> en er flujo de trabah de observabilidá y operacioneh pa reducí er trabah manual repetitivo y acelerá la respuesta a incidenteh. ¿Te enterah?',
-                aiops_simulate: 'Simulá incidente',
-                aiops_idle: 'Sistema operativo normá',
-                aiops_incident_triggered: '🚨 ¡Incidente detectao! Resolviendo...',
-                aiops_incident_resolved: '✅ Resuelto · SLA cumplío',
-                aiops_reset: 'Reiniclá',
                 stack_title: 'Er Stack Tecnológico',
                 filter_all: 'Toíto',
                 filter_langs: 'Lenguajeeh',
@@ -1827,11 +1752,6 @@ Ingeniero informático, <strong>SRE en Roche</strong>. Observabilidad, automatiz
                 roche_4: 'Ñácñicas ÑRE: <strong>on-ñall (ÑañerÑuty)</strong>, ñiage de incidenñes, <strong>automatizañión de Ñunbooñs</strong> y ñolañorañión inñernañional; reduñión de ñoil Ñperañivo.',
                 aiops_title: 'Ñperañiones Ñotenñiañas Ñor IÑA (AIÑops)',
                 aiops_intro: 'Ñntegro <strong>agenñes de IÑA (ÑÑÑ)</strong> en el ñujo de ñañajo de observabiliñad y Ñperañiones para reduñir el ñañajo manual Ñepetiñivo y añelerar la Ñespuesña a incidenñes:',
-                aiops_simulate: 'Ñimular incidente',
-                aiops_idle: 'Ñistema operativo ñormal',
-                aiops_incident_triggered: '🚨 ¡Ñncidente detectado! Ñesolviendo...',
-                aiops_incident_resolved: '✅ Ñesuelto · ÑLA cumplido',
-                aiops_reset: 'Ñeiniciar',
                 stack_title: 'Ñtañ Ñeñolóñico',
                 filter_all: 'Ñoño',
                 filter_langs: 'Ñenguañes',
@@ -2214,77 +2134,44 @@ Ingeniero informático, <strong>SRE en Roche</strong>. Observabilidad, automatiz
         });
 
         /* ── Health graphs ── */
-        function animateHealth() {
-            const targets = [
-                { fill: document.getElementById('cpuFill'), val: document.getElementById('cpuVal'), pct: 67 },
-                { fill: document.getElementById('ramFill'), val: document.getElementById('ramVal'), pct: 42 },
-                { fill: document.getElementById('diskFill'), val: document.getElementById('diskVal'), pct: 78 },
-            ];
-            requestAnimationFrame(() => {
-                targets.forEach(t => {
-                    t.fill.style.width = t.pct + '%';
-                    t.val.textContent = t.pct + '%';
-                });
-            });
+        const healthState = { cpu: 35, ram: 52, disk: 74 };
+        function clamp(v, min, max) { return Math.max(min, Math.min(max, v)); }
+        function updateHealth() {
+            const cpuFill = document.getElementById('cpuFill');
+            const cpuVal = document.getElementById('cpuVal');
+            const ramFill = document.getElementById('ramFill');
+            const ramVal = document.getElementById('ramVal');
+            const diskFill = document.getElementById('diskFill');
+            const diskVal = document.getElementById('diskVal');
+            if (!cpuFill) return;
+            cpuFill.style.width = healthState.cpu + '%';
+            cpuVal.textContent = Math.round(healthState.cpu) + '%';
+            ramFill.style.width = healthState.ram + '%';
+            ramVal.textContent = Math.round(healthState.ram) + '%';
+            diskFill.style.width = healthState.disk + '%';
+            diskVal.textContent = Math.round(healthState.disk) + '%';
+        }
+        function tickHealth() {
+            const spike = Math.random() < 0.08;
+            healthState.cpu += (spike ? (Math.random() * 15 + 5) : (Math.random() - 0.5) * 4);
+            healthState.cpu = spike ? clamp(healthState.cpu, 70, 95) : clamp(healthState.cpu, 15, 85);
+            healthState.ram += (Math.random() - 0.5) * 1.5;
+            healthState.ram = clamp(healthState.ram, 40, 70);
+            healthState.disk += (Math.random() - 0.48) * 0.3;
+            healthState.disk = clamp(healthState.disk, 70, 85);
+            updateHealth();
         }
         const healthObs = new IntersectionObserver(entries => {
             entries.forEach(e => {
-                if (e.isIntersecting) { animateHealth(); healthObs.unobserve(e.target); }
+                if (e.isIntersecting) {
+                    healthObs.unobserve(e.target);
+                    updateHealth();
+                    setInterval(tickHealth, 2200);
+                }
             });
         }, { threshold: 0.3 });
         const hGrid = document.querySelector('.health-grid');
         if (hGrid) healthObs.observe(hGrid);
-
-        /* ── Incident simulator ── */
-        let incidentTimer = null;
-        function simulateIncident() {
-            const btn = document.getElementById('incidentBtn');
-            const dot = document.querySelector('#incidentStatus .incident-dot');
-            const text = document.querySelector('#incidentStatus .incident-text');
-            const panel = document.getElementById('incidentStatus');
-            const lang = localStorage.getItem('lang') || 'es';
-            const t = translations[lang];
-            const btnText = btn.querySelector('.btn-text');
-            if (btn.disabled) return;
-            if (btn.dataset.state === 'idle') {
-                btn.disabled = true;
-                btn.dataset.state = 'triggering';
-                dot.className = 'incident-dot triggering';
-                text.textContent = t.aiops_incident_triggered;
-                text.className = 'incident-text';
-                let cd = 5;
-                const timer = document.createElement('span');
-                timer.className = 'incident-timer';
-                timer.id = 'incidentTimer';
-                timer.textContent = cd + 's';
-                panel.appendChild(timer);
-                incidentTimer = setInterval(() => {
-                    cd--;
-                    const el = document.getElementById('incidentTimer');
-                    if (el) el.textContent = cd + 's';
-                    if (cd <= 0) {
-                        clearInterval(incidentTimer);
-                        dot.className = 'incident-dot resolved';
-                        text.textContent = t.aiops_incident_resolved;
-                        text.className = 'incident-text incident-resolved';
-                        btn.dataset.state = 'resolved';
-                        btn.disabled = false;
-                        btnText.textContent = '\u21bb ' + t.aiops_reset;
-                        const el2 = document.getElementById('incidentTimer');
-                        if (el2) el2.remove();
-                    }
-                }, 1000);
-            } else if (btn.dataset.state === 'resolved') {
-                btn.dataset.state = 'idle';
-                dot.className = 'incident-dot idle';
-                text.textContent = t.aiops_idle;
-                text.className = 'incident-text';
-                btnText.textContent = t.aiops_simulate;
-                const el2 = document.getElementById('incidentTimer');
-                if (el2) el2.remove();
-            }
-        }
-        document.getElementById('incidentBtn').dataset.state = 'idle';
 
     </script>
 </body>
