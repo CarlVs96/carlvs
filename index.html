@@ -58,6 +58,39 @@
             100% { transform: translateY(-100vh) rotate(720deg); opacity: 0; }
         }
 
+        .lang-switcher {
+            position: fixed;
+            top: 1.5rem;
+            right: 1.5rem;
+            display: flex;
+            gap: 0.5rem;
+            z-index: 100;
+        }
+
+        .lang-btn {
+            padding: 0.5rem 1rem;
+            border: 1px solid #3a3a3a;
+            background: rgba(26, 26, 26, 0.9);
+            color: #75715e;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .lang-btn:hover {
+            border-color: #66d9ef;
+            color: #66d9ef;
+        }
+
+        .lang-btn.active {
+            background: #66d9ef;
+            color: #1a1a1a;
+            border-color: #66d9ef;
+        }
+
         .container {
             position: relative;
             z-index: 1;
@@ -200,10 +233,15 @@
             position: fixed;
             bottom: 2rem;
             left: 50%;
-            transform: translateX(-50%);
+            transform: translateX(-50%) translateY(100px);
             opacity: 0;
-            animation: fadeInUp 0.8s ease 1.2s forwards;
             z-index: 10;
+            transition: all 0.5s ease;
+        }
+
+        .scroll-indicator.visible {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
         }
 
         .scroll-indicator a {
@@ -215,14 +253,22 @@
             align-items: center;
             gap: 0.5rem;
             transition: color 0.3s ease;
+            padding: 1rem 2rem;
+            background: rgba(26, 26, 26, 0.9);
+            border-radius: 30px;
+            border: 1px solid #3a3a3a;
+            backdrop-filter: blur(10px);
         }
 
         .scroll-indicator a:hover {
             color: #a6e22e;
+            border-color: #a6e22e;
+            background: rgba(166, 226, 46, 0.1);
         }
 
         .scroll-indicator i {
             animation: bounce 2s infinite;
+            font-size: 1.2rem;
         }
 
         @keyframes bounce {
@@ -296,6 +342,16 @@
             .scroll-indicator span {
                 display: none;
             }
+
+            .lang-switcher {
+                top: 1rem;
+                right: 1rem;
+            }
+
+            .lang-btn {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.8rem;
+            }
         }
     </style>
 </head>
@@ -312,12 +368,17 @@
         <span></span>
     </div>
 
+    <div class="lang-switcher">
+        <button class="lang-btn active" data-lang="es">ES</button>
+        <button class="lang-btn" data-lang="en">EN</button>
+    </div>
+
     <div class="container">
         <div class="hero">
-            <p class="greeting">¡Hola! Soy</p>
+            <p class="greeting" data-i18n="greeting">¡Hola! Soy</p>
             <h1 class="name">CarlVs</h1>
-            <h2 class="title">Ingeniero de Software <span>|</span></h2>
-            <p class="description">
+            <h2 class="title"><span data-i18n="title">Ingeniero de Software</span> <span>|</span></h2>
+            <p class="description" data-i18n="description">
                 Apasionado por construir soluciones robustas y escalables.
                 <br>Especializado en Backend, SRE y automatización de procesos.
             </p>
@@ -325,27 +386,27 @@
             <div class="stats">
                 <div class="stat">
                     <div class="stat-number">5+</div>
-                    <div class="stat-label">Años de experiencia</div>
+                    <div class="stat-label" data-i18n="exp">Años de experiencia</div>
                 </div>
                 <div class="stat">
                     <div class="stat-number">10+</div>
-                    <div class="stat-label">Proyectos completados</div>
+                    <div class="stat-label" data-i18n="projects">Proyectos completados</div>
                 </div>
                 <div class="stat">
                     <div class="stat-number">∞</div>
-                    <div class="stat-label">Tazas de café</div>
+                    <div class="stat-label" data-i18n="coffee">Tazas de café</div>
                 </div>
             </div>
 
             <div class="cta-buttons">
                 <a href="/about/" class="btn btn-primary">
-                    <i class="fas fa-user"></i> Sobre mí
+                    <i class="fas fa-user"></i> <span data-i18n="about">Sobre mí</span>
                 </a>
                 <a href="#projects" class="btn btn-secondary">
-                    <i class="fas fa-code"></i> Ver proyectos
+                    <i class="fas fa-code"></i> <span data-i18n="view_projects">Ver proyectos</span>
                 </a>
                 <a href="mailto:cvillenv@gmail.com" class="btn btn-secondary">
-                    <i class="fas fa-envelope"></i> Contactar
+                    <i class="fas fa-envelope"></i> <span data-i18n="contact">Contactar</span>
                 </a>
             </div>
 
@@ -365,10 +426,77 @@
 
     <div class="scroll-indicator">
         <a href="/about/">
-            <span>Descubre más</span>
+            <span data-i18n="discover">Descubre más</span>
             <i class="fas fa-chevron-down"></i>
         </a>
     </div>
+
+    <script>
+        const translations = {
+            es: {
+                greeting: '¡Hola! Soy',
+                title: 'Ingeniero de Software',
+                description: 'Apasionado por construir soluciones robustas y escalables.<br>Especializado en Backend, SRE y automatización de procesos.',
+                exp: 'Años de experiencia',
+                projects: 'Proyectos completados',
+                coffee: 'Tazas de café',
+                about: 'Sobre mí',
+                view_projects: 'Ver proyectos',
+                contact: 'Contactar',
+                discover: 'Descubre más'
+            },
+            en: {
+                greeting: "Hi! I'm",
+                title: 'Software Engineer',
+                description: 'Passionate about building robust and scalable solutions.<br>Specialized in Backend, SRE, and process automation.',
+                exp: 'Years of experience',
+                projects: 'Completed projects',
+                coffee: 'Cups of coffee',
+                about: 'About me',
+                view_projects: 'View projects',
+                contact: 'Contact',
+                discover: 'Discover more'
+            }
+        };
+
+        function setLanguage(lang) {
+            document.documentElement.lang = lang;
+            localStorage.setItem('lang', lang);
+            
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.lang === lang);
+            });
+
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[lang][key]) {
+                    el.innerHTML = translations[lang][key];
+                }
+            });
+        }
+
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.addEventListener('click', () => setLanguage(btn.dataset.lang));
+        });
+
+        const savedLang = localStorage.getItem('lang') || 'es';
+        setLanguage(savedLang);
+
+        const scrollIndicator = document.querySelector('.scroll-indicator');
+
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 100) {
+                scrollIndicator.classList.add('visible');
+            } else {
+                scrollIndicator.classList.remove('visible');
+            }
+        });
+
+        document.querySelector('.scroll-indicator a').addEventListener('click', (e) => {
+            e.preventDefault();
+            window.location.href = '/about/';
+        });
+    </script>
 </body>
 
 </html>

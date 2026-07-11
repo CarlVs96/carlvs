@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CarlVs | Sobre mí</title>
+    <title>CarlVs | About me</title>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
     <style>
         body {
@@ -13,7 +13,7 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             display: flex;
             justify-content: center;
-            align-items: flex-start;
+            align-items: safe center;
             min-height: 100vh;
             margin: 0;
             padding: 2rem;
@@ -27,6 +27,58 @@
             padding: 2rem;
             border-radius: 8px;
             background: #222222;
+            max-height: calc(100vh - 4rem);
+            overflow-y: auto;
+        }
+
+        .container::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .container::-webkit-scrollbar-track {
+            background: #2a2a2a;
+            border-radius: 3px;
+        }
+
+        .container::-webkit-scrollbar-thumb {
+            background: #3a3a3a;
+            border-radius: 3px;
+        }
+
+        .container::-webkit-scrollbar-thumb:hover {
+            background: #66d9ef;
+        }
+
+        .lang-switcher {
+            position: fixed;
+            top: 1.5rem;
+            right: 1.5rem;
+            display: flex;
+            gap: 0.5rem;
+            z-index: 100;
+        }
+
+        .lang-btn {
+            padding: 0.5rem 1rem;
+            border: 1px solid #3a3a3a;
+            background: rgba(26, 26, 26, 0.9);
+            color: #75715e;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .lang-btn:hover {
+            border-color: #66d9ef;
+            color: #66d9ef;
+        }
+
+        .lang-btn.active {
+            background: #66d9ef;
+            color: #1a1a1a;
+            border-color: #66d9ef;
         }
 
         header {
@@ -128,14 +180,31 @@
         strong {
             color: #fd971f;
         }
+
+        @media (max-width: 768px) {
+            .lang-switcher {
+                top: 1rem;
+                right: 1rem;
+            }
+
+            .lang-btn {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.8rem;
+            }
+        }
     </style>
 </head>
 
 <body>
+    <div class="lang-switcher">
+        <button class="lang-btn active" data-lang="es">ES</button>
+        <button class="lang-btn" data-lang="en">EN</button>
+    </div>
+
     <div class="container">
         <header>
-            <h1>Carlos Villén Villar</h1>
-            <span class="subtitle">Ingeniero de Software / Desarrollador Backend</span>
+            <h1 data-i18n="name">Carlos Villén Villar</h1>
+            <span class="subtitle" data-i18n="role">Software Engineer / Backend Developer</span>
             <div class="contact-info">
                 <a href="mailto:cvillenv@gmail.com">cvillenv@gmail.com</a> |
                 <a href="https://linkedin.com/in/carlosvillenvillar/en" target="_blank">LinkedIn</a>
@@ -143,93 +212,81 @@
         </header>
 
         <section>
-            <h2>Experiencia Laboral</h2>
+            <h2 data-i18n="experience_title">Work Experience</h2>
 
             <h3>Roche | Site Reliability Engineer</h3>
-            <span class="subtitle">Febrero 2025 - Actualidad</span>
-            <p>Parte del equipo de Monitorización y Observabilidad, mejorando la fiabilidad y operación de sistemas
-                críticos.</p>
+            <span class="subtitle" data-i18n="roche_date">February 2025 - Present</span>
+            <p data-i18n="roche_desc">Part of the Monitoring and Observability team, improving reliability and operation of critical systems.</p>
             <ul>
-                <li>Desarrollo de scripts y automatizaciones en <strong>Python</strong> para optimizar flujos de
-                    trabajo.</li>
-                <li>Gestión de integraciones en <strong>ServiceNow</strong> (priorización de incidentes, alertas,
-                    workflows).</li>
-                <li>Implementación de funcionalidades automatizadas en <strong>LogicMonitor</strong> para
-                    observabilidad.</li>
-                <li>Gestión de pipelines en <strong>GitLab CI</strong>.</li>
-                <li>Participación en incident response y colaboración internacional.</li>
+                <li data-i18n="roche_1">Development of <strong>Python</strong> scripts and automations to optimize workflows.</li>
+                <li data-i18n="roche_2"><strong>ServiceNow</strong> integration management (incident prioritization, alerts, workflows).</li>
+                <li data-i18n="roche_3">Implementation of automated functionalities in <strong>LogicMonitor</strong> for observability.</li>
+                <li data-i18n="roche_4"><strong>GitLab CI</strong> pipeline management.</li>
+                <li data-i18n="roche_5">Participation in incident response and international collaboration.</li>
             </ul>
 
-            <h3>Granada Dynamics | Desarrollador Back-end</h3>
-            <span class="subtitle">Marzo 2024 - Junio 2024</span>
-            <p>Responsable de mentorizar y gestionar el equipo, coordinando y supervisando tareas.</p>
+            <h3>Granada Dynamics | Backend Developer</h3>
+            <span class="subtitle" data-i18n="granada_date">March 2024 - June 2024</span>
+            <p data-i18n="granada_desc">Responsible for mentoring and managing the team, coordinating and supervising tasks.</p>
             <ul>
-                <li>Diseño y desarrollo inicial de software basado en <strong>Python</strong> para un producto educativo
-                    innovador.</li>
-                <li>Adaptación de frameworks como <strong>Django</strong> y uso de <strong>Behave</strong> con
-                    <strong>Pytest</strong> para testing.
-                </li>
-                <li>Implementación de features usando <strong>MongoDB</strong> como base de datos no relacional.</li>
+                <li data-i18n="granada_1">Design and initial development of <strong>Python</strong>-based software for an innovative educational product.</li>
+                <li data-i18n="granada_2">Framework adaptation like <strong>Django</strong> and <strong>Behave</strong> with <strong>Pytest</strong> for testing.</li>
+                <li data-i18n="granada_3">Feature implementation using <strong>MongoDB</strong> as non-relational database.</li>
             </ul>
 
-            <h3>Full On Net / Telefónica | Desarrollador QA Automation</h3>
-            <span class="subtitle">Noviembre 2022 - Diciembre 2023</span>
+            <h3>Full On Net / Telefónica | QA Automation Developer</h3>
+            <span class="subtitle" data-i18n="telefonica_date">November 2022 - December 2023</span>
             <ul>
-                <li>Desarrollo de tests automatizados con <strong>Behave (Gherkin) con Python</strong> para módulos de
-                    Audiencia de Movistar+.</li>
-                <li>Automatización de procesos CI/CD usando <strong>Jenkins</strong>.</li>
-                <li>Uso de herramientas como Postman, Wireshark y Git.</li>
+                <li data-i18n="telefonica_1">Automated test development with <strong>Behave (Gherkin) with Python</strong> for Movistar+ Audience modules.</li>
+                <li data-i18n="telefonica_2">CI/CD process automation using <strong>Jenkins</strong>.</li>
+                <li data-i18n="telefonica_3">Use of tools like Postman, Wireshark and Git.</li>
             </ul>
 
-            <h3>Nucleoo / visualfabriq | Desarrollador Back-end</h3>
-            <span class="subtitle">Abril 2021 - Noviembre 2022</span>
+            <h3>Nucleoo / visualfabriq | Backend Developer</h3>
+            <span class="subtitle" data-i18n="nucleoo_date">April 2021 - November 2022</span>
             <ul>
-                <li>Desarrollo de aplicación web <strong>Flask (Python)</strong> para gestión masiva de datos en el
-                    sector alimentario.</li>
-                <li>Uso de <strong>Pandas y NumPy</strong> para análisis de datos y optimización con cProfile.</li>
-                <li>Implementación de tests unitarios (Pytest), despliegue con <strong>Docker</strong> y uso de
-                    servicios <strong>AWS</strong> (EC2, S3, CloudWatch).</li>
+                <li data-i18n="nucleoo_1"><strong>Flask (Python)</strong> web application development for massive data management in the food sector.</li>
+                <li data-i18n="nucleoo_2"><strong>Pandas and NumPy</strong> use for data analysis and optimization with cProfile.</li>
+                <li data-i18n="nucleoo_3">Unit test implementation (Pytest), deployment with <strong>Docker</strong> and <strong>AWS</strong> services (EC2, S3, CloudWatch).</li>
             </ul>
 
-            <h3>E-VALUA | Desarrollador Full-Stack</h3>
-            <span class="subtitle">Julio 2020 - Enero 2021</span>
+            <h3>E-VALUA | Full-Stack Developer</h3>
+            <span class="subtitle" data-i18n="evalua_date">July 2020 - January 2021</span>
             <ul>
-                <li>Desarrollo y mantenimiento de aplicación para el sector seguros con <strong>PHP (Laravel)</strong> y
-                    MySQL.</li>
-                <li>Desarrollo frontend con <strong>Javascript (AngularJS)</strong>.</li>
+                <li data-i18n="evalua_1">Development and maintenance of insurance sector application with <strong>PHP (Laravel)</strong> and MySQL.</li>
+                <li data-i18n="evalua_2">Frontend development with <strong>Javascript (AngularJS)</strong>.</li>
             </ul>
         </section>
 
         <section>
-            <h2>Educación</h2>
+            <h2 data-i18n="education_title">Education</h2>
 
-            <h3>Universidad de Jaén</h3>
-            <span class="subtitle">Grado en Ingeniería Informática (2014 - 2020)</span>
-            <p>TFG: Asistente de voz para información turística (Nota: 9.5)</p>
+            <h3>University of Jaén</h3>
+            <span class="subtitle" data-i18n="uni_date">Computer Engineering Degree (2014 - 2020)</span>
+            <p data-i18n="uni_desc">Final Project: Voice assistant for tourism information (Grade: 9.5)</p>
 
-            <h3>Politechnika Opolska (Polonia)</h3>
-            <span class="subtitle">Erasmus+ (2017 - 2019)</span>
+            <h3>Politechnika Opolska (Poland)</h3>
+            <span class="subtitle" data-i18n="erasmus_date">Erasmus+ (2017 - 2019)</span>
         </section>
 
         <section>
-            <h2>Premios y Logros</h2>
+            <h2 data-i18n="awards_title">Awards & Achievements</h2>
             <ul>
-                <li><strong>VI Edición Premio "Ada Lovelace"</strong> - Universidad de Jaén (Mejor TFG).</li>
-                <li><strong>3ª Edición Premio a la mejor línea de investigación</strong> - Red PLN.NET (Procesamiento
-                    del Lenguaje Natural).</li>
+                <li data-i18n="award_1"><strong>6th Edition "Ada Lovelace" Award</strong> - University of Jaén (Best Final Project).</li>
+                <li data-i18n="award_2"><strong>3rd Edition Best Research Line Award</strong> - PLN.NET Network (Natural Language Processing).</li>
             </ul>
         </section>
 
         <section>
-            <h2>Certificaciones y Cursos</h2>
+            <h2 data-i18n="certs_title">Certifications & Courses</h2>
             <ul>
-                <li>Become a Data Scientist (MAINFOR SOLUTIONS)</li>
-                <li>Agile Project Management and SCRUM (Google)</li>
+                <li data-i18n="cert_1">Become a Data Scientist (MAINFOR SOLUTIONS)</li>
+                <li data-i18n="cert_2">Agile Project Management and SCRUM (Google)</li>
             </ul>
         </section>
 
         <section>
-            <h2>Stack Tecnológico</h2>
+            <h2 data-i18n="stack_title">Tech Stack</h2>
             <div class="badges">
                 <span class="badge">Python</span>
                 <span class="badge">Django</span>
@@ -250,8 +307,116 @@
             </div>
         </section>
 
-        <a href="/" class="nav-link">&larr; Volver al Inicio</a>
+        <a href="/" class="nav-link" data-i18n="back_home">← Back to Home</a>
     </div>
+
+    <script>
+        const translations = {
+            es: {
+                name: 'Carlos Villén Villar',
+                role: 'Ingeniero de Software / Desarrollador Backend',
+                experience_title: 'Experiencia Laboral',
+                roche_date: 'Febrero 2025 - Actualidad',
+                roche_desc: 'Parte del equipo de Monitorización y Observabilidad, mejorando la fiabilidad y operación de sistemas críticos.',
+                roche_1: 'Desarrollo de scripts y automatizaciones en <strong>Python</strong> para optimizar flujos de trabajo.',
+                roche_2: 'Gestión de integraciones en <strong>ServiceNow</strong> (priorización de incidentes, alertas, workflows).',
+                roche_3: 'Implementación de funcionalidades automatizadas en <strong>LogicMonitor</strong> para observabilidad.',
+                roche_4: 'Gestión de pipelines en <strong>GitLab CI</strong>.',
+                roche_5: 'Participación en incident response y colaboración internacional.',
+                granada_date: 'Marzo 2024 - Junio 2024',
+                granada_desc: 'Responsable de mentorizar y gestionar el equipo, coordinando y supervisando tareas.',
+                granada_1: 'Diseño y desarrollo inicial de software basado en <strong>Python</strong> para un producto educativo innovador.',
+                granada_2: 'Adaptación de frameworks como <strong>Django</strong> y uso de <strong>Behave</strong> con <strong>Pytest</strong> para testing.',
+                granada_3: 'Implementación de features usando <strong>MongoDB</strong> como base de datos no relacional.',
+                telefonica_date: 'Noviembre 2022 - Diciembre 2023',
+                telefonica_1: 'Desarrollo de tests automatizados con <strong>Behave (Gherkin) con Python</strong> para módulos de Audiencia de Movistar+.',
+                telefonica_2: 'Automatización de procesos CI/CD usando <strong>Jenkins</strong>.',
+                telefonica_3: 'Uso de herramientas como Postman, Wireshark y Git.',
+                nucleoo_date: 'Abril 2021 - Noviembre 2022',
+                nucleoo_1: 'Desarrollo de aplicación web <strong>Flask (Python)</strong> para gestión masiva de datos en el sector alimentario.',
+                nucleoo_2: 'Uso de <strong>Pandas y NumPy</strong> para análisis de datos y optimización con cProfile.',
+                nucleoo_3: 'Implementación de tests unitarios (Pytest), despliegue con <strong>Docker</strong> y uso de servicios <strong>AWS</strong> (EC2, S3, CloudWatch).',
+                evalua_date: 'Julio 2020 - Enero 2021',
+                evalua_1: 'Desarrollo y mantenimiento de aplicación para el sector seguros con <strong>PHP (Laravel)</strong> y MySQL.',
+                evalua_2: 'Desarrollo frontend con <strong>Javascript (AngularJS)</strong>.',
+                education_title: 'Educación',
+                uni_date: 'Grado en Ingeniería Informática (2014 - 2020)',
+                uni_desc: 'TFG: Asistente de voz para información turística (Nota: 9.5)',
+                erasmus_date: 'Erasmus+ (2017 - 2019)',
+                awards_title: 'Premios y Logros',
+                award_1: '<strong>VI Edición Premio "Ada Lovelace"</strong> - Universidad de Jaén (Mejor TFG).',
+                award_2: '<strong>3ª Edición Premio a la mejor línea de investigación</strong> - Red PLN.NET (Procesamiento del Lenguaje Natural).',
+                certs_title: 'Certificaciones y Cursos',
+                cert_1: 'Become a Data Scientist (MAINFOR SOLUTIONS)',
+                cert_2: 'Agile Project Management and SCRUM (Google)',
+                stack_title: 'Stack Tecnológico',
+                back_home: '← Volver al Inicio'
+            },
+            en: {
+                name: 'Carlos Villén Villar',
+                role: 'Software Engineer / Backend Developer',
+                experience_title: 'Work Experience',
+                roche_date: 'February 2025 - Present',
+                roche_desc: 'Part of the Monitoring and Observability team, improving reliability and operation of critical systems.',
+                roche_1: 'Development of <strong>Python</strong> scripts and automations to optimize workflows.',
+                roche_2: '<strong>ServiceNow</strong> integration management (incident prioritization, alerts, workflows).',
+                roche_3: 'Implementation of automated functionalities in <strong>LogicMonitor</strong> for observability.',
+                roche_4: '<strong>GitLab CI</strong> pipeline management.',
+                roche_5: 'Participation in incident response and international collaboration.',
+                granada_date: 'March 2024 - June 2024',
+                granada_desc: 'Responsible for mentoring and managing the team, coordinating and supervising tasks.',
+                granada_1: 'Design and initial development of <strong>Python</strong>-based software for an innovative educational product.',
+                granada_2: 'Framework adaptation like <strong>Django</strong> and <strong>Behave</strong> with <strong>Pytest</strong> for testing.',
+                granada_3: 'Feature implementation using <strong>MongoDB</strong> as non-relational database.',
+                telefonica_date: 'November 2022 - December 2023',
+                telefonica_1: 'Automated test development with <strong>Behave (Gherkin) with Python</strong> for Movistar+ Audience modules.',
+                telefonica_2: 'CI/CD process automation using <strong>Jenkins</strong>.',
+                telefonica_3: 'Use of tools like Postman, Wireshark and Git.',
+                nucleoo_date: 'April 2021 - November 2022',
+                nucleoo_1: '<strong>Flask (Python)</strong> web application development for massive data management in the food sector.',
+                nucleoo_2: '<strong>Pandas and NumPy</strong> use for data analysis and optimization with cProfile.',
+                nucleoo_3: 'Unit test implementation (Pytest), deployment with <strong>Docker</strong> and <strong>AWS</strong> services (EC2, S3, CloudWatch).',
+                evalua_date: 'July 2020 - January 2021',
+                evalua_1: 'Development and maintenance of insurance sector application with <strong>PHP (Laravel)</strong> and MySQL.',
+                evalua_2: 'Frontend development with <strong>Javascript (AngularJS)</strong>.',
+                education_title: 'Education',
+                uni_date: 'Computer Engineering Degree (2014 - 2020)',
+                uni_desc: 'Final Project: Voice assistant for tourism information (Grade: 9.5)',
+                erasmus_date: 'Erasmus+ (2017 - 2019)',
+                awards_title: 'Awards & Achievements',
+                award_1: '<strong>6th Edition "Ada Lovelace" Award</strong> - University of Jaén (Best Final Project).',
+                award_2: '<strong>3rd Edition Best Research Line Award</strong> - PLN.NET Network (Natural Language Processing).',
+                certs_title: 'Certifications & Courses',
+                cert_1: 'Become a Data Scientist (MAINFOR SOLUTIONS)',
+                cert_2: 'Agile Project Management and SCRUM (Google)',
+                stack_title: 'Tech Stack',
+                back_home: '← Back to Home'
+            }
+        };
+
+        function setLanguage(lang) {
+            document.documentElement.lang = lang;
+            localStorage.setItem('lang', lang);
+            
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.lang === lang);
+            });
+
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[lang][key]) {
+                    el.innerHTML = translations[lang][key];
+                }
+            });
+        }
+
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.addEventListener('click', () => setLanguage(btn.dataset.lang));
+        });
+
+        const savedLang = localStorage.getItem('lang') || 'es';
+        setLanguage(savedLang);
+    </script>
 </body>
 
 </html>
