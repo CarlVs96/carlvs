@@ -14,13 +14,15 @@ Single-page scroll HTML personal site at `carlvs.dev`. No build tools, no packag
 ## Site structure
 
 ```
-/               # Single-page scroll (hero + about + timeline + AIOps + stack + education + contact)
-/about/         # Redirects to /#experience
-404.html        # SPA fallback → redirects to /
-favicon.svg
-robots.txt
-sitemap.xml
-CNAME
+/                   # Single-page scroll (hero + about + timeline + AIOps + stack + education + contact)
+/assets/img/        # Images (favicon, avatar)
+/pages/tools/       # Micro-applications grid
+/about/             # Redirects to /#experience
+/tools/             # Legacy redirect → /pages/tools/
+404.html            # SPA fallback → redirects to /
+robots.txt          # SEO: crawl instructions
+sitemap.xml         # SEO: URL index
+CNAME               # Custom domain carlvs.dev
 ```
 
 ## Single-page sections (all in `index.html`)
@@ -32,7 +34,7 @@ CNAME
 | Experiencia   | `#experience` | Vertical timeline with reveal animation |
 | AIOps         | `#aiops`      | Highlight box with orange border |
 | Stack         | `#stack`      | Categorized badges (6 categories) |
-| Formación     | `#education`  | Grid: uni, erasmus, awards, certs |
+| Formación     | `#education`  | Grid: uni, erasmus, awards |
 | Contacto      | `#contact`    | Cards: email, LinkedIn, GitHub, CV |
 
 ## Sticky navbar
@@ -65,13 +67,13 @@ Each `.timeline-item` uses `IntersectionObserver` (threshold 0.15) to fade+slide
 | `--orange`    | `#fd971f` | AIOps box border, `strong` |
 | `--text-muted`| `#75715e` | Secondary text   |
 
-Palette defined in `styles.css` as custom properties (pages currently hardcode hex).
+All colors hardcoded as hex across files (no CSS custom properties).
 
 ## Logo & favicon
 
 - Navbar logo: inline "CVs" gradient SVG + "Carlos Villén Villar" with gradient text (pink→purple→blue), reverses on hover.
 - Hero avatar: large circular beard avatar (`/cvslogo-face.svg`, 269x269 face crop, light fill) with gradient ring + glow above greeting.
-- Favicon: minimal green circle (`/favicon.svg`), no text.
+- Favicon: gradient "CVs" text + green dot (`/assets/img/favicon.svg`).
 
 ## Key conventions
 
@@ -92,6 +94,17 @@ Palette defined in `styles.css` as custom properties (pages currently hardcode h
 - `@page { margin: 0; size: letter; }` — no white borders, selectable text (ATS-friendly).
 - Background colors preserved via `-webkit-print-color-adjust: exact`.
 - Toolbar (lang toggle + PDF button) hidden during `@media print`.
+
+## Extra features (all in `index.html`)
+
+- **Scroll progress**: thin gradient bar at top, fills as you scroll.
+- **Back to top**: button bottom-right, appears after scrolling past hero.
+- **Animated counter**: years of experience calculated from 2020, animates on scroll.
+- **Tooltips**: each stack badge has `data-tip` with description, shown on hover via CSS `::after`.
+- **Light/dark toggle**: ☀️/🌙 in navbar, persisted in `localStorage`. Full light theme CSS under `html.light`.
+- **Stack filter**: category buttons above stack grid, hide/show columns via JS.
+- **Toast + copy email**: click email → clipboard copy → "¡Copiado!" toast (2s).
+- **Dynamic font-size**: mobile hero scales via viewport units.
 
 ## No tests, no lint, no typecheck
 

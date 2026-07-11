@@ -4,14 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CarlVs | SRE & Platform Engineer</title>
+    <title>CarlVs | Site Reliability Engineer</title>
     <meta name="description" content="Site Reliability Engineer especializado en observabilidad, AIOps y automatización. Experiencia en monitorización a escala global, integración de sistemas y reducción de toil operativo.">
-    <meta property="og:title" content="CarlVs | SRE & Platform Engineer">
+    <meta property="og:title" content="CarlVs | Site Reliability Engineer">
     <meta property="og:description" content="Site Reliability Engineer especializado en observabilidad, AIOps y automatización.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://carlvs.dev">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="CarlVs | SRE & Platform Engineer">
+    <meta name="twitter:title" content="CarlVs | Site Reliability Engineer">
     <meta name="twitter:description" content="Site Reliability Engineer especializado en observabilidad, AIOps y automatización.">
     <script type="application/ld+json">
     {
@@ -23,13 +23,12 @@
         "jobTitle": "Site Reliability Engineer",
         "url": "https://carlvs.dev",
         "sameAs": [
-            "https://github.com/carlvs96",
             "https://linkedin.com/in/carlosvillenvillar/en"
         ],
         "email": "cvillenv@gmail.com"
     }
     </script>
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="icon" type="image/svg+xml" href="/assets/img/favicon.svg">
     <link rel="canonical" href="https://carlvs.dev">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -721,6 +720,197 @@
             transform: translateY(0);
         }
 
+        /* ── Scroll progress ── */
+        #scroll-progress {
+            position: fixed;
+            top: 0; left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #f92672, #ae81ff, #66d9ef);
+            z-index: 1001;
+            width: 0%;
+            transition: width 0.1s linear;
+        }
+
+        /* ── Back to top ── */
+        #back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: #3a3a3a;
+            border: 1px solid #3a3a3a;
+            color: #f8f8f2;
+            font-size: 1.1rem;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 999;
+        }
+        #back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        #back-to-top:hover {
+            background: #f92672;
+            border-color: #f92672;
+            transform: translateY(-3px);
+        }
+
+        /* ── Tooltips ── */
+        .badge-tip {
+            position: relative;
+            cursor: help;
+        }
+        .badge-tip::after {
+            content: attr(data-tip);
+            position: absolute;
+            bottom: calc(100% + 6px);
+            left: 50%;
+            transform: translateX(-50%);
+            background: #222;
+            color: #f8f8f2;
+            padding: 0.4rem 0.7rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.2s ease;
+            border: 1px solid #3a3a3a;
+            pointer-events: none;
+            z-index: 10;
+        }
+        .badge-tip:hover::after {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* ── Stack filter ── */
+        .stack-filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .stack-filters button {
+            background: transparent;
+            border: 1px solid #3a3a3a;
+            color: #75715e;
+            padding: 0.35rem 0.8rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-family: inherit;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .stack-filters button:hover {
+            border-color: #66d9ef;
+            color: #66d9ef;
+        }
+        .stack-filters button.active {
+            background: #66d9ef;
+            color: #1a1a1a;
+            border-color: #66d9ef;
+        }
+        .stack-filter-hidden {
+            display: none !important;
+        }
+
+        /* ── Toast ── */
+        #toast {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #222;
+            color: #a6e22e;
+            padding: 0.7rem 1.5rem;
+            border-radius: 8px;
+            border: 1px solid #3a3a3a;
+            font-size: 0.85rem;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            pointer-events: none;
+        }
+        #toast.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* ── Animated counter ── */
+        .hero-stat-num.counter {
+            display: inline-block;
+        }
+
+        /* ── Theme toggle ── */
+        .theme-btn {
+            background: none;
+            border: none;
+            color: #75715e;
+            font-size: 1.1rem;
+            cursor: pointer;
+            padding: 0.25rem;
+            transition: color 0.3s ease;
+        }
+        .theme-btn:hover { color: #fd971f; }
+
+        /* ── Light theme ── */
+        html.light body {
+            background: #fafafa;
+            color: #2d2d2d;
+        }
+        html.light ::selection {
+            background: #f92672;
+            color: #fff;
+        }
+        html.light .navbar {
+            background: rgba(250, 250, 250, 0.85);
+            border-bottom-color: #ddd;
+        }
+        html.light .nav-links a { color: #999; }
+        html.light .nav-links a:hover { color: #2d2d2d; }
+        html.light .nav-links a.active { color: #f92672; }
+        html.light .nav-links a.active::after { background: #f92672; }
+        html.light .lang-btn { border-color: #ddd; color: #999; }
+        html.light .lang-btn:hover { border-color: #f92672; color: #f92672; }
+        html.light .lang-btn.active { background: #f92672; color: #fff; border-color: #f92672; }
+        html.light .theme-btn { color: #999; }
+        html.light .theme-btn:hover { color: #fd971f; }
+        html.light .section { border-bottom-color: #eee; }
+        html.light .bg-animation span { opacity: 0.03 !important; }
+        html.light .timeline-item::before { border-color: #ddd; background: #eee; }
+        html.light .timeline-item.current::before { background: #f92672; }
+        html.light .timeline-content { background: #f0f0f0; border-color: #ddd; }
+        html.light .timeline-date { color: #999; }
+        html.light .stack-cat-title { color: #999; }
+        html.light .badge { background: #e8e8e8; color: #ae81ff; }
+        html.light .badge-ai { color: #fd971f; border-color: #fd971f; background: transparent; }
+        html.light .badge-obs { color: #66d9ef; }
+        html.light .badge-cloud { color: #a6e22e; }
+        html.light .badge-lang { color: #f92672; }
+        html.light .edu-card { background: #f0f0f0; border-color: #ddd; }
+        html.light .edu-card h3 { color: #2d2d2d; }
+        html.light .edu-card p, html.light .edu-card li { color: #666; }
+        html.light .contact-card { background: #f0f0f0; border-color: #ddd; }
+        html.light .contact-card .label { color: #2d2d2d; }
+        html.light .footer { border-top-color: #ddd; }
+        html.light #back-to-top { background: #ddd; color: #2d2d2d; border-color: #ccc; }
+        html.light #back-to-top:hover { background: #f92672; color: #fff; border-color: #f92672; }
+        html.light #toast { background: #f0f0f0; border-color: #ddd; }
+        html.light .badge-tip::after { background: #f0f0f0; color: #2d2d2d; border-color: #ddd; }
+        html.light .aiops-box { background: #f0f0f0; border-color: #fd971f; }
+        html.light .aiops-box p { color: #555; }
+        html.light .about-content { background: #f5f5f5; border-color: #ddd; }
+        html.light .about-text { color: #555; }
+        html.light .hero-desc { color: #666; }
+        html.light .hero-stat-label { color: #999; }
+        html.light .footer p { color: #999; }
+
         /* ── Mobile ── */
         @media (max-width: 768px) {
             .section { padding: 3rem 1.5rem; }
@@ -743,6 +933,9 @@
 </head>
 
 <body>
+    <div id="scroll-progress"></div>
+    <button id="back-to-top" aria-label="Volver arriba"><i class="fas fa-chevron-up"></i></button>
+    <div id="toast"></div>
     <div class="bg-animation">
         <span></span><span></span><span></span><span></span>
         <span></span><span></span><span></span><span></span>
@@ -757,8 +950,10 @@
             <a href="#stack" data-i18n="nav_stack">Stack</a>
             <a href="#aiops" data-i18n="nav_ai">IA</a>
             <a href="#contact" data-i18n="nav_contact">Contacto</a>
+            <a href="/pages/tools/" data-i18n="nav_tools">Tools</a>
         </div>
         <div class="nav-right">
+            <button class="theme-btn" id="themeToggle" aria-label="Toggle theme">☀️</button>
             <div class="lang-switcher">
                 <button class="lang-btn active" data-lang="es">ES</button>
                 <button class="lang-btn" data-lang="en">EN</button>
@@ -770,17 +965,17 @@
     <!-- Hero -->
     <section class="hero-section">
         <div class="hero-content">
-            <div class="hero-avatar"><img src="/finalicon.svg" alt="CVs"></div>
+            <div class="hero-avatar"><img src="/assets/img/finalicon.svg" alt="CVs"></div>
             <p class="hero-greeting" data-i18n="greeting">¡Hola! Soy</p>
             <h1 class="hero-name">CarlVs</h1>
-            <h2 class="hero-title"><span data-i18n="title">Site Reliability Engineer · Backend Developer · AIOps</span><span class="cursor"></span></h2>
+            <h2 class="hero-title"><span data-i18n="title">Site Reliability Engineer · Backend Developer · AIOps</span> <span class="cursor"></span></h2>
             <p class="hero-desc" data-i18n="desc">
-                Apasionado por la fiabilidad de infraestructura crítica a escala global.<br>SRE, Observabilidad, AIOps y automatización.
+Ingeniero informático, <strong>SRE en Roche</strong>. Observabilidad, automatización e <strong>IA aplicada a operaciones</strong>.
             </p>
 
             <div class="hero-stats">
                 <div class="hero-stat">
-                    <div class="hero-stat-num">5+</div>
+                    <div class="hero-stat-num counter" id="expYears" data-from="2020">0+</div>
                     <div class="hero-stat-label" data-i18n="stat_exp">Años de experiencia</div>
                 </div>
                 <div class="hero-stat">
@@ -797,13 +992,15 @@
                 <a href="#about" class="btn btn-primary">
                     <i class="fas fa-user"></i> <span data-i18n="cta_about">Sobre mí</span>
                 </a>
+                <a href="/cv.html" class="btn btn-primary" target="_blank">
+                    <i class="fas fa-file-alt"></i> <span data-i18n="cv_label">CV</span>
+                </a>
                 <a href="#contact" class="btn btn-secondary">
                     <i class="fas fa-envelope"></i> <span data-i18n="cta_contact">Contactar</span>
                 </a>
             </div>
 
             <div class="hero-social">
-                <a href="https://github.com/carlvs96" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
                 <a href="https://linkedin.com/in/carlosvillenvillar/en" target="_blank" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
                 <a href="mailto:cvillenv@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
             </div>
@@ -821,8 +1018,8 @@
         <div class="about-content">
             <div class="about-text" data-i18n="about_text">
                 <p>Ingeniero Informático por la Universidad de Jaén, actualmente <strong>Site Reliability Engineer</strong> en el equipo de Monitoring &amp; Observability de Roche.</p>
-                <p>Mi día a día combina <strong>automatización Python</strong>, operación de plataformas de observabilidad, integración de sistemas con <strong>OpenTelemetry</strong> y <strong>prácticas SRE</strong> (on-call, runbooks, reducción de toil).</p>
-                <p>Me apasiona aplicar <strong>IA / AIOps</strong> a operaciones — integrando agentes LLM en el flujo de trabajo para automatizar triage, generar runbooks y reducir el trabajo manual repetitivo.</p>
+                <p>Resuelvo problemas de fiabilidad a escala con <strong>automatización Python</strong>, APIs <strong>REST/HMAC</strong>, pipelines <strong>OpenTelemetry</strong> y sincronización <strong>CMDB</strong>.</p>
+                <p>Integro <strong>agentes LLM</strong> en el flujo de trabajo para acelerar triage y generar runbooks.</p>
             </div>
         </div>
     </section>
@@ -911,61 +1108,71 @@
     <section id="stack" class="section">
         <h2 class="section-title" data-i18n="stack_title">Stack Tecnológico</h2>
 
+        <div class="stack-filters" id="stackFilters">
+            <button class="active" data-filter="all" data-i18n="filter_all">Todo</button>
+            <button data-filter="langs" data-i18n="filter_langs">Lenguajes</button>
+            <button data-filter="frameworks" data-i18n="filter_frameworks">Frameworks</button>
+            <button data-filter="obs" data-i18n="filter_obs">Obs</button>
+            <button data-filter="cloud" data-i18n="filter_cloud">Cloud</button>
+            <button data-filter="ia" data-i18n="filter_ia">IA</button>
+            <button data-filter="dbs" data-i18n="filter_dbs">BBDD</button>
+        </div>
+
         <div class="stack-grid" id="stackGrid">
-            <div>
+            <div data-cat="langs">
                 <div class="stack-cat-title" data-i18n="cat_langs">Lenguajes</div>
                 <div class="stack-badges">
-                    <span class="badge badge-lang">Python</span>
-                    <span class="badge badge-lang">PHP</span>
-                    <span class="badge badge-lang">JavaScript</span>
+                    <span class="badge badge-lang badge-tip" data-tip="Lenguaje principal">Python</span>
+                    <span class="badge badge-lang badge-tip" data-tip="Lenguaje backend">PHP</span>
+                    <span class="badge badge-lang badge-tip" data-tip="Lenguaje frontend">JavaScript</span>
                 </div>
             </div>
-            <div>
+            <div data-cat="frameworks">
                 <div class="stack-cat-title" data-i18n="cat_frameworks">Frameworks</div>
                 <div class="stack-badges">
-                    <span class="badge">Django</span>
-                    <span class="badge">Flask</span>
-                    <span class="badge">Laravel</span>
-                    <span class="badge">AngularJS</span>
+                    <span class="badge badge-tip" data-tip="Framework Python">Django</span>
+                    <span class="badge badge-tip" data-tip="Microframework Python">Flask</span>
+                    <span class="badge badge-tip" data-tip="Framework PHP">Laravel</span>
+                    <span class="badge badge-tip" data-tip="Framework JS legacy">AngularJS</span>
                 </div>
             </div>
-            <div>
+            <div data-cat="obs">
                 <div class="stack-cat-title" data-i18n="cat_observability">Observabilidad</div>
                 <div class="stack-badges">
-                    <span class="badge badge-obs">OpenTelemetry</span>
-                    <span class="badge badge-obs">LogicMonitor</span>
-                    <span class="badge badge-obs">Splunk</span>
-                    <span class="badge badge-obs">Grafana</span>
-                    <span class="badge badge-obs">PagerDuty</span>
-                    <span class="badge badge-obs">ServiceNow</span>
+                    <span class="badge badge-obs badge-tip" data-tip="Estándar de telemetría">OpenTelemetry</span>
+                    <span class="badge badge-obs badge-tip" data-tip="Monitorización cloud híbrida">LogicMonitor</span>
+                    <span class="badge badge-obs badge-tip" data-tip="Plataforma de logs y métricas">Splunk</span>
+                    <span class="badge badge-obs badge-tip" data-tip="Visualización y dashboards">Grafana</span>
+                    <span class="badge badge-obs badge-tip" data-tip="Gestión de incidentes on-call">PagerDuty</span>
+                    <span class="badge badge-obs badge-tip" data-tip="ITSM y CMDB">ServiceNow</span>
                 </div>
             </div>
-            <div>
+            <div data-cat="cloud">
                 <div class="stack-cat-title" data-i18n="cat_cloud">Cloud / DevOps</div>
                 <div class="stack-badges">
-                    <span class="badge badge-cloud">AWS</span>
-                    <span class="badge badge-cloud">Docker</span>
-                    <span class="badge badge-cloud">GitLab CI</span>
-                    <span class="badge badge-cloud">GitHub Actions</span>
-                    <span class="badge badge-cloud">Jenkins</span>
-                    <span class="badge badge-cloud">Rundeck</span>
-                    <span class="badge badge-cloud">Temporal</span>
-                    <span class="badge badge-cloud">Git</span>
+                    <span class="badge badge-cloud badge-tip" data-tip="Infraestructura cloud">AWS</span>
+                    <span class="badge badge-cloud badge-tip" data-tip="Contenedores">Docker</span>
+                    <span class="badge badge-cloud badge-tip" data-tip="CI/CD GitLab">GitLab CI</span>
+                    <span class="badge badge-cloud badge-tip" data-tip="CI/CD GitHub">GitHub Actions</span>
+                    <span class="badge badge-cloud badge-tip" data-tip="CI/CD on-prem">Jenkins</span>
+                    <span class="badge badge-cloud badge-tip" data-tip="Orquestación job scheduler">Rundeck</span>
+                    <span class="badge badge-cloud badge-tip" data-tip="Workflows distribuidos">Temporal</span>
+                    <span class="badge badge-cloud badge-tip" data-tip="Control de versiones">Git</span>
                 </div>
             </div>
-            <div>
+            <div data-cat="ia">
                 <div class="stack-cat-title" data-i18n="cat_ia">IA / Automatización</div>
                 <div class="stack-badges">
-                    <span class="badge badge-ai">AIOps</span>
-                    <span class="badge badge-ai">LLM / AI Agents</span>
-                    <span class="badge badge-ai">REST / HMAC</span>
+                    <span class="badge badge-ai badge-tip" data-tip="IA aplicada a operaciones">AIOps</span>
+                    <span class="badge badge-ai badge-tip" data-tip="Integración de LLMs">LLM / AI Agents</span>
+                    <span class="badge badge-ai badge-tip" data-tip="APIs con HMAC auth">REST / HMAC</span>
                 </div>
             </div>
-            <div>
+            <div data-cat="dbs">
                 <div class="stack-cat-title" data-i18n="cat_dbs">Bases de datos</div>
                 <div class="stack-badges">
-                    <span class="badge">MongoDB</span>
-                    <span class="badge">SQL</span>
+                    <span class="badge badge-tip" data-tip="Base de datos NoSQL">MongoDB</span>
+                    <span class="badge badge-tip" data-tip="Base de datos relacional">SQL</span>
                 </div>
             </div>
         </div>
@@ -995,13 +1202,6 @@
                 </ul>
             </div>
 
-            <div class="edu-card">
-                <h3 data-i18n="certs_title">Cursos</h3>
-                <ul>
-                    <li data-i18n="cert_1">Become a Data Scientist (MAINFOR SOLUTIONS)</li>
-                    <li data-i18n="cert_2">Agile Project Management y SCRUM (Google)</li>
-                </ul>
-            </div>
         </div>
     </section>
 
@@ -1010,7 +1210,7 @@
         <h2 class="section-title" data-i18n="contact_title">Contacto</h2>
 
         <div class="contact-grid">
-            <a href="mailto:cvillenv@gmail.com" class="contact-card">
+            <a href="mailto:cvillenv@gmail.com" class="contact-card" id="emailCopy">
                 <i class="fas fa-envelope"></i>
                 <span class="label">Email</span>
                 <span class="value">cvillenv@gmail.com</span>
@@ -1019,11 +1219,6 @@
                 <i class="fab fa-linkedin-in"></i>
                 <span class="label">LinkedIn</span>
                 <span class="value">carlosvillenvillar</span>
-            </a>
-            <a href="https://github.com/carlvs96" target="_blank" class="contact-card">
-                <i class="fab fa-github"></i>
-                <span class="label">GitHub</span>
-                <span class="value">@carlvs</span>
             </a>
             <a href="/cv.html" class="contact-card" target="_blank">
                 <i class="fas fa-file"></i>
@@ -1046,9 +1241,10 @@
                 nav_stack: 'Stack',
                 nav_ai: 'IA',
                 nav_contact: 'Contacto',
+                nav_tools: 'Tools',
                 greeting: '¡Hola! Soy',
                 title: 'Site Reliability Engineer · Backend Developer · AIOps',
-                desc: 'Apasionado por la fiabilidad de infraestructura crítica a escala global.<br>SRE, Observabilidad, AIOps y automatización.',
+                desc: 'Ingeniero informático, <strong>SRE en Roche</strong>. Observabilidad, automatización e <strong>IA aplicada a operaciones</strong>.',
                 stat_exp: 'Años de experiencia',
                 stat_devices: 'Dispositivos monitorizados',
                 stat_coffee: 'Tazas de café',
@@ -1056,7 +1252,7 @@
                 cta_contact: 'Contactar',
                 scroll: 'Descubre más',
                 about_title: 'Sobre mí',
-                about_text: '<p>Ingeniero Informático por la Universidad de Jaén, actualmente <strong>Site Reliability Engineer</strong> en el equipo de Monitoring &amp; Observability de Roche.</p><p>Mi día a día combina <strong>automatización Python</strong>, operación de plataformas de observabilidad, integración de sistemas con <strong>OpenTelemetry</strong> y <strong>prácticas SRE</strong> (on-call, runbooks, reducción de toil).</p><p>Me apasiona aplicar <strong>IA / AIOps</strong> a operaciones — integrando agentes LLM en el flujo de trabajo para automatizar triage, generar runbooks y reducir el trabajo manual repetitivo.</p>',
+                about_text: '<p>Ingeniero Informático por la Universidad de Jaén, actualmente <strong>Site Reliability Engineer</strong> en el equipo de Monitoring &amp; Observability de Roche.</p><p>Resuelvo problemas de fiabilidad a escala con <strong>automatización Python</strong>, APIs <strong>REST/HMAC</strong>, pipelines <strong>OpenTelemetry</strong> y sincronización <strong>CMDB</strong>.</p><p>Integro <strong>agentes LLM</strong> en el flujo de trabajo para acelerar triage y generar runbooks.</p>',
                 exp_title: 'Experiencia',
                 roche_date: 'Febrero 2025 - Actualidad',
                 roche_role: 'Site Reliability Engineer',
@@ -1092,6 +1288,13 @@
                 aiops_4: '<strong>Automatización de tareas operativas</strong> (reporting, planificación, resúmenes) con agentes conectados a las herramientas del equipo.',
                 aiops_5: 'Enfoque en <strong>fiabilidad y reducción de toil</strong>: convertir procedimientos manuales en flujos asistidos y verificables.',
                 stack_title: 'Stack Tecnológico',
+                filter_all: 'Todo',
+                filter_langs: 'Lenguajes',
+                filter_frameworks: 'Frameworks',
+                filter_obs: 'Obs',
+                filter_cloud: 'Cloud',
+                filter_ia: 'IA',
+                filter_dbs: 'BBDD',
                 cat_langs: 'Lenguajes',
                 cat_frameworks: 'Frameworks',
                 cat_observability: 'Observabilidad',
@@ -1105,9 +1308,6 @@
                 awards_title: 'Premios',
                 award_1: '<strong>VI Edición Premio Ada Lovelace</strong> — Universidad de Jaén (Mejor TFG).',
                 award_2: '<strong>3ª Edición Mejor línea de investigación</strong> — Red PLN.NET (Procesamiento del Lenguaje Natural).',
-                certs_title: 'Cursos',
-                cert_1: 'Become a Data Scientist (MAINFOR SOLUTIONS)',
-                cert_2: 'Agile Project Management y SCRUM (Google)',
                 contact_title: 'Contacto',
                 cv_label: 'Descargar CV',
                 cv_value: 'HTML · imprimible',
@@ -1119,9 +1319,10 @@
                 nav_stack: 'Stack',
                 nav_ai: 'AI',
                 nav_contact: 'Contact',
+                nav_tools: 'Tools',
                 greeting: "Hi! I'm",
                 title: 'Site Reliability Engineer · Backend Developer · AIOps',
-                desc: 'Passionate about ensuring reliability of critical infrastructure at global scale.<br>SRE, Observability, AIOps, and automation.',
+                desc: 'Computer engineer, <strong>SRE at Roche</strong>. Observability, automation, and <strong>AI applied to operations</strong>.',
                 stat_exp: 'Years of experience',
                 stat_devices: 'Monitored devices',
                 stat_coffee: 'Cups of coffee',
@@ -1129,7 +1330,7 @@
                 cta_contact: 'Contact',
                 scroll: 'Discover more',
                 about_title: 'About me',
-                about_text: '<p>Computer Engineer from University of Jaén, currently <strong>Site Reliability Engineer</strong> on the Monitoring &amp; Observability team at Roche.</p><p>My day-to-day combines <strong>Python automation</strong>, observability platform operation, system integration with <strong>OpenTelemetry</strong>, and <strong>SRE practices</strong> (on-call, runbooks, toil reduction).</p><p>I\'m passionate about applying <strong>AI / AIOps</strong> to operations — integrating LLM agents into the workflow to automate triage, generate runbooks, and reduce repetitive manual work.</p>',
+                about_text: '<p>Computer Engineer from University of Jaén, currently <strong>Site Reliability Engineer</strong> on the Monitoring &amp; Observability team at Roche.</p><p>I solve reliability problems at scale with <strong>Python automation</strong>, <strong>REST/HMAC</strong> APIs, <strong>OpenTelemetry</strong> pipelines, and <strong>CMDB</strong> synchronization.</p><p>I integrate <strong>LLM agents</strong> into the workflow to accelerate triage and generate runbooks.</p>',
                 exp_title: 'Experience',
                 roche_date: 'February 2025 - Present',
                 roche_role: 'Site Reliability Engineer',
@@ -1165,6 +1366,13 @@
                 aiops_4: '<strong>Operational task automation</strong> (reporting, scheduling, summaries) with agents connected to the team\'s tools.',
                 aiops_5: 'Focus on <strong>reliability and toil reduction</strong>: turning manual procedures into assisted, verifiable flows.',
                 stack_title: 'Tech Stack',
+                filter_all: 'All',
+                filter_langs: 'Languages',
+                filter_frameworks: 'Frameworks',
+                filter_obs: 'Obs',
+                filter_cloud: 'Cloud',
+                filter_ia: 'AI',
+                filter_dbs: 'DB',
                 cat_langs: 'Languages',
                 cat_frameworks: 'Frameworks',
                 cat_observability: 'Observability',
@@ -1178,9 +1386,6 @@
                 awards_title: 'Awards',
                 award_1: '<strong>6th Edition Ada Lovelace Award</strong> — University of Jaén (Best Final Project).',
                 award_2: '<strong>3rd Edition Best Research Line Award</strong> — PLN.NET Network (Natural Language Processing).',
-                certs_title: 'Courses',
-                cert_1: 'Become a Data Scientist (MAINFOR SOLUTIONS)',
-                cert_2: 'Agile Project Management and SCRUM (Google)',
                 contact_title: 'Contact',
                 cv_label: 'Download CV',
                 cv_value: 'HTML · printable',
@@ -1248,6 +1453,90 @@
                 });
             }, { threshold: 0.1 });
             rObs.observe(s);
+        });
+
+        /* ── Dynamic years counter ── */
+        const expEl = document.getElementById('expYears');
+        const startYear = parseInt(expEl.dataset.from);
+        const targetYears = new Date().getFullYear() - startYear;
+        const expObs = new IntersectionObserver(entries => {
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    let current = 0;
+                    const step = Math.ceil(targetYears / 30);
+                    const timer = setInterval(() => {
+                        current += step;
+                        if (current >= targetYears) {
+                            current = targetYears;
+                            clearInterval(timer);
+                        }
+                        expEl.textContent = current + '+';
+                    }, 40);
+                    expObs.unobserve(expEl);
+                }
+            });
+        }, { threshold: 0.5 });
+        expObs.observe(expEl);
+
+        /* ── Scroll progress ── */
+        const progressBar = document.getElementById('scroll-progress');
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+            progressBar.style.width = pct + '%';
+        });
+
+        /* ── Back to top ── */
+        const backBtn = document.getElementById('back-to-top');
+        window.addEventListener('scroll', () => {
+            backBtn.classList.toggle('visible', window.scrollY > window.innerHeight);
+        });
+        backBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        /* ── Light / Dark toggle ── */
+        const themeBtn = document.getElementById('themeToggle');
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'light') {
+            document.documentElement.classList.add('light');
+            themeBtn.textContent = '🌙';
+        }
+        themeBtn.addEventListener('click', () => {
+            const isLight = document.documentElement.classList.toggle('light');
+            themeBtn.textContent = isLight ? '🌙' : '☀️';
+            localStorage.setItem('theme', isLight ? 'light' : 'dark');
+        });
+
+        /* ── Stack filter ── */
+        document.querySelectorAll('#stackFilters button').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('#stackFilters button').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                const filter = btn.dataset.filter;
+                document.querySelectorAll('#stackGrid > div').forEach(col => {
+                    col.classList.toggle('stack-filter-hidden', filter !== 'all' && col.dataset.cat !== filter);
+                });
+            });
+        });
+
+        /* ── Toast + copy email ── */
+        const toast = document.getElementById('toast');
+        let toastTimer;
+        function showToast(msg) {
+            toast.textContent = msg;
+            toast.classList.add('show');
+            clearTimeout(toastTimer);
+            toastTimer = setTimeout(() => toast.classList.remove('show'), 2000);
+        }
+        document.getElementById('emailCopy').addEventListener('click', e => {
+            e.preventDefault();
+            navigator.clipboard.writeText('cvillenv@gmail.com').then(() => {
+                showToast('¡Copiado!');
+            }).catch(() => {
+                showToast('Error al copiar');
+            });
         });
     </script>
 </body>
