@@ -492,14 +492,15 @@
         setLanguage(savedLang);
 
         const scrollIndicator = document.querySelector('.scroll-indicator');
-
-        setTimeout(() => {
-            scrollIndicator.classList.add('visible');
-        }, 2000);
+        let scrolled = false;
 
         window.addEventListener('scroll', () => {
-            if (window.pageYOffset > 50) {
+            if (window.pageYOffset > 100 && !scrolled) {
+                scrolled = true;
                 scrollIndicator.classList.add('visible');
+                setTimeout(() => {
+                    window.location.href = '/about/';
+                }, 600);
             }
         });
 
