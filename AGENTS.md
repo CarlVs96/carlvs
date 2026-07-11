@@ -51,9 +51,9 @@ Each `.timeline-item` uses `IntersectionObserver` (threshold 0.15) to fade+slide
 
 ## i18n system
 
-- ES/EN via JS translations object + `data-i18n` attributes in `<script>` at bottom of `index.html`.
+- ES/EN/Ñ via JS translations object + `data-i18n` attributes in `<script>` at bottom of `index.html`.
 - Language persisted in `localStorage` (key `lang`). Default: ES.
-- Add new keys to both ES and EN objects.
+- Add new keys to ES, EN, and Ñ objects.
 
 ## Color system (Monokai)
 
@@ -103,7 +103,7 @@ All colors hardcoded as hex across files (no CSS custom properties).
 - **Typewriter effect**: hero title types itself character by character on load and language switch.
 - **Text reveal**: each section title reveals with `clip-path` inset animation on scroll.
 - **SRE-ready badge**: fixed badge bottom-right with pulsing green dot, appears 2s after load.
-- **Ñ confetti**: press `ñ` → 50 `ñ` characters explode from top with gravity and rotation.
+- **Ñiñosaurio mode**: press `ñ` → all text turns into nonsense Ñ-speak (third pseudo-language in i18n). Press ES/EN to go back.
 - **Scroll progress**: thin gradient bar at top, fills as you scroll.
 - **Back to top**: button bottom-right, appears after scrolling past hero.
 - **Animated counter**: years of experience calculated from 2020, animates on scroll.
