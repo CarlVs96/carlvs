@@ -97,19 +97,12 @@
         .container {
             position: relative;
             z-index: 1;
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             padding: 2rem;
-        }
-
-        .scroll-trigger {
-            position: relative;
-            z-index: 1;
-            height: 150px;
-            width: 100%;
         }
 
         .hero {
@@ -440,8 +433,6 @@
         </div>
     </div>
 
-    <div class="scroll-trigger"></div>
-
     <div class="scroll-indicator">
         <a href="/about/">
             <span data-i18n="discover">Descubre más</span>
@@ -501,21 +492,10 @@
         setLanguage(savedLang);
 
         const scrollIndicator = document.querySelector('.scroll-indicator');
-        let scrolled = false;
 
         setTimeout(() => {
             scrollIndicator.classList.add('visible');
         }, 1500);
-
-        window.addEventListener('scroll', () => {
-            if (window.pageYOffset > 10 && !scrolled) {
-                scrolled = true;
-                scrollIndicator.classList.add('visible');
-                setTimeout(() => {
-                    window.location.href = '/about/';
-                }, 800);
-            }
-        });
 
         scrollIndicator.addEventListener('click', (e) => {
             e.preventDefault();
