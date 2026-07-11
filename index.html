@@ -145,15 +145,22 @@
         .nav-logo {
             font-size: 1.2rem;
             font-weight: 700;
-            color: #f92672;
             text-decoration: none;
             display: flex;
             align-items: center;
             gap: 0.4rem;
+            background: linear-gradient(135deg, #f92672 0%, #ae81ff 50%, #66d9ef 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
-        .nav-logo:hover { color: #f92672; }
+        .nav-logo:hover {
+            background: linear-gradient(135deg, #66d9ef 0%, #ae81ff 50%, #f92672 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
         .nav-logo svg { flex-shrink: 0; }
-        .nav-logo-img { width: 24px; height: 24px; border-radius: 50%; object-fit: cover; flex-shrink: 0; }
 
         .nav-links {
             display: flex;
@@ -258,7 +265,7 @@
             height: 100%;
             border-radius: 50%;
             object-fit: cover;
-            background: #1a1a1a;
+            transform: scale(1.2);
         }
 
         .hero-greeting {
@@ -716,7 +723,7 @@
 
             .hero-name { font-size: 2.5rem; }
             .hero-title { font-size: 1.3rem; }
-            .hero-avatar { width: 100px; height: 100px; margin-bottom: 1rem; }
+            .hero-avatar { width: 110px; height: 110px; margin-bottom: 1rem; }
             .hero-stats { gap: 1.5rem; }
             .hero-stat-num { font-size: 1.8rem; }
             .hero-social a { width: 45px; height: 45px; font-size: 1.1rem; }
@@ -739,7 +746,7 @@
 
     <!-- Navbar -->
     <nav class="navbar">
-        <a href="#" class="nav-logo"><img src="/cvslogo.svg" alt="CVs" class="nav-logo-img"><svg width="22" height="22" viewBox="0 0 32 32"><defs><linearGradient id="navLogoGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#f92672"/><stop offset="50%" stop-color="#ae81ff"/><stop offset="100%" stop-color="#66d9ef"/></linearGradient></defs><text x="16" y="22" font-family="monospace" font-size="14" font-weight="bold" fill="url(#navLogoGrad)" text-anchor="middle">CVs</text></svg>Carlos Villén Villar</a>
+        <a href="#" class="nav-logo"><svg width="22" height="22" viewBox="0 0 32 32"><defs><linearGradient id="navLogoGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#f92672"/><stop offset="50%" stop-color="#ae81ff"/><stop offset="100%" stop-color="#66d9ef"/></linearGradient></defs><text x="16" y="22" font-family="monospace" font-size="14" font-weight="bold" fill="url(#navLogoGrad)" text-anchor="middle">CVs</text></svg>Carlos Villén Villar</a>
         <div class="nav-links" id="navLinks">
             <a href="#about" data-i18n="nav_about">Sobre mí</a>
             <a href="#experience" data-i18n="nav_exp">Experiencia</a>
