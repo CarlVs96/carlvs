@@ -70,7 +70,7 @@ Palette defined in `styles.css` as custom properties (pages currently hardcode h
 ## Logo & favicon
 
 - Navbar logo: inline "CVs" gradient SVG + "Carlos Villén Villar" with gradient text (pink→purple→blue), reverses on hover.
-- Hero avatar: large circular beard avatar (`/cvslogo.svg`, 140px) with gradient ring + glow above greeting.
+- Hero avatar: large circular beard avatar (`/cvslogo-face.svg`, 269x269 face crop, light fill) with gradient ring + glow above greeting.
 - Favicon: minimal green circle (`/favicon.svg`), no text.
 
 ## Key conventions
