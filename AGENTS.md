@@ -16,9 +16,8 @@ Single-page scroll HTML personal site at `carlvs.dev`. No build tools, no packag
 ```
 /                   # Single-page scroll (hero + about + timeline + AIOps + stack + education + contact)
 /assets/img/        # Images (favicon, avatar)
-/pages/about/       # Redirects to /#experience
 /pages/tools/       # Micro-applications grid
-/about/             # Legacy redirect → /pages/about/
+/about/             # Redirects to /#experience
 /tools/             # Legacy redirect → /pages/tools/
 404.html            # SPA fallback → redirects to /
 robots.txt          # SEO: crawl instructions
@@ -68,7 +67,7 @@ Each `.timeline-item` uses `IntersectionObserver` (threshold 0.15) to fade+slide
 | `--orange`    | `#fd971f` | AIOps box border, `strong` |
 | `--text-muted`| `#75715e` | Secondary text   |
 
-Palette defined in `styles.css` as custom properties (pages currently hardcode hex).
+All colors hardcoded as hex across files (no CSS custom properties).
 
 ## Logo & favicon
 
