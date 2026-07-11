@@ -241,6 +241,26 @@
             z-index: 1;
         }
 
+        .hero-avatar {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            object-fit: cover;
+            padding: 4px;
+            background: linear-gradient(135deg, #f92672, #ae81ff, #66d9ef);
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease forwards;
+            box-shadow: 0 0 30px rgba(174, 129, 255, 0.3);
+        }
+        .hero-avatar img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            background: #1a1a1a;
+        }
+
         .hero-greeting {
             font-size: 1.2rem;
             color: #a6e22e;
@@ -696,6 +716,7 @@
 
             .hero-name { font-size: 2.5rem; }
             .hero-title { font-size: 1.3rem; }
+            .hero-avatar { width: 100px; height: 100px; margin-bottom: 1rem; }
             .hero-stats { gap: 1.5rem; }
             .hero-stat-num { font-size: 1.8rem; }
             .hero-social a { width: 45px; height: 45px; font-size: 1.1rem; }
@@ -737,6 +758,7 @@
 
     <!-- Hero -->
     <section class="hero-section">
+        <div class="hero-avatar"><img src="/cvslogo.svg" alt="CVs"></div>
         <p class="hero-greeting" data-i18n="greeting">¡Hola! Soy</p>
         <h1 class="hero-name">CarlVs</h1>
         <h2 class="hero-title"><span data-i18n="title">SRE / Platform Engineer</span><span class="cursor">|</span></h2>
