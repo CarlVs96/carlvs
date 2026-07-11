@@ -97,12 +97,19 @@
         .container {
             position: relative;
             z-index: 1;
-            min-height: 100vh;
+            height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             padding: 2rem;
+        }
+
+        .scroll-trigger {
+            position: relative;
+            z-index: 1;
+            height: 150px;
+            width: 100%;
         }
 
         .hero {
@@ -138,10 +145,10 @@
             animation: fadeInUp 0.8s ease 0.4s forwards;
         }
 
-        .title span {
+        .title .cursor {
             color: #66d9ef;
             border-right: 2px solid #66d9ef;
-            padding-right: 5px;
+            margin-left: 2px;
             animation: blink 0.8s infinite;
         }
 
@@ -386,7 +393,7 @@
         <div class="hero">
             <p class="greeting" data-i18n="greeting">¡Hola! Soy</p>
             <h1 class="name">CarlVs</h1>
-            <h2 class="title"><span data-i18n="title">Ingeniero de Software</span> <span>|</span></h2>
+            <h2 class="title"><span data-i18n="title">Ingeniero de Software</span><span class="cursor">|</span></h2>
             <p class="description" data-i18n="description">
                 Apasionado por construir soluciones robustas y escalables.
                 <br>Especializado en Backend, SRE y automatización de procesos.
@@ -432,6 +439,8 @@
             </div>
         </div>
     </div>
+
+    <div class="scroll-trigger"></div>
 
     <div class="scroll-indicator">
         <a href="/about/">
@@ -494,13 +503,17 @@
         const scrollIndicator = document.querySelector('.scroll-indicator');
         let scrolled = false;
 
+        setTimeout(() => {
+            scrollIndicator.classList.add('visible');
+        }, 1500);
+
         window.addEventListener('scroll', () => {
-            if (window.pageYOffset > 100 && !scrolled) {
+            if (window.pageYOffset > 10 && !scrolled) {
                 scrolled = true;
                 scrollIndicator.classList.add('visible');
                 setTimeout(() => {
                     window.location.href = '/about/';
-                }, 600);
+                }, 800);
             }
         });
 
