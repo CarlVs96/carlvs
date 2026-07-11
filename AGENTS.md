@@ -32,7 +32,7 @@ CNAME
 | Experiencia   | `#experience` | Vertical timeline with reveal animation |
 | AIOps         | `#aiops`      | Highlight box with orange border |
 | Stack         | `#stack`      | Categorized badges (6 categories) |
-| Formación     | `#education`  | Grid: uni, erasmus, awards, certs |
+| Formación     | `#education`  | Grid: uni, erasmus, awards |
 | Contacto      | `#contact`    | Cards: email, LinkedIn, GitHub, CV |
 
 ## Sticky navbar
