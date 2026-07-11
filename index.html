@@ -1588,6 +1588,62 @@ Ingeniero informático, <strong>SRE en Roche</strong>. Observabilidad, automatiz
                 cv_value: 'HTML · printable',
                 footer_built: 'Built with'
             },
+            j: {
+                nav_about: 'Sobre mí, mi arma',
+                nav_exp: 'Experiencia',
+                nav_stack: 'Ñtaquí er Stack',
+                nav_ai: 'I.A.',
+                nav_contact: 'Contahto',
+                nav_tools: 'Herrramienta',
+                greeting: '¡Ole! Yo soi',
+                title: 'Site Reliability Engineer · Backend Developer · AIOps',
+                desc: '<strong>Injeniero informaíco</strong>, <strong>SRE en Roche</strong>. Observabilidá, automatiación e <strong>IA aplicá a operacion</strong>.',
+                stat_exp: 'Añoh de experiencia',
+                stat_devices: 'Aparato monitoreao',
+                stat_coffee: 'Tahta de café',
+                cta_about: 'Sobre mí',
+                cta_contact: 'Contahto',
+                cv_label: 'Descargá er CV',
+                scroll: 'Sabelo tú',
+                about_title: 'Sobre mí, mi arma',
+                about_text: '<p>Injeniero Informáico por la Universidá de Jaén, actualmente <strong>Site Reliability Engineer</strong> en er equipo de Monitoring &amp; Observabilidá de Roche.</p><p>Arreglo problemah de fiabilidá a escala con <strong>automatiación Python</strong>, API <strong>REST/HMAC</strong>, pipeline <strong>OpenTelemetry</strong> y sincroniación <strong>CMDB</strong>.</p><p>Integro <strong>agente de IA</strong> en er flujo de trabah pa acelerá er triage y generá runbook.</p>',
+                exp_title: 'Experiencia, mi arma',
+                roche_date: 'Febrero 2025 - Ahora',
+                roche_role: 'Site Reliability Engineer',
+                roche_desc: 'Equipo de Monitoring &amp; Observabilidá, mejohando la fiabilidá y operación de infraestructura crítica a escala globá.',
+                roche_1: 'Automatiación en <strong>Python</strong> contra API de monitoriación, ITSM (<strong>ServiceNow</strong>), CI/CD (<strong>GitLab CI</strong>) y on-call, con autenticación REST/HMAC.',
+                roche_2: 'Operación de plataforma de observabilidá (<strong>LogicMonitor</strong>, Splunk): dashboard, <strong>tuning de alerta</strong> pa reducí ruío, ventana de mantenimiento y reporting de capacidá.',
+                roche_3: 'Integración de sistema: <strong>sincroniación CMDB</strong> (Service Graph Connector) y pipeline de <strong>OpenTelemetry</strong>.',
+                roche_4: 'Práctica SRE: <strong>on-call (PagerDuty)</strong>, triage de incidente, <strong>automatiación de runbook</strong> y colaboración internacioná; reducción de toil operativo.',
+                aiops_title: 'Operacione potenciá por I.A. (AIOps)',
+                aiops_intro: 'Integro <strong>agente de I.A. (LLM)</strong> en er flujo de trabah de observabilidá y operacione pa reducí er trabah manual repetitivo y acelerá la respuesta a incidente:',
+                stack_title: 'Er Stack',
+                filter_all: 'Toíto',
+                filter_langs: 'Lenguah',
+                filter_frameworks: 'Frameworks',
+                filter_obs: 'Obs',
+                filter_cloud: 'Cloud',
+                filter_ia: 'I.A.',
+                filter_dbs: 'BBDD',
+                cat_langs: 'Lenguah',
+                cat_frameworks: 'Frameworks',
+                cat_observability: 'Observabilidá',
+                cat_cloud: 'Cloud / DevOps',
+                cat_ia: 'I.A. / Automatiación',
+                cat_dbs: 'Base de datoh',
+                edu_title: 'Formación',
+                uni_date: 'Grado en Ingeniería Informática (2014 - 2020)',
+                uni_desc: 'TFG: Asistente de vo pa informació turística (Nota: 9.5)',
+                erasmus_date: 'Erasmus+ (2017 - 2019)',
+                awards_title: 'Premio',
+                award_1: '<strong>VI Edición Premio Ada Lovelace</strong> — Universidá de Jaén (Mejó TFG).',
+                award_2: '<strong>3ª Edición Mejó línea de investigación</strong> — Red PLN.NET (Procesamiento del Lenguaje Natural).',
+                terminal_title: './demo.sh',
+                contact_title: 'Contahto',
+                cv_label: 'Descargá er CV',
+                cv_value: 'HTML · imprimible',
+                footer_built: 'Echo con'
+            },
             ñ: {
                 nav_about: 'Ñoñre mí',
                 nav_exp: 'Ñxperiencia',
@@ -1679,7 +1735,18 @@ Ingeniero informático, <strong>SRE en Roche</strong>. Observabilidad, automatiz
                     }
                 }
             });
-            document.getElementById('ninoBtn').classList.toggle('show', lang === 'ñ');
+            const ninoBtn = document.getElementById('ninoBtn');
+            if (lang === 'ñ') {
+                ninoBtn.classList.add('show');
+                ninoBtn.querySelector('.nino-text').textContent = '× Cerrar Ñiñosaurio';
+                ninoBtn.querySelector('.nino-icon').textContent = '🦖';
+            } else if (lang === 'j') {
+                ninoBtn.classList.add('show');
+                ninoBtn.querySelector('.nino-text').textContent = '× Modo Jiennense';
+                ninoBtn.querySelector('.nino-icon').textContent = '🌳';
+            } else {
+                ninoBtn.classList.remove('show');
+            }
             clearTimeout(twTimeout);
             typewriter(document.getElementById('tw-text'), translations[lang]['title'], 45);
         }
@@ -1983,6 +2050,7 @@ Ingeniero informático, <strong>SRE en Roche</strong>. Observabilidad, automatiz
 
         document.addEventListener('keydown', e => {
             if (e.key === 'ñ' || e.key === 'Ñ') setLanguage('ñ');
+            if (e.key === 'j' || e.key === 'J') setLanguage('j');
         });
 
     </script>
