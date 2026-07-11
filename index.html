@@ -246,6 +246,9 @@
             padding: 6rem 2rem 4rem;
             position: relative;
             z-index: 1;
+        }
+
+        .hero-content {
             max-width: 900px;
             margin: 0 auto;
             width: 100%;
@@ -257,17 +260,18 @@
             border-radius: 50%;
             padding: 4px;
             background: linear-gradient(135deg, #f92672, #ae81ff, #66d9ef);
-            margin-bottom: 1.5rem;
+            margin: 0 auto 1.5rem;
             opacity: 0;
             animation: fadeInUp 0.8s ease forwards;
             box-shadow: 0 0 30px rgba(174, 129, 255, 0.3);
-            overflow: hidden;
         }
         .hero-avatar img {
             width: 100%;
             height: 100%;
             border-radius: 50%;
-            object-fit: cover;
+            object-fit: contain;
+            background: #1a1a1a;
+            display: block;
         }
 
         .hero-greeting {
@@ -403,14 +407,14 @@
         .scroll-down {
             position: absolute;
             bottom: 2rem;
-            left: 50%;
-            transform: translateX(-50%);
-            color: #75715e;
-            font-size: 0.85rem;
+            left: 0;
+            right: 0;
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 0.5rem;
+            color: #75715e;
+            font-size: 0.85rem;
             cursor: pointer;
             opacity: 0;
             animation: fadeInUp 0.8s ease 1.2s forwards;
@@ -766,42 +770,44 @@
 
     <!-- Hero -->
     <section class="hero-section">
-        <div class="hero-avatar"><img src="/finalicon.svg" alt="CVs"></div>
-        <p class="hero-greeting" data-i18n="greeting">¡Hola! Soy</p>
-        <h1 class="hero-name">CarlVs</h1>
-        <h2 class="hero-title"><span data-i18n="title">Site Reliability Engineer · Backend Developer · AIOps</span><span class="cursor"></span></h2>
-        <p class="hero-desc" data-i18n="desc">
-            Apasionado por la fiabilidad de infraestructura crítica a escala global.<br>SRE, Observabilidad, AIOps y automatización.
-        </p>
+        <div class="hero-content">
+            <div class="hero-avatar"><img src="/finalicon.svg" alt="CVs"></div>
+            <p class="hero-greeting" data-i18n="greeting">¡Hola! Soy</p>
+            <h1 class="hero-name">CarlVs</h1>
+            <h2 class="hero-title"><span data-i18n="title">Site Reliability Engineer · Backend Developer · AIOps</span><span class="cursor"></span></h2>
+            <p class="hero-desc" data-i18n="desc">
+                Apasionado por la fiabilidad de infraestructura crítica a escala global.<br>SRE, Observabilidad, AIOps y automatización.
+            </p>
 
-        <div class="hero-stats">
-            <div class="hero-stat">
-                <div class="hero-stat-num">5+</div>
-                <div class="hero-stat-label" data-i18n="stat_exp">Años de experiencia</div>
+            <div class="hero-stats">
+                <div class="hero-stat">
+                    <div class="hero-stat-num">5+</div>
+                    <div class="hero-stat-label" data-i18n="stat_exp">Años de experiencia</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="hero-stat-num">{N}</div>
+                    <div class="hero-stat-label" data-i18n="stat_devices">Dispositivos monitorizados</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="hero-stat-num">∞</div>
+                    <div class="hero-stat-label" data-i18n="stat_coffee">Tazas de café</div>
+                </div>
             </div>
-            <div class="hero-stat">
-                <div class="hero-stat-num">{N}</div>
-                <div class="hero-stat-label" data-i18n="stat_devices">Dispositivos monitorizados</div>
-            </div>
-            <div class="hero-stat">
-                <div class="hero-stat-num">∞</div>
-                <div class="hero-stat-label" data-i18n="stat_coffee">Tazas de café</div>
-            </div>
-        </div>
 
-        <div class="hero-cta">
-            <a href="#about" class="btn btn-primary">
-                <i class="fas fa-user"></i> <span data-i18n="cta_about">Sobre mí</span>
-            </a>
-            <a href="#contact" class="btn btn-secondary">
-                <i class="fas fa-envelope"></i> <span data-i18n="cta_contact">Contactar</span>
-            </a>
-        </div>
+            <div class="hero-cta">
+                <a href="#about" class="btn btn-primary">
+                    <i class="fas fa-user"></i> <span data-i18n="cta_about">Sobre mí</span>
+                </a>
+                <a href="#contact" class="btn btn-secondary">
+                    <i class="fas fa-envelope"></i> <span data-i18n="cta_contact">Contactar</span>
+                </a>
+            </div>
 
-        <div class="hero-social">
-            <a href="https://github.com/carlvs" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
-            <a href="https://linkedin.com/in/carlosvillenvillar/en" target="_blank" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-            <a href="mailto:cvillenv@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
+            <div class="hero-social">
+                <a href="https://github.com/carlvs" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+                <a href="https://linkedin.com/in/carlosvillenvillar/en" target="_blank" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                <a href="mailto:cvillenv@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
+            </div>
         </div>
 
         <div class="scroll-down" onclick="document.getElementById('about').scrollIntoView({behavior:'smooth'})">
