@@ -4,7 +4,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CarlVs | Developer</title>
+    <title>CarlVs | SRE & Platform Engineer</title>
+    <meta name="description" content="Site Reliability Engineer especializado en observabilidad, AIOps y automatización. Experiencia en monitorización a escala global, integración de sistemas y reducción de toil operativo.">
+    <meta property="og:title" content="CarlVs | SRE & Platform Engineer">
+    <meta property="og:description" content="Site Reliability Engineer especializado en observabilidad, AIOps y automatización.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://carlvs.dev">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="CarlVs | SRE & Platform Engineer">
+    <meta name="twitter:description" content="Site Reliability Engineer especializado en observabilidad, AIOps y automatización.">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Carlos Villén Villar",
+        "givenName": "Carlos",
+        "familyName": "Villén Villar",
+        "jobTitle": "Site Reliability Engineer",
+        "url": "https://carlvs.dev",
+        "sameAs": [
+            "https://github.com/carlvs96",
+            "https://linkedin.com/in/carlosvillenvillar/en"
+        ],
+        "email": "cvillenv@gmail.com"
+    }
+    </script>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="canonical" href="https://carlvs.dev">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -13,42 +42,82 @@
             box-sizing: border-box;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
-            background: #0f172a;
-            color: #f8fafc;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            min-height: 100vh;
+            background: #1a1a1a;
+            color: #f8f8f2;
+            font-family: 'JetBrains Mono', monospace;
             overflow-x: hidden;
         }
 
+        ::selection {
+            background: #f92672;
+            color: #1a1a1a;
+        }
+
+        strong {
+            color: #fd971f;
+        }
+
+        a {
+            color: #66d9ef;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        a:hover { color: #a6e22e; }
+
+        .section {
+            padding: 5rem 2rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            color: #a6e22e;
+            margin-bottom: 2.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .section-title::before {
+            content: '#';
+            color: #75715e;
+        }
+
+        .section-title::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: #3a3a3a;
+        }
+
+        /* ── Background animation ── */
         .bg-animation {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            inset: 0;
             overflow: hidden;
             z-index: 0;
+            pointer-events: none;
         }
-
         .bg-animation span {
             position: absolute;
-            display: block;
-            width: 20px;
-            height: 20px;
-            background: rgba(56, 189, 248, 0.1);
-            animation: float 25s linear infinite;
+            width: 20px; height: 20px;
             border-radius: 50%;
+            animation: float 25s linear infinite;
         }
-
-        .bg-animation span:nth-child(1) { left: 10%; width: 80px; height: 80px; animation-delay: 0s; animation-duration: 20s; }
-        .bg-animation span:nth-child(2) { left: 20%; width: 40px; height: 40px; animation-delay: 2s; animation-duration: 25s; }
-        .bg-animation span:nth-child(3) { left: 35%; width: 60px; height: 60px; animation-delay: 4s; animation-duration: 18s; }
-        .bg-animation span:nth-child(4) { left: 50%; width: 90px; height: 90px; animation-delay: 0s; animation-duration: 22s; }
-        .bg-animation span:nth-child(5) { left: 65%; width: 30px; height: 30px; animation-delay: 3s; animation-duration: 30s; }
-        .bg-animation span:nth-child(6) { left: 75%; width: 70px; height: 70px; animation-delay: 5s; animation-duration: 15s; }
-        .bg-animation span:nth-child(7) { left: 85%; width: 50px; height: 50px; animation-delay: 7s; animation-duration: 20s; }
-        .bg-animation span:nth-child(8) { left: 45%; width: 45px; height: 45px; animation-delay: 1s; animation-duration: 28s; }
+        .bg-animation span:nth-child(1) { left: 10%; width: 80px; height: 80px; animation-delay: 0s; animation-duration: 20s; background: rgba(249, 38, 114, 0.06); }
+        .bg-animation span:nth-child(2) { left: 20%; width: 40px; height: 40px; animation-delay: 2s; animation-duration: 25s; background: rgba(166, 226, 46, 0.06); }
+        .bg-animation span:nth-child(3) { left: 35%; width: 60px; height: 60px; animation-delay: 4s; animation-duration: 18s; background: rgba(102, 217, 239, 0.06); }
+        .bg-animation span:nth-child(4) { left: 50%; width: 90px; height: 90px; animation-delay: 0s; animation-duration: 22s; background: rgba(166, 226, 46, 0.05); }
+        .bg-animation span:nth-child(5) { left: 65%; width: 30px; height: 30px; animation-delay: 3s; animation-duration: 30s; background: rgba(253, 151, 31, 0.06); }
+        .bg-animation span:nth-child(6) { left: 75%; width: 70px; height: 70px; animation-delay: 5s; animation-duration: 15s; background: rgba(102, 217, 239, 0.05); }
+        .bg-animation span:nth-child(7) { left: 85%; width: 50px; height: 50px; animation-delay: 7s; animation-duration: 20s; background: rgba(174, 129, 255, 0.06); }
+        .bg-animation span:nth-child(8) { left: 45%; width: 45px; height: 45px; animation-delay: 1s; animation-duration: 28s; background: rgba(249, 38, 114, 0.05); }
 
         @keyframes float {
             0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
@@ -57,35 +126,169 @@
             100% { transform: translateY(-100vh) rotate(720deg); opacity: 0; }
         }
 
-        .container {
+        /* ── Navbar ── */
+        .navbar {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            background: rgba(26, 26, 26, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid #3a3a3a;
+            z-index: 1000;
+            padding: 0 2rem;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-logo {
+            font-size: 1.2rem;
+            font-weight: 700;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            background: linear-gradient(135deg, #f92672 0%, #ae81ff 50%, #66d9ef 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .nav-logo:hover {
+            background: linear-gradient(135deg, #66d9ef 0%, #ae81ff 50%, #f92672 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .nav-logo svg { flex-shrink: 0; }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .nav-links a {
+            color: #75715e;
+            font-size: 0.85rem;
+            transition: color 0.3s ease;
             position: relative;
-            z-index: 1;
+        }
+        .nav-links a:hover { color: #f8f8f2; }
+        .nav-links a.active { color: #66d9ef; }
+        .nav-links a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0; right: 0;
+            height: 2px;
+            background: #66d9ef;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: #f8f8f2;
+            font-size: 1.3rem;
+            cursor: pointer;
+        }
+
+        .lang-btn {
+            padding: 0.35rem 0.7rem;
+            border: 1px solid #3a3a3a;
+            background: transparent;
+            color: #75715e;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.75rem;
+            font-family: inherit;
+            transition: all 0.3s ease;
+        }
+        .lang-btn:hover { border-color: #66d9ef; color: #66d9ef; }
+        .lang-btn.active { background: #66d9ef; color: #1a1a1a; border-color: #66d9ef; }
+
+        @media (max-width: 480px) {
+            .nav-logo { font-size: 0.9rem; gap: 0.25rem; }
+            .nav-logo svg { width: 18px; height: 18px; }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 60px;
+                left: 0; right: 0;
+                background: rgba(26, 26, 26, 0.95);
+                backdrop-filter: blur(12px);
+                border-bottom: 1px solid #3a3a3a;
+                flex-direction: column;
+                padding: 1rem;
+                gap: 0.5rem;
+            }
+            .nav-links.open { display: flex; }
+            .nav-toggle { display: block; }
+        }
+
+        /* ── Hero ── */
+        .hero-section {
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            justify-content: center;
             align-items: center;
-            padding: 2rem;
-        }
-
-        .hero {
             text-align: center;
-            max-width: 800px;
+            padding: 6rem 2rem 0;
+            position: relative;
+            z-index: 1;
         }
 
-        .greeting {
+        .hero-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            max-width: 900px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .hero-avatar {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            padding: 4px;
+            background: linear-gradient(135deg, #f92672, #ae81ff, #66d9ef);
+            margin: 0 auto 1.5rem;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease forwards;
+            box-shadow: 0 0 30px rgba(174, 129, 255, 0.3);
+        }
+        .hero-avatar img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: contain;
+            display: block;
+        }
+
+        .hero-greeting {
             font-size: 1.2rem;
-            color: #38bdf8;
+            color: #a6e22e;
             margin-bottom: 1rem;
             opacity: 0;
             animation: fadeInUp 0.8s ease forwards;
         }
 
-        .name {
+        .hero-name {
             font-size: 4rem;
             font-weight: 700;
             margin-bottom: 0.5rem;
-            background: linear-gradient(135deg, #38bdf8 0%, #818cf8 50%, #c084fc 100%);
+            background: linear-gradient(135deg, #f92672 0%, #ae81ff 50%, #66d9ef 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -93,36 +296,46 @@
             animation: fadeInUp 0.8s ease 0.2s forwards;
         }
 
-        .title {
+        .hero-title {
             font-size: 1.8rem;
-            color: #94a3b8;
+            color: #75715e;
             margin-bottom: 1.5rem;
             opacity: 0;
             animation: fadeInUp 0.8s ease 0.4s forwards;
         }
 
-        .title span {
-            color: #38bdf8;
-            border-right: 2px solid #38bdf8;
-            padding-right: 5px;
+        .hero-title .cursor {
+            border-right: 2px solid #66d9ef;
+            margin-left: 2px;
             animation: blink 0.8s infinite;
         }
-
         @keyframes blink {
-            0%, 50% { border-color: #38bdf8; }
+            0%, 50% { border-color: #66d9ef; }
             51%, 100% { border-color: transparent; }
         }
 
-        .description {
+        .hero-desc {
             font-size: 1.1rem;
-            color: #64748b;
+            color: #a6a68a;
             line-height: 1.8;
             margin-bottom: 2.5rem;
             opacity: 0;
             animation: fadeInUp 0.8s ease 0.6s forwards;
         }
 
-        .cta-buttons {
+        .hero-stats {
+            display: flex;
+            gap: 3rem;
+            justify-content: center;
+            margin-bottom: 3rem;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease 0.7s forwards;
+        }
+        .hero-stat { text-align: center; }
+        .hero-stat-num { font-size: 2.5rem; font-weight: 700; color: #f92672; }
+        .hero-stat-label { font-size: 0.85rem; color: #75715e; }
+
+        .hero-cta {
             display: flex;
             gap: 1rem;
             justify-content: center;
@@ -142,223 +355,901 @@
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
+            border: none;
+            cursor: pointer;
+            font-family: inherit;
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, #38bdf8 0%, #818cf8 100%);
-            color: #0f172a;
+            background: linear-gradient(135deg, #a6e22e 0%, #66d9ef 100%);
+            color: #1a1a1a;
         }
-
         .btn-primary:hover {
             transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(56, 189, 248, 0.3);
+            box-shadow: 0 10px 30px rgba(166, 226, 46, 0.3);
         }
 
         .btn-secondary {
             background: transparent;
-            color: #38bdf8;
-            border: 2px solid #38bdf8;
+            color: #66d9ef;
+            border: 2px solid #66d9ef;
         }
-
         .btn-secondary:hover {
-            background: #38bdf8;
-            color: #0f172a;
+            background: #66d9ef;
+            color: #1a1a1a;
             transform: translateY(-3px);
         }
 
-        .social-links {
+        .hero-social {
             display: flex;
             gap: 1.5rem;
             justify-content: center;
             opacity: 0;
             animation: fadeInUp 0.8s ease 1s forwards;
         }
-
-        .social-links a {
-            width: 50px;
-            height: 50px;
+        .hero-social a {
+            width: 50px; height: 50px;
             border-radius: 50%;
-            background: #1e293b;
-            border: 1px solid #334155;
+            background: #2a2a2a;
+            border: 1px solid #3a3a3a;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #94a3b8;
+            color: #75715e;
             font-size: 1.3rem;
             transition: all 0.3s ease;
         }
-
-        .social-links a:hover {
-            background: #38bdf8;
-            color: #0f172a;
+        .hero-social a:hover {
+            background: #f92672;
+            color: #1a1a1a;
             transform: translateY(-5px);
-            border-color: #38bdf8;
+            border-color: #f92672;
         }
 
-        .scroll-indicator {
-            position: absolute;
-            bottom: 2rem;
-            left: 50%;
-            transform: translateX(-50%);
-            opacity: 0;
-            animation: fadeInUp 0.8s ease 1.2s forwards;
-        }
-
-        .scroll-indicator a {
-            color: #64748b;
-            text-decoration: none;
-            font-size: 0.9rem;
+        .scroll-down {
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 0.5rem;
+            color: #75715e;
+            font-size: 0.85rem;
+            cursor: pointer;
+            padding: 1rem 0 2rem;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease 1.2s forwards;
             transition: color 0.3s ease;
         }
+        .scroll-down:hover { color: #a6e22e; }
+        .scroll-down i { animation: bounceArrow 1.5s infinite; }
 
-        .scroll-indicator a:hover {
-            color: #38bdf8;
-        }
-
-        .scroll-indicator i {
-            animation: bounce 2s infinite;
-        }
-
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-            40% { transform: translateY(-10px); }
-            60% { transform: translateY(-5px); }
+        @keyframes bounceArrow {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(8px); }
         }
 
         @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        .stats {
-            display: flex;
-            gap: 3rem;
-            justify-content: center;
+        /* ── About ── */
+        #about { position: relative; z-index: 1; }
+
+        .about-content {
+            background: #222222;
+            border: 1px solid #3a3a3a;
+            border-radius: 12px;
+            padding: 2rem;
+        }
+
+        .about-text {
+            color: #a6a68a;
+            line-height: 1.8;
+            font-size: 0.95rem;
+        }
+        .about-text p { margin-bottom: 1rem; }
+        .about-text p:last-child { margin-bottom: 0; }
+
+        /* ── Timeline ── */
+        #experience { position: relative; z-index: 1; }
+
+        .timeline {
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 8px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: #3a3a3a;
+        }
+
+        .timeline-item {
+            position: relative;
             margin-bottom: 3rem;
             opacity: 0;
-            animation: fadeInUp 0.8s ease 0.7s forwards;
+            transform: translateX(-20px);
+            transition: all 0.6s ease;
+        }
+        .timeline-item:last-child { margin-bottom: 0; }
+        .timeline-item.visible { opacity: 1; transform: translateX(0); }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -2rem;
+            top: 6px;
+            width: 14px; height: 14px;
+            border-radius: 50%;
+            background: #66d9ef;
+            border: 2px solid #1a1a1a;
+            z-index: 1;
         }
 
-        .stat {
-            text-align: center;
+        .timeline-item.current::before { background: #a6e22e; }
+
+        .timeline-date {
+            font-size: 0.8rem;
+            color: #75715e;
+            margin-bottom: 0.5rem;
         }
 
-        .stat-number {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: #38bdf8;
+        .timeline-company {
+            font-size: 1.1rem;
+            color: #f8f8f2;
+            margin-bottom: 0.25rem;
         }
+        .timeline-company span { color: #f92672; }
 
-        .stat-label {
+        .timeline-role {
             font-size: 0.9rem;
-            color: #64748b;
+            color: #66d9ef;
+            margin-bottom: 0.75rem;
         }
 
+        .timeline-desc {
+            color: #a6a68a;
+            font-size: 0.85rem;
+            line-height: 1.6;
+            margin-bottom: 0.75rem;
+        }
+
+        .timeline-bullets {
+            list-style: none;
+            padding: 0;
+        }
+        .timeline-bullets li {
+            color: #a6a68a;
+            font-size: 0.85rem;
+            line-height: 1.6;
+            margin-bottom: 0.4rem;
+            padding-left: 1.2rem;
+            position: relative;
+        }
+        .timeline-bullets li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: #66d9ef;
+        }
+
+        /* ── AIOps ── */
+        #aiops { position: relative; z-index: 1; }
+
+        .aiops-box {
+            background: #222222;
+            border-left: 4px solid #fd971f;
+            border-radius: 0 12px 12px 0;
+            padding: 2rem;
+        }
+
+        .aiops-box p {
+            color: #a6a68a;
+            line-height: 1.8;
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+        }
+
+        .aiops-box ul {
+            list-style: none;
+            padding: 0;
+        }
+        .aiops-box li {
+            color: #a6a68a;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 0.6rem;
+            padding-left: 1.2rem;
+            position: relative;
+        }
+        .aiops-box li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: #fd971f;
+        }
+
+        /* ── Stack ── */
+        #stack { position: relative; z-index: 1; }
+
+        .stack-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .stack-cat-title {
+            font-size: 0.85rem;
+            color: #75715e;
+            margin-bottom: 0.5rem;
+        }
+
+        .stack-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .badge {
+            background: #3a3a3a;
+            color: #ae81ff;
+            padding: 0.3rem 0.7rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+        }
+        .badge-ai { color: #fd971f; border: 1px solid #fd971f; }
+        .badge-obs { color: #66d9ef; }
+        .badge-cloud { color: #a6e22e; }
+        .badge-lang { color: #f92672; }
+
+        /* ── Education ── */
+        #education { position: relative; z-index: 1; }
+
+        .edu-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .edu-card {
+            background: #222222;
+            border: 1px solid #3a3a3a;
+            border-radius: 8px;
+            padding: 1.5rem;
+        }
+        .edu-card.full { grid-column: 1 / -1; }
+
+        .edu-card h3 {
+            font-size: 0.95rem;
+            color: #f8f8f2;
+            margin-bottom: 0.25rem;
+        }
+
+        .edu-card .subtitle {
+            font-size: 0.8rem;
+            color: #75715e;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .edu-card p, .edu-card li {
+            font-size: 0.85rem;
+            color: #a6a68a;
+            line-height: 1.6;
+        }
+
+        .edu-card ul {
+            list-style: none;
+            padding: 0;
+        }
+        .edu-card li {
+            margin-bottom: 0.4rem;
+            padding-left: 1rem;
+            position: relative;
+        }
+        .edu-card li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: #66d9ef;
+        }
+
+        /* ── Contact ── */
+        #contact { position: relative; z-index: 1; }
+
+        .contact-grid {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .contact-card {
+            background: #222222;
+            border: 1px solid #3a3a3a;
+            border-radius: 12px;
+            padding: 1.5rem 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            min-width: 180px;
+        }
+        .contact-card:hover {
+            border-color: #66d9ef;
+            transform: translateY(-3px);
+        }
+        .contact-card i {
+            font-size: 1.5rem;
+            color: #66d9ef;
+            margin-bottom: 0.75rem;
+        }
+        .contact-card .label {
+            display: block;
+            font-size: 0.9rem;
+            color: #f8f8f2;
+            margin-bottom: 0.25rem;
+        }
+        .contact-card .value {
+            font-size: 0.8rem;
+            color: #75715e;
+        }
+
+        /* ── Footer ── */
+        .footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            border-top: 1px solid #3a3a3a;
+            position: relative;
+            z-index: 1;
+        }
+        .footer p {
+            color: #75715e;
+            font-size: 0.8rem;
+        }
+
+        /* ── Reveal animation ── */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ── Mobile ── */
         @media (max-width: 768px) {
-            .name {
-                font-size: 2.5rem;
-            }
+            .section { padding: 3rem 1.5rem; }
 
-            .title {
-                font-size: 1.3rem;
-            }
+            .hero-name { font-size: 2.5rem; }
+            .hero-title { font-size: 1.3rem; }
+            .hero-avatar { width: 110px; height: 110px; margin-bottom: 1rem; }
+            .hero-stats { gap: 1.5rem; }
+            .hero-stat-num { font-size: 1.8rem; }
+            .hero-social a { width: 45px; height: 45px; font-size: 1.1rem; }
 
-            .stats {
-                gap: 1.5rem;
-            }
+            .edu-grid { grid-template-columns: 1fr; }
 
-            .stat-number {
-                font-size: 1.8rem;
-            }
+            .contact-card { min-width: 140px; padding: 1.2rem 1.5rem; }
 
-            .social-links a {
-                width: 45px;
-                height: 45px;
-                font-size: 1.1rem;
-            }
+            .timeline { padding-left: 1.5rem; }
+            .timeline-item::before { left: -1.5rem; width: 12px; height: 12px; }
         }
     </style>
 </head>
 
 <body>
     <div class="bg-animation">
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
+        <span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span>
     </div>
 
-    <div class="container">
-        <div class="hero">
-            <p class="greeting">¡Hola! Soy</p>
-            <h1 class="name">CarlVs</h1>
-            <h2 class="title">Ingeniero de Software <span>|</span></h2>
-            <p class="description">
-                Apasionado por construir soluciones robustas y escalables.
-                <br>Especializado en Backend, SRE y automatización de procesos.
+    <!-- Navbar -->
+    <nav class="navbar">
+        <a href="#" class="nav-logo"><svg width="22" height="22" viewBox="0 0 32 32"><defs><linearGradient id="navLogoGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#f92672"/><stop offset="50%" stop-color="#ae81ff"/><stop offset="100%" stop-color="#66d9ef"/></linearGradient></defs><text x="16" y="22" font-family="monospace" font-size="14" font-weight="bold" fill="url(#navLogoGrad)" text-anchor="middle">CVs</text></svg>Carlos Villén Villar</a>
+        <div class="nav-links" id="navLinks">
+            <a href="#about" data-i18n="nav_about">Sobre mí</a>
+            <a href="#experience" data-i18n="nav_exp">Experiencia</a>
+            <a href="#stack" data-i18n="nav_stack">Stack</a>
+            <a href="#aiops" data-i18n="nav_ai">IA</a>
+            <a href="#contact" data-i18n="nav_contact">Contacto</a>
+        </div>
+        <div class="nav-right">
+            <div class="lang-switcher">
+                <button class="lang-btn active" data-lang="es">ES</button>
+                <button class="lang-btn" data-lang="en">EN</button>
+            </div>
+            <button class="nav-toggle" id="navToggle" aria-label="Menu">☰</button>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <div class="hero-avatar"><img src="/finalicon.svg" alt="CVs"></div>
+            <p class="hero-greeting" data-i18n="greeting">¡Hola! Soy</p>
+            <h1 class="hero-name">CarlVs</h1>
+            <h2 class="hero-title"><span data-i18n="title">Site Reliability Engineer · Backend Developer · AIOps</span><span class="cursor"></span></h2>
+            <p class="hero-desc" data-i18n="desc">
+                Apasionado por la fiabilidad de infraestructura crítica a escala global.<br>SRE, Observabilidad, AIOps y automatización.
             </p>
 
-            <div class="stats">
-                <div class="stat">
-                    <div class="stat-number">5+</div>
-                    <div class="stat-label">Años de experiencia</div>
+            <div class="hero-stats">
+                <div class="hero-stat">
+                    <div class="hero-stat-num">5+</div>
+                    <div class="hero-stat-label" data-i18n="stat_exp">Años de experiencia</div>
                 </div>
-                <div class="stat">
-                    <div class="stat-number">10+</div>
-                    <div class="stat-label">Proyectos completados</div>
+                <div class="hero-stat">
+                    <div class="hero-stat-num">{N}</div>
+                    <div class="hero-stat-label" data-i18n="stat_devices">Dispositivos monitorizados</div>
                 </div>
-                <div class="stat">
-                    <div class="stat-number">∞</div>
-                    <div class="stat-label">Tazas de café</div>
+                <div class="hero-stat">
+                    <div class="hero-stat-num">∞</div>
+                    <div class="hero-stat-label" data-i18n="stat_coffee">Tazas de café</div>
                 </div>
             </div>
 
-            <div class="cta-buttons">
-                <a href="about.html" class="btn btn-primary">
-                    <i class="fas fa-user"></i> Sobre mí
+            <div class="hero-cta">
+                <a href="#about" class="btn btn-primary">
+                    <i class="fas fa-user"></i> <span data-i18n="cta_about">Sobre mí</span>
                 </a>
-                <a href="#projects" class="btn btn-secondary">
-                    <i class="fas fa-code"></i> Ver proyectos
-                </a>
-                <a href="mailto:cvillenv@gmail.com" class="btn btn-secondary">
-                    <i class="fas fa-envelope"></i> Contactar
+                <a href="#contact" class="btn btn-secondary">
+                    <i class="fas fa-envelope"></i> <span data-i18n="cta_contact">Contactar</span>
                 </a>
             </div>
 
-            <div class="social-links">
-                <a href="https://github.com/carlvs" target="_blank" title="GitHub">
-                    <i class="fab fa-github"></i>
-                </a>
-                <a href="https://linkedin.com/in/carlosvillenvillar/en" target="_blank" title="LinkedIn">
-                    <i class="fab fa-linkedin-in"></i>
-                </a>
-                <a href="mailto:cvillenv@gmail.com" title="Email">
-                    <i class="fas fa-envelope"></i>
-                </a>
+            <div class="hero-social">
+                <a href="https://github.com/carlvs96" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+                <a href="https://linkedin.com/in/carlosvillenvillar/en" target="_blank" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                <a href="mailto:cvillenv@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
             </div>
         </div>
 
-        <div class="scroll-indicator">
-            <a href="about.html">
-                <span>Descubre más</span>
-                <i class="fas fa-chevron-down"></i>
+        <div class="scroll-down" onclick="document.getElementById('about').scrollIntoView({behavior:'smooth'})">
+            <span data-i18n="scroll">Descubre más</span>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+    </section>
+
+    <!-- About -->
+    <section id="about" class="section">
+        <h2 class="section-title" data-i18n="about_title">Sobre mí</h2>
+        <div class="about-content">
+            <div class="about-text" data-i18n="about_text">
+                <p>Ingeniero Informático por la Universidad de Jaén, actualmente <strong>Site Reliability Engineer</strong> en el equipo de Monitoring &amp; Observability de Roche.</p>
+                <p>Mi día a día combina <strong>automatización Python</strong>, operación de plataformas de observabilidad, integración de sistemas con <strong>OpenTelemetry</strong> y <strong>prácticas SRE</strong> (on-call, runbooks, reducción de toil).</p>
+                <p>Me apasiona aplicar <strong>IA / AIOps</strong> a operaciones — integrando agentes LLM en el flujo de trabajo para automatizar triage, generar runbooks y reducir el trabajo manual repetitivo.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience -->
+    <section id="experience" class="section">
+        <h2 class="section-title" data-i18n="exp_title">Experiencia</h2>
+
+        <div class="timeline">
+
+            <!-- Roche -->
+            <div class="timeline-item current">
+                <div class="timeline-date" data-i18n="roche_date">Febrero 2025 - Actualidad</div>
+                <div class="timeline-company">Roche <span>·</span> <span data-i18n="roche_role">Site Reliability Engineer</span></div>
+                <div class="timeline-desc" data-i18n="roche_desc">Equipo de Monitoring &amp; Observability, mejorando la fiabilidad y operación de infraestructura crítica a escala global.</div>
+                <ul class="timeline-bullets">
+                    <li data-i18n="roche_1">Automatización en <strong>Python</strong> contra APIs de monitorización, ITSM (<strong>ServiceNow</strong>), CI/CD (<strong>GitLab CI</strong>) y on-call, con autenticación REST/HMAC.</li>
+                    <li data-i18n="roche_2">Operación de plataformas de observabilidad (<strong>LogicMonitor</strong>, Splunk): dashboards, <strong>tuning de alertas</strong> para reducir ruido, ventanas de mantenimiento y reporting de capacidad.</li>
+                    <li data-i18n="roche_3">Integración de sistemas: <strong>sincronización CMDB</strong> (Service Graph Connector) y pipelines de <strong>OpenTelemetry</strong>.</li>
+                    <li data-i18n="roche_4">Prácticas SRE: <strong>on-call (PagerDuty)</strong>, triage de incidentes, <strong>automatización de runbooks</strong> y colaboración internacional; reducción de toil operativo.</li>
+                </ul>
+            </div>
+
+            <!-- Granada Dynamics -->
+            <div class="timeline-item">
+                <div class="timeline-date" data-i18n="granada_date">Marzo 2024 - Junio 2024</div>
+                <div class="timeline-company">Granada Dynamics <span>·</span> <span data-i18n="granada_role">Desarrollador Backend</span></div>
+                <ul class="timeline-bullets">
+                    <li data-i18n="granada_1">Diseño y desarrollo inicial de software basado en <strong>Python</strong> para un producto educativo innovador.</li>
+                    <li data-i18n="granada_2">Adaptación de frameworks como <strong>Django</strong> y uso de <strong>Behave</strong> con <strong>Pytest</strong> para testing.</li>
+                    <li data-i18n="granada_3">Implementación de features usando <strong>MongoDB</strong> como base de datos no relacional.</li>
+                </ul>
+            </div>
+
+            <!-- Telefónica -->
+            <div class="timeline-item">
+                <div class="timeline-date" data-i18n="telefonica_date">Noviembre 2022 - Diciembre 2023</div>
+                <div class="timeline-company">Full On Net / Telefónica <span>·</span> <span data-i18n="telefonica_role">Desarrollador QA Automation</span></div>
+                <ul class="timeline-bullets">
+                    <li data-i18n="telefonica_1">Desarrollo de tests automatizados con <strong>Behave (Gherkin) con Python</strong> para módulos de Audiencia de Movistar+.</li>
+                    <li data-i18n="telefonica_2">Automatización de procesos CI/CD usando <strong>Jenkins</strong>.</li>
+                    <li data-i18n="telefonica_3">Uso de herramientas como Postman, Wireshark y Git.</li>
+                </ul>
+            </div>
+
+            <!-- Nucleoo -->
+            <div class="timeline-item">
+                <div class="timeline-date" data-i18n="nucleoo_date">Abril 2021 - Noviembre 2022</div>
+                <div class="timeline-company">Nucleoo / visualfabriq <span>·</span> <span data-i18n="nucleoo_role">Desarrollador Backend</span></div>
+                <ul class="timeline-bullets">
+                    <li data-i18n="nucleoo_1">Desarrollo de aplicación web <strong>Flask (Python)</strong> para gestión masiva de datos en el sector alimentario.</li>
+                    <li data-i18n="nucleoo_2">Uso de <strong>Pandas y NumPy</strong> para análisis de datos y optimización con cProfile.</li>
+                    <li data-i18n="nucleoo_3">Implementación de tests unitarios (Pytest), despliegue con <strong>Docker</strong> y servicios <strong>AWS</strong> (EC2, S3, CloudWatch).</li>
+                </ul>
+            </div>
+
+            <!-- E-VALUA -->
+            <div class="timeline-item">
+                <div class="timeline-date" data-i18n="evalua_date">Julio 2020 - Enero 2021</div>
+                <div class="timeline-company">E-VALUA <span>·</span> <span data-i18n="evalua_role">Desarrollador Full-Stack</span></div>
+                <ul class="timeline-bullets">
+                    <li data-i18n="evalua_1">Desarrollo y mantenimiento de aplicación para el sector seguros con <strong>PHP (Laravel)</strong> y MySQL.</li>
+                    <li data-i18n="evalua_2">Desarrollo frontend con <strong>Javascript (AngularJS)</strong>.</li>
+                </ul>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- AIOps -->
+    <section id="aiops" class="section">
+        <h2 class="section-title" data-i18n="aiops_title">Operaciones potenciadas por IA (AIOps)</h2>
+        <div class="aiops-box">
+            <p data-i18n="aiops_intro">Integro <strong>agentes de IA (LLM)</strong> en el flujo de trabajo de observabilidad y operaciones para reducir el trabajo manual repetitivo y acelerar la respuesta a incidentes:</p>
+            <ul>
+                <li data-i18n="aiops_1"><strong>Triage de incidentes asistido por IA</strong>: correlación automática entre señales de monitorización, ITSM y on-call para proponer causa raíz y siguiente acción.</li>
+                <li data-i18n="aiops_2"><strong>Generación automática de runbooks y documentación</strong> a partir de incidentes resueltos, reutilizables por el resto del equipo.</li>
+                <li data-i18n="aiops_3"><strong>Tooling agéntico</strong> que orquesta múltiples APIs internas (monitorización, ITSM, CI/CD, on-call) mediante skills especializadas.</li>
+                <li data-i18n="aiops_4"><strong>Automatización de tareas operativas</strong> (reporting, planificación, resúmenes) con agentes conectados a las herramientas del equipo.</li>
+                <li data-i18n="aiops_5">Enfoque en <strong>fiabilidad y reducción de toil</strong>: convertir procedimientos manuales en flujos asistidos y verificables.</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Stack -->
+    <section id="stack" class="section">
+        <h2 class="section-title" data-i18n="stack_title">Stack Tecnológico</h2>
+
+        <div class="stack-grid" id="stackGrid">
+            <div>
+                <div class="stack-cat-title" data-i18n="cat_langs">Lenguajes</div>
+                <div class="stack-badges">
+                    <span class="badge badge-lang">Python</span>
+                    <span class="badge badge-lang">PHP</span>
+                    <span class="badge badge-lang">JavaScript</span>
+                </div>
+            </div>
+            <div>
+                <div class="stack-cat-title" data-i18n="cat_frameworks">Frameworks</div>
+                <div class="stack-badges">
+                    <span class="badge">Django</span>
+                    <span class="badge">Flask</span>
+                    <span class="badge">Laravel</span>
+                    <span class="badge">AngularJS</span>
+                </div>
+            </div>
+            <div>
+                <div class="stack-cat-title" data-i18n="cat_observability">Observabilidad</div>
+                <div class="stack-badges">
+                    <span class="badge badge-obs">OpenTelemetry</span>
+                    <span class="badge badge-obs">LogicMonitor</span>
+                    <span class="badge badge-obs">Splunk</span>
+                    <span class="badge badge-obs">Grafana</span>
+                    <span class="badge badge-obs">PagerDuty</span>
+                    <span class="badge badge-obs">ServiceNow</span>
+                </div>
+            </div>
+            <div>
+                <div class="stack-cat-title" data-i18n="cat_cloud">Cloud / DevOps</div>
+                <div class="stack-badges">
+                    <span class="badge badge-cloud">AWS</span>
+                    <span class="badge badge-cloud">Docker</span>
+                    <span class="badge badge-cloud">GitLab CI</span>
+                    <span class="badge badge-cloud">GitHub Actions</span>
+                    <span class="badge badge-cloud">Jenkins</span>
+                    <span class="badge badge-cloud">Rundeck</span>
+                    <span class="badge badge-cloud">Temporal</span>
+                    <span class="badge badge-cloud">Git</span>
+                </div>
+            </div>
+            <div>
+                <div class="stack-cat-title" data-i18n="cat_ia">IA / Automatización</div>
+                <div class="stack-badges">
+                    <span class="badge badge-ai">AIOps</span>
+                    <span class="badge badge-ai">LLM / AI Agents</span>
+                    <span class="badge badge-ai">REST / HMAC</span>
+                </div>
+            </div>
+            <div>
+                <div class="stack-cat-title" data-i18n="cat_dbs">Bases de datos</div>
+                <div class="stack-badges">
+                    <span class="badge">MongoDB</span>
+                    <span class="badge">SQL</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education + Awards + Certs -->
+    <section id="education" class="section">
+        <h2 class="section-title" data-i18n="edu_title">Formación</h2>
+
+        <div class="edu-grid">
+            <div class="edu-card full">
+                <h3>Universidad de Jaén</h3>
+                <span class="subtitle" data-i18n="uni_date">Grado en Ingeniería Informática (2014 - 2020)</span>
+                <p data-i18n="uni_desc">TFG: Asistente de voz para información turística (Nota: 9.5)</p>
+            </div>
+
+            <div class="edu-card">
+                <h3>Politechnika Opolska (Polonia)</h3>
+                <span class="subtitle" data-i18n="erasmus_date">Erasmus+ (2017 - 2019)</span>
+            </div>
+
+            <div class="edu-card">
+                <h3 data-i18n="awards_title">Premios</h3>
+                <ul>
+                    <li data-i18n="award_1"><strong>VI Edición Premio Ada Lovelace</strong> — Universidad de Jaén (Mejor TFG).</li>
+                    <li data-i18n="award_2"><strong>3ª Edición Mejor línea de investigación</strong> — Red PLN.NET (Procesamiento del Lenguaje Natural).</li>
+                </ul>
+            </div>
+
+            <div class="edu-card">
+                <h3 data-i18n="certs_title">Cursos</h3>
+                <ul>
+                    <li data-i18n="cert_1">Become a Data Scientist (MAINFOR SOLUTIONS)</li>
+                    <li data-i18n="cert_2">Agile Project Management y SCRUM (Google)</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="section">
+        <h2 class="section-title" data-i18n="contact_title">Contacto</h2>
+
+        <div class="contact-grid">
+            <a href="mailto:cvillenv@gmail.com" class="contact-card">
+                <i class="fas fa-envelope"></i>
+                <span class="label">Email</span>
+                <span class="value">cvillenv@gmail.com</span>
+            </a>
+            <a href="https://linkedin.com/in/carlosvillenvillar/en" target="_blank" class="contact-card">
+                <i class="fab fa-linkedin-in"></i>
+                <span class="label">LinkedIn</span>
+                <span class="value">carlosvillenvillar</span>
+            </a>
+            <a href="https://github.com/carlvs96" target="_blank" class="contact-card">
+                <i class="fab fa-github"></i>
+                <span class="label">GitHub</span>
+                <span class="value">@carlvs</span>
+            </a>
+            <a href="/cv.html" class="contact-card" target="_blank">
+                <i class="fas fa-file"></i>
+                <span class="label" data-i18n="cv_label">Descargar CV</span>
+                <span class="value" data-i18n="cv_value">HTML · imprimible</span>
             </a>
         </div>
-    </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2026 Carlos Villén Villar · <span data-i18n="footer_built">Hecho con</span> ☕ &lt;/&gt;</p>
+    </footer>
+
+    <script>
+        const translations = {
+            es: {
+                nav_about: 'Sobre mí',
+                nav_exp: 'Experiencia',
+                nav_stack: 'Stack',
+                nav_ai: 'IA',
+                nav_contact: 'Contacto',
+                greeting: '¡Hola! Soy',
+                title: 'Site Reliability Engineer · Backend Developer · AIOps',
+                desc: 'Apasionado por la fiabilidad de infraestructura crítica a escala global.<br>SRE, Observabilidad, AIOps y automatización.',
+                stat_exp: 'Años de experiencia',
+                stat_devices: 'Dispositivos monitorizados',
+                stat_coffee: 'Tazas de café',
+                cta_about: 'Sobre mí',
+                cta_contact: 'Contactar',
+                scroll: 'Descubre más',
+                about_title: 'Sobre mí',
+                about_text: '<p>Ingeniero Informático por la Universidad de Jaén, actualmente <strong>Site Reliability Engineer</strong> en el equipo de Monitoring &amp; Observability de Roche.</p><p>Mi día a día combina <strong>automatización Python</strong>, operación de plataformas de observabilidad, integración de sistemas con <strong>OpenTelemetry</strong> y <strong>prácticas SRE</strong> (on-call, runbooks, reducción de toil).</p><p>Me apasiona aplicar <strong>IA / AIOps</strong> a operaciones — integrando agentes LLM en el flujo de trabajo para automatizar triage, generar runbooks y reducir el trabajo manual repetitivo.</p>',
+                exp_title: 'Experiencia',
+                roche_date: 'Febrero 2025 - Actualidad',
+                roche_role: 'Site Reliability Engineer',
+                roche_desc: 'Equipo de Monitoring &amp; Observability, mejorando la fiabilidad y operación de infraestructura crítica a escala global.',
+                roche_1: 'Automatización en <strong>Python</strong> contra APIs de monitorización, ITSM (<strong>ServiceNow</strong>), CI/CD (<strong>GitLab CI</strong>) y on-call, con autenticación REST/HMAC.',
+                roche_2: 'Operación de plataformas de observabilidad (<strong>LogicMonitor</strong>, Splunk): dashboards, <strong>tuning de alertas</strong> para reducir ruido, ventanas de mantenimiento y reporting de capacidad.',
+                roche_3: 'Integración de sistemas: <strong>sincronización CMDB</strong> (Service Graph Connector) y pipelines de <strong>OpenTelemetry</strong>.',
+                roche_4: 'Prácticas SRE: <strong>on-call (PagerDuty)</strong>, triage de incidentes, <strong>automatización de runbooks</strong> y colaboración internacional; reducción de toil operativo.',
+                granada_date: 'Marzo 2024 - Junio 2024',
+                granada_role: 'Desarrollador Backend',
+                granada_1: 'Diseño y desarrollo inicial de software basado en <strong>Python</strong> para un producto educativo innovador.',
+                granada_2: 'Adaptación de frameworks como <strong>Django</strong> y uso de <strong>Behave</strong> con <strong>Pytest</strong> para testing.',
+                granada_3: 'Implementación de features usando <strong>MongoDB</strong> como base de datos no relacional.',
+                telefonica_date: 'Noviembre 2022 - Diciembre 2023',
+                telefonica_role: 'Desarrollador QA Automation',
+                telefonica_1: 'Desarrollo de tests automatizados con <strong>Behave (Gherkin) con Python</strong> para módulos de Audiencia de Movistar+.',
+                telefonica_2: 'Automatización de procesos CI/CD usando <strong>Jenkins</strong>.',
+                telefonica_3: 'Uso de herramientas como Postman, Wireshark y Git.',
+                nucleoo_date: 'Abril 2021 - Noviembre 2022',
+                nucleoo_role: 'Desarrollador Backend',
+                nucleoo_1: 'Desarrollo de aplicación web <strong>Flask (Python)</strong> para gestión masiva de datos en el sector alimentario.',
+                nucleoo_2: 'Uso de <strong>Pandas y NumPy</strong> para análisis de datos y optimización con cProfile.',
+                nucleoo_3: 'Implementación de tests unitarios (Pytest), despliegue con <strong>Docker</strong> y servicios <strong>AWS</strong> (EC2, S3, CloudWatch).',
+                evalua_date: 'Julio 2020 - Enero 2021',
+                evalua_role: 'Desarrollador Full-Stack',
+                evalua_1: 'Desarrollo y mantenimiento de aplicación para el sector seguros con <strong>PHP (Laravel)</strong> y MySQL.',
+                evalua_2: 'Desarrollo frontend con <strong>Javascript (AngularJS)</strong>.',
+                aiops_title: 'Operaciones potenciadas por IA (AIOps)',
+                aiops_intro: 'Integro <strong>agentes de IA (LLM)</strong> en el flujo de trabajo de observabilidad y operaciones para reducir el trabajo manual repetitivo y acelerar la respuesta a incidentes:',
+                aiops_1: '<strong>Triage de incidentes asistido por IA</strong>: correlación automática entre señales de monitorización, ITSM y on-call para proponer causa raíz y siguiente acción.',
+                aiops_2: '<strong>Generación automática de runbooks y documentación</strong> a partir de incidentes resueltos, reutilizables por el resto del equipo.',
+                aiops_3: '<strong>Tooling agéntico</strong> que orquesta múltiples APIs internas (monitorización, ITSM, CI/CD, on-call) mediante skills especializadas.',
+                aiops_4: '<strong>Automatización de tareas operativas</strong> (reporting, planificación, resúmenes) con agentes conectados a las herramientas del equipo.',
+                aiops_5: 'Enfoque en <strong>fiabilidad y reducción de toil</strong>: convertir procedimientos manuales en flujos asistidos y verificables.',
+                stack_title: 'Stack Tecnológico',
+                cat_langs: 'Lenguajes',
+                cat_frameworks: 'Frameworks',
+                cat_observability: 'Observabilidad',
+                cat_cloud: 'Cloud / DevOps',
+                cat_ia: 'IA / Automatización',
+                cat_dbs: 'Bases de datos',
+                edu_title: 'Formación',
+                uni_date: 'Grado en Ingeniería Informática (2014 - 2020)',
+                uni_desc: 'TFG: Asistente de voz para información turística (Nota: 9.5)',
+                erasmus_date: 'Erasmus+ (2017 - 2019)',
+                awards_title: 'Premios',
+                award_1: '<strong>VI Edición Premio Ada Lovelace</strong> — Universidad de Jaén (Mejor TFG).',
+                award_2: '<strong>3ª Edición Mejor línea de investigación</strong> — Red PLN.NET (Procesamiento del Lenguaje Natural).',
+                certs_title: 'Cursos',
+                cert_1: 'Become a Data Scientist (MAINFOR SOLUTIONS)',
+                cert_2: 'Agile Project Management y SCRUM (Google)',
+                contact_title: 'Contacto',
+                cv_label: 'Descargar CV',
+                cv_value: 'HTML · imprimible',
+                footer_built: 'Hecho con'
+            },
+            en: {
+                nav_about: 'About',
+                nav_exp: 'Experience',
+                nav_stack: 'Stack',
+                nav_ai: 'AI',
+                nav_contact: 'Contact',
+                greeting: "Hi! I'm",
+                title: 'Site Reliability Engineer · Backend Developer · AIOps',
+                desc: 'Passionate about ensuring reliability of critical infrastructure at global scale.<br>SRE, Observability, AIOps, and automation.',
+                stat_exp: 'Years of experience',
+                stat_devices: 'Monitored devices',
+                stat_coffee: 'Cups of coffee',
+                cta_about: 'About me',
+                cta_contact: 'Contact',
+                scroll: 'Discover more',
+                about_title: 'About me',
+                about_text: '<p>Computer Engineer from University of Jaén, currently <strong>Site Reliability Engineer</strong> on the Monitoring &amp; Observability team at Roche.</p><p>My day-to-day combines <strong>Python automation</strong>, observability platform operation, system integration with <strong>OpenTelemetry</strong>, and <strong>SRE practices</strong> (on-call, runbooks, toil reduction).</p><p>I\'m passionate about applying <strong>AI / AIOps</strong> to operations — integrating LLM agents into the workflow to automate triage, generate runbooks, and reduce repetitive manual work.</p>',
+                exp_title: 'Experience',
+                roche_date: 'February 2025 - Present',
+                roche_role: 'Site Reliability Engineer',
+                roche_desc: 'Monitoring &amp; Observability team, improving the reliability and operation of critical infrastructure at global scale.',
+                roche_1: '<strong>Python</strong> automation against monitoring APIs, ITSM (<strong>ServiceNow</strong>), CI/CD (<strong>GitLab CI</strong>), and on-call, with REST/HMAC authentication.',
+                roche_2: 'Operation of observability platforms (<strong>LogicMonitor</strong>, Splunk): dashboards, <strong>alert tuning</strong> for noise reduction, maintenance windows, and capacity reporting.',
+                roche_3: 'System integration: <strong>CMDB synchronization</strong> (Service Graph Connector) and <strong>OpenTelemetry</strong> pipelines.',
+                roche_4: 'SRE practices: <strong>on-call (PagerDuty)</strong>, incident triage, <strong>runbook automation</strong>, and international collaboration; operational toil reduction.',
+                granada_date: 'March 2024 - June 2024',
+                granada_role: 'Backend Developer',
+                granada_1: 'Design and initial development of <strong>Python</strong>-based software for an innovative educational product.',
+                granada_2: 'Framework adaptation like <strong>Django</strong> and <strong>Behave</strong> with <strong>Pytest</strong> for testing.',
+                granada_3: 'Feature implementation using <strong>MongoDB</strong> as non-relational database.',
+                telefonica_date: 'November 2022 - December 2023',
+                telefonica_role: 'QA Automation Developer',
+                telefonica_1: 'Automated test development with <strong>Behave (Gherkin) with Python</strong> for Movistar+ Audience modules.',
+                telefonica_2: 'CI/CD process automation using <strong>Jenkins</strong>.',
+                telefonica_3: 'Use of tools like Postman, Wireshark and Git.',
+                nucleoo_date: 'April 2021 - November 2022',
+                nucleoo_role: 'Backend Developer',
+                nucleoo_1: '<strong>Flask (Python)</strong> web application development for massive data management in the food sector.',
+                nucleoo_2: '<strong>Pandas and NumPy</strong> use for data analysis and optimization with cProfile.',
+                nucleoo_3: 'Unit test implementation (Pytest), deployment with <strong>Docker</strong> and <strong>AWS</strong> services (EC2, S3, CloudWatch).',
+                evalua_date: 'July 2020 - January 2021',
+                evalua_role: 'Full-Stack Developer',
+                evalua_1: 'Development and maintenance of insurance sector application with <strong>PHP (Laravel)</strong> and MySQL.',
+                evalua_2: 'Frontend development with <strong>Javascript (AngularJS)</strong>.',
+                aiops_title: 'AI-powered Operations (AIOps)',
+                aiops_intro: 'I integrate <strong>AI agents (LLM)</strong> into observability and operations workflows to reduce repetitive manual work and accelerate incident response:',
+                aiops_1: '<strong>AI-assisted incident triage</strong>: automatic correlation between monitoring signals, ITSM, and on-call to propose root cause and next action.',
+                aiops_2: '<strong>Automatic runbook and documentation generation</strong> from resolved incidents, reusable by the rest of the team.',
+                aiops_3: '<strong>Agentic tooling</strong> orchestrating multiple internal APIs (monitoring, ITSM, CI/CD, on-call) through specialized skills.',
+                aiops_4: '<strong>Operational task automation</strong> (reporting, scheduling, summaries) with agents connected to the team\'s tools.',
+                aiops_5: 'Focus on <strong>reliability and toil reduction</strong>: turning manual procedures into assisted, verifiable flows.',
+                stack_title: 'Tech Stack',
+                cat_langs: 'Languages',
+                cat_frameworks: 'Frameworks',
+                cat_observability: 'Observability',
+                cat_cloud: 'Cloud / DevOps',
+                cat_ia: 'AI / Automation',
+                cat_dbs: 'Databases',
+                edu_title: 'Education',
+                uni_date: 'Computer Engineering Degree (2014 - 2020)',
+                uni_desc: 'Final Project: Voice assistant for tourism information (Grade: 9.5)',
+                erasmus_date: 'Erasmus+ (2017 - 2019)',
+                awards_title: 'Awards',
+                award_1: '<strong>6th Edition Ada Lovelace Award</strong> — University of Jaén (Best Final Project).',
+                award_2: '<strong>3rd Edition Best Research Line Award</strong> — PLN.NET Network (Natural Language Processing).',
+                certs_title: 'Courses',
+                cert_1: 'Become a Data Scientist (MAINFOR SOLUTIONS)',
+                cert_2: 'Agile Project Management and SCRUM (Google)',
+                contact_title: 'Contact',
+                cv_label: 'Download CV',
+                cv_value: 'HTML · printable',
+                footer_built: 'Built with'
+            }
+        };
+
+        function setLanguage(lang) {
+            document.documentElement.lang = lang;
+            localStorage.setItem('lang', lang);
+            document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const k = el.getAttribute('data-i18n');
+                if (translations[lang][k]) el.innerHTML = translations[lang][k];
+            });
+        }
+
+        document.querySelectorAll('.lang-btn').forEach(b => {
+            b.addEventListener('click', () => setLanguage(b.dataset.lang));
+        });
+        setLanguage(localStorage.getItem('lang') || 'es');
+
+        /* ── Navbar mobile toggle ── */
+        document.getElementById('navToggle').addEventListener('click', () => {
+            document.getElementById('navLinks').classList.toggle('open');
+        });
+        document.querySelectorAll('.nav-links a').forEach(a => {
+            a.addEventListener('click', () => {
+                document.getElementById('navLinks').classList.remove('open');
+            });
+        });
+
+        /* ── Navbar active link ── */
+        const sections = document.querySelectorAll('section[id]');
+        const navAnchors = document.querySelectorAll('.nav-links a');
+
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    navAnchors.forEach(a => {
+                        a.classList.toggle('active', a.getAttribute('href') === '#' + entry.target.id);
+                    });
+                }
+            });
+        }, { threshold: 0.3 });
+
+        sections.forEach(s => observer.observe(s));
+
+        /* ── Timeline reveal ── */
+        const timelineItems = document.querySelectorAll('.timeline-item');
+        const tlObserver = new IntersectionObserver(entries => {
+            entries.forEach(e => {
+                if (e.isIntersecting) e.target.classList.add('visible');
+            });
+        }, { threshold: 0.15 });
+
+        timelineItems.forEach(item => tlObserver.observe(item));
+
+        /* ── Section reveal ── */
+        document.querySelectorAll('.section').forEach(s => {
+            s.classList.add('reveal');
+            const rObs = new IntersectionObserver(entries => {
+                entries.forEach(e => {
+                    if (e.isIntersecting) e.target.classList.add('visible');
+                });
+            }, { threshold: 0.1 });
+            rObs.observe(s);
+        });
+    </script>
 </body>
 
 </html>

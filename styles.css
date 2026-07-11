@@ -1,0 +1,56 @@
+/* Paleta de colores Monokai */
+:root {
+    --bg-primary: #1a1a1a;
+    --bg-secondary: #222222;
+    --bg-tertiary: #2a2a2a;
+    --border: #3a3a3a;
+    --text-primary: #f8f8f2;
+    --text-secondary: #a6a68a;
+    --text-muted: #75715e;
+    --green: #a6e22e;
+    --pink: #f92672;
+    --orange: #fd971f;
+    --blue: #66d9ef;
+    --purple: #ae81ff;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+a {
+    color: var(--blue);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: var(--green);
+}
+
+h1, h2, h3 {
+    color: var(--text-primary);
+}
+
+h2 {
+    color: var(--green);
+}
+
+strong {
+    color: var(--orange);
+}
+
+::selection {
+    background: var(--pink);
+    color: var(--bg-primary);
+}
