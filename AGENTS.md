@@ -93,6 +93,17 @@ Palette defined in `styles.css` as custom properties (pages currently hardcode h
 - Background colors preserved via `-webkit-print-color-adjust: exact`.
 - Toolbar (lang toggle + PDF button) hidden during `@media print`.
 
+## Extra features (all in `index.html`)
+
+- **Scroll progress**: thin gradient bar at top, fills as you scroll.
+- **Back to top**: button bottom-right, appears after scrolling past hero.
+- **Animated counter**: years of experience calculated from 2020, animates on scroll.
+- **Tooltips**: each stack badge has `data-tip` with description, shown on hover via CSS `::after`.
+- **Light/dark toggle**: ☀️/🌙 in navbar, persisted in `localStorage`. Full light theme CSS under `html.light`.
+- **Stack filter**: category buttons above stack grid, hide/show columns via JS.
+- **Toast + copy email**: click email → clipboard copy → "¡Copiado!" toast (2s).
+- **Dynamic font-size**: mobile hero scales via viewport units.
+
 ## No tests, no lint, no typecheck
 
 Pure HTML/CSS/JS. Manual verification via browser + responsive mode (768px breakpoint).
