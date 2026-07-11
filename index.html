@@ -1066,7 +1066,6 @@ Ingeniero informático, <strong>SRE en Roche</strong>. Observabilidad, automatiz
                 <span class="term-title">carlvs@dev:~/site</span>
             </div>
             <div class="term-body" id="termBody">
-                <div class="term-line"><span class="term-prompt">carlvs@dev:~$</span> <span class="term-cmd"></span></div>
             </div>
         </div>
     </section>
@@ -1681,18 +1680,21 @@ Ingeniero informático, <strong>SRE en Roche</strong>. Observabilidad, automatiz
                 termBody.appendChild(outLine);
                 const outText = typeof entry.out === 'function' ? entry.out() : entry.out;
                 termType(out, outText, entry.od || 25, () => {
-                    const waitLine = document.createElement('div');
-                    waitLine.className = 'term-line';
-                    const waitPrompt = document.createElement('span');
-                    waitPrompt.className = 'term-prompt';
-                    waitPrompt.textContent = 'carlvs@dev:~$ ';
-                    const waitCursor = document.createElement('span');
-                    waitCursor.className = 'term-cursor';
-                    waitLine.appendChild(waitPrompt);
-                    waitLine.appendChild(waitCursor);
-                    termBody.appendChild(waitLine);
-                    termBody.scrollTop = termBody.scrollHeight;
                     termIndex++;
+                    if (termIndex >= termCmds.length) {
+                        const finalLine = document.createElement('div');
+                        finalLine.className = 'term-line';
+                        const fp = document.createElement('span');
+                        fp.className = 'term-prompt';
+                        fp.textContent = 'carlvs@dev:~$ ';
+                        const fc = document.createElement('span');
+                        fc.className = 'term-cursor';
+                        finalLine.appendChild(fp);
+                        finalLine.appendChild(fc);
+                        termBody.appendChild(finalLine);
+                        termBody.scrollTop = termBody.scrollHeight;
+                        return;
+                    }
                     setTimeout(runTerminal, 1200);
                 });
             });
