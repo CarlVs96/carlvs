@@ -14,13 +14,16 @@ Single-page scroll HTML personal site at `carlvs.dev`. No build tools, no packag
 ## Site structure
 
 ```
-/               # Single-page scroll (hero + about + timeline + AIOps + stack + education + contact)
-/about/         # Redirects to /#experience
-404.html        # SPA fallback → redirects to /
-favicon.svg
-robots.txt
-sitemap.xml
-CNAME
+/                   # Single-page scroll (hero + about + timeline + AIOps + stack + education + contact)
+/assets/img/        # Images (favicon, avatar)
+/pages/about/       # Redirects to /#experience
+/pages/tools/       # Micro-applications grid
+/about/             # Legacy redirect → /pages/about/
+/tools/             # Legacy redirect → /pages/tools/
+404.html            # SPA fallback → redirects to /
+robots.txt          # SEO: crawl instructions
+sitemap.xml         # SEO: URL index
+CNAME               # Custom domain carlvs.dev
 ```
 
 ## Single-page sections (all in `index.html`)
@@ -71,7 +74,7 @@ Palette defined in `styles.css` as custom properties (pages currently hardcode h
 
 - Navbar logo: inline "CVs" gradient SVG + "Carlos Villén Villar" with gradient text (pink→purple→blue), reverses on hover.
 - Hero avatar: large circular beard avatar (`/cvslogo-face.svg`, 269x269 face crop, light fill) with gradient ring + glow above greeting.
-- Favicon: gradient "CVs" text + green dot (`/favicon.svg`).
+- Favicon: gradient "CVs" text + green dot (`/assets/img/favicon.svg`).
 
 ## Key conventions
 
