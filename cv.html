@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -192,6 +192,24 @@
 
         strong { color: #fd971f; }
 
+        .lang-switcher {
+            text-align: right;
+            margin-bottom: 1rem;
+        }
+        .lang-btn {
+            padding: 0.3rem 0.6rem;
+            border: 1px solid #3a3a3a;
+            background: transparent;
+            color: #75715e;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.7rem;
+            font-family: inherit;
+            transition: all 0.3s ease;
+        }
+        .lang-btn:hover { border-color: #66d9ef; color: #66d9ef; }
+        .lang-btn.active { background: #66d9ef; color: #1a1a1a; border-color: #66d9ef; }
+
         @media print {
             body { padding: 0; background: #1a1a1a; }
             .cv { border: none; border-radius: 0; padding: 1.5rem; }
@@ -208,7 +226,11 @@
     </style>
 </head>
 <body>
-<div class="cv">
+    <div class="lang-switcher" style="max-width:210mm;margin:0 auto 0.5rem;">
+        <button class="lang-btn active" data-lang="en">EN</button>
+        <button class="lang-btn" data-lang="es">ES</button>
+    </div>
+<div class="cv" id="cvContent">
 
     <!-- Header -->
     <div class="header">
@@ -225,98 +247,98 @@
     </div>
 
     <!-- Profile -->
-    <div class="section-title">Perfil profesional</div>
-    <p style="color:#a6a68a;font-size:0.85rem;line-height:1.7;margin-bottom:1rem;">
-        Ingeniero Informático especializado en <strong>Site Reliability Engineering</strong>, <strong>observabilidad</strong> y <strong>automatización de operaciones</strong>.
-        Experiencia garantizando la fiabilidad de infraestructura crítica a escala global, integrando <strong>IA / AIOps</strong>
-        en el flujo de trabajo para reducir toil y acelerar la respuesta a incidentes.
-        Stack principal: <strong>Python</strong>, <strong>OpenTelemetry</strong>, plataformas de observabilidad, pipelines CI/CD y APIs REST/HMAC.
+    <div class="section-title" data-i18n="profile_title">Professional Profile</div>
+    <p style="color:#a6a68a;font-size:0.85rem;line-height:1.7;margin-bottom:1rem;" data-i18n="profile">
+        Computer Engineer specialized in <strong>Site Reliability Engineering</strong>, <strong>observability</strong> and <strong>operations automation</strong>.
+        Experienced in ensuring reliability of critical infrastructure at global scale, integrating <strong>AI / AIOps</strong>
+        into the workflow to reduce toil and accelerate incident response.
+        Core stack: <strong>Python</strong>, <strong>OpenTelemetry</strong>, observability platforms, CI/CD pipelines, and REST/HMAC APIs.
     </p>
 
     <!-- Experience -->
-    <div class="section-title">Experiencia laboral</div>
+    <div class="section-title" data-i18n="exp_title">Work Experience</div>
 
     <div class="entry">
         <div class="entry-header">
             <div class="entry-company">Roche <span>·</span> <span class="entry-role">Site Reliability Engineer</span></div>
-            <div class="entry-date">Feb 2025 — Actualidad</div>
+            <div class="entry-date" data-i18n="roche_date">Feb 2025 — Present</div>
         </div>
-        <div class="entry-desc">Equipo de Monitoring &amp; Observability — fiabilidad y operación de infraestructura crítica a escala global.</div>
+        <div class="entry-desc" data-i18n="roche_desc">Monitoring &amp; Observability team — reliability and operation of critical infrastructure at global scale.</div>
         <ul>
-            <li>Automatización en <strong>Python</strong> contra APIs de monitorización, ITSM (<strong>ServiceNow</strong>), CI/CD (<strong>GitLab CI</strong>) y on-call, con autenticación REST/HMAC.</li>
-            <li>Operación de plataformas de observabilidad (<strong>LogicMonitor</strong>, Splunk): dashboards, alert tuning, ventanas de mantenimiento y reporting de capacidad.</li>
-            <li>Integración de sistemas: <strong>sincronización CMDB</strong> (Service Graph Connector) y pipelines de <strong>OpenTelemetry</strong>.</li>
-            <li>Prácticas SRE: <strong>on-call (PagerDuty)</strong>, triage de incidentes, <strong>automatización de runbooks</strong> y colaboración internacional; reducción de toil operativo.</li>
-            <li><strong>Operaciones asistidas por IA / AIOps</strong> — integración de agentes LLM en el flujo de trabajo de observabilidad.</li>
+            <li data-i18n="roche_1"><strong>Python</strong> automation against monitoring APIs, ITSM (<strong>ServiceNow</strong>), CI/CD (<strong>GitLab CI</strong>), and on-call, with REST/HMAC authentication.</li>
+            <li data-i18n="roche_2">Operation of observability platforms (<strong>LogicMonitor</strong>, Splunk): dashboards, alert tuning, maintenance windows, and capacity reporting.</li>
+            <li data-i18n="roche_3">System integration: <strong>CMDB synchronization</strong> (Service Graph Connector) and <strong>OpenTelemetry</strong> pipelines.</li>
+            <li data-i18n="roche_4">SRE practices: <strong>on-call (PagerDuty)</strong>, incident triage, <strong>runbook automation</strong> and international collaboration; operational toil reduction.</li>
+            <li data-i18n="roche_5"><strong>AI-assisted operations / AIOps</strong> — integration of LLM agents into the observability workflow.</li>
         </ul>
-        <div class="highlight">▸ Monitorización de {N} dispositivos · Reducción del {X}% en ruido de alertas · {X} runbooks automatizados</div>
+        <div class="highlight" data-i18n="roche_impact">▸ Monitoring {N} devices · {X}% alert noise reduction · {X} automated runbooks</div>
     </div>
 
     <div class="entry">
         <div class="entry-header">
-            <div class="entry-company">Granada Dynamics <span>·</span> <span class="entry-role">Desarrollador Backend</span></div>
-            <div class="entry-date">Mar 2024 — Jun 2024</div>
+            <div class="entry-company">Granada Dynamics <span>·</span> <span class="entry-role" data-i18n="granada_role">Backend Developer</span></div>
+            <div class="entry-date" data-i18n="granada_date">Mar 2024 — Jun 2024</div>
         </div>
         <ul>
-            <li>Diseño y desarrollo inicial de software basado en <strong>Python</strong> para un producto educativo innovador.</li>
-            <li>Adaptación de frameworks como <strong>Django</strong> y uso de <strong>Behave</strong> con <strong>Pytest</strong> para testing.</li>
-            <li>Implementación de features usando <strong>MongoDB</strong> como base de datos no relacional.</li>
-        </ul>
-    </div>
-
-    <div class="entry">
-        <div class="entry-header">
-            <div class="entry-company">Full On Net / Telefónica <span>·</span> <span class="entry-role">Desarrollador QA Automation</span></div>
-            <div class="entry-date">Nov 2022 — Dic 2023</div>
-        </div>
-        <ul>
-            <li>Desarrollo de tests automatizados con <strong>Behave (Gherkin) con Python</strong> para módulos de Audiencia de Movistar+.</li>
-            <li>Automatización de procesos CI/CD usando <strong>Jenkins</strong>.</li>
-            <li>Uso de herramientas como Postman, Wireshark y Git.</li>
+            <li data-i18n="granada_1">Design and initial development of <strong>Python</strong>-based software for an innovative educational product.</li>
+            <li data-i18n="granada_2">Framework adaptation like <strong>Django</strong> and <strong>Behave</strong> with <strong>Pytest</strong> for testing.</li>
+            <li data-i18n="granada_3">Feature implementation using <strong>MongoDB</strong> as non-relational database.</li>
         </ul>
     </div>
 
     <div class="entry">
         <div class="entry-header">
-            <div class="entry-company">Nucleoo / visualfabriq <span>·</span> <span class="entry-role">Desarrollador Backend</span></div>
-            <div class="entry-date">Abr 2021 — Nov 2022</div>
+            <div class="entry-company">Full On Net / Telefónica <span>·</span> <span class="entry-role" data-i18n="telefonica_role">QA Automation Developer</span></div>
+            <div class="entry-date" data-i18n="telefonica_date">Nov 2022 — Dec 2023</div>
         </div>
         <ul>
-            <li>Desarrollo de aplicación web <strong>Flask (Python)</strong> para gestión masiva de datos en el sector alimentario.</li>
-            <li>Uso de <strong>Pandas y NumPy</strong> para análisis de datos y optimización con cProfile.</li>
-            <li>Implementación de tests unitarios (Pytest), despliegue con <strong>Docker</strong> y servicios <strong>AWS</strong> (EC2, S3, CloudWatch).</li>
+            <li data-i18n="telefonica_1">Automated test development with <strong>Behave (Gherkin) with Python</strong> for Movistar+ Audience modules.</li>
+            <li data-i18n="telefonica_2">CI/CD process automation using <strong>Jenkins</strong>.</li>
+            <li data-i18n="telefonica_3">Use of tools like Postman, Wireshark and Git.</li>
         </ul>
     </div>
 
     <div class="entry">
         <div class="entry-header">
-            <div class="entry-company">E-VALUA <span>·</span> <span class="entry-role">Desarrollador Full-Stack</span></div>
-            <div class="entry-date">Jul 2020 — Ene 2021</div>
+            <div class="entry-company">Nucleoo / visualfabriq <span>·</span> <span class="entry-role" data-i18n="nucleoo_role">Backend Developer</span></div>
+            <div class="entry-date" data-i18n="nucleoo_date">Apr 2021 — Nov 2022</div>
         </div>
         <ul>
-            <li>Desarrollo y mantenimiento de aplicación para el sector seguros con <strong>PHP (Laravel)</strong> y MySQL.</li>
-            <li>Desarrollo frontend con <strong>Javascript (AngularJS)</strong>.</li>
+            <li data-i18n="nucleoo_1"><strong>Flask (Python)</strong> web application development for massive data management in the food sector.</li>
+            <li data-i18n="nucleoo_2"><strong>Pandas and NumPy</strong> use for data analysis and optimization with cProfile.</li>
+            <li data-i18n="nucleoo_3">Unit test implementation (Pytest), deployment with <strong>Docker</strong> and <strong>AWS</strong> services (EC2, S3, CloudWatch).</li>
+        </ul>
+    </div>
+
+    <div class="entry">
+        <div class="entry-header">
+            <div class="entry-company">E-VALUA <span>·</span> <span class="entry-role" data-i18n="evalua_role">Full-Stack Developer</span></div>
+            <div class="entry-date" data-i18n="evalua_date">Jul 2020 — Jan 2021</div>
+        </div>
+        <ul>
+            <li data-i18n="evalua_1">Development and maintenance of insurance sector application with <strong>PHP (Laravel)</strong> and MySQL.</li>
+            <li data-i18n="evalua_2">Frontend development with <strong>Javascript (AngularJS)</strong>.</li>
         </ul>
     </div>
 
     <!-- AIOps -->
-    <div class="section-title">Operaciones potenciadas por IA (AIOps)</div>
+    <div class="section-title" data-i18n="aiops_title">AI-powered Operations (AIOps)</div>
     <div class="aiops-box">
         <ul>
-            <li><strong>Triage de incidentes asistido por IA</strong>: correlación automática entre señales de monitorización, ITSM y on-call para proponer causa raíz y siguiente acción.</li>
-            <li><strong>Generación automática de runbooks y documentación</strong> a partir de incidentes resueltos, reutilizables por el resto del equipo.</li>
-            <li><strong>Tooling agéntico</strong> que orquesta múltiples APIs internas (monitorización, ITSM, CI/CD, on-call) mediante skills especializadas.</li>
-            <li><strong>Automatización de tareas operativas</strong> (reporting, planificación, resúmenes) con agentes conectados a las herramientas del equipo.</li>
-            <li>Enfoque en <strong>fiabilidad y reducción de toil</strong>: convertir procedimientos manuales en flujos asistidos y verificables.</li>
+            <li data-i18n="aiops_1"><strong>AI-assisted incident triage</strong>: automatic correlation between monitoring signals, ITSM, and on-call to propose root cause and next action.</li>
+            <li data-i18n="aiops_2"><strong>Automatic runbook and documentation generation</strong> from resolved incidents, reusable by the team.</li>
+            <li data-i18n="aiops_3"><strong>Agentic tooling</strong> orchestrating multiple internal APIs (monitoring, ITSM, CI/CD, on-call) through specialized skills.</li>
+            <li data-i18n="aiops_4"><strong>Operational task automation</strong> (reporting, scheduling, summaries) with agents connected to the team's tools.</li>
+            <li data-i18n="aiops_5">Focus on <strong>reliability and toil reduction</strong>: turning manual procedures into assisted, verifiable flows.</li>
         </ul>
     </div>
 
     <!-- Skills -->
-    <div class="section-title">Stack tecnológico</div>
+    <div class="section-title" data-i18n="stack_title">Tech Stack</div>
 
     <div class="grid-2">
         <div class="card">
-            <h3>Lenguajes</h3>
+            <h3 data-i18n="cat_langs">Languages</h3>
             <div class="badges">
                 <span class="badge badge-lang">Python</span>
                 <span class="badge badge-lang">PHP</span>
@@ -324,7 +346,7 @@
             </div>
         </div>
         <div class="card">
-            <h3>Frameworks</h3>
+            <h3 data-i18n="cat_frameworks">Frameworks</h3>
             <div class="badges">
                 <span class="badge">Django</span>
                 <span class="badge">Flask</span>
@@ -333,7 +355,7 @@
             </div>
         </div>
         <div class="card">
-            <h3>Observabilidad</h3>
+            <h3 data-i18n="cat_observability">Observability</h3>
             <div class="badges">
                 <span class="badge badge-obs">OpenTelemetry</span>
                 <span class="badge badge-obs">LogicMonitor</span>
@@ -343,7 +365,7 @@
             </div>
         </div>
         <div class="card">
-            <h3>Cloud / DevOps</h3>
+            <h3 data-i18n="cat_cloud">Cloud / DevOps</h3>
             <div class="badges">
                 <span class="badge badge-cloud">AWS</span>
                 <span class="badge badge-cloud">Docker</span>
@@ -353,7 +375,7 @@
             </div>
         </div>
         <div class="card">
-            <h3>IA / Automatización</h3>
+            <h3 data-i18n="cat_ai">AI / Automation</h3>
             <div class="badges">
                 <span class="badge badge-ai">AIOps</span>
                 <span class="badge badge-ai">LLM / AI Agents</span>
@@ -361,7 +383,7 @@
             </div>
         </div>
         <div class="card">
-            <h3>Bases de datos</h3>
+            <h3 data-i18n="cat_dbs">Databases</h3>
             <div class="badges">
                 <span class="badge">MongoDB</span>
                 <span class="badge">SQL</span>
@@ -369,44 +391,190 @@
         </div>
     </div>
 
-    <!-- Education + Awards + Certs -->
-    <div class="section-title">Formación</div>
+    <!-- Education -->
+    <div class="section-title" data-i18n="edu_title">Education</div>
 
     <div class="grid-2">
         <div class="card full">
-            <h3>Universidad de Jaén</h3>
-            <span class="sub">Grado en Ingeniería Informática (2014 - 2020)</span>
-            <p>TFG: Asistente de voz para información turística · Nota: 9.5</p>
+            <h3 data-i18n="uni_name">University of Jaén</h3>
+            <span class="sub" data-i18n="uni_date">Bachelor in Computer Science (2014 - 2020)</span>
+            <p data-i18n="uni_desc">Final Project: Voice assistant for tourism information · Grade: 9.5/10</p>
         </div>
         <div class="card">
-            <h3>Politechnika Opolska</h3>
-            <span class="sub">Erasmus+ (2017 - 2019)</span>
-            <p>Polonia</p>
+            <h3 data-i18n="erasmus_name">Politechnika Opolska</h3>
+            <span class="sub" data-i18n="erasmus_date">Erasmus+ (2017 - 2019)</span>
+            <p data-i18n="erasmus_loc">Poland</p>
         </div>
         <div class="card">
-            <h3>Premios</h3>
+            <h3 data-i18n="awards_title">Awards</h3>
             <ul>
-                <li><strong>VI Edición Premio Ada Lovelace</strong> — Universidad de Jaén (Mejor TFG).</li>
-                <li><strong>3ª Edición Mejor línea de investigación</strong> — Red PLN.NET (PLN).</li>
+                <li data-i18n="award_1"><strong>6th Edition Ada Lovelace Award</strong> — University of Jaén (Best Final Project).</li>
+                <li data-i18n="award_2"><strong>3rd Edition Best Research Line Award</strong> — PLN.NET Network (NLP).</li>
             </ul>
         </div>
         <div class="card">
-            <h3>Cursos</h3>
+            <h3 data-i18n="certs_title">Courses</h3>
             <ul>
-                <li>Become a Data Scientist (MAINFOR SOLUTIONS)</li>
-                <li>Agile Project Management y SCRUM (Google)</li>
-                <li>English Courses (Twenix)</li>
+                <li data-i18n="cert_1">Become a Data Scientist (MAINFOR SOLUTIONS)</li>
+                <li data-i18n="cert_2">Agile Project Management and SCRUM (Google)</li>
+                <li data-i18n="cert_3">English Courses (Twenix)</li>
             </ul>
         </div>
     </div>
 
     <!-- Languages -->
-    <div class="section-title">Idiomas</div>
+    <div class="section-title" data-i18n="lang_title">Languages</div>
     <div class="badges" style="margin-bottom:0.5rem;">
-        <span class="badge badge-lang">Español · Nativo</span>
-        <span class="badge badge-obs">Inglés · B2</span>
+        <span class="badge badge-lang" data-i18n="lang_es">Spanish · Native</span>
+        <span class="badge badge-obs" data-i18n="lang_en">English · B2</span>
     </div>
 
 </div>
+
+<script>
+const translations = {
+    en: {
+        profile_title: 'Professional Profile',
+        profile: 'Computer Engineer specialized in <strong>Site Reliability Engineering</strong>, <strong>observability</strong> and <strong>operations automation</strong>. Experienced in ensuring reliability of critical infrastructure at global scale, integrating <strong>AI / AIOps</strong> into the workflow to reduce toil and accelerate incident response. Core stack: <strong>Python</strong>, <strong>OpenTelemetry</strong>, observability platforms, CI/CD pipelines, and REST/HMAC APIs.',
+        exp_title: 'Work Experience',
+        roche_date: 'Feb 2025 — Present',
+        roche_desc: 'Monitoring &amp; Observability team — reliability and operation of critical infrastructure at global scale.',
+        roche_1: '<strong>Python</strong> automation against monitoring APIs, ITSM (<strong>ServiceNow</strong>), CI/CD (<strong>GitLab CI</strong>), and on-call, with REST/HMAC authentication.',
+        roche_2: 'Operation of observability platforms (<strong>LogicMonitor</strong>, Splunk): dashboards, alert tuning, maintenance windows, and capacity reporting.',
+        roche_3: 'System integration: <strong>CMDB synchronization</strong> (Service Graph Connector) and <strong>OpenTelemetry</strong> pipelines.',
+        roche_4: 'SRE practices: <strong>on-call (PagerDuty)</strong>, incident triage, <strong>runbook automation</strong> and international collaboration; operational toil reduction.',
+        roche_5: '<strong>AI-assisted operations / AIOps</strong> — integration of LLM agents into the observability workflow.',
+        roche_impact: '▸ Monitoring {N} devices · {X}% alert noise reduction · {X} automated runbooks',
+        granada_role: 'Backend Developer',
+        granada_date: 'Mar 2024 — Jun 2024',
+        granada_1: 'Design and initial development of <strong>Python</strong>-based software for an innovative educational product.',
+        granada_2: 'Framework adaptation like <strong>Django</strong> and <strong>Behave</strong> with <strong>Pytest</strong> for testing.',
+        granada_3: 'Feature implementation using <strong>MongoDB</strong> as non-relational database.',
+        telefonica_role: 'QA Automation Developer',
+        telefonica_date: 'Nov 2022 — Dec 2023',
+        telefonica_1: 'Automated test development with <strong>Behave (Gherkin) with Python</strong> for Movistar+ Audience modules.',
+        telefonica_2: 'CI/CD process automation using <strong>Jenkins</strong>.',
+        telefonica_3: 'Use of tools like Postman, Wireshark and Git.',
+        nucleoo_role: 'Backend Developer',
+        nucleoo_date: 'Apr 2021 — Nov 2022',
+        nucleoo_1: '<strong>Flask (Python)</strong> web application development for massive data management in the food sector.',
+        nucleoo_2: '<strong>Pandas and NumPy</strong> use for data analysis and optimization with cProfile.',
+        nucleoo_3: 'Unit test implementation (Pytest), deployment with <strong>Docker</strong> and <strong>AWS</strong> services (EC2, S3, CloudWatch).',
+        evalua_role: 'Full-Stack Developer',
+        evalua_date: 'Jul 2020 — Jan 2021',
+        evalua_1: 'Development and maintenance of insurance sector application with <strong>PHP (Laravel)</strong> and MySQL.',
+        evalua_2: 'Frontend development with <strong>Javascript (AngularJS)</strong>.',
+        aiops_title: 'AI-powered Operations (AIOps)',
+        aiops_1: '<strong>AI-assisted incident triage</strong>: automatic correlation between monitoring signals, ITSM, and on-call to propose root cause and next action.',
+        aiops_2: '<strong>Automatic runbook and documentation generation</strong> from resolved incidents, reusable by the team.',
+        aiops_3: '<strong>Agentic tooling</strong> orchestrating multiple internal APIs (monitoring, ITSM, CI/CD, on-call) through specialized skills.',
+        aiops_4: '<strong>Operational task automation</strong> (reporting, scheduling, summaries) with agents connected to the team\'s tools.',
+        aiops_5: 'Focus on <strong>reliability and toil reduction</strong>: turning manual procedures into assisted, verifiable flows.',
+        stack_title: 'Tech Stack',
+        cat_langs: 'Languages',
+        cat_frameworks: 'Frameworks',
+        cat_observability: 'Observability',
+        cat_cloud: 'Cloud / DevOps',
+        cat_ai: 'AI / Automation',
+        cat_dbs: 'Databases',
+        edu_title: 'Education',
+        uni_name: 'University of Jaén',
+        uni_date: 'Bachelor in Computer Science (2014 - 2020)',
+        uni_desc: 'Final Project: Voice assistant for tourism information · Grade: 9.5/10',
+        erasmus_name: 'Politechnika Opolska',
+        erasmus_date: 'Erasmus+ (2017 - 2019)',
+        erasmus_loc: 'Poland',
+        awards_title: 'Awards',
+        award_1: '<strong>6th Edition Ada Lovelace Award</strong> — University of Jaén (Best Final Project).',
+        award_2: '<strong>3rd Edition Best Research Line Award</strong> — PLN.NET Network (NLP).',
+        certs_title: 'Courses',
+        cert_1: 'Become a Data Scientist (MAINFOR SOLUTIONS)',
+        cert_2: 'Agile Project Management and SCRUM (Google)',
+        cert_3: 'English Courses (Twenix)',
+        lang_title: 'Languages',
+        lang_es: 'Spanish · Native',
+        lang_en: 'English · B2'
+    },
+    es: {
+        profile_title: 'Perfil profesional',
+        profile: 'Ingeniero Informático especializado en <strong>Site Reliability Engineering</strong>, <strong>observabilidad</strong> y <strong>automatización de operaciones</strong>. Experiencia garantizando la fiabilidad de infraestructura crítica a escala global, integrando <strong>IA / AIOps</strong> en el flujo de trabajo para reducir toil y acelerar la respuesta a incidentes. Stack principal: <strong>Python</strong>, <strong>OpenTelemetry</strong>, plataformas de observabilidad, pipelines CI/CD y APIs REST/HMAC.',
+        exp_title: 'Experiencia laboral',
+        roche_date: 'Feb 2025 — Actualidad',
+        roche_desc: 'Equipo de Monitoring &amp; Observability — fiabilidad y operación de infraestructura crítica a escala global.',
+        roche_1: 'Automatización en <strong>Python</strong> contra APIs de monitorización, ITSM (<strong>ServiceNow</strong>), CI/CD (<strong>GitLab CI</strong>) y on-call, con autenticación REST/HMAC.',
+        roche_2: 'Operación de plataformas de observabilidad (<strong>LogicMonitor</strong>, Splunk): dashboards, <strong>tuning de alertas</strong>, ventanas de mantenimiento y reporting de capacidad.',
+        roche_3: 'Integración de sistemas: <strong>sincronización CMDB</strong> (Service Graph Connector) y pipelines de <strong>OpenTelemetry</strong>.',
+        roche_4: 'Prácticas SRE: <strong>on-call (PagerDuty)</strong>, triage de incidentes, <strong>automatización de runbooks</strong> y colaboración internacional; reducción de toil operativo.',
+        roche_5: '<strong>Operaciones asistidas por IA / AIOps</strong> — integración de agentes LLM en el flujo de trabajo de observabilidad.',
+        roche_impact: '▸ Monitorización de {N} dispositivos · Reducción del {X}% en ruido de alertas · {X} runbooks automatizados',
+        granada_role: 'Desarrollador Backend',
+        granada_date: 'Mar 2024 — Jun 2024',
+        granada_1: 'Diseño y desarrollo inicial de software basado en <strong>Python</strong> para un producto educativo innovador.',
+        granada_2: 'Adaptación de frameworks como <strong>Django</strong> y uso de <strong>Behave</strong> con <strong>Pytest</strong> para testing.',
+        granada_3: 'Implementación de features usando <strong>MongoDB</strong> como base de datos no relacional.',
+        telefonica_role: 'Desarrollador QA Automation',
+        telefonica_date: 'Nov 2022 — Dic 2023',
+        telefonica_1: 'Desarrollo de tests automatizados con <strong>Behave (Gherkin) con Python</strong> para módulos de Audiencia de Movistar+.',
+        telefonica_2: 'Automatización de procesos CI/CD usando <strong>Jenkins</strong>.',
+        telefonica_3: 'Uso de herramientas como Postman, Wireshark y Git.',
+        nucleoo_role: 'Desarrollador Backend',
+        nucleoo_date: 'Abr 2021 — Nov 2022',
+        nucleoo_1: 'Desarrollo de aplicación web <strong>Flask (Python)</strong> para gestión masiva de datos en el sector alimentario.',
+        nucleoo_2: 'Uso de <strong>Pandas y NumPy</strong> para análisis de datos y optimización con cProfile.',
+        nucleoo_3: 'Implementación de tests unitarios (Pytest), despliegue con <strong>Docker</strong> y servicios <strong>AWS</strong> (EC2, S3, CloudWatch).',
+        evalua_role: 'Desarrollador Full-Stack',
+        evalua_date: 'Jul 2020 — Ene 2021',
+        evalua_1: 'Desarrollo y mantenimiento de aplicación para el sector seguros con <strong>PHP (Laravel)</strong> y MySQL.',
+        evalua_2: 'Desarrollo frontend con <strong>Javascript (AngularJS)</strong>.',
+        aiops_title: 'Operaciones potenciadas por IA (AIOps)',
+        aiops_1: '<strong>Triage de incidentes asistido por IA</strong>: correlación automática entre señales de monitorización, ITSM y on-call para proponer causa raíz y siguiente acción.',
+        aiops_2: '<strong>Generación automática de runbooks y documentación</strong> a partir de incidentes resueltos, reutilizables por el equipo.',
+        aiops_3: '<strong>Tooling agéntico</strong> que orquesta múltiples APIs internas (monitorización, ITSM, CI/CD, on-call) mediante skills especializadas.',
+        aiops_4: '<strong>Automatización de tareas operativas</strong> (reporting, planificación, resúmenes) con agentes conectados a las herramientas del equipo.',
+        aiops_5: 'Enfoque en <strong>fiabilidad y reducción de toil</strong>: convertir procedimientos manuales en flujos asistidos y verificables.',
+        stack_title: 'Stack Tecnológico',
+        cat_langs: 'Lenguajes',
+        cat_frameworks: 'Frameworks',
+        cat_observability: 'Observabilidad',
+        cat_cloud: 'Cloud / DevOps',
+        cat_ai: 'IA / Automatización',
+        cat_dbs: 'Bases de datos',
+        edu_title: 'Formación',
+        uni_name: 'Universidad de Jaén',
+        uni_date: 'Grado en Ingeniería Informática (2014 - 2020)',
+        uni_desc: 'TFG: Asistente de voz para información turística · Nota: 9.5/10',
+        erasmus_name: 'Politechnika Opolska',
+        erasmus_date: 'Erasmus+ (2017 - 2019)',
+        erasmus_loc: 'Polonia',
+        awards_title: 'Premios',
+        award_1: '<strong>VI Edición Premio Ada Lovelace</strong> — Universidad de Jaén (Mejor TFG).',
+        award_2: '<strong>3ª Edición Mejor línea de investigación</strong> — Red PLN.NET (PLN).',
+        certs_title: 'Cursos',
+        cert_1: 'Become a Data Scientist (MAINFOR SOLUTIONS)',
+        cert_2: 'Agile Project Management y SCRUM (Google)',
+        cert_3: 'English Courses (Twenix)',
+        lang_title: 'Idiomas',
+        lang_es: 'Español · Nativo',
+        lang_en: 'Inglés · B2'
+    }
+};
+
+function setLang(lang) {
+    document.documentElement.lang = lang;
+    localStorage.setItem('cv_lang', lang);
+    document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+        const k = el.getAttribute('data-i18n');
+        if (translations[lang][k]) el.innerHTML = translations[lang][k];
+    });
+}
+
+document.querySelectorAll('.lang-btn').forEach(b => {
+    b.addEventListener('click', () => setLang(b.dataset.lang));
+});
+
+const saved = localStorage.getItem('cv_lang') || 'en';
+setLang(saved);
+</script>
 </body>
 </html>
