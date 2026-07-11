@@ -147,8 +147,12 @@
             font-weight: 700;
             color: #f92672;
             text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
         }
         .nav-logo:hover { color: #f92672; }
+        .nav-logo svg { flex-shrink: 0; }
 
         .nav-links {
             display: flex;
@@ -496,12 +500,6 @@
             color: #66d9ef;
         }
 
-        .timeline-impact {
-            margin-top: 0.75rem;
-            color: #a6e22e;
-            font-size: 0.85rem;
-        }
-
         /* ── AIOps ── */
         #aiops { position: relative; z-index: 1; }
 
@@ -714,7 +712,7 @@
 
     <!-- Navbar -->
     <nav class="navbar">
-        <a href="#" class="nav-logo">CarlVs</a>
+        <a href="#" class="nav-logo"><svg width="22" height="22" viewBox="0 0 32 32"><defs><linearGradient id="navLogoGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#f92672"/><stop offset="50%" stop-color="#ae81ff"/><stop offset="100%" stop-color="#66d9ef"/></linearGradient></defs><text x="16" y="22" font-family="monospace" font-size="14" font-weight="bold" fill="url(#navLogoGrad)" text-anchor="middle">CVs</text></svg>CarlVs</a>
         <div class="nav-links" id="navLinks">
             <a href="#about" data-i18n="nav_about">Sobre mí</a>
             <a href="#experience" data-i18n="nav_exp">Experiencia</a>
@@ -805,7 +803,6 @@
                     <li data-i18n="roche_3">Integración de sistemas: <strong>sincronización CMDB</strong> (Service Graph Connector) y pipelines de <strong>OpenTelemetry</strong>.</li>
                     <li data-i18n="roche_4">Prácticas SRE: <strong>on-call (PagerDuty)</strong>, triage de incidentes, <strong>automatización de runbooks</strong> y colaboración internacional; reducción de toil operativo.</li>
                 </ul>
-                <div class="timeline-impact" data-i18n="roche_impact">▸ Monitorización de {N} dispositivos · Reducción del {X}% en ruido de alertas · {X} runbooks automatizados</div>
             </div>
 
             <!-- Granada Dynamics -->
@@ -1023,7 +1020,6 @@
                 roche_2: 'Operación de plataformas de observabilidad (<strong>LogicMonitor</strong>, Splunk): dashboards, <strong>tuning de alertas</strong> para reducir ruido, ventanas de mantenimiento y reporting de capacidad.',
                 roche_3: 'Integración de sistemas: <strong>sincronización CMDB</strong> (Service Graph Connector) y pipelines de <strong>OpenTelemetry</strong>.',
                 roche_4: 'Prácticas SRE: <strong>on-call (PagerDuty)</strong>, triage de incidentes, <strong>automatización de runbooks</strong> y colaboración internacional; reducción de toil operativo.',
-                roche_impact: '▸ Monitorización de {N} dispositivos · Reducción del {X}% en ruido de alertas · {X} runbooks automatizados',
                 granada_date: 'Marzo 2024 - Junio 2024',
                 granada_role: 'Desarrollador Backend',
                 granada_1: 'Diseño y desarrollo inicial de software basado en <strong>Python</strong> para un producto educativo innovador.',
@@ -1097,7 +1093,6 @@
                 roche_2: 'Operation of observability platforms (<strong>LogicMonitor</strong>, Splunk): dashboards, <strong>alert tuning</strong> for noise reduction, maintenance windows, and capacity reporting.',
                 roche_3: 'System integration: <strong>CMDB synchronization</strong> (Service Graph Connector) and <strong>OpenTelemetry</strong> pipelines.',
                 roche_4: 'SRE practices: <strong>on-call (PagerDuty)</strong>, incident triage, <strong>runbook automation</strong>, and international collaboration; operational toil reduction.',
-                roche_impact: '▸ Monitoring {N} devices · {X}% alert noise reduction · {X} automated runbooks',
                 granada_date: 'March 2024 - June 2024',
                 granada_role: 'Backend Developer',
                 granada_1: 'Design and initial development of <strong>Python</strong>-based software for an innovative educational product.',

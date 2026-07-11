@@ -67,6 +67,11 @@ Each `.timeline-item` uses `IntersectionObserver` (threshold 0.15) to fade+slide
 
 Palette defined in `styles.css` as custom properties (pages currently hardcode hex).
 
+## Logo & favicon
+
+- Navbar logo: inline "CVs" gradient SVG (pink→purple→blue) + "CarlVs" text.
+- Favicon: minimal green circle (`/favicon.svg`), no text.
+
 ## Key conventions
 
 - **Site language is Spanish** by default; EN translations must mirror ES.
