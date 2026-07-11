@@ -99,7 +99,6 @@ All colors hardcoded as hex across files (no CSS custom properties).
 ## Extra features (all in `index.html`)
 
 - **Particle canvas**: 80 particles with Monokai colors connected by lines, mouse interaction (repel), behind all content.
-- **Spotlight**: radial gradient follows mouse cursor behind content.
 - **Glitch effect**: `CarlVs` hero name glitches (cyan/magenta offset) every 6s.
 - **Typewriter effect**: hero title types itself character by character on load and language switch.
 - **Text reveal**: each section title reveals with `clip-path` inset animation on scroll.
