@@ -721,6 +721,192 @@
             transform: translateY(0);
         }
 
+        /* ── Scroll progress ── */
+        #scroll-progress {
+            position: fixed;
+            top: 0; left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #f92672, #ae81ff, #66d9ef);
+            z-index: 1001;
+            width: 0%;
+            transition: width 0.1s linear;
+        }
+
+        /* ── Back to top ── */
+        #back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: #3a3a3a;
+            border: 1px solid #3a3a3a;
+            color: #f8f8f2;
+            font-size: 1.1rem;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 999;
+        }
+        #back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        #back-to-top:hover {
+            background: #f92672;
+            border-color: #f92672;
+            transform: translateY(-3px);
+        }
+
+        /* ── Tooltips ── */
+        .badge-tip {
+            position: relative;
+            cursor: help;
+        }
+        .badge-tip::after {
+            content: attr(data-tip);
+            position: absolute;
+            bottom: calc(100% + 6px);
+            left: 50%;
+            transform: translateX(-50%);
+            background: #222;
+            color: #f8f8f2;
+            padding: 0.4rem 0.7rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.2s ease;
+            border: 1px solid #3a3a3a;
+            pointer-events: none;
+            z-index: 10;
+        }
+        .badge-tip:hover::after {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* ── Stack filter ── */
+        .stack-filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .stack-filters button {
+            background: transparent;
+            border: 1px solid #3a3a3a;
+            color: #75715e;
+            padding: 0.35rem 0.8rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-family: inherit;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .stack-filters button:hover {
+            border-color: #66d9ef;
+            color: #66d9ef;
+        }
+        .stack-filters button.active {
+            background: #66d9ef;
+            color: #1a1a1a;
+            border-color: #66d9ef;
+        }
+        .stack-filter-hidden {
+            display: none !important;
+        }
+
+        /* ── Toast ── */
+        #toast {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #222;
+            color: #a6e22e;
+            padding: 0.7rem 1.5rem;
+            border-radius: 8px;
+            border: 1px solid #3a3a3a;
+            font-size: 0.85rem;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            pointer-events: none;
+        }
+        #toast.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* ── Animated counter ── */
+        .hero-stat-num.counter {
+            display: inline-block;
+        }
+
+        /* ── Theme toggle ── */
+        .theme-btn {
+            background: none;
+            border: none;
+            color: #75715e;
+            font-size: 1.1rem;
+            cursor: pointer;
+            padding: 0.25rem;
+            transition: color 0.3s ease;
+        }
+        .theme-btn:hover { color: #fd971f; }
+
+        /* ── Light theme ── */
+        html.light body {
+            background: #fafafa;
+            color: #2d2d2d;
+        }
+        html.light ::selection {
+            background: #f92672;
+            color: #fff;
+        }
+        html.light .navbar {
+            background: rgba(250, 250, 250, 0.85);
+            border-bottom-color: #ddd;
+        }
+        html.light .nav-links a { color: #999; }
+        html.light .nav-links a:hover { color: #2d2d2d; }
+        html.light .nav-links a.active { color: #f92672; }
+        html.light .nav-links a.active::after { background: #f92672; }
+        html.light .lang-btn { border-color: #ddd; color: #999; }
+        html.light .lang-btn:hover { border-color: #f92672; color: #f92672; }
+        html.light .lang-btn.active { background: #f92672; color: #fff; border-color: #f92672; }
+        html.light .theme-btn { color: #999; }
+        html.light .theme-btn:hover { color: #fd971f; }
+        html.light .section { border-bottom-color: #eee; }
+        html.light .bg-animation span { opacity: 0.03 !important; }
+        html.light .timeline-item::before { border-color: #ddd; background: #eee; }
+        html.light .timeline-item.current::before { background: #f92672; }
+        html.light .timeline-content { background: #f0f0f0; border-color: #ddd; }
+        html.light .timeline-date { color: #999; }
+        html.light .stack-cat-title { color: #999; }
+        html.light .badge { background: #e8e8e8; color: #ae81ff; }
+        html.light .badge-ai { color: #fd971f; border-color: #fd971f; background: transparent; }
+        html.light .badge-obs { color: #66d9ef; }
+        html.light .badge-cloud { color: #a6e22e; }
+        html.light .badge-lang { color: #f92672; }
+        html.light .edu-card { background: #f0f0f0; border-color: #ddd; }
+        html.light .edu-card h3 { color: #2d2d2d; }
+        html.light .edu-card p, html.light .edu-card li { color: #666; }
+        html.light .contact-card { background: #f0f0f0; border-color: #ddd; }
+        html.light .contact-card .label { color: #2d2d2d; }
+        html.light .footer { border-top-color: #ddd; }
+        html.light #back-to-top { background: #ddd; color: #2d2d2d; border-color: #ccc; }
+        html.light #back-to-top:hover { background: #f92672; color: #fff; border-color: #f92672; }
+        html.light #toast { background: #f0f0f0; border-color: #ddd; }
+        html.light .badge-tip::after { background: #f0f0f0; color: #2d2d2d; border-color: #ddd; }
+        html.light .aiops-box { background: #f0f0f0; border-color: #fd971f; }
+        html.light .aiops-box p { color: #555; }
+
         /* ── Mobile ── */
         @media (max-width: 768px) {
             .section { padding: 3rem 1.5rem; }
@@ -743,6 +929,9 @@
 </head>
 
 <body>
+    <div id="scroll-progress"></div>
+    <button id="back-to-top" aria-label="Volver arriba"><i class="fas fa-chevron-up"></i></button>
+    <div id="toast"></div>
     <div class="bg-animation">
         <span></span><span></span><span></span><span></span>
         <span></span><span></span><span></span><span></span>
@@ -759,6 +948,7 @@
             <a href="#contact" data-i18n="nav_contact">Contacto</a>
         </div>
         <div class="nav-right">
+            <button class="theme-btn" id="themeToggle" aria-label="Toggle theme">☀️</button>
             <div class="lang-switcher">
                 <button class="lang-btn active" data-lang="es">ES</button>
                 <button class="lang-btn" data-lang="en">EN</button>
@@ -780,7 +970,7 @@
 
             <div class="hero-stats">
                 <div class="hero-stat">
-                    <div class="hero-stat-num">5+</div>
+                    <div class="hero-stat-num counter" id="expYears" data-from="2020">0+</div>
                     <div class="hero-stat-label" data-i18n="stat_exp">Años de experiencia</div>
                 </div>
                 <div class="hero-stat">
@@ -911,61 +1101,71 @@
     <section id="stack" class="section">
         <h2 class="section-title" data-i18n="stack_title">Stack Tecnológico</h2>
 
+        <div class="stack-filters" id="stackFilters">
+            <button class="active" data-filter="all">Todo</button>
+            <button data-filter="langs">Lenguajes</button>
+            <button data-filter="frameworks">Frameworks</button>
+            <button data-filter="obs">Obs</button>
+            <button data-filter="cloud">Cloud</button>
+            <button data-filter="ia">IA</button>
+            <button data-filter="dbs">BBDD</button>
+        </div>
+
         <div class="stack-grid" id="stackGrid">
-            <div>
+            <div data-cat="langs">
                 <div class="stack-cat-title" data-i18n="cat_langs">Lenguajes</div>
                 <div class="stack-badges">
-                    <span class="badge badge-lang">Python</span>
-                    <span class="badge badge-lang">PHP</span>
-                    <span class="badge badge-lang">JavaScript</span>
+                    <span class="badge badge-lang badge-tip" data-tip="Lenguaje principal">Python</span>
+                    <span class="badge badge-lang badge-tip" data-tip="Lenguaje backend">PHP</span>
+                    <span class="badge badge-lang badge-tip" data-tip="Lenguaje frontend">JavaScript</span>
                 </div>
             </div>
-            <div>
+            <div data-cat="frameworks">
                 <div class="stack-cat-title" data-i18n="cat_frameworks">Frameworks</div>
                 <div class="stack-badges">
-                    <span class="badge">Django</span>
-                    <span class="badge">Flask</span>
-                    <span class="badge">Laravel</span>
-                    <span class="badge">AngularJS</span>
+                    <span class="badge badge-tip" data-tip="Framework Python">Django</span>
+                    <span class="badge badge-tip" data-tip="Microframework Python">Flask</span>
+                    <span class="badge badge-tip" data-tip="Framework PHP">Laravel</span>
+                    <span class="badge badge-tip" data-tip="Framework JS legacy">AngularJS</span>
                 </div>
             </div>
-            <div>
+            <div data-cat="obs">
                 <div class="stack-cat-title" data-i18n="cat_observability">Observabilidad</div>
                 <div class="stack-badges">
-                    <span class="badge badge-obs">OpenTelemetry</span>
-                    <span class="badge badge-obs">LogicMonitor</span>
-                    <span class="badge badge-obs">Splunk</span>
-                    <span class="badge badge-obs">Grafana</span>
-                    <span class="badge badge-obs">PagerDuty</span>
-                    <span class="badge badge-obs">ServiceNow</span>
+                    <span class="badge badge-obs badge-tip" data-tip="Estándar de telemetría">OpenTelemetry</span>
+                    <span class="badge badge-obs badge-tip" data-tip="Monitorización cloud híbrida">LogicMonitor</span>
+                    <span class="badge badge-obs badge-tip" data-tip="Plataforma de logs y métricas">Splunk</span>
+                    <span class="badge badge-obs badge-tip" data-tip="Visualización y dashboards">Grafana</span>
+                    <span class="badge badge-obs badge-tip" data-tip="Gestión de incidentes on-call">PagerDuty</span>
+                    <span class="badge badge-obs badge-tip" data-tip="ITSM y CMDB">ServiceNow</span>
                 </div>
             </div>
-            <div>
+            <div data-cat="cloud">
                 <div class="stack-cat-title" data-i18n="cat_cloud">Cloud / DevOps</div>
                 <div class="stack-badges">
-                    <span class="badge badge-cloud">AWS</span>
-                    <span class="badge badge-cloud">Docker</span>
-                    <span class="badge badge-cloud">GitLab CI</span>
-                    <span class="badge badge-cloud">GitHub Actions</span>
-                    <span class="badge badge-cloud">Jenkins</span>
-                    <span class="badge badge-cloud">Rundeck</span>
-                    <span class="badge badge-cloud">Temporal</span>
-                    <span class="badge badge-cloud">Git</span>
+                    <span class="badge badge-cloud badge-tip" data-tip="Infraestructura cloud">AWS</span>
+                    <span class="badge badge-cloud badge-tip" data-tip="Contenedores">Docker</span>
+                    <span class="badge badge-cloud badge-tip" data-tip="CI/CD GitLab">GitLab CI</span>
+                    <span class="badge badge-cloud badge-tip" data-tip="CI/CD GitHub">GitHub Actions</span>
+                    <span class="badge badge-cloud badge-tip" data-tip="CI/CD on-prem">Jenkins</span>
+                    <span class="badge badge-cloud badge-tip" data-tip="Orquestación job scheduler">Rundeck</span>
+                    <span class="badge badge-cloud badge-tip" data-tip="Workflows distribuidos">Temporal</span>
+                    <span class="badge badge-cloud badge-tip" data-tip="Control de versiones">Git</span>
                 </div>
             </div>
-            <div>
+            <div data-cat="ia">
                 <div class="stack-cat-title" data-i18n="cat_ia">IA / Automatización</div>
                 <div class="stack-badges">
-                    <span class="badge badge-ai">AIOps</span>
-                    <span class="badge badge-ai">LLM / AI Agents</span>
-                    <span class="badge badge-ai">REST / HMAC</span>
+                    <span class="badge badge-ai badge-tip" data-tip="IA aplicada a operaciones">AIOps</span>
+                    <span class="badge badge-ai badge-tip" data-tip="Integración de LLMs">LLM / AI Agents</span>
+                    <span class="badge badge-ai badge-tip" data-tip="APIs con HMAC auth">REST / HMAC</span>
                 </div>
             </div>
-            <div>
+            <div data-cat="dbs">
                 <div class="stack-cat-title" data-i18n="cat_dbs">Bases de datos</div>
                 <div class="stack-badges">
-                    <span class="badge">MongoDB</span>
-                    <span class="badge">SQL</span>
+                    <span class="badge badge-tip" data-tip="Base de datos NoSQL">MongoDB</span>
+                    <span class="badge badge-tip" data-tip="Base de datos relacional">SQL</span>
                 </div>
             </div>
         </div>
@@ -1003,7 +1203,7 @@
         <h2 class="section-title" data-i18n="contact_title">Contacto</h2>
 
         <div class="contact-grid">
-            <a href="mailto:cvillenv@gmail.com" class="contact-card">
+            <a href="mailto:cvillenv@gmail.com" class="contact-card" id="emailCopy">
                 <i class="fas fa-envelope"></i>
                 <span class="label">Email</span>
                 <span class="value">cvillenv@gmail.com</span>
@@ -1235,6 +1435,90 @@
                 });
             }, { threshold: 0.1 });
             rObs.observe(s);
+        });
+
+        /* ── Dynamic years counter ── */
+        const expEl = document.getElementById('expYears');
+        const startYear = parseInt(expEl.dataset.from);
+        const targetYears = new Date().getFullYear() - startYear;
+        const expObs = new IntersectionObserver(entries => {
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    let current = 0;
+                    const step = Math.ceil(targetYears / 30);
+                    const timer = setInterval(() => {
+                        current += step;
+                        if (current >= targetYears) {
+                            current = targetYears;
+                            clearInterval(timer);
+                        }
+                        expEl.textContent = current + '+';
+                    }, 40);
+                    expObs.unobserve(expEl);
+                }
+            });
+        }, { threshold: 0.5 });
+        expObs.observe(expEl);
+
+        /* ── Scroll progress ── */
+        const progressBar = document.getElementById('scroll-progress');
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+            progressBar.style.width = pct + '%';
+        });
+
+        /* ── Back to top ── */
+        const backBtn = document.getElementById('back-to-top');
+        window.addEventListener('scroll', () => {
+            backBtn.classList.toggle('visible', window.scrollY > window.innerHeight);
+        });
+        backBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        /* ── Light / Dark toggle ── */
+        const themeBtn = document.getElementById('themeToggle');
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'light') {
+            document.documentElement.classList.add('light');
+            themeBtn.textContent = '🌙';
+        }
+        themeBtn.addEventListener('click', () => {
+            const isLight = document.documentElement.classList.toggle('light');
+            themeBtn.textContent = isLight ? '🌙' : '☀️';
+            localStorage.setItem('theme', isLight ? 'light' : 'dark');
+        });
+
+        /* ── Stack filter ── */
+        document.querySelectorAll('#stackFilters button').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('#stackFilters button').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                const filter = btn.dataset.filter;
+                document.querySelectorAll('#stackGrid > div').forEach(col => {
+                    col.classList.toggle('stack-filter-hidden', filter !== 'all' && col.dataset.cat !== filter);
+                });
+            });
+        });
+
+        /* ── Toast + copy email ── */
+        const toast = document.getElementById('toast');
+        let toastTimer;
+        function showToast(msg) {
+            toast.textContent = msg;
+            toast.classList.add('show');
+            clearTimeout(toastTimer);
+            toastTimer = setTimeout(() => toast.classList.remove('show'), 2000);
+        }
+        document.getElementById('emailCopy').addEventListener('click', e => {
+            e.preventDefault();
+            navigator.clipboard.writeText('cvillenv@gmail.com').then(() => {
+                showToast('¡Copiado!');
+            }).catch(() => {
+                showToast('Error al copiar');
+            });
         });
     </script>
 </body>
