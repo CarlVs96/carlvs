@@ -856,6 +856,49 @@
         html.light .sre-badge { background: rgba(250,250,250,0.85); border-color: #ddd; color: #666; }
         html.light .sre-badge .tooltip { background: #eee; border-color: #ddd; color: #f92672; }
 
+        /* ── Ñiñosaurio button ── */
+        .niñosaurio-btn {
+            position: fixed;
+            bottom: 2rem;
+            left: 2rem;
+            z-index: 999;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: linear-gradient(135deg, #ae81ff, #f92672);
+            border: none;
+            border-radius: 999px;
+            padding: 0.6rem 1.2rem 0.6rem 1rem;
+            color: #fff;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            font-weight: 700;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateX(-20px) scale(0.8);
+            pointer-events: none;
+        }
+        .niñosaurio-btn.show {
+            opacity: 1;
+            transform: translateX(0) scale(1);
+            pointer-events: auto;
+        }
+        .niñosaurio-btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(174, 129, 255, 0.4);
+        }
+        .niñosaurio-btn .nino-icon {
+            width: 28px; height: 28px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.2);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1rem;
+        }
+        .niñosaurio-btn .nino-text { white-space: nowrap; }
+        html.light .niñosaurio-btn { color: #fff; border-color: transparent; }
+
         /* ── Back to top ── */
         #back-to-top {
             position: fixed;
@@ -1072,6 +1115,10 @@
         <span>SRE-ready</span>
         <span class="tooltip">100% operational</span>
     </div>
+    <button class="niñosaurio-btn" id="ninoBtn" onclick="setLanguage('es')" title="Volver al modo normal">
+        <span class="nino-icon">Ñ</span>
+        <span class="nino-text">Ñiñosaurio</span>
+    </button>
     <canvas id="particleCanvas"></canvas>
     <!-- Navbar -->
     <nav class="navbar">
@@ -1631,6 +1678,7 @@ Ingeniero informático, <strong>SRE en Roche</strong>. Observabilidad, automatiz
                     }
                 }
             });
+            document.getElementById('ninoBtn').classList.toggle('show', lang === 'ñ');
             clearTimeout(twTimeout);
             typewriter(document.getElementById('tw-text'), translations[lang]['title'], 45);
         }

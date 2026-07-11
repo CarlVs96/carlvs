@@ -103,7 +103,7 @@ All colors hardcoded as hex across files (no CSS custom properties).
 - **Typewriter effect**: hero title types itself character by character on load and language switch.
 - **Text reveal**: each section title reveals with `clip-path` inset animation on scroll.
 - **SRE-ready badge**: fixed badge bottom-right with pulsing green dot, appears 2s after load.
-- **Ñiñosaurio mode**: press `ñ` → all text turns into nonsense Ñ-speak (third pseudo-language in i18n). Press ES/EN to go back.
+- **Ñiñosaurio mode**: press `ñ` → all text turns into Ñ-speak (third pseudo-language in i18n). A floating purple "Ñiñosaurio" button appears at bottom-left; click it or press ES/EN to go back.
 - **Scroll progress**: thin gradient bar at top, fills as you scroll.
 - **Back to top**: button bottom-right, appears after scrolling past hero.
 - **Animated counter**: years of experience calculated from 2020, animates on scroll.
