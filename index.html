@@ -246,6 +246,9 @@
             padding: 6rem 2rem 4rem;
             position: relative;
             z-index: 1;
+            max-width: 900px;
+            margin: 0 auto;
+            width: 100%;
         }
 
         .hero-avatar {
@@ -294,6 +297,16 @@
             margin-bottom: 1.5rem;
             opacity: 0;
             animation: fadeInUp 0.8s ease 0.4s forwards;
+        }
+
+        .hero-title .cursor {
+            border-right: 2px solid #66d9ef;
+            margin-left: 2px;
+            animation: blink 0.8s infinite;
+        }
+        @keyframes blink {
+            0%, 50% { border-color: #66d9ef; }
+            51%, 100% { border-color: transparent; }
         }
 
         .hero-desc {
@@ -757,7 +770,7 @@
         <div class="hero-avatar"><img src="/cvslogo-v3.svg" alt="CVs"></div>
         <p class="hero-greeting" data-i18n="greeting">¡Hola! Soy</p>
         <h1 class="hero-name">CarlVs</h1>
-        <h2 class="hero-title"><span data-i18n="title">SRE / Platform Engineer · Backend Developer · AIOps</span></h2>
+        <h2 class="hero-title"><span data-i18n="title">SRE / Platform Engineer · Backend Developer · AIOps</span><span class="cursor"></span></h2>
         <p class="hero-desc" data-i18n="desc">
             Apasionado por la fiabilidad de infraestructura crítica a escala global.<br>SRE, Observabilidad, AIOps y automatización.
         </p>
