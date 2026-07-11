@@ -32,6 +32,7 @@ CNAME               # Custom domain carlvs.dev
 | Hero          | —             | Identity, stats, CTA, social |
 | Sobre mí      | `#about`      | 3-paragraph bio |
 | Experiencia   | `#experience` | Vertical timeline with reveal animation |
+| Terminal      | `#terminal`   | Fake terminal with auto-typing demo |
 | AIOps         | `#aiops`      | Highlight box with orange border |
 | Stack         | `#stack`      | Categorized badges (6 categories) |
 | Formación     | `#education`  | Grid: uni, erasmus, awards |
@@ -97,6 +98,9 @@ All colors hardcoded as hex across files (no CSS custom properties).
 
 ## Extra features (all in `index.html`)
 
+- **Particle canvas**: 80 particles with Monokai colors connected by lines, mouse interaction (repel), behind all content.
+- **Typewriter effect**: hero title types itself character by character on load and language switch.
+- **Terminal demo**: widget with fake terminal (`whoami`, `curl`, `uptime`, `uname`, `ls`, `cat`) that auto-types on scroll.
 - **Scroll progress**: thin gradient bar at top, fills as you scroll.
 - **Back to top**: button bottom-right, appears after scrolling past hero.
 - **Animated counter**: years of experience calculated from 2020, animates on scroll.
