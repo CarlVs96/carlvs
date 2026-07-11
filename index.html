@@ -898,6 +898,15 @@
             line-height: 1;
         }
         .niñosaurio-btn .nino-text { white-space: nowrap; }
+        .niñosaurio-btn .nino-text kbd {
+            background: rgba(255,255,255,0.2);
+            border-radius: 3px;
+            padding: 0 0.3rem;
+            font-size: 0.7rem;
+            font-family: 'JetBrains Mono', monospace;
+            margin-left: 0.2rem;
+            vertical-align: middle;
+        }
         html.light .niñosaurio-btn { color: #fff; border-color: transparent; }
 
         /* ── Back to top ── */
@@ -1118,7 +1127,7 @@
     </div>
     <button class="niñosaurio-btn" id="ninoBtn" onclick="setLanguage('es')" title="Salir del modo ñiñosaurio">
         <span class="nino-icon">🦖</span>
-        <span class="nino-text">× Cerrar Ñiñosaurio</span>
+        <span class="nino-text">× Cerrar Ñiñosaurio <kbd>esc</kbd></span>
     </button>
     <canvas id="particleCanvas"></canvas>
     <!-- Navbar -->
@@ -1757,11 +1766,11 @@ Ingeniero informático, <strong>SRE en Roche</strong>. Observabilidad, automatiz
             const ninoBtn = document.getElementById('ninoBtn');
             if (lang === 'ñ') {
                 ninoBtn.classList.add('show');
-                ninoBtn.querySelector('.nino-text').textContent = '× Cerrar Ñiñosaurio';
+                ninoBtn.querySelector('.nino-text').textContent = '× Cerrar Ñiñosaurio esc';
                 ninoBtn.querySelector('.nino-icon').textContent = '🦖';
             } else if (lang === 'j') {
                 ninoBtn.classList.add('show');
-                ninoBtn.querySelector('.nino-text').textContent = '× Modo Jiennense';
+                ninoBtn.querySelector('.nino-text').textContent = '× Modo Jiennense esc';
                 ninoBtn.querySelector('.nino-icon').textContent = '🌳';
             } else {
                 ninoBtn.classList.remove('show');
