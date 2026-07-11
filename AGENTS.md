@@ -82,10 +82,10 @@ Palette defined in `styles.css` as custom properties (pages currently hardcode h
 - Printable HTML CV with Monokai dark theme, font: JetBrains Mono.
 - Default language: EN (unlike `index.html` which defaults to ES).
 - ES/EN toggle via `data-i18n` + translations object + `localStorage` (key `cv_lang`).
-- "PDF" button uses `html2pdf.js` (CDN) to generate a letter-format PDF preserving the dark background.
-- PDF filename: `CV_Carlos_Villen_Villar_EN.pdf` or `CV_Carlos_Villen_Villar_ES.pdf`.
+- "PDF" button calls `window.print()` which opens the browser print dialog → select "Save as PDF".
+- `@page { margin: 0; size: letter; }` — no white borders, selectable text (ATS-friendly).
+- Background colors preserved via `-webkit-print-color-adjust: exact`.
 - Toolbar (lang toggle + PDF button) hidden during `@media print`.
-- Print via Cmd+P → "Save as PDF" with background graphics enabled also works.
 
 ## No tests, no lint, no typecheck
 
