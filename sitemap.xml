@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.schema.org/schemas/sitemap/0.9">
   <url>
     <loc>https://carlvs.dev/</loc>
     <lastmod>2026-07-11</lastmod>
@@ -7,9 +7,27 @@
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://carlvs.dev/about/</loc>
+    <loc>https://carlvs.dev/#about</loc>
     <lastmod>2026-07-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://carlvs.dev/#experience</loc>
+    <lastmod>2026-07-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://carlvs.dev/#aiops</loc>
+    <lastmod>2026-07-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://carlvs.dev/#stack</loc>
+    <lastmod>2026-07-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
 </urlset>
