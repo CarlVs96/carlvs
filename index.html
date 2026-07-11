@@ -95,34 +95,10 @@
             background: #3a3a3a;
         }
 
-        /* ── Background animation ── */
-        .bg-animation {
-            position: fixed;
-            inset: 0;
-            overflow: hidden;
-            z-index: 0;
-            pointer-events: none;
-        }
-        .bg-animation span {
-            position: absolute;
-            width: 20px; height: 20px;
-            border-radius: 50%;
-            animation: float 25s linear infinite;
-        }
-        .bg-animation span:nth-child(1) { left: 10%; width: 80px; height: 80px; animation-delay: 0s; animation-duration: 20s; background: rgba(249, 38, 114, 0.06); }
-        .bg-animation span:nth-child(2) { left: 20%; width: 40px; height: 40px; animation-delay: 2s; animation-duration: 25s; background: rgba(166, 226, 46, 0.06); }
-        .bg-animation span:nth-child(3) { left: 35%; width: 60px; height: 60px; animation-delay: 4s; animation-duration: 18s; background: rgba(102, 217, 239, 0.06); }
-        .bg-animation span:nth-child(4) { left: 50%; width: 90px; height: 90px; animation-delay: 0s; animation-duration: 22s; background: rgba(166, 226, 46, 0.05); }
-        .bg-animation span:nth-child(5) { left: 65%; width: 30px; height: 30px; animation-delay: 3s; animation-duration: 30s; background: rgba(253, 151, 31, 0.06); }
-        .bg-animation span:nth-child(6) { left: 75%; width: 70px; height: 70px; animation-delay: 5s; animation-duration: 15s; background: rgba(102, 217, 239, 0.05); }
-        .bg-animation span:nth-child(7) { left: 85%; width: 50px; height: 50px; animation-delay: 7s; animation-duration: 20s; background: rgba(174, 129, 255, 0.06); }
-        .bg-animation span:nth-child(8) { left: 45%; width: 45px; height: 45px; animation-delay: 1s; animation-duration: 28s; background: rgba(249, 38, 114, 0.05); }
-
-        @keyframes float {
-            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
-            10% { opacity: 1; }
-            90% { opacity: 1; }
-            100% { transform: translateY(-100vh) rotate(720deg); opacity: 0; }
+        /* ── Particle canvas ── */
+        #particleCanvas {
+            position: fixed; inset: 0;
+            z-index: 0; pointer-events: none;
         }
 
         /* ── Navbar ── */
@@ -308,6 +284,7 @@
             margin-left: 2px;
             animation: blink 0.8s infinite;
         }
+        .hero-title .cursor.typing { animation: none; }
         @keyframes blink {
             0%, 50% { border-color: #66d9ef; }
             51%, 100% { border-color: transparent; }
@@ -429,6 +406,70 @@
         @keyframes fadeInUp {
             from { opacity: 0; transform: translateY(30px); }
             to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ── Terminal widget ── */
+        .terminal-section { position: relative; z-index: 1; }
+        .terminal-label .prompt-sign { color: #a6e22e; margin-right: 0.3rem; }
+        .terminal-window {
+            background: #0d0d0d;
+            border: 1px solid #3a3a3a;
+            border-radius: 12px;
+            overflow: hidden;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+        }
+        .term-bar {
+            background: #1a1a1a;
+            padding: 0.6rem 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            border-bottom: 1px solid #2a2a2a;
+        }
+        .term-dot {
+            width: 10px; height: 10px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+        .term-dot.red { background: #ff5f56; }
+        .term-dot.yellow { background: #ffbd2e; }
+        .term-dot.green { background: #27c93f; }
+        .term-title {
+            color: #555;
+            font-size: 0.7rem;
+            margin-left: 0.5rem;
+        }
+        .term-body {
+            padding: 1rem 1.2rem;
+            min-height: 100px;
+        }
+        .term-line {
+            margin-bottom: 0.3rem;
+            line-height: 1.6;
+            white-space: pre-wrap;
+            word-break: break-all;
+        }
+        .term-prompt { color: #a6e22e; }
+        .term-cmd { color: #f8f8f2; }
+        .term-output {
+            color: #a6a68a;
+            white-space: pre-wrap;
+            word-break: break-all;
+        }
+        .term-output .highlight { color: #66d9ef; }
+        .term-cursor {
+            display: inline-block;
+            width: 6px; height: 14px;
+            background: #a6e22e;
+            vertical-align: text-bottom;
+            margin-left: 1px;
+            animation: termBlink 0.8s step-end infinite;
+        }
+        .term-cursor.idle { animation: none; opacity: 0.4; }
+        @keyframes termBlink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
         }
 
         /* ── About ── */
@@ -882,7 +923,7 @@
         html.light .theme-btn { color: #999; }
         html.light .theme-btn:hover { color: #fd971f; }
         html.light .section { border-bottom-color: #eee; }
-        html.light .bg-animation span { opacity: 0.03 !important; }
+        html.light #particleCanvas { opacity: 0.25; }
         html.light .timeline-item::before { border-color: #ddd; background: #eee; }
         html.light .timeline-item.current::before { background: #f92672; }
         html.light .timeline-content { background: #f0f0f0; border-color: #ddd; }
@@ -905,6 +946,11 @@
         html.light .badge-tip::after { background: #f0f0f0; color: #2d2d2d; border-color: #ddd; }
         html.light .aiops-box { background: #f0f0f0; border-color: #fd971f; }
         html.light .aiops-box p { color: #555; }
+        html.light .terminal-window { background: #f0f0f0; border-color: #ddd; }
+        html.light .term-bar { background: #e8e8e8; border-bottom-color: #ddd; }
+        html.light .term-cmd { color: #2d2d2d; }
+        html.light .term-output { color: #666; }
+        html.light .term-cursor { background: #2d2d2d; }
         html.light .about-content { background: #f5f5f5; border-color: #ddd; }
         html.light .about-text { color: #555; }
         html.light .hero-desc { color: #666; }
@@ -936,10 +982,7 @@
     <div id="scroll-progress"></div>
     <button id="back-to-top" aria-label="Volver arriba"><i class="fas fa-chevron-up"></i></button>
     <div id="toast"></div>
-    <div class="bg-animation">
-        <span></span><span></span><span></span><span></span>
-        <span></span><span></span><span></span><span></span>
-    </div>
+    <canvas id="particleCanvas"></canvas>
 
     <!-- Navbar -->
     <nav class="navbar">
@@ -968,7 +1011,7 @@
             <div class="hero-avatar"><img src="/assets/img/finalicon.svg" alt="CVs"></div>
             <p class="hero-greeting" data-i18n="greeting">¡Hola! Soy</p>
             <h1 class="hero-name">CarlVs</h1>
-            <h2 class="hero-title"><span data-i18n="title">Site Reliability Engineer · Backend Developer · AIOps</span> <span class="cursor"></span></h2>
+            <h2 class="hero-title"><span id="tw-text"></span><span class="cursor"></span></h2>
             <p class="hero-desc" data-i18n="desc">
 Ingeniero informático, <strong>SRE en Roche</strong>. Observabilidad, automatización e <strong>IA aplicada a operaciones</strong>.
             </p>
@@ -1009,6 +1052,21 @@ Ingeniero informático, <strong>SRE en Roche</strong>. Observabilidad, automatiz
         <div class="scroll-down" onclick="document.getElementById('about').scrollIntoView({behavior:'smooth'})">
             <span data-i18n="scroll">Descubre más</span>
             <i class="fas fa-chevron-down"></i>
+        </div>
+    </section>
+
+    <!-- Terminal -->
+    <section id="terminal" class="section terminal-section">
+        <h2 class="section-title terminal-label"><span class="prompt-sign">$</span> <span data-i18n="terminal_title">./demo.sh</span></h2>
+        <div class="terminal-window" id="termWindow">
+            <div class="term-bar">
+                <span class="term-dot red"></span>
+                <span class="term-dot yellow"></span>
+                <span class="term-dot green"></span>
+                <span class="term-title">carlvs@dev:~/site</span>
+            </div>
+            <div class="term-body" id="termBody">
+            </div>
         </div>
     </section>
 
@@ -1308,6 +1366,7 @@ Ingeniero informático, <strong>SRE en Roche</strong>. Observabilidad, automatiz
                 awards_title: 'Premios',
                 award_1: '<strong>VI Edición Premio Ada Lovelace</strong> — Universidad de Jaén (Mejor TFG).',
                 award_2: '<strong>3ª Edición Mejor línea de investigación</strong> — Red PLN.NET (Procesamiento del Lenguaje Natural).',
+                terminal_title: './demo.sh',
                 contact_title: 'Contacto',
                 cv_label: 'Descargar CV',
                 cv_value: 'HTML · imprimible',
@@ -1386,6 +1445,7 @@ Ingeniero informático, <strong>SRE en Roche</strong>. Observabilidad, automatiz
                 awards_title: 'Awards',
                 award_1: '<strong>6th Edition Ada Lovelace Award</strong> — University of Jaén (Best Final Project).',
                 award_2: '<strong>3rd Edition Best Research Line Award</strong> — PLN.NET Network (Natural Language Processing).',
+                terminal_title: './demo.sh',
                 contact_title: 'Contact',
                 cv_label: 'Download CV',
                 cv_value: 'HTML · printable',
@@ -1393,14 +1453,35 @@ Ingeniero informático, <strong>SRE en Roche</strong>. Observabilidad, automatiz
             }
         };
 
+        let twTimeout;
+        function typewriter(el, text, speed, cb) {
+            el.textContent = '';
+            const cursor = el.nextElementSibling;
+            if (cursor) cursor.classList.add('typing');
+            let i = 0;
+            function step() {
+                if (i < text.length) {
+                    el.textContent += text[i++];
+                    twTimeout = setTimeout(step, speed);
+                } else {
+                    if (cursor) cursor.classList.remove('typing');
+                    if (cb) cb();
+                }
+            }
+            step();
+        }
+
         function setLanguage(lang) {
             document.documentElement.lang = lang;
             localStorage.setItem('lang', lang);
             document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
             document.querySelectorAll('[data-i18n]').forEach(el => {
                 const k = el.getAttribute('data-i18n');
+                if (k === 'title') return;
                 if (translations[lang][k]) el.innerHTML = translations[lang][k];
             });
+            clearTimeout(twTimeout);
+            typewriter(document.getElementById('tw-text'), translations[lang]['title'], 45);
         }
 
         document.querySelectorAll('.lang-btn').forEach(b => {
@@ -1538,6 +1619,165 @@ Ingeniero informático, <strong>SRE en Roche</strong>. Observabilidad, automatiz
                 showToast('Error al copiar');
             });
         });
+        /* ── Terminal demo ── */
+        const termCmds = [
+            { cmd: 'whoami', out: 'carlvs', cd: 60, od: 40 },
+            { cmd: 'curl -s carlvs.dev', out: '<!DOCTYPE html>\n<html lang="es">\n<head>\n  <title>CarlVs | Site Reliability Engineer</title>\n</head>\n<body>\n  <!-- Observabilidad, automatización, IA -->\n</body>\n</html>', cd: 60, od: 20 },
+            { cmd: 'uptime', out: () => { const u = Math.floor((Date.now() - new Date().setHours(0,0,0,0)) / 1000); const h = Math.floor(u / 3600); const m = Math.floor((u % 3600) / 60); const s = u % 60; const d = Math.floor(u / 86400); return `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')} up ${d} day${d!==1?'s':''}, ${h%24}:${String(m).padStart(2,'0')},  1 user,  load average: 0.08, 0.03, 0.01`; }, cd: 60, od: 25 },
+            { cmd: 'uname -a', out: 'Darwin carlvs.local 24.3.0 Darwin Kernel Version 24.3.0: root:xnu-11215.81.4~3/RELEASE_ARM64_T8112 arm64', cd: 60, od: 30 },
+            { cmd: 'ls -la ~/skills/', out: 'total 32\ndrwxr-xr-x  8 carlvs  staff   256  Jul 12 12:34 .\ndrwxr-xr-x  8 carlvs  staff   256  Jul 12 12:34 ..\n-rw-r--r--  1 carlvs  staff   245  Jul 12 12:34 sre.md\n-rw-r--r--  1 carlvs  staff   198  Jul 12 12:34 python.md\n-rw-r--r--  1 carlvs  staff   312  Jul 12 12:34 observability.md\n-rw-r--r--  1 carlvs  staff   178  Jul 12 12:34 aiops.md\n-rw-r--r--  1 carlvs  staff   156  Jul 12 12:34 devops.md', cd: 55, od: 15 },
+            { cmd: 'cat sre.md', out: '## SRE Skills\n\n- Python automation\n- Observability (LogicMonitor, Splunk, OpenTelemetry)\n- Incident management (PagerDuty, ServiceNow)\n- CI/CD (GitLab CI, GitHub Actions)\n- AI-assisted operations (LLM agents)\n- REST/HMAC APIs\n- Docker, AWS\n- On-call & incident response', cd: 60, od: 18 },
+        ];
+        let termIndex = 0, termLineIdx = 0, termRunning = false;
+        const termBody = document.getElementById('termBody');
+        const termObs = new IntersectionObserver(entries => {
+            entries.forEach(e => {
+                if (e.isIntersecting && !termRunning) {
+                    termRunning = true;
+                    runTerminal();
+                }
+            });
+        }, { threshold: 0.3 });
+        termObs.observe(document.getElementById('terminal'));
+
+        function termType(el, text, speed, cb) {
+            let i = 0;
+            el.textContent = '';
+            function step() {
+                if (i < text.length) {
+                    el.textContent += text[i++];
+                    setTimeout(step, speed);
+                } else if (cb) { cb(); }
+            }
+            step();
+        }
+
+        function runTerminal() {
+            if (termIndex >= termCmds.length) return;
+            const entry = termCmds[termIndex];
+            const line = document.createElement('div');
+            line.className = 'term-line';
+            const prompt = document.createElement('span');
+            prompt.className = 'term-prompt';
+            prompt.textContent = 'carlvs@dev:~$ ';
+            const cmd = document.createElement('span');
+            cmd.className = 'term-cmd';
+            const cursor = document.createElement('span');
+            cursor.className = 'term-cursor';
+            line.appendChild(prompt);
+            line.appendChild(cmd);
+            line.appendChild(cursor);
+            termBody.appendChild(line);
+            termBody.scrollTop = termBody.scrollHeight;
+
+            termType(cmd, entry.cmd, entry.cd || 60, () => {
+                cursor.remove();
+                const outLine = document.createElement('div');
+                outLine.className = 'term-line';
+                const out = document.createElement('span');
+                out.className = 'term-output';
+                outLine.appendChild(out);
+                termBody.appendChild(outLine);
+                const outText = typeof entry.out === 'function' ? entry.out() : entry.out;
+                termType(out, outText, entry.od || 25, () => {
+                    termIndex++;
+                    if (termIndex >= termCmds.length) {
+                        const finalLine = document.createElement('div');
+                        finalLine.className = 'term-line';
+                        const fp = document.createElement('span');
+                        fp.className = 'term-prompt';
+                        fp.textContent = 'carlvs@dev:~$ ';
+                        const fc = document.createElement('span');
+                        fc.className = 'term-cursor';
+                        finalLine.appendChild(fp);
+                        finalLine.appendChild(fc);
+                        termBody.appendChild(finalLine);
+                        termBody.scrollTop = termBody.scrollHeight;
+                        return;
+                    }
+                    setTimeout(runTerminal, 1200);
+                });
+            });
+        }
+
+        /* ── Particle canvas animation ── */
+        const pCanvas = document.getElementById('particleCanvas');
+        const pCtx = pCanvas.getContext('2d');
+        let pMouse = { x: -1000, y: -1000 };
+        const PCOLORS = ['#f92672','#a6e22e','#66d9ef','#ae81ff','#fd971f'];
+        let particles = [];
+
+        function pResize() {
+            pCanvas.width = window.innerWidth;
+            pCanvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', pResize);
+        pResize();
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * pCanvas.width;
+                this.y = Math.random() * pCanvas.height;
+                this.vx = (Math.random() - 0.5) * 0.6;
+                this.vy = (Math.random() - 0.5) * 0.6;
+                this.color = PCOLORS[Math.floor(Math.random() * PCOLORS.length)];
+                this.s = Math.random() * 1.8 + 1;
+            }
+            update() {
+                const dx = pMouse.x - this.x, dy = pMouse.y - this.y;
+                const d = Math.sqrt(dx*dx + dy*dy);
+                if (d < 150) {
+                    const f = (150 - d) / 150;
+                    this.vx -= (dx/d) * f * 1.2;
+                    this.vy -= (dy/d) * f * 1.2;
+                }
+                this.x += this.vx; this.y += this.vy;
+                this.vx *= 0.99; this.vy *= 0.99;
+                if (this.x < 0) { this.x = 0; this.vx *= -1; }
+                if (this.x > pCanvas.width) { this.x = pCanvas.width; this.vx *= -1; }
+                if (this.y < 0) { this.y = 0; this.vy *= -1; }
+                if (this.y > pCanvas.height) { this.y = pCanvas.height; this.vy *= -1; }
+            }
+            draw() {
+                pCtx.fillStyle = this.color;
+                pCtx.beginPath();
+                pCtx.arc(this.x, this.y, this.s, 0, Math.PI * 2);
+                pCtx.fill();
+            }
+        }
+
+        for (let i = 0; i < 80; i++) particles.push(new Particle());
+
+        function drawLines() {
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i+1; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const d = Math.sqrt(dx*dx + dy*dy);
+                    if (d < 120) {
+                        const a = (1 - d/120) * 0.4;
+                        pCtx.strokeStyle = `rgba(102, 217, 239, ${a})`;
+                        pCtx.lineWidth = 0.5;
+                        pCtx.beginPath();
+                        pCtx.moveTo(particles[i].x, particles[i].y);
+                        pCtx.lineTo(particles[j].x, particles[j].y);
+                        pCtx.stroke();
+                    }
+                }
+            }
+        }
+
+        function pAnimate() {
+            pCtx.clearRect(0, 0, pCanvas.width, pCanvas.height);
+            particles.forEach(p => { p.update(); p.draw(); });
+            drawLines();
+            requestAnimationFrame(pAnimate);
+        }
+        pAnimate();
+
+        document.addEventListener('mousemove', e => { pMouse.x = e.clientX; pMouse.y = e.clientY; });
+        document.addEventListener('mouseleave', () => { pMouse.x = -1000; pMouse.y = -1000; });
+
     </script>
 </body>
 
