@@ -81,20 +81,20 @@
         .now-section ul { padding-left: 1.25rem; margin: 0; }
         .now-section li { margin-bottom: 0.4rem; }
 
-        /* ── Globe ── */
-        #globe-container {
+        /* ── World map canvas ── */
+        #world-map {
             width: 100%;
             max-width: 680px;
             height: 420px;
+            display: block;
             margin: 0 auto 3rem;
             border-radius: 12px;
-            overflow: hidden;
             background: transparent;
             opacity: 0;
             transform: translateY(20px);
             transition: opacity 0.6s ease, transform 0.6s ease;
         }
-        #globe-container.visible {
+        #world-map.visible {
             opacity: 1;
             transform: translateY(0);
         }
@@ -121,7 +121,7 @@
             .now-hero h1 { font-size: 2.2rem; }
             .now-hero { min-height: 30vh; }
             .now-content { padding: 1.5rem 1rem 3rem; }
-            #globe-container { height: 280px; }
+            #world-map { height: 280px; }
         }
     </style>
 </head>
@@ -158,38 +158,38 @@
         <!-- Work -->
         <section class="now-section">
             <h2 data-i18n="now_work_title">💼 Trabajo</h2>
-            <p data-i18n="now_work"><strong>Site Reliability Engineer</strong> en Roche, equipo de Monitoring &amp; Observability. Automatización Python, pipelines OpenTelemetry, integración CMDB, tuning de alertas, y agentes LLM para triage de incidentes.</p>
+            <p data-i18n="now_work">Día a día en Roche, aprendiendo a integrar observabilidad, automatizar lo que pueda y meter IA donde toque. Me está gustando bastante, y me mantiene motivado cada día para aprender cosas nuevas.</p>
         </section>
 
         <!-- Learning -->
         <section class="now-section">
             <h2 data-i18n="now_learning_title">📚 Aprendiendo</h2>
-            <p data-i18n="now_learning">Profundizando en <strong>arquitecturas cloud</strong> (AWS) y <strong>agentes AI</strong> aplicados a operaciones. Explorando <strong>Kubernetes</strong> y orquestación de contenedores.</p>
+            <p data-i18n="now_learning">Rundeck, Temporal, y en general cómo hacer que sistemas hablen entre sí sin que se quemen.</p>
         </section>
 
         <!-- Reading -->
         <section class="now-section">
             <h2 data-i18n="now_reading_title">📖 Leyendo</h2>
-            <p data-i18n="now_reading"><strong>The Site Reliability Workbook</strong> (Google) · Documentación de OpenTelemetry · Papers sobre AIOps y detección de anomalías.</p>
+            <p data-i18n="now_reading">El Código Da Vinci (sí, llegué tarde).</p>
         </section>
 
         <!-- Listening -->
         <section class="now-section">
             <h2 data-i18n="now_listening_title">🎵 Escuchando</h2>
-            <p data-i18n="now_listening">Robe · Extremoduro · Marea · Platero y Tú · Rock español en bucle.</p>
+            <p data-i18n="now_listening"><a href="https://www.youtube.com/watch?v=hbihilDlb1I" target="_blank" rel="noopener">Cartas desde Gaia</a> — Robe · Extremoduro · Marea · Platero y Tú · Rock español en bucle.</p>
         </section>
 
         <!-- Side projects -->
         <section class="now-section">
             <h2 data-i18n="now_projects_title">🛠️ Side Projects</h2>
-            <p data-i18n="now_projects"><strong>carlvs.dev</strong> — portfolio SRE con terminal interactivo, health graphs, toolkit, y modo ñiñosaurio. Construido con HTML/CSS/JS vanilla, deploy automático con GitHub Actions.</p>
+            <p data-i18n="now_projects">carlvs.dev, un capricho personal. Lo mantengo porque me gusta tener mi rinconcito en internet, sin prisas, sin más.</p>
         </section>
 
         <!-- Travel -->
         <section class="now-section">
             <h2 data-i18n="now_travel_title">🌍 Países visitados</h2>
             <p data-i18n="now_travel">15 países y contando. Cada punto en el mapa es un destino del que guardo algo.</p>
-            <div id="globe-container"></div>
+            <canvas id="world-map"></canvas>
             <div class="travel-list">
                 <span>🇪🇸 España</span><span>🇬🇮 Gibraltar</span><span>🇵🇹 Portugal</span><span>🇫🇷 Francia</span>
                 <span>🇩🇪 Alemania</span><span>🇬🇧 UK</span><span>🇨🇿 Rep. Checa</span><span>🇵🇱 Polonia</span>
@@ -216,7 +216,6 @@
 
     <script src="/assets/js/translations.js?v=20260712"></script>
     <script src="/assets/js/common.js?v=20260712"></script>
-    <script src="https://unpkg.com/globe.gl"></script>
     <script>
         /* ── i18n ── */
         let currentLang = localStorage.getItem('lang') || 'es';
@@ -257,7 +256,7 @@
         });
 
         /* ── Section reveal on scroll ── */
-        const sections = document.querySelectorAll('.now-section, #globe-container');
+        const sections = document.querySelectorAll('.now-section, #world-map');
         const revealObserver = new IntersectionObserver(entries => {
             entries.forEach(e => {
                 if (e.isIntersecting) e.target.classList.add('visible');
@@ -274,77 +273,112 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
 
-        /* ── Globe ── */
+        /* ── World map canvas ── */
         (function() {
-            const container = document.getElementById('globe-container');
-            if (!container || typeof Globe === 'undefined') return;
+            const canvas = document.getElementById('world-map');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
 
-            const countries = [
-                { lat: 40.42, lng: -3.70, label: 'España' },
-                { lat: 36.14, lng: -5.35, label: 'Gibraltar' },
-                { lat: 38.72, lng: -9.14, label: 'Portugal' },
-                { lat: 48.86, lng: 2.35, label: 'Francia' },
-                { lat: 52.52, lng: 13.41, label: 'Alemania' },
-                { lat: 51.51, lng: -0.13, label: 'UK' },
-                { lat: 50.08, lng: 14.44, label: 'Rep. Checa' },
-                { lat: 52.23, lng: 21.01, label: 'Polonia' },
-                { lat: 48.15, lng: 17.11, label: 'Eslovaquia' },
-                { lat: 59.91, lng: 10.75, label: 'Noruega' },
-                { lat: 59.33, lng: 18.07, label: 'Suecia' },
-                { lat: 41.90, lng: 12.50, label: 'Italia' },
-                { lat: 37.98, lng: 23.73, label: 'Grecia' },
-                { lat: 41.90, lng: 12.45, label: 'Vaticano' },
-                { lat: 50.85, lng: 4.35, label: 'Bélgica' },
+            const places = [
+                { lat: 37.18, lng: -3.60, name: 'Granada', home: true },
+                { lat: 40.42, lng: -3.70, name: 'España' },
+                { lat: 36.14, lng: -5.35, name: 'Gibraltar' },
+                { lat: 38.72, lng: -9.14, name: 'Portugal' },
+                { lat: 48.86, lng: 2.35, name: 'Francia' },
+                { lat: 52.52, lng: 13.41, name: 'Alemania' },
+                { lat: 51.51, lng: -0.13, name: 'UK' },
+                { lat: 50.08, lng: 14.44, name: 'Rep. Checa' },
+                { lat: 52.23, lng: 21.01, name: 'Polonia' },
+                { lat: 48.15, lng: 17.11, name: 'Eslovaquia' },
+                { lat: 59.91, lng: 10.75, name: 'Noruega' },
+                { lat: 59.33, lng: 18.07, name: 'Suecia' },
+                { lat: 41.90, lng: 12.50, name: 'Italia' },
+                { lat: 37.98, lng: 23.73, name: 'Grecia' },
+                { lat: 41.90, lng: 12.45, name: 'Vaticano' },
+                { lat: 50.85, lng: 4.35, name: 'Bélgica' },
             ];
-            const home = { lat: 37.18, lng: -3.60, label: 'Granada' };
 
-            const globe = Globe()(container)
-                .globeImageUrl('//unpkg.com/three-globe/example/img/earth-dark.jpg')
-                .backgroundImageUrl('//unpkg.com/three-globe/example/img/night-sky.png')
-                .width(container.offsetWidth)
-                .height(container.offsetHeight)
-                .pointsData([home, ...countries])
-                .pointLat(d => d.lat)
-                .pointLng(d => d.lng)
-                .pointColor(d => d.label === 'Granada' ? '#f92672' : '#a6e22e')
-                .pointAltitude(0.02)
-                .pointRadius(d => d.label === 'Granada' ? 0.12 : 0.08)
-                .pointsMerge(true)
-                .arcsData(countries.map(d => ({
-                    startLat: home.lat,
-                    startLng: home.lng,
-                    endLat: d.lat,
-                    endLng: d.lng,
-                })))
-                .arcColor(() => ['rgba(166,226,46,0.3)', 'rgba(166,226,46,0.1)'])
-                .arcDashLength(0.3)
-                .arcDashGap(0.1)
-                .arcDashAnimateTime(2000)
-                .arcStroke(0.4)
-                .labelData([home, ...countries])
-                .labelLat(d => d.lat)
-                .labelLng(d => d.lng)
-                .labelText(d => d.label)
-                .labelColor(() => '#f8f8f2')
-                .labelDotRadius(0)
-                .labelSize(0.8)
-                .labelResolution(2)
-                .pointOfView({ lat: 37, lng: -3, altitude: 2.5 })
-                .onGlobeReady(() => {
-                    container.classList.add('visible');
+            function toScreen(lat, lng, w, h) {
+                return { x: (lng + 180) * w / 360, y: (90 - lat) * h / 180 };
+            }
+
+            function draw() {
+                const rect = canvas.parentNode.getBoundingClientRect();
+                const w = canvas.width = rect.width;
+                const h = canvas.height = 420;
+                canvas.style.width = w + 'px';
+                canvas.style.height = h + 'px';
+
+                ctx.clearRect(0, 0, w, h);
+
+                /* graticule */
+                ctx.strokeStyle = '#75715e';
+                ctx.lineWidth = 0.4;
+                ctx.globalAlpha = 0.3;
+                for (let lat = -90; lat <= 90; lat += 30) {
+                    ctx.beginPath();
+                    for (let lng = -180; lng <= 180; lng += 2) {
+                        const p = toScreen(lat, lng, w, h);
+                        lng === -180 ? ctx.moveTo(p.x, p.y) : ctx.lineTo(p.x, p.y);
+                    }
+                    ctx.stroke();
+                }
+                for (let lng = -180; lng <= 180; lng += 30) {
+                    ctx.beginPath();
+                    for (let lat = -90; lat <= 90; lat += 2) {
+                        const p = toScreen(lat, lng, w, h);
+                        lat === -90 ? ctx.moveTo(p.x, p.y) : ctx.lineTo(p.x, p.y);
+                    }
+                    ctx.stroke();
+                }
+                ctx.globalAlpha = 1;
+
+                /* continent silhouettes (simplified) */
+                ctx.fillStyle = '#75715e';
+                ctx.globalAlpha = 0.08;
+                const continents = [
+                    [-10,36,10,36,8,46,25,46,30,42,25,36,20,38,10,38],
+                    [-130,50,-125,48,-122,37,-118,34,-115,33,-110,30,-105,25,-100,25,-97,26,-95,30,-90,30,-87,25,-82,25,-80,28,-75,30,-70,45,-65,47,-60,50,-55,52,-50,55,-65,60,-75,60,-80,55,-85,60,-90,62,-95,60,-100,55,-110,55,-120,50,-130,50],
+                    [75,10,80,8,90,10,95,15,100,15,105,10,110,5,115,8,120,10,125,15,130,20,125,25,120,25,115,30,110,25,105,25,100,22,95,15,85,15,80,15,75,15],
+                    [135,-25,140,-20,145,-15,150,-10,145,-5,140,-5,135,-10,130,-15,135,-20],
+                ];
+                continents.forEach(pts => {
+                    ctx.beginPath();
+                    for (let i = 0; i < pts.length; i += 2) {
+                        const p = toScreen(pts[i+1], pts[i], w, h);
+                        i === 0 ? ctx.moveTo(p.x, p.y) : ctx.lineTo(p.x, p.y);
+                    }
+                    ctx.closePath();
+                    ctx.fill();
                 });
+                ctx.globalAlpha = 1;
 
-            /* ── Responsive width ── */
-            window.addEventListener('resize', () => {
-                globe.width(container.offsetWidth).height(container.offsetHeight);
-            });
+                /* dots + labels */
+                places.forEach(p => {
+                    const s = toScreen(p.lat, p.lng, w, h);
+                    const r = p.home ? 5 : 3.5;
+                    ctx.beginPath();
+                    ctx.arc(s.x, s.y, r, 0, Math.PI * 2);
+                    ctx.fillStyle = p.home ? '#f92672' : '#a6e22e';
+                    ctx.fill();
+                    if (p.home) {
+                        ctx.beginPath();
+                        ctx.arc(s.x, s.y, r + 4, 0, Math.PI * 2);
+                        ctx.strokeStyle = 'rgba(249,38,114,0.3)';
+                        ctx.lineWidth = 2;
+                        ctx.stroke();
+                    }
+                    ctx.font = '10px JetBrains Mono, monospace';
+                    ctx.fillStyle = '#75715e';
+                    ctx.textAlign = 'left';
+                    ctx.textBaseline = 'middle';
+                    ctx.fillText(p.name, s.x + r + 5, s.y);
+                });
+            }
 
-            /* ── Autorotate, pause on hover ── */
-            let autorotate = true;
-            globe.controls().autoRotate = true;
-            globe.controls().autoRotateSpeed = 0.6;
-            container.addEventListener('mouseenter', () => { globe.controls().autoRotate = false; });
-            container.addEventListener('mouseleave', () => { globe.controls().autoRotate = true; });
+            draw();
+            canvas.classList.add('visible');
+            window.addEventListener('resize', draw);
         })();
     </script>
 </body>
