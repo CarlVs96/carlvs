@@ -494,6 +494,7 @@
             animation: termBlink 0.8s step-end infinite;
         }
         .term-cursor.idle { animation: none; opacity: 0.4; }
+        .term-input { color: #f8f8f2; }
         @keyframes termBlink {
             0%, 50% { opacity: 1; }
             51%, 100% { opacity: 0; }
@@ -1967,12 +1968,12 @@ Ingeniero informático, <strong>SRE en Roche</strong>. Observabilidad, automatiz
         });
         /* ── Terminal demo ── */
         const termCmds = [
-            { cmd: 'whoami', out: 'carlvs', cd: 60, od: 40 },
+            { cmd: 'whoami', out: 'Carlos Villén Villar', cd: 60, od: 40 },
             { cmd: 'curl -s carlvs.dev', out: '<!DOCTYPE html>\n<html lang="es">\n<head>\n  <title>CarlVs | Site Reliability Engineer</title>\n</head>\n<body>\n  <!-- Observabilidad, automatización, IA -->\n</body>\n</html>', cd: 60, od: 20 },
             { cmd: 'uptime', out: () => { const u = Math.floor((Date.now() - new Date().setHours(0,0,0,0)) / 1000); const h = Math.floor(u / 3600); const m = Math.floor((u % 3600) / 60); const s = u % 60; const d = Math.floor(u / 86400); return `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')} up ${d} day${d!==1?'s':''}, ${h%24}:${String(m).padStart(2,'0')},  1 user,  load average: 0.08, 0.03, 0.01`; }, cd: 60, od: 25 },
             { cmd: 'uname -a', out: 'Darwin carlvs.local 24.3.0 Darwin Kernel Version 24.3.0: root:xnu-11215.81.4~3/RELEASE_ARM64_T8112 arm64', cd: 60, od: 30 },
-            { cmd: 'ls -la ~/skills/', out: 'total 32\ndrwxr-xr-x  8 carlvs  staff   256  Jul 12 12:34 .\ndrwxr-xr-x  8 carlvs  staff   256  Jul 12 12:34 ..\n-rw-r--r--  1 carlvs  staff   245  Jul 12 12:34 sre.md\n-rw-r--r--  1 carlvs  staff   198  Jul 12 12:34 python.md\n-rw-r--r--  1 carlvs  staff   312  Jul 12 12:34 observability.md\n-rw-r--r--  1 carlvs  staff   178  Jul 12 12:34 aiops.md\n-rw-r--r--  1 carlvs  staff   156  Jul 12 12:34 devops.md', cd: 55, od: 15 },
-            { cmd: 'cat sre.md', out: '## SRE Skills\n\n- Python automation\n- Observability (LogicMonitor, Splunk, OpenTelemetry)\n- Incident management (PagerDuty, ServiceNow)\n- CI/CD (GitLab CI, GitHub Actions)\n- AI-assisted operations (LLM agents)\n- REST/HMAC APIs\n- Docker, AWS\n- On-call & incident response', cd: 60, od: 18 },
+            { cmd: 'ls -la ~/skills/', out: 'total 32\ndrwxr-xr-x  8 carlvs  staff   256  Jul 12 12:34 .\ndrwxr-xr-x  8 carlvs  staff   256  Jul 12 12:34 ..\n-rw-r--r--  1 carlvs  staff   245  Jul 12 12:34 hobbies.txt\n-rw-r--r--  1 carlvs  staff   198  Jul 12 12:34 python.md\n-rw-r--r--  1 carlvs  staff   312  Jul 12 12:34 observability.md\n-rw-r--r--  1 carlvs  staff   178  Jul 12 12:34 aiops.md\n-rw-r--r--  1 carlvs  staff   156  Jul 12 12:34 devops.md', cd: 55, od: 15 },
+            { cmd: 'cat hobbies.txt', out: '─────────────\n🏐 Pádel & Tenis\n🎸 Rock español (Robe, Extremoduro, Marea)\n🍻 Cañas con amigos\n💪 Deporte, música y tecnología', cd: 60, od: 18 },
         ];
         let termIndex = 0, termLineIdx = 0, termRunning = false;
         const termBody = document.getElementById('termBody');
@@ -2033,12 +2034,68 @@ Ingeniero informático, <strong>SRE en Roche</strong>. Observabilidad, automatiz
                         const fp = document.createElement('span');
                         fp.className = 'term-prompt';
                         fp.textContent = 'carlvs@dev:~$ ';
+                        const fi = document.createElement('span');
+                        fi.className = 'term-input';
+                        fi.id = 'termInput';
                         const fc = document.createElement('span');
                         fc.className = 'term-cursor';
                         finalLine.appendChild(fp);
+                        finalLine.appendChild(fi);
                         finalLine.appendChild(fc);
                         termBody.appendChild(finalLine);
                         termBody.scrollTop = termBody.scrollHeight;
+                        let termBuf = '', termIdle = true;
+                        const termKey = e => {
+                            if (!termIdle) return;
+                            if (e.key === 'Enter') {
+                                const cmd = termBuf.trim().toLowerCase();
+                                const prompt = 'carlvs@dev:~$ ';
+                                fi.textContent = '';
+                                termBuf = '';
+                                fc.style.display = 'none';
+                                const outLine = document.createElement('div');
+                                outLine.className = 'term-line';
+                                const out = document.createElement('span');
+                                out.className = 'term-output';
+                                outLine.appendChild(out);
+                                termBody.appendChild(outLine);
+                                let resp = '';
+                                if (cmd === 'help') resp = 'Comandos: whoami, help, clear · Pulsa Ñ o J para modos secretos, ESC para salir';
+                                else if (cmd === 'whoami') resp = 'Carlos Villén Villar';
+                                else if (cmd === 'clear') { termBody.innerHTML = ''; termIdle = false; termRunning = false; document.removeEventListener('keydown', termKey); setTimeout(runTerminal, 500); return; }
+                                else resp = `Comando no encontrado: ${cmd}. Escribe 'help' para ayuda.`;
+                                let i = 0;
+                                function typeResp() {
+                                    if (i < resp.length) { out.textContent += resp[i++]; setTimeout(typeResp, 18); }
+                                    else {
+                                        const nl = document.createElement('div');
+                                        nl.className = 'term-line';
+                                        const np = document.createElement('span');
+                                        np.className = 'term-prompt';
+                                        np.textContent = prompt;
+                                        const ni = document.createElement('span');
+                                        ni.className = 'term-input';
+                                        ni.id = 'termInput';
+                                        const nc = document.createElement('span');
+                                        nc.className = 'term-cursor';
+                                        nc.style.display = 'inline-block';
+                                        nl.appendChild(np); nl.appendChild(ni); nl.appendChild(nc);
+                                        termBody.appendChild(nl);
+                                        termBody.scrollTop = termBody.scrollHeight;
+                                        fc.style.display = '';
+                                    }
+                                }
+                                typeResp();
+                            } else if (e.key === 'Backspace') {
+                                termBuf = termBuf.slice(0, -1);
+                                fi.textContent = termBuf;
+                                e.preventDefault();
+                            } else if (e.key.length === 1 && !e.ctrlKey && !e.metaKey && !e.altKey) {
+                                termBuf += e.key;
+                                fi.textContent = termBuf;
+                            }
+                        };
+                        document.addEventListener('keydown', termKey);
                         return;
                     }
                     setTimeout(runTerminal, 1200);
