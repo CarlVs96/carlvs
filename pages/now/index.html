@@ -331,12 +331,12 @@
         <!-- Travel -->
         <section class="now-section section-travel">
             <h2 data-i18n="now_travel_title">🌍 Países visitados</h2>
-            <p data-i18n="now_travel">13 países y contando. Cada punto en el mapa es un destino del que guardo algo.</p>
+            <p data-i18n="now_travel">15 países y contando. Cada punto en el mapa es un destino del que guardo algo.</p>
             <canvas id="world-map"></canvas>
             <div class="travel-list">
                 <span>🇪🇸 España</span><span>🇵🇹 Portugal</span><span>🇫🇷 Francia</span>
                 <span>🇩🇪 Alemania</span><span>🇬🇧 UK</span><span>🇨🇿 Rep. Checa</span><span>🇵🇱 Polonia</span>
-                <span>🇸🇰 Eslovaquia</span><span>🇳🇴 Noruega</span><span>🇸🇪 Suecia</span><span>🇮🇹 Italia</span>
+                <span>🇸🇰 Eslovaquia</span><span>🇦🇹 Austria</span><span>🇭🇺 Hungría</span><span>🇳🇴 Noruega</span><span>🇸🇪 Suecia</span><span>🇮🇹 Italia</span>
                 <span>🇬🇷 Grecia</span><span>🇧🇪 Bélgica</span>
             </div>
         </section>
@@ -438,6 +438,8 @@
                 { name: 'Bélgica',   color: MONOKAI[0], poly: [[2.5,51.5],[3.5,51.5],[4.0,51.5],[4.5,50.8],[4.5,50.5],[3.5,49.8],[3.0,49.5],[2.5,50.0],[2.5,51.5]] },
                 { name: 'Rep. Checa',color: MONOKAI[1], poly: [[13.0,50.0],[13.5,50.5],[14.5,50.5],[15.5,50.5],[16.0,50.0],[16.5,49.5],[16.5,49.0],[15.5,48.8],[15.0,48.5],[14.0,48.5],[13.5,49.0]] },
                 { name: 'Eslovaquia',color: MONOKAI[2], poly: [[17.0,49.5],[17.5,49.5],[18.5,49.5],[19.5,49.0],[19.5,48.5],[19.0,48.0],[18.0,48.0],[17.5,48.0],[17.0,48.5]] },
+                { name: 'Austria',   color: MONOKAI[3], poly: [[9.5,47.5],[10.5,47.5],[12.0,47.5],[13.5,47.5],[14.5,48.0],[15.5,48.5],[15.5,49.0],[14.5,49.5],[13.5,49.0],[12.5,49.0],[11.5,48.5],[10.5,48.5],[9.5,48.0]] },
+                { name: 'Hungría',   color: MONOKAI[4], poly: [[16.5,48.0],[18.0,48.0],[20.0,48.0],[21.5,48.5],[22.5,48.0],[22.5,47.0],[21.5,46.5],[20.5,46.0],[19.0,46.0],[18.0,46.0],[17.0,46.5],[16.5,47.0]] },
             ];
             const home = { lat: 37.18, lng: -3.60, name: 'Granada' };
             const cityDots = [
@@ -454,6 +456,8 @@
                 { lat: 50.85, lng: 4.35, name: 'Bélgica' },
                 { lat: 50.08, lng: 14.44, name: 'Rep. Checa' },
                 { lat: 48.15, lng: 17.11, name: 'Eslovaquia' },
+                { lat: 48.21, lng: 16.37, name: 'Austria' },
+                { lat: 47.50, lng: 19.05, name: 'Hungría' },
             ];
 
             /* europe projection: lng -10..32, lat 34..62 */
