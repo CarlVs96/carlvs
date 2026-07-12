@@ -1103,7 +1103,7 @@
         html.light .theme-btn { color: #999; }
         html.light .theme-btn:hover { color: #fd971f; }
         html.light .section { border-bottom-color: #eee; }
-        html.light #particleCanvas { opacity: 0.12; }
+        html.light #particleCanvas { opacity: 0.5; }
         html.light .timeline-item::before { border-color: #ddd; background: #eee; }
         html.light .timeline-item.current::before { background: #f92672; }
         html.light .timeline::before { background: #ddd; }
@@ -1678,6 +1678,8 @@ Ingeniero informático, <strong>SRE en Roche</strong>. Observabilidad, automatiz
             const isLight = document.documentElement.classList.toggle('light');
             themeBtn.textContent = isLight ? '🌙' : '☀️';
             localStorage.setItem('theme', isLight ? 'light' : 'dark');
+            const cols = pColors();
+            particles.forEach(p => { p.color = cols[Math.floor(Math.random() * cols.length)]; });
         });
 
         /* ── Stack filter ── */
@@ -1846,6 +1848,8 @@ Ingeniero informático, <strong>SRE en Roche</strong>. Observabilidad, automatiz
         const pCtx = pCanvas.getContext('2d');
         let pMouse = { x: -1000, y: -1000 };
         const PCOLORS = ['#f92672','#a6e22e','#66d9ef','#ae81ff','#fd971f'];
+        const PCOLORS_LIGHT = ['#e88', '#8c8', '#8cf', '#c8f', '#fa8'];
+        function pColors() { return document.documentElement.classList.contains('light') ? PCOLORS_LIGHT : PCOLORS; }
         let particles = [];
 
         function pResize() {
@@ -1861,7 +1865,7 @@ Ingeniero informático, <strong>SRE en Roche</strong>. Observabilidad, automatiz
                 this.y = Math.random() * pCanvas.height;
                 this.vx = (Math.random() - 0.5) * 0.6;
                 this.vy = (Math.random() - 0.5) * 0.6;
-                this.color = PCOLORS[Math.floor(Math.random() * PCOLORS.length)];
+                this.color = pColors()[Math.floor(Math.random() * pColors().length)];
                 this.s = Math.random() * 1.8 + 1;
             }
             update() {
@@ -1896,8 +1900,9 @@ Ingeniero informático, <strong>SRE en Roche</strong>. Observabilidad, automatiz
                     const dy = particles[i].y - particles[j].y;
                     const d = Math.sqrt(dx*dx + dy*dy);
                     if (d < 120) {
+                        const isLight = document.documentElement.classList.contains('light');
                         const a = (1 - d/120) * 0.4;
-                        pCtx.strokeStyle = `rgba(102, 217, 239, ${a})`;
+                        pCtx.strokeStyle = isLight ? `rgba(150, 150, 150, ${a})` : `rgba(102, 217, 239, ${a})`;
                         pCtx.lineWidth = 0.5;
                         pCtx.beginPath();
                         pCtx.moveTo(particles[i].x, particles[i].y);
