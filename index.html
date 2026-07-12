@@ -34,40 +34,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/assets/css/common.css?v=20260712">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            background: #1a1a1a;
-            color: #f8f8f2;
-            font-family: 'JetBrains Mono', monospace;
-            overflow-x: hidden;
-        }
-
-        ::selection {
-            background: #f92672;
-            color: #1a1a1a;
-        }
-
-        strong {
-            color: #fd971f;
-        }
-
-        a {
-            color: #66d9ef;
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-        a:hover { color: #a6e22e; }
-
         .section {
             padding: 5rem 2rem;
             max-width: 900px;
@@ -93,124 +61,6 @@
             flex: 1;
             height: 1px;
             background: #3a3a3a;
-        }
-
-        /* ── Particle canvas ── */
-        #particleCanvas {
-            position: fixed; inset: 0;
-            z-index: 0; pointer-events: none;
-        }
-
-        /* ── Navbar ── */
-        .navbar {
-            position: fixed;
-            top: 0; left: 0; right: 0;
-            background: rgba(26, 26, 26, 0.85);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-bottom: 1px solid #3a3a3a;
-            z-index: 1000;
-            padding: 0 2rem;
-            height: 60px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .nav-logo {
-            font-size: 1.2rem;
-            font-weight: 700;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 0.4rem;
-            background: linear-gradient(135deg, #f92672 0%, #ae81ff 50%, #66d9ef 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        .nav-logo:hover {
-            background: linear-gradient(135deg, #66d9ef 0%, #ae81ff 50%, #f92672 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        .nav-logo svg { flex-shrink: 0; }
-
-        .nav-links {
-            display: flex;
-            gap: 1.5rem;
-        }
-
-        .nav-links a {
-            color: #75715e;
-            font-size: 0.85rem;
-            transition: color 0.3s ease;
-            position: relative;
-        }
-        .nav-links a:hover { color: #f8f8f2; }
-        .nav-links a.active { color: #66d9ef; }
-        .nav-links a.active::after {
-            content: '';
-            position: absolute;
-            bottom: -4px;
-            left: 0; right: 0;
-            height: 2px;
-            background: #66d9ef;
-        }
-
-        .nav-right {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .nav-toggle {
-            display: none;
-            background: none;
-            border: none;
-            color: #f8f8f2;
-            font-size: 1.3rem;
-            cursor: pointer;
-        }
-
-        .lang-btn {
-            padding: 0.35rem 0.7rem;
-            border: 1px solid #3a3a3a;
-            background: transparent;
-            color: #75715e;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 0.75rem;
-            font-family: inherit;
-            transition: all 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            line-height: 1;
-        }
-        .lang-btn:hover { border-color: #66d9ef; color: #66d9ef; }
-        .lang-btn.active { background: #66d9ef; color: #1a1a1a; border-color: #66d9ef; }
-
-        @media (max-width: 480px) {
-            .nav-logo { font-size: 0.9rem; gap: 0.25rem; }
-            .nav-logo svg { width: 18px; height: 18px; }
-        }
-
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-                position: absolute;
-                top: 60px;
-                left: 0; right: 0;
-                background: rgba(26, 26, 26, 0.95);
-                backdrop-filter: blur(12px);
-                border-bottom: 1px solid #3a3a3a;
-                flex-direction: column;
-                padding: 1rem;
-                gap: 0.5rem;
-            }
-            .nav-links.open { display: flex; }
-            .nav-toggle { display: block; }
         }
 
         /* ── Hero ── */
@@ -775,11 +625,10 @@
 
         .contact-grid {
             display: flex;
+            flex-wrap: wrap;
             gap: 1rem;
             justify-content: center;
-            flex-wrap: wrap;
         }
-
         .contact-card {
             background: #222222;
             border: 1px solid #3a3a3a;
@@ -787,12 +636,32 @@
             padding: 1.5rem 2rem;
             text-align: center;
             transition: all 0.3s ease;
-            min-width: 180px;
+            width: 180px;
+            min-height: 160px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        #emailCard { cursor: pointer; }
+        .contact-grid.form-open {
+            max-width: 560px;
+            margin: 0 auto;
+        }
+        .contact-grid.form-open #emailCard {
+            width: 100%;
+        }
+        .contact-grid.form-open a.contact-card {
+            flex: 1;
+            width: auto;
+            max-width: none;
         }
         .contact-card:hover {
             border-color: #66d9ef;
             transform: translateY(-3px);
         }
+        a.contact-card { color: inherit; text-decoration: none; }
+        #emailCard { cursor: pointer; }
         .contact-card i {
             font-size: 1.5rem;
             color: #66d9ef;
@@ -808,50 +677,48 @@
             font-size: 0.8rem;
             color: #75715e;
         }
-
-        /* ── Footer ── */
-        .footer {
-            text-align: center;
-            padding: 3rem 2rem;
-            border-top: 1px solid #3a3a3a;
-            position: relative;
-            z-index: 1;
+        .contact-card .contact-form {
+            width: 100%; margin: 0; padding: 0;
+            max-height: 0; overflow: hidden;
+            transition: max-height 0.4s ease, margin 0.4s ease, opacity 0.3s ease;
+            opacity: 0; visibility: hidden;
         }
-        .footer p {
-            color: #75715e;
-            font-size: 0.8rem;
+        .contact-card .contact-form.open {
+            max-height: 300px;
+            margin-top: 1rem;
+            opacity: 1; visibility: visible;
         }
-
-        /* ── Reveal animation ── */
-        .reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.6s ease;
+        .contact-card .contact-form input,
+        .contact-card .contact-form textarea {
+            width: 100%; background: #2a2a2a; border: 1px solid #3a3a3a;
+            border-radius: 6px; color: #f8f8f2;
+            font-family: 'JetBrains Mono', monospace; font-size: 0.8rem;
+            padding: 0.5rem 0.7rem; outline: none;
+            transition: border-color 0.3s ease;
+            margin-bottom: 0.5rem; box-sizing: border-box;
         }
-        .reveal.visible {
-            opacity: 1;
-            transform: translateY(0);
+        .contact-card .contact-form input:focus,
+        .contact-card .contact-form textarea:focus { border-color: #66d9ef; }
+        .contact-card .contact-form input::placeholder,
+        .contact-card .contact-form textarea::placeholder { color: #555; }
+        .contact-card .contact-form textarea { resize: vertical; min-height: 60px; }
+        .contact-card .form-actions {
+            display: flex; gap: 0.5rem; justify-content: flex-end;
         }
-
-        .title-text {
-            display: inline-block;
-            clip-path: inset(0 100% 0 0);
-            transition: clip-path 0.9s cubic-bezier(0.65, 0, 0.35, 1);
+        .contact-card .form-actions button {
+            font-family: 'JetBrains Mono', monospace; font-size: 0.75rem;
+            padding: 0.4rem 0.8rem; border-radius: 6px; cursor: pointer;
+            transition: all 0.2s ease;
         }
-        .reveal.visible .title-text {
-            clip-path: inset(0 0 0 0);
+        .contact-card .form-send {
+            background: #a6e22e; border: 1px solid #a6e22e; color: #1a1a1a;
         }
-
-        /* ── Scroll progress ── */
-        #scroll-progress {
-            position: fixed;
-            top: 0; left: 0;
-            height: 3px;
-            background: linear-gradient(90deg, #f92672, #ae81ff, #66d9ef);
-            z-index: 1001;
-            width: 0%;
-            transition: width 0.1s linear;
+        .contact-card .form-send:hover { background: #8cce1e; box-shadow: 0 0 10px rgba(166,226,46,0.3); }
+        .contact-card .form-send:disabled { opacity: 0.5; pointer-events: none; }
+        .contact-card .form-close {
+            background: transparent; border: 1px solid #3a3a3a; color: #75715e;
         }
+        .contact-card .form-close:hover { border-color: #f92672; color: #f92672; }
 
         /* ── SRE-ready badge ── */
         .sre-badge {
@@ -1043,70 +910,13 @@
             display: none !important;
         }
 
-        /* ── Toast ── */
-        #toast {
-            position: fixed;
-            bottom: 2rem;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #222;
-            color: #a6e22e;
-            padding: 0.7rem 1.5rem;
-            border-radius: 8px;
-            border: 1px solid #3a3a3a;
-            font-size: 0.85rem;
-            z-index: 2000;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-            pointer-events: none;
-        }
-        #toast.show {
-            opacity: 1;
-            visibility: visible;
-        }
-
         /* ── Animated counter ── */
         .hero-stat-num.counter {
             display: inline-block;
         }
 
-        /* ── Theme toggle ── */
-        .theme-btn {
-            background: none;
-            border: none;
-            color: #75715e;
-            font-size: 1.1rem;
-            cursor: pointer;
-            padding: 0.25rem;
-            transition: color 0.3s ease;
-        }
-        .theme-btn:hover { color: #fd971f; }
-
         /* ── Light theme ── */
-        html.light body {
-            background: #fafafa;
-            color: #2d2d2d;
-        }
-        html.light ::selection {
-            background: #f92672;
-            color: #fff;
-        }
-        html.light .navbar {
-            background: rgba(250, 250, 250, 0.85);
-            border-bottom-color: #ddd;
-        }
-        html.light .nav-links a { color: #999; }
-        html.light .nav-links a:hover { color: #2d2d2d; }
-        html.light .nav-links a.active { color: #f92672; }
-        html.light .nav-links a.active::after { background: #f92672; }
-        html.light .lang-btn { border-color: #ddd; color: #999; }
-        html.light .lang-btn:hover { border-color: #f92672; color: #f92672; }
-        html.light .lang-btn.active { background: #f92672; color: #fff; border-color: #f92672; }
-        html.light .theme-btn { color: #999; }
-        html.light .theme-btn:hover { color: #fd971f; }
         html.light .section { border-bottom-color: #eee; }
-        html.light #particleCanvas { opacity: 0.5; }
         html.light .timeline-item::before { border-color: #ddd; background: #eee; }
         html.light .timeline-item.current::before { background: #f92672; }
         html.light .timeline::before { background: #ddd; }
@@ -1126,11 +936,18 @@
         html.light .edu-card h3 { color: #2d2d2d; }
         html.light .edu-card p, html.light .edu-card li { color: #666; }
         html.light .contact-card { background: #f0f0f0; border-color: #ddd; }
+        html.light .contact-card:hover { border-color: #f92672; }
         html.light .contact-card .label { color: #2d2d2d; }
-        html.light .footer { border-top-color: #ddd; }
+        html.light .contact-card .contact-form input,
+        html.light .contact-card .contact-form textarea { background: #fff; border-color: #ddd; color: #2d2d2d; }
+        html.light .contact-card .contact-form input::placeholder,
+        html.light .contact-card .contact-form textarea::placeholder { color: #aaa; }
+        html.light .contact-card .contact-form input:focus,
+        html.light .contact-card .contact-form textarea:focus { border-color: #f92672; }
+        html.light .contact-card .form-close { border-color: #ddd; color: #999; }
+        html.light .contact-card .form-close:hover { border-color: #f92672; color: #f92672; }
         html.light #back-to-top { background: #ddd; color: #2d2d2d; border-color: #ccc; }
         html.light #back-to-top:hover { background: #f92672; color: #fff; border-color: #f92672; }
-        html.light #toast { background: #f0f0f0; border-color: #ddd; }
         html.light .badge-tip::after { background: #f0f0f0; color: #2d2d2d; border-color: #ddd; }
         html.light .aiops-box { background: #f0f0f0; border-color: #fd971f; }
         html.light .aiops-box p { color: #555; }
@@ -1145,7 +962,6 @@
         html.light .about-text { color: #555; }
         html.light .hero-desc { color: #666; }
         html.light .hero-stat-label { color: #999; }
-        html.light .footer p { color: #999; }
 
         /* ── Mobile ── */
         @media (max-width: 768px) {
@@ -1290,7 +1106,7 @@ Ingeniero informático, <strong>SRE en Roche</strong>. Observabilidad, automatiz
             <div class="timeline-item current">
                 <div class="timeline-content">
                 <div class="timeline-date" data-i18n="roche_date">Febrero 2025 - Actualidad</div>
-                <div class="timeline-company">Roche <span>·</span> <span data-i18n="roche_role">Site Reliability Engineer</span></div>
+                <div class="timeline-company"><span data-i18n="roche_company">Roche</span> <span>·</span> <span data-i18n="roche_role">Site Reliability Engineer</span></div>
                 <div class="timeline-desc" data-i18n="roche_desc">Equipo de Monitoring &amp; Observability, mejorando la fiabilidad y operación de infraestructura crítica a escala global.</div>
                 <ul class="timeline-bullets">
                     <li data-i18n="roche_1">Automatización en <strong>Python</strong> contra APIs de monitorización, ITSM (<strong>ServiceNow</strong>), CI/CD (<strong>GitLab CI</strong>) y on-call, con autenticación REST/HMAC.</li>
@@ -1305,7 +1121,7 @@ Ingeniero informático, <strong>SRE en Roche</strong>. Observabilidad, automatiz
             <div class="timeline-item">
                 <div class="timeline-content">
                 <div class="timeline-date" data-i18n="granada_date">Marzo 2024 - Junio 2024</div>
-                <div class="timeline-company">Granada Dynamics <span>·</span> <span data-i18n="granada_role">Desarrollador Backend</span></div>
+                <div class="timeline-company"><span data-i18n="granada_company">Granada Dynamics</span> <span>·</span> <span data-i18n="granada_role">Desarrollador Backend</span></div>
                 <ul class="timeline-bullets">
                     <li data-i18n="granada_1">Diseño y desarrollo inicial de software basado en <strong>Python</strong> para un producto educativo innovador.</li>
                     <li data-i18n="granada_2">Adaptación de frameworks como <strong>Django</strong> y uso de <strong>Behave</strong> con <strong>Pytest</strong> para testing.</li>
@@ -1318,7 +1134,7 @@ Ingeniero informático, <strong>SRE en Roche</strong>. Observabilidad, automatiz
             <div class="timeline-item">
                 <div class="timeline-content">
                 <div class="timeline-date" data-i18n="telefonica_date">Noviembre 2022 - Diciembre 2023</div>
-                <div class="timeline-company">Full On Net / Telefónica <span>·</span> <span data-i18n="telefonica_role">Desarrollador QA Automation</span></div>
+                <div class="timeline-company"><span data-i18n="telefonica_company">Full On Net / Telefónica</span> <span>·</span> <span data-i18n="telefonica_role">Desarrollador QA Automation</span></div>
                 <ul class="timeline-bullets">
                     <li data-i18n="telefonica_1">Desarrollo de tests automatizados con <strong>Behave (Gherkin) con Python</strong> para módulos de Audiencia de Movistar+.</li>
                     <li data-i18n="telefonica_2">Automatización de procesos CI/CD usando <strong>Jenkins</strong>.</li>
@@ -1331,7 +1147,7 @@ Ingeniero informático, <strong>SRE en Roche</strong>. Observabilidad, automatiz
             <div class="timeline-item">
                 <div class="timeline-content">
                 <div class="timeline-date" data-i18n="nucleoo_date">Abril 2021 - Noviembre 2022</div>
-                <div class="timeline-company">Nucleoo / visualfabriq <span>·</span> <span data-i18n="nucleoo_role">Desarrollador Backend</span></div>
+                <div class="timeline-company"><span data-i18n="nucleoo_company">Nucleoo / visualfabriq</span> <span>·</span> <span data-i18n="nucleoo_role">Desarrollador Backend</span></div>
                 <ul class="timeline-bullets">
                     <li data-i18n="nucleoo_1">Desarrollo de aplicación web <strong>Flask (Python)</strong> para gestión masiva de datos en el sector alimentario.</li>
                     <li data-i18n="nucleoo_2">Uso de <strong>Pandas y NumPy</strong> para análisis de datos y optimización con cProfile.</li>
@@ -1344,7 +1160,7 @@ Ingeniero informático, <strong>SRE en Roche</strong>. Observabilidad, automatiz
             <div class="timeline-item">
                 <div class="timeline-content">
                 <div class="timeline-date" data-i18n="evalua_date">Julio 2020 - Enero 2021</div>
-                <div class="timeline-company">E-VALUA <span>·</span> <span data-i18n="evalua_role">Desarrollador Full-Stack</span></div>
+                <div class="timeline-company"><span data-i18n="evalua_company">E-VALUA</span> <span>·</span> <span data-i18n="evalua_role">Desarrollador Full-Stack</span></div>
                 <ul class="timeline-bullets">
                     <li data-i18n="evalua_1">Desarrollo y mantenimiento de aplicación para el sector seguros con <strong>PHP (Laravel)</strong> y MySQL.</li>
                     <li data-i18n="evalua_2">Desarrollo frontend con <strong>Javascript (AngularJS)</strong>.</li>
@@ -1489,12 +1305,20 @@ Ingeniero informático, <strong>SRE en Roche</strong>. Observabilidad, automatiz
     <section id="contact" class="section">
         <h2 class="section-title"><span class="title-text" data-i18n="contact_title">Contacto</span></h2>
 
-        <div class="contact-grid">
-            <a href="mailto:cvillenv@gmail.com" class="contact-card" id="emailCopy">
+        <div class="contact-grid" id="contactGrid">
+            <div class="contact-card" id="emailCard">
                 <i class="fas fa-envelope"></i>
                 <span class="label">Email</span>
                 <span class="value">cvillenv@gmail.com</span>
-            </a>
+                <div class="contact-form" id="contactForm">
+                    <input type="text" id="formName" placeholder="Tu nombre" maxlength="100">
+                    <textarea id="formMsg" placeholder="Tu mensaje..." rows="3" maxlength="1000"></textarea>
+                    <div class="form-actions">
+                        <button class="form-send" id="formSend" data-i18n="form_send">Enviar</button>
+                        <button class="form-close" id="formClose">×</button>
+                    </div>
+                </div>
+            </div>
             <a href="https://linkedin.com/in/carlosvillenvillar/en" target="_blank" class="contact-card">
                 <i class="fab fa-linkedin-in"></i>
                 <span class="label">LinkedIn</span>
@@ -1513,7 +1337,7 @@ Ingeniero informático, <strong>SRE en Roche</strong>. Observabilidad, automatiz
         <p>&copy; 2026 Carlos Villén Villar · <span data-i18n="footer_built">Hecho con</span> ☕ &lt;/&gt;</p>
     </footer>
 
-    <script src="/assets/js/translations.js"></script>
+    <script src="/assets/js/translations.js?v=20260712"></script>
     <script>
         let currentLang = localStorage.getItem('lang') || 'es';
         function t(k) { const v = translations[currentLang] && translations[currentLang][k]; if (v) return v; if (currentLang === 'ñ' || currentLang === 'j') { const f = translations.es && translations.es[k]; if (f) return f; } return translations.es && translations.es[k] || k; }
@@ -1544,11 +1368,13 @@ Ingeniero informático, <strong>SRE en Roche</strong>. Observabilidad, automatiz
             document.querySelectorAll('[data-i18n]').forEach(el => {
                 const k = el.getAttribute('data-i18n');
                 if (k === 'title') return;
-                if (translations[l][k]) {
+                let v = translations[l] && translations[l][k];
+                if (!v) v = translations.es && translations.es[k];
+                if (v) {
                     if (el.classList.contains('title-text')) {
-                        el.textContent = translations[l][k];
+                        el.textContent = v;
                     } else {
-                        el.innerHTML = translations[l][k];
+                        el.innerHTML = v;
                     }
                 }
             });
@@ -1617,17 +1443,6 @@ Ingeniero informático, <strong>SRE en Roche</strong>. Observabilidad, automatiz
 
         timelineItems.forEach(item => tlObserver.observe(item));
 
-        /* ── Section reveal ── */
-        document.querySelectorAll('.section').forEach(s => {
-            s.classList.add('reveal');
-            const rObs = new IntersectionObserver(entries => {
-                entries.forEach(e => {
-                    if (e.isIntersecting) e.target.classList.add('visible');
-                });
-            }, { threshold: 0.1 });
-            rObs.observe(s);
-        });
-
         /* ── Dynamic years counter ── */
         const expEl = document.getElementById('expYears');
         const startYear = parseInt(expEl.dataset.from);
@@ -1651,15 +1466,6 @@ Ingeniero informático, <strong>SRE en Roche</strong>. Observabilidad, automatiz
         }, { threshold: 0.5 });
         expObs.observe(expEl);
 
-        /* ── Scroll progress ── */
-        const progressBar = document.getElementById('scroll-progress');
-        window.addEventListener('scroll', () => {
-            const scrollTop = window.scrollY;
-            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-            const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
-            progressBar.style.width = pct + '%';
-        });
-
         /* ── Back to top ── */
         const backBtn = document.getElementById('back-to-top');
         window.addEventListener('scroll', () => {
@@ -1667,21 +1473,6 @@ Ingeniero informático, <strong>SRE en Roche</strong>. Observabilidad, automatiz
         });
         backBtn.addEventListener('click', () => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-
-        /* ── Light / Dark toggle ── */
-        const themeBtn = document.getElementById('themeToggle');
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme === 'light') {
-            document.documentElement.classList.add('light');
-            themeBtn.textContent = '🌙';
-        }
-        themeBtn.addEventListener('click', () => {
-            const isLight = document.documentElement.classList.toggle('light');
-            themeBtn.textContent = isLight ? '🌙' : '☀️';
-            localStorage.setItem('theme', isLight ? 'light' : 'dark');
-            const cols = pColors();
-            particles.forEach(p => { p.color = cols[Math.floor(Math.random() * cols.length)]; });
         });
 
         /* ── Stack filter ── */
@@ -1705,13 +1496,39 @@ Ingeniero informático, <strong>SRE en Roche</strong>. Observabilidad, automatiz
             clearTimeout(toastTimer);
             toastTimer = setTimeout(() => toast.classList.remove('show'), 2000);
         }
-        document.getElementById('emailCopy').addEventListener('click', e => {
-            e.preventDefault();
-            navigator.clipboard.writeText('cvillenv@gmail.com').then(() => {
-                showToast('¡Copiado!');
-            }).catch(() => {
-                showToast('Error al copiar');
-            });
+        /* ── Contact form ── */
+        const emailCard = document.getElementById('emailCard');
+        const contactGrid = document.getElementById('contactGrid');
+        const contactForm = document.getElementById('contactForm');
+        const formName = document.getElementById('formName');
+        const formMsg = document.getElementById('formMsg');
+        const formSend = document.getElementById('formSend');
+        const formClose = document.getElementById('formClose');
+
+        emailCard.addEventListener('click', e => {
+            if (e.target.closest('.form-actions') || e.target.closest('.contact-form')) return;
+            contactForm.classList.toggle('open');
+            contactGrid.classList.toggle('form-open');
+        });
+
+        formClose.addEventListener('click', e => {
+            e.stopPropagation();
+            contactForm.classList.remove('open');
+            contactGrid.classList.remove('form-open');
+        });
+
+        formSend.addEventListener('click', e => {
+            e.stopPropagation();
+            const name = formName.value.trim();
+            const msg = formMsg.value.trim();
+            if (!name || !msg) { showToast('Rellena nombre y mensaje'); return; }
+            const subject = encodeURIComponent('Contacto desde carlvs.dev — ' + name);
+            const body = encodeURIComponent('Mensaje de ' + name + ':\n\n' + msg);
+            window.location.href = 'mailto:cvillenv@gmail.com?subject=' + subject + '&body=' + body;
+            showToast('¡Enviado a tu cliente de correo!');
+            contactForm.classList.remove('open');
+            formName.value = '';
+            formMsg.value = '';
         });
 
         /* ── Terminal demo ── */
@@ -1796,6 +1613,7 @@ Ingeniero informático, <strong>SRE en Roche</strong>. Observabilidad, automatiz
                         const termKey = e => {
                             if (!termIdle) return;
                             if (e.key === 'Enter') {
+                                e.preventDefault();
                                 const cmd = termBuf.trim().toLowerCase();
                                 termBuf = '';
                                 fc.remove();
@@ -1807,10 +1625,34 @@ Ingeniero informático, <strong>SRE en Roche</strong>. Observabilidad, automatiz
                                 outLine.appendChild(out);
                                 termBody.appendChild(outLine);
                                 let resp = '';
-                                if (cmd === 'help') resp = t('term_help');
+                                if (cmd === '') resp = t('term_help');
+                                else if (cmd === 'help') resp = t('term_help');
                                 else if (cmd === 'whoami') resp = t('term_whoami');
                                 else if (cmd === 'clear') { if (termRestartTimer) clearTimeout(termRestartTimer); if (termStepTimer) { clearTimeout(termStepTimer); termStepTimer = null; } if (termKeyHandler) { document.removeEventListener('keydown', termKeyHandler); termKeyHandler = null; } termBody.innerHTML = ''; termIdle = false; termIndex = 0; termRunning = true; termRestartTimer = setTimeout(() => { termRestartTimer = null; runTerminal(); }, 500); return; }
+                                else if (cmd === 'ñ') {
+                                    resp = '🦖 ' + (currentLang === 'en' ? 'Ñiñosaurio mode activated' : 'Modo Ñiñosaurio activado');
+                                    termIdle = false;
+                                    let _i = 0;
+                                    (function typeResp() {
+                                        if (!out.isConnected) return;
+                                        if (_i < resp.length) { out.textContent += resp[_i++]; setTimeout(typeResp, 18); }
+                                        else setTimeout(() => setLanguage('ñ'), 400);
+                                    })();
+                                    return;
+                                }
+                                else if (cmd === 'j') {
+                                    resp = '🌳 ' + (currentLang === 'en' ? 'Jiennense mode activated' : 'Modo Jiennense activado');
+                                    termIdle = false;
+                                    let _i = 0;
+                                    (function typeResp() {
+                                        if (!out.isConnected) return;
+                                        if (_i < resp.length) { out.textContent += resp[_i++]; setTimeout(typeResp, 18); }
+                                        else setTimeout(() => setLanguage('j'), 400);
+                                    })();
+                                    return;
+                                }
                                 else resp = t('term_not_found').replace('{cmd}', cmd);
+                                termIdle = false;
                                 let i = 0;
                                 function typeResp() {
                                     if (!out.isConnected) return;
@@ -1828,6 +1670,7 @@ Ingeniero informático, <strong>SRE en Roche</strong>. Observabilidad, automatiz
                                         nl.appendChild(np); nl.appendChild(fi); nl.appendChild(fc);
                                         termBody.appendChild(nl);
                                         termBody.scrollTop = termBody.scrollHeight;
+                                        termIdle = true;
                                     }
                                 }
                                 typeResp();
@@ -1850,95 +1693,36 @@ Ingeniero informático, <strong>SRE en Roche</strong>. Observabilidad, automatiz
             });
         }
 
-        /* ── Particle canvas animation ── */
-        const pCanvas = document.getElementById('particleCanvas');
-        const pCtx = pCanvas.getContext('2d');
-        let pMouse = { x: -1000, y: -1000 };
-        const PCOLORS = ['#f92672','#a6e22e','#66d9ef','#ae81ff','#fd971f'];
-        const PCOLORS_LIGHT = ['#e88', '#8c8', '#8cf', '#c8f', '#fa8'];
-        function pColors() { return document.documentElement.classList.contains('light') ? PCOLORS_LIGHT : PCOLORS; }
-        let particles = [];
-
-        function pResize() {
-            pCanvas.width = window.innerWidth;
-            pCanvas.height = window.innerHeight;
-        }
-        window.addEventListener('resize', pResize);
-        pResize();
-
-        class Particle {
-            constructor() {
-                this.x = Math.random() * pCanvas.width;
-                this.y = Math.random() * pCanvas.height;
-                this.vx = (Math.random() - 0.5) * 0.6;
-                this.vy = (Math.random() - 0.5) * 0.6;
-                this.color = pColors()[Math.floor(Math.random() * pColors().length)];
-                this.s = Math.random() * 1.8 + 1;
-            }
-            update() {
-                const dx = pMouse.x - this.x, dy = pMouse.y - this.y;
-                const d = Math.sqrt(dx*dx + dy*dy);
-                if (d < 150) {
-                    const f = (150 - d) / 150;
-                    this.vx -= (dx/d) * f * 1.2;
-                    this.vy -= (dy/d) * f * 1.2;
-                }
-                this.x += this.vx; this.y += this.vy;
-                this.vx *= 0.99; this.vy *= 0.99;
-                if (this.x < 0) { this.x = 0; this.vx *= -1; }
-                if (this.x > pCanvas.width) { this.x = pCanvas.width; this.vx *= -1; }
-                if (this.y < 0) { this.y = 0; this.vy *= -1; }
-                if (this.y > pCanvas.height) { this.y = pCanvas.height; this.vy *= -1; }
-            }
-            draw() {
-                pCtx.fillStyle = this.color;
-                pCtx.beginPath();
-                pCtx.arc(this.x, this.y, this.s, 0, Math.PI * 2);
-                pCtx.fill();
-            }
-        }
-
-        for (let i = 0; i < 80; i++) particles.push(new Particle());
-
-        function drawLines() {
-            for (let i = 0; i < particles.length; i++) {
-                for (let j = i+1; j < particles.length; j++) {
-                    const dx = particles[i].x - particles[j].x;
-                    const dy = particles[i].y - particles[j].y;
-                    const d = Math.sqrt(dx*dx + dy*dy);
-                    if (d < 120) {
-                        const isLight = document.documentElement.classList.contains('light');
-                        const a = (1 - d/120) * 0.4;
-                        pCtx.strokeStyle = isLight ? `rgba(150, 150, 150, ${a})` : `rgba(102, 217, 239, ${a})`;
-                        pCtx.lineWidth = 0.5;
-                        pCtx.beginPath();
-                        pCtx.moveTo(particles[i].x, particles[i].y);
-                        pCtx.lineTo(particles[j].x, particles[j].y);
-                        pCtx.stroke();
-                    }
-                }
-            }
-        }
-
-        function pAnimate() {
-            pCtx.clearRect(0, 0, pCanvas.width, pCanvas.height);
-            particles.forEach(p => { p.update(); p.draw(); });
-            drawLines();
-            requestAnimationFrame(pAnimate);
-        }
-        pAnimate();
-
-        document.addEventListener('mousemove', e => { pMouse.x = e.clientX; pMouse.y = e.clientY; });
-        document.addEventListener('mouseleave', () => { pMouse.x = -1000; pMouse.y = -1000; });
-
         /* ── SRE badge appear ── */
         setTimeout(() => document.getElementById('sreBadge').classList.add('visible'), 2000);
 
+        /* ── Ñ/J via keyboard ── */
         document.addEventListener('keydown', e => {
+            if (termKeyHandler) return;
             if (e.key === 'ñ' || e.key === 'Ñ') setLanguage('ñ');
             if (e.key === 'j' || e.key === 'J') setLanguage('j');
             if (e.key === 'Escape') setLanguage('es');
         });
+
+        /* ── Ñ/J via triple tap on hero name (mobile) ── */
+        (function() {
+            const heroName = document.querySelector('.hero-name');
+            if (!heroName) return;
+            let tapTimestamps = [];
+            heroName.addEventListener('click', () => {
+                const now = Date.now();
+                tapTimestamps = tapTimestamps.filter(t => now - t < 1500);
+                tapTimestamps.push(now);
+                if (tapTimestamps.length === 3) {
+                    setLanguage('ñ');
+                } else if (tapTimestamps.length === 5) {
+                    setLanguage('j');
+                    tapTimestamps = [];
+                } else if (tapTimestamps.length > 5) {
+                    tapTimestamps = [];
+                }
+            });
+        })();
 
         /* ── Health graphs ── */
         const healthState = { cpu: 35, ram: 52, disk: 74 };
@@ -1982,6 +1766,7 @@ Ingeniero informático, <strong>SRE en Roche</strong>. Observabilidad, automatiz
 
         setLanguage(localStorage.getItem('lang') || 'es');
     </script>
+    <script src="/assets/js/common.js?v=20260712"></script>
 </body>
 
 </html>

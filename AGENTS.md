@@ -15,9 +15,10 @@ Single-page scroll HTML personal site at `carlvs.dev`. No build tools, no packag
 
 ```
 /                   # Single-page scroll (hero + about + timeline + AIOps + stack + education + contact)
-/assets/img/        # Images (favicon, avatar)
-/assets/js/         # External JS (translations.js)
-/pages/tools/       # Micro-applications grid
+/assets/css/         # Shared CSS (common.css — reset, navbar, lang-btn, theme-btn, scroll-progress, reveal, toast, footer, light theme)
+/assets/img/         # Images (favicon, avatar)
+/assets/js/          # Shared JS (common.js — particles, scroll progress, theme toggle, section reveal; translations.js)
+/pages/tools/       # Micro-applications grid (tools page, own CSS/JS for tool functionality)
 /about/             # Redirects to /#experience
 /tools/             # Legacy redirect → /pages/tools/
 404.html            # SPA fallback → redirects to /
@@ -25,6 +26,13 @@ robots.txt          # SEO: crawl instructions
 sitemap.xml         # SEO: URL index
 CNAME               # Custom domain carlvs.dev
 ```
+
+## Shared assets
+
+- `assets/css/common.css` — loaded by both `index.html` and `pages/tools/index.html`. Contains: reset/base, navbar, nav-logo, nav-links, nav-toggle, lang-btn, theme-btn, scroll-progress, reveal animation, toast, footer, light theme variants for all shared elements.
+- `assets/js/common.js` — loaded by both pages (before page-specific script in tools, after in index). Contains: theme init from localStorage, particle canvas (80 particles, mouse repel, lines), scroll progress handler, section reveal IntersectionObserver, theme toggle event listener.
+
+When creating a new page, link common.css and common.js to get consistent navbar/theme/reveal/particles.
 
 ## Single-page sections (all in `index.html`)
 
@@ -114,7 +122,8 @@ All colors hardcoded as hex across files (no CSS custom properties).
 - **Tooltips**: each stack badge has `data-tip` with description, shown on hover via CSS `::after`.
 - **Light/dark toggle**: ☀️/🌙 in navbar, persisted in `localStorage`. Full light theme CSS under `html.light`.
 - **Stack filter**: category buttons above stack grid, hide/show columns via JS.
-- **Toast + copy email**: click email → clipboard copy → "¡Copiado!" toast (2s).
+- **Contact form**: click the email card → expandable inline form (name + message). Sends via Web3Forms API. Toast feedback (success/error).
+- **Ñ/J mobile**: triple-tap (×3) on `CarlVs` hero name → Ñiñosaurio mode. Triple-tap (×5) → Jiennense mode. Same keyboard shortcuts work on desktop.
 - **Dynamic font-size**: mobile hero scales via viewport units.
 
 ## No tests, no lint, no typecheck
