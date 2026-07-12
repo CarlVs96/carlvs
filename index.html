@@ -95,6 +95,12 @@
             background: #3a3a3a;
         }
 
+        /* ── Page transitions ── */
+        @keyframes wipeIn { from { clip-path: inset(0 0 0 100%); } to { clip-path: inset(0 0 0 0); } }
+        @keyframes wipeOut { from { clip-path: inset(0 0 0 0); } to { clip-path: inset(0 0 0 100%); } }
+        ::view-transition-old(root) { animation: wipeOut 0.35s ease-in forwards; }
+        ::view-transition-new(root) { animation: wipeIn 0.35s ease-out forwards; }
+
         /* ── Particle canvas ── */
         #particleCanvas {
             position: fixed; inset: 0;
@@ -1710,6 +1716,21 @@ Ingeniero informático, <strong>SRE en Roche</strong>. Observabilidad, automatiz
                 showToast('Error al copiar');
             });
         });
+
+        /* ── Page transitions ── */
+        document.addEventListener('click', e => {
+            const a = e.target.closest('a[href]');
+            if (!a || a.hasAttribute('target') || a.getAttribute('href').startsWith('#') || a.getAttribute('href').startsWith('mailto:')) return;
+            if (a.hostname !== location.hostname) return;
+            if (a.pathname === location.pathname && a.hash === '') return;
+            e.preventDefault();
+            if (document.startViewTransition) {
+                document.startViewTransition(() => location.assign(a.href));
+            } else {
+                location.assign(a.href);
+            }
+        });
+
         /* ── Terminal demo ── */
         const termCmds = [
             { cmd: 'whoami', out: () => t('term_whoami'), cd: 60, od: 40 },
