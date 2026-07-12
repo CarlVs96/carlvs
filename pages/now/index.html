@@ -422,6 +422,7 @@
                         <div class="mp-time"><span id="mpCur">0:00</span><span id="mpDur">3:48</span></div>
                     </div>
                 </div>
+                <div id="ytPlayerWrap" hidden></div>
             </section>
             <section class="now-section section-projects">
                 <h2 data-i18n="now_projects_title">Side Projects</h2>
@@ -778,7 +779,8 @@
             window.addEventListener('resize', draw);
         })();
 
-        /* ── Mini music player (simulated) ── */
+        /* ── Mini music player (YouTube) ── */
+        let ytPlayer = null;
         (function() {
             const player = document.getElementById('miniPlayer');
             if (!player) return;
@@ -787,43 +789,72 @@
             const curEl = document.getElementById('mpCur');
             const durEl = document.getElementById('mpDur');
             const bar = player.querySelector('.mp-bar');
-            const duration = 228; /* 3:48 */
-            let playing = false, current = 0, timer = null;
+            let playing = false, syncTimer = null;
 
             function fmt(s) {
+                s = s || 0;
                 const m = Math.floor(s / 60);
                 const sec = Math.floor(s % 60);
                 return m + ':' + (sec < 10 ? '0' : '') + sec;
             }
-            durEl.textContent = fmt(duration);
 
             function render() {
-                progress.style.width = (current / duration * 100) + '%';
-                curEl.textContent = fmt(current);
+                if (!ytPlayer || typeof ytPlayer.getDuration !== 'function') return;
+                const d = ytPlayer.getDuration() || 0;
+                const c = ytPlayer.getCurrentTime() || 0;
+                if (d > 0) progress.style.width = (c / d * 100) + '%';
+                curEl.textContent = fmt(c);
+                durEl.textContent = fmt(d);
             }
-            function tick() {
-                current += 1;
-                if (current >= duration) { current = duration; render(); pause(); return; }
-                render();
+
+            function startSync() {
+                if (syncTimer) return;
+                syncTimer = setInterval(render, 500);
             }
-            function play() {
-                playing = true;
-                btn.classList.add('playing');
-                btn.innerHTML = '&#10074;&#10074;';
-                timer = setInterval(tick, 1000);
-            }
-            function pause() {
-                playing = false;
-                btn.classList.remove('playing');
-                btn.innerHTML = '&#9654;';
-                clearInterval(timer);
-            }
-            btn.addEventListener('click', () => playing ? pause() : play());
-            bar.addEventListener('click', (e) => {
-                const r = bar.getBoundingClientRect();
-                current = Math.round((e.clientX - r.left) / r.width * duration);
-                render();
+
+            window.__setMiniPlayerState = function(state) {
+                playing = state;
+                btn.classList.toggle('playing', state);
+                btn.innerHTML = state ? '&#10074;&#10074;' : '&#9654;';
+                if (state) startSync();
+            };
+            window.__miniPlayerTick = render;
+
+            btn.addEventListener('click', () => {
+                if (!ytPlayer || typeof ytPlayer.playVideo !== 'function') return;
+                if (playing) ytPlayer.pauseVideo();
+                else ytPlayer.playVideo();
             });
+
+            bar.addEventListener('click', (e) => {
+                if (!ytPlayer || typeof ytPlayer.seekTo !== 'function') return;
+                const r = bar.getBoundingClientRect();
+                const ratio = (e.clientX - r.left) / r.width;
+                ytPlayer.seekTo(ratio * ytPlayer.getDuration(), true);
+            });
+        })();
+
+        /* ── YouTube IFrame API ── */
+        window.onYouTubeIframeAPIReady = function() {
+            ytPlayer = new YT.Player('ytPlayerWrap', {
+                height: '0',
+                width: '0',
+                videoId: 'hbihilDlb1I',
+                playerVars: { 'playsinline': 1, 'origin': location.origin },
+                events: {
+                    onReady: function() { window.__miniPlayerTick && window.__miniPlayerTick(); },
+                    onStateChange: function(e) {
+                        const YTns = window.YT;
+                        const isPlaying = e.data === YTns.PlayerState.PLAYING;
+                        window.__setMiniPlayerState && window.__setMiniPlayerState(isPlaying);
+                    }
+                }
+            });
+        };
+        (function() {
+            const tag = document.createElement('script');
+            tag.src = 'https://www.youtube.com/iframe_api';
+            document.head.appendChild(tag);
         })();
     </script>
 </body>
