@@ -444,7 +444,7 @@
         html.light .diff-ln { color: #bbb; }
 
         /* ── Page transition wipe ── */
-        @keyframes pageWipe { from { clip-path: inset(0 0 0 100%); } to { clip-path: inset(0 0 0 0); } }
+        @keyframes pageWipe { from { clip-path: inset(0 0 0 0); } to { clip-path: inset(0 0 0 100%); } }
         body::before {
             content: ''; position: fixed; inset: 0;
             z-index: 9999; background: #1a1a1a;
