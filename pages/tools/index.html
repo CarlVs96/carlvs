@@ -412,6 +412,24 @@
         html.light .footer { border-top-color: #ddd; }
         html.light .tool-output .copy-btn { background: #eee; border-color: #ddd; color: #999; }
         html.light .tool-output .copy-btn:hover { color: #f92672; border-color: #f92672; }
+
+        .diff-wrap { display: flex; gap: 0; border: 1px solid #3a3a3a; border-radius: 6px; overflow: hidden; font-size: 0.78rem; line-height: 1.6; margin-top: 0.5rem; }
+        .diff-pane { flex: 1; min-width: 0; overflow-x: auto; }
+        .diff-pane + .diff-pane { border-left: 1px solid #3a3a3a; }
+        .diff-line { padding: 0.1rem 0.6rem; white-space: pre-wrap; word-break: break-all; font-family: 'JetBrains Mono', monospace; }
+        .diff-line.add { background: rgba(166,226,46,0.12); color: #a6e22e; }
+        .diff-line.del { background: rgba(249,38,114,0.12); color: #f92672; }
+        .diff-line.eq { color: #a6a68a; }
+        .diff-line.hdr { background: #2a2a2a; color: #66d9ef; font-weight: 700; }
+        .diff-ln { display: inline-block; width: 1.2em; margin-right: 0.5rem; color: #555; text-align: right; user-select: none; }
+
+        html.light .diff-wrap { border-color: #ddd; }
+        html.light .diff-pane + .diff-pane { border-left-color: #ddd; }
+        html.light .diff-line.eq { color: #666; }
+        html.light .diff-line.hdr { background: #eee; }
+        html.light .diff-line.add { background: rgba(166,226,46,0.15); }
+        html.light .diff-line.del { background: rgba(249,38,114,0.1); }
+        html.light .diff-ln { color: #bbb; }
     </style>
 </head>
 <body>
@@ -427,8 +445,8 @@
 
     <section class="tools-hero">
         <h1><i class="fas fa-tools"></i> Toolkit</h1>
-        <p>Utilidades para el día a día — cron, timestamp, JSON, regex, base64, YAML</p>
-        <div class="tool-count">6 herramientas · todo en local, nada sale de tu navegador</div>
+        <p>Utilidades para el día a día — cron, timestamp, JSON, regex, base64, YAML, URL, base converter, diff</p>
+        <div class="tool-count">9 herramientas · todo en local, nada sale de tu navegador</div>
     </section>
 
     <section class="tools-section">
@@ -467,6 +485,24 @@
                 <div class="icon"><i class="fas fa-exchange-alt"></i></div>
                 <h3>YAML ↔ JSON</h3>
                 <p>Convierte entre YAML y JSON en ambos sentidos con detección automática.</p>
+                <span class="go-link">Usar <i class="fas fa-arrow-right"></i></span>
+            </a>
+            <a href="#tool-url" class="tool-card">
+                <div class="icon"><i class="fas fa-link"></i></div>
+                <h3>URL Encoder/Decoder</h3>
+                <p>Codifica y decodifica parámetros URL con detección automática del formato.</p>
+                <span class="go-link">Usar <i class="fas fa-arrow-right"></i></span>
+            </a>
+            <a href="#tool-baseconv" class="tool-card">
+                <div class="icon"><i class="fas fa-calculator"></i></div>
+                <h3>Base Converter</h3>
+                <p>Convierte números entre bases decimal, hex, binario y octal al instante.</p>
+                <span class="go-link">Usar <i class="fas fa-arrow-right"></i></span>
+            </a>
+            <a href="#tool-diff" class="tool-card">
+                <div class="icon"><i class="fas fa-columns"></i></div>
+                <h3>Diff Viewer</h3>
+                <p>Compara dos textos lado a lado y resalta las diferencias línea a línea.</p>
                 <span class="go-link">Usar <i class="fas fa-arrow-right"></i></span>
             </a>
         </div>
@@ -632,7 +668,95 @@
             </div>
         </section>
 
-    </section>
+        <!-- ═══ URL ═══ -->
+        <section id="tool-url" class="tool-section">
+            <div class="tool-header">
+                <h2><i class="fas fa-link"></i> URL Encoder/Decoder</h2>
+                <a href="#top" class="tool-back"><i class="fas fa-arrow-up"></i> Volver</a>
+            </div>
+            <div class="tool-actions">
+                <button class="tool-btn primary" onclick="urlEncode()"><i class="fas fa-lock"></i> Encode</button>
+                <button class="tool-btn green" onclick="urlDecode()"><i class="fas fa-unlock"></i> Decode</button>
+                <button class="tool-btn" onclick="urlSwap()"><i class="fas fa-exchange-alt"></i> ↻ Swap</button>
+            </div>
+            <div class="tool-row">
+                <div class="tool-side">
+                    <div class="tool-input-group">
+                        <label for="urlInput">Entrada</label>
+                        <textarea id="urlInput" class="tool-textarea" placeholder="https://example.com?q=hola mundo" spellcheck="false"></textarea>
+                    </div>
+                </div>
+                <div class="tool-side">
+                    <div class="tool-input-group">
+                        <label for="urlOutput">Resultado</label>
+                        <textarea id="urlOutput" class="tool-textarea" readonly spellcheck="false"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="tool-status" id="urlStatus"></div>
+            <div class="tool-actions">
+                <button class="tool-btn" onclick="copyTextarea('urlOutput')"><i class="fas fa-copy"></i> Copiar resultado</button>
+            </div>
+        </section>
+
+        <!-- ═══ BASE CONVERTER ═══ -->
+        <section id="tool-baseconv" class="tool-section">
+            <div class="tool-header">
+                <h2><i class="fas fa-calculator"></i> Base Converter</h2>
+                <a href="#top" class="tool-back"><i class="fas fa-arrow-up"></i> Volver</a>
+            </div>
+            <div class="tool-input-group">
+                <label for="bcInput">Valor</label>
+                <input type="text" id="bcInput" class="tool-input" placeholder="255" autocomplete="off" spellcheck="false">
+            </div>
+            <div class="input-row" style="margin-bottom:0.8rem;">
+                <div class="tool-input-group">
+                    <label>Desde base</label>
+                    <select id="bcFrom" class="tool-input">
+                        <option value="10">Decimal (10)</option>
+                        <option value="16">Hexadecimal (16)</option>
+                        <option value="2">Binario (2)</option>
+                        <option value="8">Octal (8)</option>
+                    </select>
+                </div>
+                <div class="tool-input-group">
+                    <label> </label>
+                    <button class="tool-btn primary" onclick="bcConvert()" style="align-self:flex-end;"><i class="fas fa-arrow-right"></i> Convertir</button>
+                </div>
+            </div>
+            <div class="tool-output" id="bcOutput">
+                <button class="copy-btn" onclick="copyText('bcOutput')">📋 Copiar</button>
+            </div>
+            <div class="tool-status" id="bcStatus"></div>
+        </section>
+
+        <!-- ═══ DIFF ═══ -->
+        <section id="tool-diff" class="tool-section">
+            <div class="tool-header">
+                <h2><i class="fas fa-columns"></i> Diff Viewer</h2>
+                <a href="#top" class="tool-back"><i class="fas fa-arrow-up"></i> Volver</a>
+            </div>
+            <div class="tool-actions">
+                <button class="tool-btn primary" onclick="diffRun()"><i class="fas fa-play"></i> Comparar</button>
+                <button class="tool-btn" onclick="diffClear()"><i class="fas fa-trash"></i> Limpiar</button>
+            </div>
+            <div class="tool-row">
+                <div class="tool-side">
+                    <div class="tool-input-group">
+                        <label for="diffLeft">Texto original</label>
+                        <textarea id="diffLeft" class="tool-textarea large" placeholder="Texto original..." spellcheck="false"></textarea>
+                    </div>
+                </div>
+                <div class="tool-side">
+                    <div class="tool-input-group">
+                        <label for="diffRight">Texto modificado</label>
+                        <textarea id="diffRight" class="tool-textarea large" placeholder="Texto modificado..." spellcheck="false"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="tool-status" id="diffStatus"></div>
+            <div id="diffOutput"></div>
+        </section>
 
     <div class="footer">
         <p>© 2026 Carlos Villén Villar · <a href="/">carlvs.dev</a></p>
@@ -1108,6 +1232,150 @@
                 }
             }, 50);
         });
+
+        /* ── URL ENCODER/DECODER ── */
+        function urlEncode() {
+            const input = document.getElementById('urlInput').value;
+            const output = document.getElementById('urlOutput');
+            const status = document.getElementById('urlStatus');
+            try {
+                output.value = encodeURIComponent(input);
+                status.innerHTML = '<span class="ok"><i class="fas fa-check-circle"></i> Codificado · ' + input.length + ' → ' + output.value.length + ' chars</span>';
+            } catch (e) {
+                status.innerHTML = '<span class="error"><i class="fas fa-exclamation-circle"></i> ' + e.message + '</span>';
+            }
+        }
+
+        function urlDecode() {
+            const input = document.getElementById('urlInput').value.trim();
+            const output = document.getElementById('urlOutput');
+            const status = document.getElementById('urlStatus');
+            try {
+                output.value = decodeURIComponent(input);
+                status.innerHTML = '<span class="ok"><i class="fas fa-check-circle"></i> Decodificado · ' + output.value.length + ' chars</span>';
+            } catch (e) {
+                status.innerHTML = '<span class="error"><i class="fas fa-exclamation-circle"></i> No válido como URL encode</span>';
+            }
+        }
+
+        function urlSwap() {
+            const a = document.getElementById('urlInput');
+            const b = document.getElementById('urlOutput');
+            const t = a.value; a.value = b.value; b.value = t;
+            document.getElementById('urlStatus').textContent = '';
+        }
+
+        document.getElementById('urlInput').addEventListener('paste', () => {
+            setTimeout(() => {
+                const val = document.getElementById('urlInput').value.trim();
+                if (/%[0-9A-Fa-f]{2}/.test(val)) urlDecode();
+                else if (val) urlEncode();
+            }, 50);
+        });
+
+        /* ── BASE CONVERTER ── */
+        function bcConvert() {
+            const input = document.getElementById('bcInput').value.trim();
+            const from = parseInt(document.getElementById('bcFrom').value);
+            const output = document.getElementById('bcOutput');
+            const status = document.getElementById('bcStatus');
+            if (!input) { output.innerHTML = '<button class="copy-btn" onclick="copyText(\'bcOutput\')">📋 Copiar</button>'; status.textContent = ''; return; }
+            const val = parseInt(input, from);
+            if (isNaN(val)) {
+                output.innerHTML = '<button class="copy-btn" onclick="copyText(\'bcOutput\')">📋 Copiar</button><span style="color:#f92672">Número inválido para base ' + from + '</span>';
+                status.innerHTML = '<span class="error"><i class="fas fa-exclamation-circle"></i> No se puede interpretar como base ' + from + '</span>';
+                return;
+            }
+            const bases = [
+                [10, 'Decimal (10)', '#66d9ef'],
+                [16, 'Hexadecimal (16)', '#a6e22e'],
+                [2, 'Binario (2)', '#fd971f'],
+                [8, 'Octal (8)', '#ae81ff'],
+            ];
+            let html = '<button class="copy-btn" onclick="copyText(\'bcOutput\')">📋 Copiar</button>';
+            bases.forEach(([base, label, color]) => {
+                const v = val.toString(base).toUpperCase();
+                html += '<div style="display:flex;justify-content:space-between;align-items:center;padding:0.4rem 0;border-bottom:1px solid #2a2a2a;font-size:0.85rem;font-family:\'JetBrains Mono\',monospace;">';
+                html += '<span style="color:' + color + ';font-weight:700;">' + label + '</span>';
+                html += '<span style="color:#f8f8f2;word-break:break-all;text-align:right;margin-left:1rem;">' + v + '</span>';
+                html += '</div>';
+            });
+            output.innerHTML = html;
+            status.innerHTML = '<span class="ok"><i class="fas fa-check-circle"></i> ' + val.toString() + ' en base 10</span>';
+        }
+
+        document.getElementById('bcInput').addEventListener('input', bcConvert);
+        document.getElementById('bcFrom').addEventListener('change', bcConvert);
+
+        /* ── DIFF VIEWER ── */
+        function diffRun() {
+            const left = document.getElementById('diffLeft').value;
+            const right = document.getElementById('diffRight').value;
+            const out = document.getElementById('diffOutput');
+            const status = document.getElementById('diffStatus');
+
+            if (!left && !right) {
+                out.innerHTML = '';
+                status.textContent = '';
+                return;
+            }
+
+            const lLines = left.split('\n');
+            const rLines = right.split('\n');
+            const maxLen = Math.max(lLines.length, rLines.length);
+            const results = [];
+
+            let ctx = 0;
+            let changed = false;
+            const maxWidth = Math.max(
+                left.split('\n').reduce((a, l) => Math.max(a, l.length), 0),
+                right.split('\n').reduce((a, l) => Math.max(a, l.length), 0)
+            );
+
+            for (let i = 0; i < maxLen; i++) {
+                const l = lLines[i] !== undefined ? lLines[i] : '';
+                const r = rLines[i] !== undefined ? rLines[i] : '';
+                if (l !== r) {
+                    if (!changed) { results.push({ type: 'hdr', text: '@@ líneas ' + (i + 1) + ' @@' }); changed = true; }
+                    if (l !== undefined) results.push({ type: 'del', text: l, ln: i + 1 });
+                    if (r !== undefined) results.push({ type: 'add', text: r, ln: i + 1 });
+                    ctx = 0;
+                } else {
+                    if (ctx < 3) {
+                        results.push({ type: 'eq', text: l, ln: i + 1 });
+                    }
+                    ctx++;
+                    if (ctx === 4) results.push({ type: 'eq', text: '...', ln: '' });
+                    if (ctx > 4) results.pop();
+                }
+            }
+
+            if (results.length === 0) {
+                out.innerHTML = '';
+                status.innerHTML = '<span class="ok"><i class="fas fa-check-circle"></i> Los textos son iguales</span>';
+                return;
+            }
+
+            status.innerHTML = '<span class="ok"><i class="fas fa-check-circle"></i> ' + results.filter(r => r.type === 'add').length + ' añadidas, ' + results.filter(r => r.type === 'del').length + ' eliminadas</span>';
+
+            const lHtml = results.map(r => '<div class="diff-line' + (r.type === 'eq' ? ' eq' : '') + (r.type === 'del' ? ' del' : '') + (r.type === 'hdr' ? ' hdr' : '') + '">' + (r.ln ? '<span class="diff-ln">' + r.ln + '</span>' : '') + r.text + '</div>').join('\n');
+            const rHtml = results.map(r => '<div class="diff-line' + (r.type === 'eq' ? ' eq' : '') + (r.type === 'add' ? ' add' : '') + (r.type === 'hdr' ? ' hdr' : '') + '">' + (r.ln ? '<span class="diff-ln">' + r.ln + '</span>' : '') + r.text + '</div>').join('\n');
+
+            out.innerHTML = '<div class="diff-wrap"><div class="diff-pane">' + lHtml + '</div><div class="diff-pane">' + rHtml + '</div></div>';
+        }
+
+        function diffClear() {
+            document.getElementById('diffLeft').value = '';
+            document.getElementById('diffRight').value = '';
+            document.getElementById('diffOutput').innerHTML = '';
+            document.getElementById('diffStatus').textContent = '';
+        }
+
+        document.getElementById('diffLeft').addEventListener('input', diffRun);
+        document.getElementById('diffRight').addEventListener('input', diffRun);
+
+        /* Update save keys */
+        SAVE_KEYS.push('urlInput', 'bcInput', 'diffLeft', 'diffRight');
 
         /* Auto-restore cron on load */
         setTimeout(parseCron, 100);
