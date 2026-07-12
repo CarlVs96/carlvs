@@ -76,6 +76,7 @@ const translations = {
         contact_title: 'Contacto',
         cv_label: 'Descargar CV',
         cv_value: 'HTML · imprimible',
+        form_send: 'Enviar',
         footer_built: 'Hecho con',
         term_hobbies: '─────────────\n🏐 Pádel & Tenis\n🎸 Rock español (Robe, Extremoduro, Marea)\n🍻 Cañas con amigos\n💪 Deporte, música y tecnología',
         term_uptime_fmt: 'up {d} day{s}, {h}:{m},  1 user,  load average: 0.08, 0.03, 0.01',
@@ -165,6 +166,7 @@ const translations = {
         contact_title: 'Contact',
         cv_label: 'Download CV',
         cv_value: 'HTML · printable',
+        form_send: 'Send',
         footer_built: 'Built with',
         term_hobbies: '─────────────\n🏐 Pádel & Tennis\n🎸 Spanish rock (Robe, Extremoduro, Marea)\n🍻 Drinks with friends\n💪 Sports, music & technology',
         term_uptime_fmt: 'up {d} day{s}, {h}:{m},  1 user,  load average: 0.08, 0.03, 0.01',
@@ -250,6 +252,7 @@ const translations = {
         contact_title: 'Contahto',
         cv_label: 'Descargá er CV',
         cv_value: 'HTML · imprimible',
+        form_send: 'Enviá',
         footer_built: 'Echo con argod e Jaén'
     },
     ñ: {

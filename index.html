@@ -638,8 +638,12 @@
             text-align: center;
             transition: all 0.3s ease;
             min-width: 180px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
-        .contact-card:hover {
+        .contact-card.clickable { cursor: pointer; }
+        .contact-card.clickable:hover {
             border-color: #66d9ef;
             transform: translateY(-3px);
         }
@@ -658,6 +662,48 @@
             font-size: 0.8rem;
             color: #75715e;
         }
+        .contact-card .contact-form {
+            width: 100%; margin-top: 0;
+            max-height: 0; overflow: hidden;
+            transition: max-height 0.4s ease, margin-top 0.4s ease, opacity 0.3s ease;
+            opacity: 0;
+        }
+        .contact-card .contact-form.open {
+            max-height: 300px;
+            margin-top: 1rem;
+            opacity: 1;
+        }
+        .contact-card .contact-form input,
+        .contact-card .contact-form textarea {
+            width: 100%; background: #2a2a2a; border: 1px solid #3a3a3a;
+            border-radius: 6px; color: #f8f8f2;
+            font-family: 'JetBrains Mono', monospace; font-size: 0.8rem;
+            padding: 0.5rem 0.7rem; outline: none;
+            transition: border-color 0.3s ease;
+            margin-bottom: 0.5rem; box-sizing: border-box;
+        }
+        .contact-card .contact-form input:focus,
+        .contact-card .contact-form textarea:focus { border-color: #66d9ef; }
+        .contact-card .contact-form input::placeholder,
+        .contact-card .contact-form textarea::placeholder { color: #555; }
+        .contact-card .contact-form textarea { resize: vertical; min-height: 60px; }
+        .contact-card .form-actions {
+            display: flex; gap: 0.5rem; justify-content: flex-end;
+        }
+        .contact-card .form-actions button {
+            font-family: 'JetBrains Mono', monospace; font-size: 0.75rem;
+            padding: 0.4rem 0.8rem; border-radius: 6px; cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .contact-card .form-send {
+            background: #a6e22e; border: 1px solid #a6e22e; color: #1a1a1a;
+        }
+        .contact-card .form-send:hover { background: #8cce1e; box-shadow: 0 0 10px rgba(166,226,46,0.3); }
+        .contact-card .form-send:disabled { opacity: 0.5; pointer-events: none; }
+        .contact-card .form-close {
+            background: transparent; border: 1px solid #3a3a3a; color: #75715e;
+        }
+        .contact-card .form-close:hover { border-color: #f92672; color: #f92672; }
 
         /* ── SRE-ready badge ── */
         .sre-badge {
@@ -876,6 +922,14 @@
         html.light .edu-card p, html.light .edu-card li { color: #666; }
         html.light .contact-card { background: #f0f0f0; border-color: #ddd; }
         html.light .contact-card .label { color: #2d2d2d; }
+        html.light .contact-card .contact-form input,
+        html.light .contact-card .contact-form textarea { background: #fff; border-color: #ddd; color: #2d2d2d; }
+        html.light .contact-card .contact-form input::placeholder,
+        html.light .contact-card .contact-form textarea::placeholder { color: #aaa; }
+        html.light .contact-card .contact-form input:focus,
+        html.light .contact-card .contact-form textarea:focus { border-color: #f92672; }
+        html.light .contact-card .form-close { border-color: #ddd; color: #999; }
+        html.light .contact-card .form-close:hover { border-color: #f92672; color: #f92672; }
         html.light #back-to-top { background: #ddd; color: #2d2d2d; border-color: #ccc; }
         html.light #back-to-top:hover { background: #f92672; color: #fff; border-color: #f92672; }
         html.light .badge-tip::after { background: #f0f0f0; color: #2d2d2d; border-color: #ddd; }
@@ -1236,11 +1290,19 @@ Ingeniero informático, <strong>SRE en Roche</strong>. Observabilidad, automatiz
         <h2 class="section-title"><span class="title-text" data-i18n="contact_title">Contacto</span></h2>
 
         <div class="contact-grid">
-            <a href="mailto:cvillenv@gmail.com" class="contact-card" id="emailCopy">
+            <div class="contact-card clickable" id="emailCard">
                 <i class="fas fa-envelope"></i>
                 <span class="label">Email</span>
                 <span class="value">cvillenv@gmail.com</span>
-            </a>
+                <div class="contact-form" id="contactForm">
+                    <input type="text" id="formName" placeholder="Tu nombre" maxlength="100">
+                    <textarea id="formMsg" placeholder="Tu mensaje..." rows="3" maxlength="1000"></textarea>
+                    <div class="form-actions">
+                        <button class="form-send" id="formSend" data-i18n="form_send">Enviar</button>
+                        <button class="form-close" id="formClose">×</button>
+                    </div>
+                </div>
+            </div>
             <a href="https://linkedin.com/in/carlosvillenvillar/en" target="_blank" class="contact-card">
                 <i class="fab fa-linkedin-in"></i>
                 <span class="label">LinkedIn</span>
@@ -1416,13 +1478,56 @@ Ingeniero informático, <strong>SRE en Roche</strong>. Observabilidad, automatiz
             clearTimeout(toastTimer);
             toastTimer = setTimeout(() => toast.classList.remove('show'), 2000);
         }
-        document.getElementById('emailCopy').addEventListener('click', e => {
-            e.preventDefault();
-            navigator.clipboard.writeText('cvillenv@gmail.com').then(() => {
-                showToast('¡Copiado!');
-            }).catch(() => {
-                showToast('Error al copiar');
-            });
+        /* ── Contact form ── */
+        const emailCard = document.getElementById('emailCard');
+        const contactForm = document.getElementById('contactForm');
+        const formName = document.getElementById('formName');
+        const formMsg = document.getElementById('formMsg');
+        const formSend = document.getElementById('formSend');
+        const formClose = document.getElementById('formClose');
+
+        emailCard.addEventListener('click', e => {
+            if (e.target.closest('.form-actions') || e.target.closest('.contact-form')) return;
+            contactForm.classList.toggle('open');
+        });
+
+        formClose.addEventListener('click', e => {
+            e.stopPropagation();
+            contactForm.classList.remove('open');
+        });
+
+        formSend.addEventListener('click', async e => {
+            e.stopPropagation();
+            const name = formName.value.trim();
+            const msg = formMsg.value.trim();
+            if (!name || !msg) { showToast('Rellena nombre y mensaje'); return; }
+            formSend.disabled = true;
+            formSend.textContent = 'Enviando...';
+            try {
+                const res = await fetch('https://api.web3forms.com/submit', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        access_key: 'YOUR_WEB3FORMS_KEY',
+                        subject: 'Contacto desde carlvs.dev — ' + name,
+                        message: msg,
+                        from_name: name,
+                    })
+                });
+                const data = await res.json();
+                if (data.success) {
+                    showToast('¡Mensaje enviado!');
+                    contactForm.classList.remove('open');
+                    formName.value = '';
+                    formMsg.value = '';
+                } else {
+                    showToast('Error al enviar');
+                }
+            } catch {
+                showToast('Error de conexión');
+            }
+            formSend.disabled = false;
+            formSend.textContent = 'Enviar';
         });
 
         /* ── Terminal demo ── */
@@ -1564,11 +1669,31 @@ Ingeniero informático, <strong>SRE en Roche</strong>. Observabilidad, automatiz
         /* ── SRE badge appear ── */
         setTimeout(() => document.getElementById('sreBadge').classList.add('visible'), 2000);
 
+        /* ── Ñ/J via keyboard ── */
         document.addEventListener('keydown', e => {
             if (e.key === 'ñ' || e.key === 'Ñ') setLanguage('ñ');
             if (e.key === 'j' || e.key === 'J') setLanguage('j');
             if (e.key === 'Escape') setLanguage('es');
         });
+
+        /* ── Ñ/J via triple tap on hero name (mobile) ── */
+        (function() {
+            const heroName = document.querySelector('.hero-name');
+            if (!heroName) return;
+            let tapTimestamps = [];
+            heroName.addEventListener('click', () => {
+                const now = Date.now();
+                tapTimestamps = tapTimestamps.filter(t => now - t < 1500);
+                tapTimestamps.push(now);
+                if (tapTimestamps.length === 3) {
+                    setLanguage('ñ');
+                    tapTimestamps = [];
+                } else if (tapTimestamps.length === 5) {
+                    setLanguage('j');
+                    tapTimestamps = [];
+                }
+            });
+        })();
 
         /* ── Health graphs ── */
         const healthState = { cpu: 35, ram: 52, disk: 74 };
