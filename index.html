@@ -34,7 +34,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="/assets/css/common.css?v=20260713">
+    <link rel="stylesheet" href="/assets/css/common.css?v=20260713b">
     <style>
         .section {
             padding: 5rem 2rem;
@@ -1091,9 +1091,9 @@ Ingeniero informático, <strong>SRE en Roche</strong>. Observabilidad, automatiz
         <h2 class="section-title"><span class="title-text" data-i18n="about_title">Sobre mí</span></h2>
         <div class="about-content">
             <div class="about-text" data-i18n="about_text">
-                <p>Ingeniero Informático por la Universidad de Jaén, actualmente <strong>Site Reliability Engineer</strong> en el equipo de Monitoring &amp; Observability de Roche.</p>
-                <p>Resuelvo problemas de fiabilidad a escala con <strong>automatización Python</strong>, APIs <strong>REST/HMAC</strong>, pipelines <strong>OpenTelemetry</strong> y sincronización <strong>CMDB</strong>.</p>
-                <p>Integro <strong>agentes LLM</strong> en el flujo de trabajo para acelerar triage y generar runbooks.</p>
+                <p>Site Reliability Engineer en el equipo de Monitoring &amp; Observability de Roche. Mi foco está en la fiabilidad de infraestructura crítica a escala global: automatización en <strong>Python</strong>, integración vía APIs <strong>REST/HMAC</strong>, pipelines de <strong>OpenTelemetry</strong> y sincronización de <strong>CMDB</strong>.</p>
+                <p>Últimamente incorporo <strong>agentes LLM</strong> al flujo de trabajo para acelerar el triage de incidencias y generar runbooks.</p>
+                <p><a href="/pages/now/" style="color:#66d9ef">→ Conoce mi lado más personal</a></p>
             </div>
         </div>
     </section>
@@ -1339,7 +1339,7 @@ Ingeniero informático, <strong>SRE en Roche</strong>. Observabilidad, automatiz
         <p>&copy; 2026 Carlos Villén Villar · <span data-i18n="footer_built">Hecho con</span> ☕ &lt;/&gt;</p>
     </footer>
 
-    <script src="/assets/js/translations.js?v=20260713"></script>
+    <script src="/assets/js/translations.js?v=20260713b"></script>
     <script>
         let currentLang = localStorage.getItem('lang') || 'es';
         function t(k) { const v = translations[currentLang] && translations[currentLang][k]; if (v) return v; if (currentLang === 'ñ' || currentLang === 'j') { const f = translations.es && translations.es[k]; if (f) return f; } return translations.es && translations.es[k] || k; }
@@ -1768,7 +1768,7 @@ Ingeniero informático, <strong>SRE en Roche</strong>. Observabilidad, automatiz
 
         setLanguage(localStorage.getItem('lang') || 'es');
     </script>
-    <script src="/assets/js/common.js?v=20260713"></script>
+    <script src="/assets/js/common.js?v=20260713b"></script>
 </body>
 
 </html>
