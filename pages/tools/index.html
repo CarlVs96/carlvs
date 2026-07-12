@@ -19,7 +19,7 @@
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/cronstrue@latest/dist/cronstrue.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/cron-parser@4/dist/cron-parser.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/cron-parser@3/dist/cron-parser.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/js-yaml@4/dist/js-yaml.min.js"></script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -703,8 +703,12 @@
                 descEl.textContent = desc;
                 status.innerHTML = '<span class="ok"><i class="fas fa-check-circle"></i> Expresión válida</span>';
 
+                let cronExpr = input;
+                const aliasMap = { '@yearly': '0 0 1 1 *', '@annually': '0 0 1 1 *', '@monthly': '0 0 1 * *', '@weekly': '0 0 * * 0', '@daily': '0 0 * * *', '@midnight': '0 0 * * *', '@hourly': '0 * * * *' };
+                if (aliasMap[cronExpr.toLowerCase()]) cronExpr = aliasMap[cronExpr.toLowerCase()];
+
                 const nextRuns = [];
-                const interval = cronParser.parseExpression(input);
+                const interval = cronParser.parseExpression(cronExpr);
                 for (let i = 0; i < 5; i++) {
                     const next = interval.next().toDate();
                     if (!next || !next.getTime()) break;
