@@ -625,9 +625,37 @@
 
         .contact-grid {
             display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+        .contact-grid .contact-row {
+            display: flex;
             gap: 1rem;
             justify-content: center;
-            flex-wrap: wrap;
+        }
+        .contact-grid .contact-row .contact-card {
+            width: 180px;
+            min-height: 160px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .contact-grid .contact-row .contact-card:first-child {
+            width: 180px;
+        }
+        .contact-grid .contact-row .contact-card:last-child {
+            width: 180px;
+        }
+        .contact-grid.form-open .contact-row {
+            width: 100%;
+            max-width: 560px;
+        }
+        .contact-grid.form-open .contact-row .contact-card {
+            flex: 1;
+            width: auto;
+            max-width: none;
         }
 
         .contact-card {
@@ -637,12 +665,19 @@
             padding: 1.5rem 2rem;
             text-align: center;
             transition: all 0.3s ease;
+        }
+        #emailCard {
             width: 180px;
             min-height: 160px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            cursor: pointer;
+        }
+        .contact-grid.form-open #emailCard {
+            width: 100%;
+            max-width: 560px;
         }
         .contact-card:hover {
             border-color: #66d9ef;
@@ -1293,7 +1328,7 @@ Ingeniero informático, <strong>SRE en Roche</strong>. Observabilidad, automatiz
     <section id="contact" class="section">
         <h2 class="section-title"><span class="title-text" data-i18n="contact_title">Contacto</span></h2>
 
-        <div class="contact-grid">
+        <div class="contact-grid" id="contactGrid">
             <div class="contact-card" id="emailCard">
                 <i class="fas fa-envelope"></i>
                 <span class="label">Email</span>
@@ -1307,16 +1342,18 @@ Ingeniero informático, <strong>SRE en Roche</strong>. Observabilidad, automatiz
                     </div>
                 </div>
             </div>
-            <a href="https://linkedin.com/in/carlosvillenvillar/en" target="_blank" class="contact-card">
-                <i class="fab fa-linkedin-in"></i>
-                <span class="label">LinkedIn</span>
-                <span class="value">carlosvillenvillar</span>
-            </a>
-            <a href="/cv.html" class="contact-card" target="_blank">
-                <i class="fas fa-file"></i>
-                <span class="label" data-i18n="cv_label">Descargar CV</span>
-                <span class="value" data-i18n="cv_value">HTML · imprimible</span>
-            </a>
+            <div class="contact-row">
+                <a href="https://linkedin.com/in/carlosvillenvillar/en" target="_blank" class="contact-card">
+                    <i class="fab fa-linkedin-in"></i>
+                    <span class="label">LinkedIn</span>
+                    <span class="value">carlosvillenvillar</span>
+                </a>
+                <a href="/cv.html" class="contact-card" target="_blank">
+                    <i class="fas fa-file"></i>
+                    <span class="label" data-i18n="cv_label">Descargar CV</span>
+                    <span class="value" data-i18n="cv_value">HTML · imprimible</span>
+                </a>
+            </div>
         </div>
     </section>
 
@@ -1484,6 +1521,7 @@ Ingeniero informático, <strong>SRE en Roche</strong>. Observabilidad, automatiz
         }
         /* ── Contact form ── */
         const emailCard = document.getElementById('emailCard');
+        const contactGrid = document.getElementById('contactGrid');
         const contactForm = document.getElementById('contactForm');
         const formName = document.getElementById('formName');
         const formMsg = document.getElementById('formMsg');
@@ -1493,11 +1531,13 @@ Ingeniero informático, <strong>SRE en Roche</strong>. Observabilidad, automatiz
         emailCard.addEventListener('click', e => {
             if (e.target.closest('.form-actions') || e.target.closest('.contact-form')) return;
             contactForm.classList.toggle('open');
+            contactGrid.classList.toggle('form-open');
         });
 
         formClose.addEventListener('click', e => {
             e.stopPropagation();
             contactForm.classList.remove('open');
+            contactGrid.classList.remove('form-open');
         });
 
         formSend.addEventListener('click', e => {
