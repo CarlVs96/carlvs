@@ -58,10 +58,14 @@
             padding: 2rem 1.5rem 4rem;
         }
         .now-section {
-            margin-bottom: 3rem;
+            margin-bottom: 2rem;
             opacity: 0;
             transform: translateY(20px);
             transition: opacity 0.6s ease, transform 0.6s ease;
+            background: #222;
+            border-radius: 12px;
+            padding: 1.5rem;
+            border: 1px solid #333;
         }
         .now-section.visible {
             opacity: 1;
@@ -77,6 +81,13 @@
             line-height: 1.7;
             font-size: 0.95rem;
         }
+        .now-section a {
+            color: #66d9ef;
+            text-decoration: underline;
+        }
+        .now-section a:hover {
+            color: #f92672;
+        }
         .now-section strong { color: #fd971f; }
         .now-section ul { padding-left: 1.25rem; margin: 0; }
         .now-section li { margin-bottom: 0.4rem; }
@@ -87,9 +98,9 @@
             max-width: 680px;
             height: 420px;
             display: block;
-            margin: 0 auto 3rem;
-            border-radius: 12px;
-            background: transparent;
+            margin: 0;
+            border-radius: 8px;
+            background: #151515;
             opacity: 0;
             transform: translateY(20px);
             transition: opacity 0.6s ease, transform 0.6s ease;
@@ -111,10 +122,16 @@
 
         /* ── Light theme ── */
         html.light body { background: #f5f5f5; }
+        html.light .now-section {
+            background: #fff;
+            border-color: #e0e0e0;
+        }
         html.light .now-section h2 { color: #2d2d2d; }
         html.light .now-section p, html.light .now-section li { color: #2d2d2d; }
+        html.light .now-section a { color: #f92672; }
         html.light .now-section strong { color: #fd971f; }
         html.light .travel-list span { color: #f92672; }
+        html.light #world-map { background: #e8e8e8; }
 
         /* ── Mobile ── */
         @media (max-width: 768px) {
@@ -311,10 +328,30 @@
 
                 ctx.clearRect(0, 0, w, h);
 
+                /* continent silhouettes */
+                ctx.fillStyle = '#a6e22e';
+                ctx.globalAlpha = 0.15;
+                const continents = [
+                    [-10,36,10,36,8,46,25,46,30,42,25,36,20,38,10,38],
+                    [-130,50,-125,48,-122,37,-118,34,-115,33,-110,30,-105,25,-100,25,-97,26,-95,30,-90,30,-87,25,-82,25,-80,28,-75,30,-70,45,-65,47,-60,50,-55,52,-50,55,-65,60,-75,60,-80,55,-85,60,-90,62,-95,60,-100,55,-110,55,-120,50,-130,50],
+                    [75,10,80,8,90,10,95,15,100,15,105,10,110,5,115,8,120,10,125,15,130,20,125,25,120,25,115,30,110,25,105,25,100,22,95,15,85,15,80,15,75,15],
+                    [135,-25,140,-20,145,-15,150,-10,145,-5,140,-5,135,-10,130,-15,135,-20],
+                ];
+                continents.forEach(pts => {
+                    ctx.beginPath();
+                    for (let i = 0; i < pts.length; i += 2) {
+                        const p = toScreen(pts[i+1], pts[i], w, h);
+                        i === 0 ? ctx.moveTo(p.x, p.y) : ctx.lineTo(p.x, p.y);
+                    }
+                    ctx.closePath();
+                    ctx.fill();
+                });
+                ctx.globalAlpha = 1;
+
                 /* graticule */
                 ctx.strokeStyle = '#75715e';
                 ctx.lineWidth = 0.4;
-                ctx.globalAlpha = 0.3;
+                ctx.globalAlpha = 0.25;
                 for (let lat = -90; lat <= 90; lat += 30) {
                     ctx.beginPath();
                     for (let lng = -180; lng <= 180; lng += 2) {
@@ -333,46 +370,26 @@
                 }
                 ctx.globalAlpha = 1;
 
-                /* continent silhouettes (simplified) */
-                ctx.fillStyle = '#75715e';
-                ctx.globalAlpha = 0.08;
-                const continents = [
-                    [-10,36,10,36,8,46,25,46,30,42,25,36,20,38,10,38],
-                    [-130,50,-125,48,-122,37,-118,34,-115,33,-110,30,-105,25,-100,25,-97,26,-95,30,-90,30,-87,25,-82,25,-80,28,-75,30,-70,45,-65,47,-60,50,-55,52,-50,55,-65,60,-75,60,-80,55,-85,60,-90,62,-95,60,-100,55,-110,55,-120,50,-130,50],
-                    [75,10,80,8,90,10,95,15,100,15,105,10,110,5,115,8,120,10,125,15,130,20,125,25,120,25,115,30,110,25,105,25,100,22,95,15,85,15,80,15,75,15],
-                    [135,-25,140,-20,145,-15,150,-10,145,-5,140,-5,135,-10,130,-15,135,-20],
-                ];
-                continents.forEach(pts => {
-                    ctx.beginPath();
-                    for (let i = 0; i < pts.length; i += 2) {
-                        const p = toScreen(pts[i+1], pts[i], w, h);
-                        i === 0 ? ctx.moveTo(p.x, p.y) : ctx.lineTo(p.x, p.y);
-                    }
-                    ctx.closePath();
-                    ctx.fill();
-                });
-                ctx.globalAlpha = 1;
-
                 /* dots + labels */
                 places.forEach(p => {
                     const s = toScreen(p.lat, p.lng, w, h);
-                    const r = p.home ? 5 : 3.5;
+                    const r = p.home ? 6 : 4.5;
                     ctx.beginPath();
                     ctx.arc(s.x, s.y, r, 0, Math.PI * 2);
                     ctx.fillStyle = p.home ? '#f92672' : '#a6e22e';
                     ctx.fill();
                     if (p.home) {
                         ctx.beginPath();
-                        ctx.arc(s.x, s.y, r + 4, 0, Math.PI * 2);
-                        ctx.strokeStyle = 'rgba(249,38,114,0.3)';
+                        ctx.arc(s.x, s.y, r + 5, 0, Math.PI * 2);
+                        ctx.strokeStyle = 'rgba(249,38,114,0.25)';
                         ctx.lineWidth = 2;
                         ctx.stroke();
                     }
-                    ctx.font = '10px JetBrains Mono, monospace';
-                    ctx.fillStyle = '#75715e';
+                    ctx.font = '11px JetBrains Mono, monospace';
+                    ctx.fillStyle = '#f8f8f2';
                     ctx.textAlign = 'left';
                     ctx.textBaseline = 'middle';
-                    ctx.fillText(p.name, s.x + r + 5, s.y);
+                    ctx.fillText(p.name, s.x + r + 6, s.y);
                 });
             }
 
