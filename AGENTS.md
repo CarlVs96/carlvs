@@ -122,7 +122,8 @@ All colors hardcoded as hex across files (no CSS custom properties).
 - **Tooltips**: each stack badge has `data-tip` with description, shown on hover via CSS `::after`.
 - **Light/dark toggle**: ☀️/🌙 in navbar, persisted in `localStorage`. Full light theme CSS under `html.light`.
 - **Stack filter**: category buttons above stack grid, hide/show columns via JS.
-- **Toast + copy email**: click email → clipboard copy → "¡Copiado!" toast (2s).
+- **Contact form**: click the email card → expandable inline form (name + message). Sends via Web3Forms API. Toast feedback (success/error).
+- **Ñ/J mobile**: triple-tap (×3) on `CarlVs` hero name → Ñiñosaurio mode. Triple-tap (×5) → Jiennense mode. Same keyboard shortcuts work on desktop.
 - **Dynamic font-size**: mobile hero scales via viewport units.
 
 ## No tests, no lint, no typecheck
