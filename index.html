@@ -560,6 +560,13 @@
 
         .timeline-item.current::before { background: #a6e22e; }
 
+        .timeline-content {
+            background: #222;
+            border: 1px solid #3a3a3a;
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+
         .timeline-date {
             font-size: 0.8rem;
             color: #75715e;
@@ -1104,7 +1111,7 @@
         html.light .timeline-role { color: #2d2d2d; }
         html.light .timeline-desc { color: #555; }
         html.light .timeline-bullets li { color: #555; }
-        html.light .timeline-content { background: #f0f0f0; border-color: #ddd; }
+        html.light .timeline-content { background: #f5f5f5; border-color: #ddd; }
         html.light .timeline-date { color: #999; }
         html.light .stack-cat-title { color: #999; }
         html.light .badge { background: #e8e8e8; color: #ae81ff; }
@@ -1278,6 +1285,7 @@ Ingeniero informático, <strong>SRE en Roche</strong>. Observabilidad, automatiz
 
             <!-- Roche -->
             <div class="timeline-item current">
+                <div class="timeline-content">
                 <div class="timeline-date" data-i18n="roche_date">Febrero 2025 - Actualidad</div>
                 <div class="timeline-company">Roche <span>·</span> <span data-i18n="roche_role">Site Reliability Engineer</span></div>
                 <div class="timeline-desc" data-i18n="roche_desc">Equipo de Monitoring &amp; Observability, mejorando la fiabilidad y operación de infraestructura crítica a escala global.</div>
@@ -1287,10 +1295,12 @@ Ingeniero informático, <strong>SRE en Roche</strong>. Observabilidad, automatiz
                     <li data-i18n="roche_3">Integración de sistemas: <strong>sincronización CMDB</strong> (Service Graph Connector) y pipelines de <strong>OpenTelemetry</strong>.</li>
                     <li data-i18n="roche_4">Prácticas SRE: <strong>on-call (PagerDuty)</strong>, triage de incidentes, <strong>automatización de runbooks</strong> y colaboración internacional; reducción de toil operativo.</li>
                 </ul>
+                </div>
             </div>
 
             <!-- Granada Dynamics -->
             <div class="timeline-item">
+                <div class="timeline-content">
                 <div class="timeline-date" data-i18n="granada_date">Marzo 2024 - Junio 2024</div>
                 <div class="timeline-company">Granada Dynamics <span>·</span> <span data-i18n="granada_role">Desarrollador Backend</span></div>
                 <ul class="timeline-bullets">
@@ -1298,10 +1308,12 @@ Ingeniero informático, <strong>SRE en Roche</strong>. Observabilidad, automatiz
                     <li data-i18n="granada_2">Adaptación de frameworks como <strong>Django</strong> y uso de <strong>Behave</strong> con <strong>Pytest</strong> para testing.</li>
                     <li data-i18n="granada_3">Implementación de features usando <strong>MongoDB</strong> como base de datos no relacional.</li>
                 </ul>
+                </div>
             </div>
 
             <!-- Telefónica -->
             <div class="timeline-item">
+                <div class="timeline-content">
                 <div class="timeline-date" data-i18n="telefonica_date">Noviembre 2022 - Diciembre 2023</div>
                 <div class="timeline-company">Full On Net / Telefónica <span>·</span> <span data-i18n="telefonica_role">Desarrollador QA Automation</span></div>
                 <ul class="timeline-bullets">
@@ -1309,10 +1321,12 @@ Ingeniero informático, <strong>SRE en Roche</strong>. Observabilidad, automatiz
                     <li data-i18n="telefonica_2">Automatización de procesos CI/CD usando <strong>Jenkins</strong>.</li>
                     <li data-i18n="telefonica_3">Uso de herramientas como Postman, Wireshark y Git.</li>
                 </ul>
+                </div>
             </div>
 
             <!-- Nucleoo -->
             <div class="timeline-item">
+                <div class="timeline-content">
                 <div class="timeline-date" data-i18n="nucleoo_date">Abril 2021 - Noviembre 2022</div>
                 <div class="timeline-company">Nucleoo / visualfabriq <span>·</span> <span data-i18n="nucleoo_role">Desarrollador Backend</span></div>
                 <ul class="timeline-bullets">
@@ -1320,16 +1334,19 @@ Ingeniero informático, <strong>SRE en Roche</strong>. Observabilidad, automatiz
                     <li data-i18n="nucleoo_2">Uso de <strong>Pandas y NumPy</strong> para análisis de datos y optimización con cProfile.</li>
                     <li data-i18n="nucleoo_3">Implementación de tests unitarios (Pytest), despliegue con <strong>Docker</strong> y servicios <strong>AWS</strong> (EC2, S3, CloudWatch).</li>
                 </ul>
+                </div>
             </div>
 
             <!-- E-VALUA -->
             <div class="timeline-item">
+                <div class="timeline-content">
                 <div class="timeline-date" data-i18n="evalua_date">Julio 2020 - Enero 2021</div>
                 <div class="timeline-company">E-VALUA <span>·</span> <span data-i18n="evalua_role">Desarrollador Full-Stack</span></div>
                 <ul class="timeline-bullets">
                     <li data-i18n="evalua_1">Desarrollo y mantenimiento de aplicación para el sector seguros con <strong>PHP (Laravel)</strong> y MySQL.</li>
                     <li data-i18n="evalua_2">Desarrollo frontend con <strong>Javascript (AngularJS)</strong>.</li>
                 </ul>
+                </div>
             </div>
 
         </div>
