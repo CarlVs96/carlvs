@@ -445,9 +445,24 @@
         html.light .diff-line.add { background: rgba(166,226,46,0.15); }
         html.light .diff-line.del { background: rgba(249,38,114,0.1); }
         html.light .diff-ln { color: #bbb; }
+
+        /* ── Scroll progress ── */
+        #scroll-progress { position: fixed; top: 0; left: 0; height: 3px; background: linear-gradient(90deg, #f92672, #ae81ff, #66d9ef); z-index: 1001; width: 0%; transition: width 0.1s linear; }
+
+        /* ── Section reveal ── */
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.6s ease; }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+
+        /* ── Theme toggle ── */
+        .theme-btn { background: none; border: none; color: #75715e; font-size: 1.1rem; cursor: pointer; padding: 0.25rem; transition: color 0.3s ease; }
+        .theme-btn:hover { color: #fd971f; }
+
+        html.light .theme-btn { color: #999; }
+        html.light .theme-btn:hover { color: #fd971f; }
     </style>
 </head>
 <body>
+    <div id="scroll-progress"></div>
     <canvas id="particleCanvas"></canvas>
 
     <nav class="navbar">
@@ -457,19 +472,20 @@
             <a href="/pages/tools/" class="active" data-i18n="nav_tools">Tools</a>
         </div>
         <div class="nav-right">
+            <button class="theme-btn" id="themeToggle" aria-label="Toggle theme">☀️</button>
             <button class="lang-btn active" data-lang="es" onclick="setLanguage('es')">ES</button>
             <button class="lang-btn" data-lang="en" onclick="setLanguage('en')">EN</button>
             <button class="nav-toggle" id="navToggle" aria-label="Menu">☰</button>
         </div>
     </nav>
 
-    <section class="tools-hero">
+    <section class="tools-hero section">
         <h1><i class="fas fa-tools"></i> <span data-i18n="hero_title">Toolkit</span></h1>
         <p data-i18n="hero_sub">Utilidades para el día a día — cron, timestamp, JSON, regex, base64, YAML, URL, base converter, diff</p>
         <div class="tool-count" data-i18n="hero_count">9 herramientas · todo en local, nada sale de tu navegador</div>
     </section>
 
-    <section class="tools-section">
+    <section class="tools-section section">
         <div class="tools-grid">
             <a href="#tool-cron" class="tool-card">
                 <div class="icon"><i class="fas fa-clock"></i></div>
@@ -1593,13 +1609,51 @@
         document.addEventListener('mousemove', e => { pMouse.x = e.clientX; pMouse.y = e.clientY; });
         document.addEventListener('mouseleave', () => { pMouse.x = -1000; pMouse.y = -1000; });
 
-        const pThemeBtn = document.getElementById('themeToggle');
-        if (pThemeBtn) {
-            pThemeBtn.addEventListener('click', () => {
-                const cols = pColors();
-                particles.forEach(p => { p.color = cols[Math.floor(Math.random() * cols.length)]; });
-            });
+        /* ── Scroll progress ── */
+        const progressBar = document.getElementById('scroll-progress');
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+            progressBar.style.width = pct + '%';
+        });
+
+        /* ── Section reveal ── */
+        document.querySelectorAll('.section').forEach(s => {
+            s.classList.add('reveal');
+            const rObs = new IntersectionObserver(entries => {
+                entries.forEach(e => {
+                    if (e.isIntersecting) e.target.classList.add('visible');
+                });
+            }, { threshold: 0.1 });
+            rObs.observe(s);
+        });
+
+        /* ── Light / Dark toggle ── */
+        const themeBtn = document.getElementById('themeToggle');
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'light') {
+            document.documentElement.classList.add('light');
+            themeBtn.textContent = '🌙';
         }
+        themeBtn.addEventListener('click', () => {
+            const isLight = document.documentElement.classList.toggle('light');
+            themeBtn.textContent = isLight ? '🌙' : '☀️';
+            localStorage.setItem('theme', isLight ? 'light' : 'dark');
+            const cols = pColors();
+            particles.forEach(p => { p.color = cols[Math.floor(Math.random() * cols.length)]; });
+        });
+
+        /* ── Toast ── */
+        const toast = document.getElementById('toast');
+        let toastTimer;
+        function showToast(msg) {
+            toast.textContent = msg;
+            toast.classList.add('show');
+            clearTimeout(toastTimer);
+            toastTimer = setTimeout(() => toast.classList.remove('show'), 2000);
+        }
+
     </script>
 </body>
 </html>
