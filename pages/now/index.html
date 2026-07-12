@@ -18,7 +18,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="/assets/css/common.css?v=20260713c">
+    <link rel="stylesheet" href="/assets/css/common.css?v=20260713d">
     <style>
         /* ── Now page extras ── */
         html { scroll-behavior: smooth; }
@@ -401,16 +401,8 @@
             </section>
         </div>
 
-        <!-- Grid: Learning + Reading + Listening + Projects -->
+        <!-- Grid: Listening + Reading + Learning + Projects -->
         <div class="now-grid">
-            <section class="now-section section-learning">
-                <h2 data-i18n="now_learning_title">Aprendiendo</h2>
-                <p data-i18n="now_learning">Rundeck, Temporal, y en general cómo hacer que sistemas hablen entre sí sin que se quemen.</p>
-            </section>
-            <section class="now-section section-reading">
-                <h2 data-i18n="now_reading_title">Leyendo</h2>
-                <p data-i18n="now_reading">El Código Da Vinci (sí, llegué tarde).</p>
-            </section>
             <section class="now-section section-listening">
                 <h2 data-i18n="now_listening_title">Escuchando</h2>
                 <div class="mini-player" id="miniPlayer">
@@ -423,6 +415,14 @@
                     </div>
                 </div>
                 <div id="ytPlayerWrap" hidden></div>
+            </section>
+            <section class="now-section section-reading">
+                <h2 data-i18n="now_reading_title">Leyendo</h2>
+                <p data-i18n="now_reading">El Código Da Vinci (sí, llegué tarde).</p>
+            </section>
+            <section class="now-section section-learning">
+                <h2 data-i18n="now_learning_title">Aprendiendo</h2>
+                <p data-i18n="now_learning">Rundeck, Temporal, y en general cómo hacer que sistemas hablen entre sí sin que se quemen.</p>
             </section>
             <section class="now-section section-projects">
                 <h2 data-i18n="now_projects_title">Side Projects</h2>
@@ -459,8 +459,8 @@
     <!-- Back to top -->
     <button id="back-to-top" aria-label="Back to top">↑</button>
 
-    <script src="/assets/js/translations.js?v=20260713c"></script>
-    <script src="/assets/js/common.js?v=20260713c"></script>
+    <script src="/assets/js/translations.js?v=20260713d"></script>
+    <script src="/assets/js/common.js?v=20260713d"></script>
     <script>
         /* ── i18n ── */
         let currentLang = localStorage.getItem('lang') || 'es';
