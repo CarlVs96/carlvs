@@ -1496,38 +1496,18 @@ Ingeniero informático, <strong>SRE en Roche</strong>. Observabilidad, automatiz
             contactForm.classList.remove('open');
         });
 
-        formSend.addEventListener('click', async e => {
+        formSend.addEventListener('click', e => {
             e.stopPropagation();
             const name = formName.value.trim();
             const msg = formMsg.value.trim();
             if (!name || !msg) { showToast('Rellena nombre y mensaje'); return; }
-            formSend.disabled = true;
-            formSend.textContent = 'Enviando...';
-            try {
-                const res = await fetch('https://api.web3forms.com/submit', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        access_key: 'YOUR_WEB3FORMS_KEY',
-                        subject: 'Contacto desde carlvs.dev — ' + name,
-                        message: msg,
-                        from_name: name,
-                    })
-                });
-                const data = await res.json();
-                if (data.success) {
-                    showToast('¡Mensaje enviado!');
-                    contactForm.classList.remove('open');
-                    formName.value = '';
-                    formMsg.value = '';
-                } else {
-                    showToast('Error al enviar');
-                }
-            } catch {
-                showToast('Error de conexión');
-            }
-            formSend.disabled = false;
-            formSend.textContent = 'Enviar';
+            const subject = encodeURIComponent('Contacto desde carlvs.dev — ' + name);
+            const body = encodeURIComponent('Mensaje de ' + name + ':\n\n' + msg);
+            window.location.href = 'mailto:cvillenv@gmail.com?subject=' + subject + '&body=' + body;
+            showToast('¡Enviado a tu cliente de correo!');
+            contactForm.classList.remove('open');
+            formName.value = '';
+            formMsg.value = '';
         });
 
         /* ── Terminal demo ── */
