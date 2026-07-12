@@ -184,6 +184,9 @@
             font-size: 0.75rem;
             font-family: inherit;
             transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            line-height: 1;
         }
         .lang-btn:hover { border-color: #66d9ef; color: #66d9ef; }
         .lang-btn.active { background: #66d9ef; color: #1a1a1a; border-color: #66d9ef; }
@@ -559,6 +562,13 @@
         }
 
         .timeline-item.current::before { background: #a6e22e; }
+
+        .timeline-content {
+            background: #222;
+            border: 1px solid #3a3a3a;
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
 
         .timeline-date {
             font-size: 0.8rem;
@@ -1096,11 +1106,15 @@
         html.light .theme-btn { color: #999; }
         html.light .theme-btn:hover { color: #fd971f; }
         html.light .section { border-bottom-color: #eee; }
-        html.light #particleCanvas { opacity: 0.25; }
-        html.light #spotlight { opacity: 0.3; }
+        html.light #particleCanvas { opacity: 0.5; }
         html.light .timeline-item::before { border-color: #ddd; background: #eee; }
         html.light .timeline-item.current::before { background: #f92672; }
-        html.light .timeline-content { background: #f0f0f0; border-color: #ddd; }
+        html.light .timeline::before { background: #ddd; }
+        html.light .timeline-company { color: #2d2d2d; }
+        html.light .timeline-role { color: #2d2d2d; }
+        html.light .timeline-desc { color: #555; }
+        html.light .timeline-bullets li { color: #555; }
+        html.light .timeline-content { background: #f5f5f5; border-color: #ddd; }
         html.light .timeline-date { color: #999; }
         html.light .stack-cat-title { color: #999; }
         html.light .badge { background: #e8e8e8; color: #ae81ff; }
@@ -1274,6 +1288,7 @@ Ingeniero informático, <strong>SRE en Roche</strong>. Observabilidad, automatiz
 
             <!-- Roche -->
             <div class="timeline-item current">
+                <div class="timeline-content">
                 <div class="timeline-date" data-i18n="roche_date">Febrero 2025 - Actualidad</div>
                 <div class="timeline-company">Roche <span>·</span> <span data-i18n="roche_role">Site Reliability Engineer</span></div>
                 <div class="timeline-desc" data-i18n="roche_desc">Equipo de Monitoring &amp; Observability, mejorando la fiabilidad y operación de infraestructura crítica a escala global.</div>
@@ -1283,10 +1298,12 @@ Ingeniero informático, <strong>SRE en Roche</strong>. Observabilidad, automatiz
                     <li data-i18n="roche_3">Integración de sistemas: <strong>sincronización CMDB</strong> (Service Graph Connector) y pipelines de <strong>OpenTelemetry</strong>.</li>
                     <li data-i18n="roche_4">Prácticas SRE: <strong>on-call (PagerDuty)</strong>, triage de incidentes, <strong>automatización de runbooks</strong> y colaboración internacional; reducción de toil operativo.</li>
                 </ul>
+                </div>
             </div>
 
             <!-- Granada Dynamics -->
             <div class="timeline-item">
+                <div class="timeline-content">
                 <div class="timeline-date" data-i18n="granada_date">Marzo 2024 - Junio 2024</div>
                 <div class="timeline-company">Granada Dynamics <span>·</span> <span data-i18n="granada_role">Desarrollador Backend</span></div>
                 <ul class="timeline-bullets">
@@ -1294,10 +1311,12 @@ Ingeniero informático, <strong>SRE en Roche</strong>. Observabilidad, automatiz
                     <li data-i18n="granada_2">Adaptación de frameworks como <strong>Django</strong> y uso de <strong>Behave</strong> con <strong>Pytest</strong> para testing.</li>
                     <li data-i18n="granada_3">Implementación de features usando <strong>MongoDB</strong> como base de datos no relacional.</li>
                 </ul>
+                </div>
             </div>
 
             <!-- Telefónica -->
             <div class="timeline-item">
+                <div class="timeline-content">
                 <div class="timeline-date" data-i18n="telefonica_date">Noviembre 2022 - Diciembre 2023</div>
                 <div class="timeline-company">Full On Net / Telefónica <span>·</span> <span data-i18n="telefonica_role">Desarrollador QA Automation</span></div>
                 <ul class="timeline-bullets">
@@ -1305,10 +1324,12 @@ Ingeniero informático, <strong>SRE en Roche</strong>. Observabilidad, automatiz
                     <li data-i18n="telefonica_2">Automatización de procesos CI/CD usando <strong>Jenkins</strong>.</li>
                     <li data-i18n="telefonica_3">Uso de herramientas como Postman, Wireshark y Git.</li>
                 </ul>
+                </div>
             </div>
 
             <!-- Nucleoo -->
             <div class="timeline-item">
+                <div class="timeline-content">
                 <div class="timeline-date" data-i18n="nucleoo_date">Abril 2021 - Noviembre 2022</div>
                 <div class="timeline-company">Nucleoo / visualfabriq <span>·</span> <span data-i18n="nucleoo_role">Desarrollador Backend</span></div>
                 <ul class="timeline-bullets">
@@ -1316,16 +1337,19 @@ Ingeniero informático, <strong>SRE en Roche</strong>. Observabilidad, automatiz
                     <li data-i18n="nucleoo_2">Uso de <strong>Pandas y NumPy</strong> para análisis de datos y optimización con cProfile.</li>
                     <li data-i18n="nucleoo_3">Implementación de tests unitarios (Pytest), despliegue con <strong>Docker</strong> y servicios <strong>AWS</strong> (EC2, S3, CloudWatch).</li>
                 </ul>
+                </div>
             </div>
 
             <!-- E-VALUA -->
             <div class="timeline-item">
+                <div class="timeline-content">
                 <div class="timeline-date" data-i18n="evalua_date">Julio 2020 - Enero 2021</div>
                 <div class="timeline-company">E-VALUA <span>·</span> <span data-i18n="evalua_role">Desarrollador Full-Stack</span></div>
                 <ul class="timeline-bullets">
                     <li data-i18n="evalua_1">Desarrollo y mantenimiento de aplicación para el sector seguros con <strong>PHP (Laravel)</strong> y MySQL.</li>
                     <li data-i18n="evalua_2">Desarrollo frontend con <strong>Javascript (AngularJS)</strong>.</li>
                 </ul>
+                </div>
             </div>
 
         </div>
@@ -1489,298 +1513,10 @@ Ingeniero informático, <strong>SRE en Roche</strong>. Observabilidad, automatiz
         <p>&copy; 2026 Carlos Villén Villar · <span data-i18n="footer_built">Hecho con</span> ☕ &lt;/&gt;</p>
     </footer>
 
+    <script src="/assets/js/translations.js"></script>
     <script>
-        const translations = {
-            es: {
-                nav_about: 'Sobre mí',
-                nav_exp: 'Experiencia',
-                nav_stack: 'Stack',
-                nav_ai: 'IA',
-                nav_contact: 'Contacto',
-                nav_tools: 'Tools',
-                greeting: '¡Hola! Soy',
-                title: 'Site Reliability Engineer · Backend Developer · AIOps',
-                desc: 'Ingeniero informático, <strong>SRE en Roche</strong>. Observabilidad, automatización e <strong>IA aplicada a operaciones</strong>.',
-                stat_exp: 'Años de experiencia',
-                stat_devices: 'Dispositivos monitorizados',
-                stat_coffee: 'Tazas de café',
-                cta_about: 'Sobre mí',
-                cta_contact: 'Contactar',
-                scroll: 'Descubre más',
-                about_title: 'Sobre mí',
-                about_text: '<p>Ingeniero Informático por la Universidad de Jaén, actualmente <strong>Site Reliability Engineer</strong> en el equipo de Monitoring &amp; Observability de Roche.</p><p>Resuelvo problemas de fiabilidad a escala con <strong>automatización Python</strong>, APIs <strong>REST/HMAC</strong>, pipelines <strong>OpenTelemetry</strong> y sincronización <strong>CMDB</strong>.</p><p>Integro <strong>agentes LLM</strong> en el flujo de trabajo para acelerar triage y generar runbooks.</p>',
-                exp_title: 'Experiencia',
-                roche_date: 'Febrero 2025 - Actualidad',
-                roche_role: 'Site Reliability Engineer',
-                roche_desc: 'Equipo de Monitoring &amp; Observability, mejorando la fiabilidad y operación de infraestructura crítica a escala global.',
-                roche_1: 'Automatización en <strong>Python</strong> contra APIs de monitorización, ITSM (<strong>ServiceNow</strong>), CI/CD (<strong>GitLab CI</strong>) y on-call, con autenticación REST/HMAC.',
-                roche_2: 'Operación de plataformas de observabilidad (<strong>LogicMonitor</strong>, Splunk): dashboards, <strong>tuning de alertas</strong> para reducir ruido, ventanas de mantenimiento y reporting de capacidad.',
-                roche_3: 'Integración de sistemas: <strong>sincronización CMDB</strong> (Service Graph Connector) y pipelines de <strong>OpenTelemetry</strong>.',
-                roche_4: 'Prácticas SRE: <strong>on-call (PagerDuty)</strong>, triage de incidentes, <strong>automatización de runbooks</strong> y colaboración internacional; reducción de toil operativo.',
-                granada_date: 'Marzo 2024 - Junio 2024',
-                granada_role: 'Desarrollador Backend',
-                granada_1: 'Diseño y desarrollo inicial de software basado en <strong>Python</strong> para un producto educativo innovador.',
-                granada_2: 'Adaptación de frameworks como <strong>Django</strong> y uso de <strong>Behave</strong> con <strong>Pytest</strong> para testing.',
-                granada_3: 'Implementación de features usando <strong>MongoDB</strong> como base de datos no relacional.',
-                telefonica_date: 'Noviembre 2022 - Diciembre 2023',
-                telefonica_role: 'Desarrollador QA Automation',
-                telefonica_1: 'Desarrollo de tests automatizados con <strong>Behave (Gherkin) con Python</strong> para módulos de Audiencia de Movistar+.',
-                telefonica_2: 'Automatización de procesos CI/CD usando <strong>Jenkins</strong>.',
-                telefonica_3: 'Uso de herramientas como Postman, Wireshark y Git.',
-                nucleoo_date: 'Abril 2021 - Noviembre 2022',
-                nucleoo_role: 'Desarrollador Backend',
-                nucleoo_1: 'Desarrollo de aplicación web <strong>Flask (Python)</strong> para gestión masiva de datos en el sector alimentario.',
-                nucleoo_2: 'Uso de <strong>Pandas y NumPy</strong> para análisis de datos y optimización con cProfile.',
-                nucleoo_3: 'Implementación de tests unitarios (Pytest), despliegue con <strong>Docker</strong> y servicios <strong>AWS</strong> (EC2, S3, CloudWatch).',
-                evalua_date: 'Julio 2020 - Enero 2021',
-                evalua_role: 'Desarrollador Full-Stack',
-                evalua_1: 'Desarrollo y mantenimiento de aplicación para el sector seguros con <strong>PHP (Laravel)</strong> y MySQL.',
-                evalua_2: 'Desarrollo frontend con <strong>Javascript (AngularJS)</strong>.',
-                aiops_title: 'Operaciones potenciadas por IA (AIOps)',
-                aiops_intro: 'Integro <strong>agentes de IA (LLM)</strong> en el flujo de trabajo de observabilidad y operaciones para reducir el trabajo manual repetitivo y acelerar la respuesta a incidentes:',
-                aiops_1: '<strong>Triage de incidentes asistido por IA</strong>: correlación automática entre señales de monitorización, ITSM y on-call para proponer causa raíz y siguiente acción.',
-                aiops_2: '<strong>Generación automática de runbooks y documentación</strong> a partir de incidentes resueltos, reutilizables por el resto del equipo.',
-                aiops_3: '<strong>Tooling agéntico</strong> que orquesta múltiples APIs internas (monitorización, ITSM, CI/CD, on-call) mediante skills especializadas.',
-                aiops_4: '<strong>Automatización de tareas operativas</strong> (reporting, planificación, resúmenes) con agentes conectados a las herramientas del equipo.',
-                aiops_5: 'Enfoque en <strong>fiabilidad y reducción de toil</strong>: convertir procedimientos manuales en flujos asistidos y verificables.',
-                stack_title: 'Stack Tecnológico',
-                filter_all: 'Todo',
-                filter_langs: 'Lenguajes',
-                filter_frameworks: 'Frameworks',
-                filter_obs: 'Obs',
-                filter_cloud: 'Cloud',
-                filter_ia: 'IA',
-                filter_dbs: 'BBDD',
-                cat_langs: 'Lenguajes',
-                cat_frameworks: 'Frameworks',
-                cat_observability: 'Observabilidad',
-                cat_cloud: 'Cloud / DevOps',
-                cat_ia: 'IA / Automatización',
-                cat_dbs: 'Bases de datos',
-                edu_title: 'Formación',
-                uni_date: 'Grado en Ingeniería Informática (2014 - 2020)',
-                uni_desc: 'TFG: Asistente de voz para información turística (Nota: 9.5)',
-                erasmus_date: 'Erasmus+ (2017 - 2019)',
-                awards_title: 'Premios',
-                award_1: '<strong>VI Edición Premio Ada Lovelace</strong> — Universidad de Jaén (Mejor TFG).',
-                award_2: '<strong>3ª Edición Mejor línea de investigación</strong> — Red PLN.NET (Procesamiento del Lenguaje Natural).',
-                terminal_title: './demo.sh',
-                contact_title: 'Contacto',
-                cv_label: 'Descargar CV',
-                cv_value: 'HTML · imprimible',
-                footer_built: 'Hecho con'
-            },
-            en: {
-                nav_about: 'About',
-                nav_exp: 'Experience',
-                nav_stack: 'Stack',
-                nav_ai: 'AI',
-                nav_contact: 'Contact',
-                nav_tools: 'Tools',
-                greeting: "Hi! I'm",
-                title: 'Site Reliability Engineer · Backend Developer · AIOps',
-                desc: 'Computer engineer, <strong>SRE at Roche</strong>. Observability, automation, and <strong>AI applied to operations</strong>.',
-                stat_exp: 'Years of experience',
-                stat_devices: 'Monitored devices',
-                stat_coffee: 'Cups of coffee',
-                cta_about: 'About me',
-                cta_contact: 'Contact',
-                scroll: 'Discover more',
-                about_title: 'About me',
-                about_text: '<p>Computer Engineer from University of Jaén, currently <strong>Site Reliability Engineer</strong> on the Monitoring &amp; Observability team at Roche.</p><p>I solve reliability problems at scale with <strong>Python automation</strong>, <strong>REST/HMAC</strong> APIs, <strong>OpenTelemetry</strong> pipelines, and <strong>CMDB</strong> synchronization.</p><p>I integrate <strong>LLM agents</strong> into the workflow to accelerate triage and generate runbooks.</p>',
-                exp_title: 'Experience',
-                roche_date: 'February 2025 - Present',
-                roche_role: 'Site Reliability Engineer',
-                roche_desc: 'Monitoring &amp; Observability team, improving the reliability and operation of critical infrastructure at global scale.',
-                roche_1: '<strong>Python</strong> automation against monitoring APIs, ITSM (<strong>ServiceNow</strong>), CI/CD (<strong>GitLab CI</strong>), and on-call, with REST/HMAC authentication.',
-                roche_2: 'Operation of observability platforms (<strong>LogicMonitor</strong>, Splunk): dashboards, <strong>alert tuning</strong> for noise reduction, maintenance windows, and capacity reporting.',
-                roche_3: 'System integration: <strong>CMDB synchronization</strong> (Service Graph Connector) and <strong>OpenTelemetry</strong> pipelines.',
-                roche_4: 'SRE practices: <strong>on-call (PagerDuty)</strong>, incident triage, <strong>runbook automation</strong>, and international collaboration; operational toil reduction.',
-                granada_date: 'March 2024 - June 2024',
-                granada_role: 'Backend Developer',
-                granada_1: 'Design and initial development of <strong>Python</strong>-based software for an innovative educational product.',
-                granada_2: 'Framework adaptation like <strong>Django</strong> and <strong>Behave</strong> with <strong>Pytest</strong> for testing.',
-                granada_3: 'Feature implementation using <strong>MongoDB</strong> as non-relational database.',
-                telefonica_date: 'November 2022 - December 2023',
-                telefonica_role: 'QA Automation Developer',
-                telefonica_1: 'Automated test development with <strong>Behave (Gherkin) with Python</strong> for Movistar+ Audience modules.',
-                telefonica_2: 'CI/CD process automation using <strong>Jenkins</strong>.',
-                telefonica_3: 'Use of tools like Postman, Wireshark and Git.',
-                nucleoo_date: 'April 2021 - November 2022',
-                nucleoo_role: 'Backend Developer',
-                nucleoo_1: '<strong>Flask (Python)</strong> web application development for massive data management in the food sector.',
-                nucleoo_2: '<strong>Pandas and NumPy</strong> use for data analysis and optimization with cProfile.',
-                nucleoo_3: 'Unit test implementation (Pytest), deployment with <strong>Docker</strong> and <strong>AWS</strong> services (EC2, S3, CloudWatch).',
-                evalua_date: 'July 2020 - January 2021',
-                evalua_role: 'Full-Stack Developer',
-                evalua_1: 'Development and maintenance of insurance sector application with <strong>PHP (Laravel)</strong> and MySQL.',
-                evalua_2: 'Frontend development with <strong>Javascript (AngularJS)</strong>.',
-                aiops_title: 'AI-powered Operations (AIOps)',
-                aiops_intro: 'I integrate <strong>AI agents (LLM)</strong> into observability and operations workflows to reduce repetitive manual work and accelerate incident response:',
-                aiops_1: '<strong>AI-assisted incident triage</strong>: automatic correlation between monitoring signals, ITSM, and on-call to propose root cause and next action.',
-                aiops_2: '<strong>Automatic runbook and documentation generation</strong> from resolved incidents, reusable by the rest of the team.',
-                aiops_3: '<strong>Agentic tooling</strong> orchestrating multiple internal APIs (monitoring, ITSM, CI/CD, on-call) through specialized skills.',
-                aiops_4: '<strong>Operational task automation</strong> (reporting, scheduling, summaries) with agents connected to the team\'s tools.',
-                aiops_5: 'Focus on <strong>reliability and toil reduction</strong>: turning manual procedures into assisted, verifiable flows.',
-                stack_title: 'Tech Stack',
-                filter_all: 'All',
-                filter_langs: 'Languages',
-                filter_frameworks: 'Frameworks',
-                filter_obs: 'Obs',
-                filter_cloud: 'Cloud',
-                filter_ia: 'AI',
-                filter_dbs: 'DB',
-                cat_langs: 'Languages',
-                cat_frameworks: 'Frameworks',
-                cat_observability: 'Observability',
-                cat_cloud: 'Cloud / DevOps',
-                cat_ia: 'AI / Automation',
-                cat_dbs: 'Databases',
-                edu_title: 'Education',
-                uni_date: 'Computer Engineering Degree (2014 - 2020)',
-                uni_desc: 'Final Project: Voice assistant for tourism information (Grade: 9.5)',
-                erasmus_date: 'Erasmus+ (2017 - 2019)',
-                awards_title: 'Awards',
-                award_1: '<strong>6th Edition Ada Lovelace Award</strong> — University of Jaén (Best Final Project).',
-                award_2: '<strong>3rd Edition Best Research Line Award</strong> — PLN.NET Network (Natural Language Processing).',
-                terminal_title: './demo.sh',
-                contact_title: 'Contact',
-                cv_label: 'Download CV',
-                cv_value: 'HTML · printable',
-                footer_built: 'Built with'
-            },
-            j: {
-                nav_about: 'Sobre mí',
-                nav_exp: 'Experiencia',
-                nav_stack: 'Er Stack',
-                nav_ai: 'IA',
-                nav_contact: 'Contahto',
-                nav_tools: 'Herramientah',
-                greeting: 'Poh eso, ni poya, yo soy',
-                title: 'Site Reliability Engineer · Backend Developer · AIOps',
-                desc: '<strong>Ingeniero Informáico</strong>, <strong>SRE en Roche</strong>. Observabilidá, automaciación e <strong>IA aplicá a operacioneh</strong>. Poh eso.',
-                stat_exp: 'Añoh de experiencia',
-                stat_devices: 'Aparato monitoreao',
-                stat_coffee: 'Tahta de café',
-                cta_about: 'Sobre mí',
-                cta_contact: 'Contahto',
-                cv_label: 'Descargá er CV',
-                scroll: 'Sabé máh',
-                about_title: 'Sobre mí',
-                about_text: '<p>Ingeniero Informáico por la Universidá de Jaén — <strong>ni poya</strong>, poh eso estoy aquí — ahora mesmamente <strong>Site Reliability Engineer</strong> en er equipo de Monitoring &amp; Observabilidá de Roche.</p><p>Arreglo problemah de fiabilidá a escala con <strong>automatización Python</strong>, API <strong>REST/HMAC</strong>, pipeline <strong>OpenTelemetry</strong> y sincronización <strong>CMDB</strong>. Lo mío, vamo.</p><p>Meto <strong>agenteh de IA</strong> en er flujo de trabah pa acelerá er triage y generá runbook. Y lo que me echen, ni poya. Asín, sabeeh.</p>',
-                exp_title: 'Experiencia',
-                roche_date: 'Febrero 2025 - Hoy',
-                roche_role: 'Site Reliability Engineer',
-                roche_desc: 'Equipo de Monitoring &amp; Observabilidá, mejohando la fiabilidá y operación de infraestructura crítica a escala globá, ni poya, ¿sabeeh?',
-                roche_1: 'Automatización en <strong>Python</strong> contra API de monitorización, ITSM (<strong>ServiceNow</strong>), CI/CD (<strong>GitLab CI</strong>) y on-call, con autenticación REST/HMAC.',
-                roche_2: 'Operación de plataformah de observabilidá (<strong>LogicMonitor</strong>, Splunk): dashboard, <strong>tuning de alertah</strong> pa reducí el ruío, ventanah de mantenimiento y reporting de capacidá.',
-                roche_3: 'Integración de sistemas: <strong>sincronización CMDB</strong> (Service Graph Connector) y pipeline de <strong>OpenTelemetry</strong>.',
-                roche_4: 'Prácticah SRE: <strong>on-call (PagerDuty)</strong>, triage de incidenteh, <strong>automatización de runbook</strong> y colaboración internacioná; reducción de toil operativo.',
-                granada_date: 'Marzo 2024 - Junio 2024',
-                granada_role: 'Desarrollaor Backend',
-                granada_1: 'Diseño y desarrollo inicial de software basao en <strong>Python</strong> pa un producto educativo innovaor.',
-                granada_2: 'Adaptación de framework como <strong>Django</strong> y uso de <strong>Behave</strong> con <strong>Pytest</strong> pa testing.',
-                granada_3: 'Implementación de feature usando <strong>MongoDB</strong> como base de datos.',
-                telefonica_date: 'Noviembre 2022 - Diciembre 2023',
-                telefonica_role: 'Desarrollaor QA Automation',
-                telefonica_1: 'Desarrollo de teste automatizao con <strong>Behave (Gherkin) con Python</strong> pa móduloh de Audiencia de Movistar+.',
-                telefonica_2: 'Automatización de procesoh CI/CD usando <strong>Jenkins</strong>.',
-                telefonica_3: 'Uso de herramientah como Postman, Wireshark y Git.',
-                nucleoo_date: 'Abril 2021 - Noviembre 2022',
-                nucleoo_role: 'Desarrollaor Backend',
-                nucleoo_1: 'Desarrollo de aplicación web <strong>Flask (Python)</strong> pa gestión masiva de datos en er sector alimentario.',
-                nucleoo_2: 'Uso de <strong>Pandas y NumPy</strong> pa análisis de datos y optimización con cProfile.',
-                nucleoo_3: 'Implementación de teste unitarioh (Pytest), despliegue con <strong>Docker</strong> y serviciah <strong>AWS</strong> (EC2, S3, CloudWatch).',
-                evalua_date: 'Julio 2020 - Enero 2021',
-                evalua_role: 'Desarrollaor Full-Stack',
-                evalua_1: 'Desarrollo y mantenimiento de aplicación pa er sector seguros con <strong>PHP (Laravel)</strong> y MySQL.',
-                evalua_2: 'Desarrollo frontend con <strong>Javascript (AngularJS)</strong>.',
-                aiops_title: 'Operacioneh potenciah por IA (AIOps)',
-                aiops_intro: 'Meto <strong>agenteh de IA (LLM)</strong> en er flujo de trabah de observabilidá y operacioneh pa reducí er trabah manual repetitivo y acelerá la respuesta a incidenteh. ¿Te enterah?',
-                stack_title: 'Er Stack Tecnológico',
-                filter_all: 'Toíto',
-                filter_langs: 'Lenguajeeh',
-                filter_frameworks: 'Frameworks',
-                filter_obs: 'Obs',
-                filter_cloud: 'Cloud',
-                filter_ia: 'IA',
-                filter_dbs: 'BBDD',
-                cat_langs: 'Lenguajeeh',
-                cat_frameworks: 'Frameworks',
-                cat_observability: 'Observabilidá',
-                cat_cloud: 'Cloud / DevOps',
-                cat_ia: 'IA / Automatización',
-                cat_dbs: 'Baseh de datoh',
-                edu_title: 'Formación',
-                uni_date: 'Grado en Ingeniería Informática (2014 - 2020)',
-                uni_desc: 'TFG: Asistente de vo pa información turística (Nota: 9.5). Esaborío el tema, ¿eh?',
-                erasmus_date: 'Erasmus+ (2017 - 2019)',
-                awards_title: 'Premioh',
-                award_1: '<strong>VI Edición Premio Ada Lovelace</strong> — Universidá de Jaén (Mejó TFG).',
-                award_2: '<strong>3ª Edición Mejó línea de investigación</strong> — Red PLN.NET (Procesamiento del Lenguaje Natural).',
-                terminal_title: './demo.sh',
-                contact_title: 'Contahto',
-                cv_label: 'Descargá er CV',
-                cv_value: 'HTML · imprimible',
-                footer_built: 'Echo con argod e Jaén'
-            },
-            ñ: {
-                nav_about: 'Ñoñre mí',
-                nav_exp: 'Ñxperiencia',
-                nav_stack: 'Ñtack',
-                nav_ai: 'IÑA',
-                nav_contact: 'Ñontaño',
-                nav_tools: 'Ñools',
-                greeting: '¡Ñola! Ñoy',
-                title: 'Ñite Ñeliability Ñngineer · Ñackend Ñeveloper · AIÑops',
-                desc: '<strong>Ñngeniero informáñico</strong>, <strong>ÑRE en Ñoche</strong>. Ñbservabiliñad, automatiñañión e <strong>IÑA aplacada a Ñperañiones</strong>.',
-                stat_exp: 'Ñños de Ñperiencia',
-                stat_devices: 'Ñisposiñivos moniñoriñaños',
-                stat_coffee: 'Ñañas de ñafé',
-                cta_about: 'Ñoñre mí',
-                cta_contact: 'Ñontañar',
-                cv_label: 'Ñescargar ÑV',
-                scroll: 'Ñescubre ñás',
-                about_title: 'Ñoñre mí',
-                about_text: '<p><strong>Ñngeniero Ñnformáñico</strong> por la Ñniversiña de Ñaén, actualmente <strong>Ñite Ñeliability Ñngineer</strong> en el equipo de Ñonitoring &amp; Ñbservabiliñad de Ñoche.</p><p>Ñesuelvo Ñoblemas de fiabiliñad a escala con <strong>automatizañión Ñython</strong>, ÑIs <strong>ÑEST/ÑMAÑ</strong>, Ñipelínes <strong>ÑenÑelemetry</strong> y sinñroniñañión <strong>ÑMÑB</strong>.</p><p>Ñntegro <strong>agenñes ÑÑÑ</strong> en el ñujo de ñañajo para añelerar ñriage y generar Ñunbooñs.</p>',
-                exp_title: 'Ñxperiencia',
-                roche_date: 'Ñebrero 2025 - Ñcualiñá',
-                roche_role: 'Ñite Ñeliability Ñngineer',
-                roche_desc: 'Equiño de Ñonitoring &amp; Ñbservabiliñad, mejoranño la fiabiliñad y Ñperañión de infraestructura ñíñica a esñala ñoñal.',
-                roche_1: 'Ñutomatiñañión en <strong>Ñython</strong> contra ÑIs de moniñoriñañión, ITSM (<strong>ÑerviñoNow</strong>), ÑI/ÑD (<strong>Ñillañ ÑI</strong>) y on-ñall, con auñenñficañión ÑEST/ÑMAÑ.',
-                roche_2: 'Ñperañión de Ñataformas de observabiliñad (<strong>ÑogicÑonitor</strong>, Ñplunñ): Ñashboards, <strong>ñuninñ de alerñas</strong> para reduñir el ñuño, venñanas de manteñimienño y reportinñ de capaciñá.',
-                roche_3: 'Ñntegrañión de sisñemas: <strong>sinñroniñañión ÑMÑB</strong> (ÑerviÑe ÑaÑ Ñonneñtor) y Ñipelínes de <strong>Ñelemetry</strong>.',
-                roche_4: 'Ñácñicas ÑRE: <strong>on-ñall (ÑañerÑuty)</strong>, ñiage de incidenñes, <strong>automatizañión de Ñunbooñs</strong> y ñolañorañión inñernañional; reduñión de ñoil Ñperañivo.',
-                aiops_title: 'Ñperañiones Ñotenñiañas Ñor IÑA (AIÑops)',
-                aiops_intro: 'Ñntegro <strong>agenñes de IÑA (ÑÑÑ)</strong> en el ñujo de ñañajo de observabiliñad y Ñperañiones para reduñir el ñañajo manual Ñepetiñivo y añelerar la Ñespuesña a incidenñes:',
-                stack_title: 'Ñtañ Ñeñolóñico',
-                filter_all: 'Ñoño',
-                filter_langs: 'Ñenguañes',
-                filter_frameworks: 'Ñameñoñs',
-                filter_obs: 'Ñbs',
-                filter_cloud: 'Ñloud',
-                filter_ia: 'IÑA',
-                filter_dbs: 'ÑÑDD',
-                cat_langs: 'Ñenguañes',
-                cat_frameworks: 'Ñameñoñs',
-                cat_observability: 'Ñbservabiliñá',
-                cat_cloud: 'Ñloud / ÑevÑps',
-                cat_ia: 'IÑA / Ñutomañiñañión',
-                cat_dbs: 'Ñases de ñaños',
-                edu_title: 'Ñormañión',
-                uni_date: 'Ñaño en Ñngeniería Ñnformáñica (2014 - 2020)',
-                uni_desc: 'ÑFG: Asisñenñe de voñ para informañión ñurísñica (Ñoña: 9.5)',
-                erasmus_date: 'Erasmus+ (2017 - 2019)',
-                awards_title: 'Ñemios',
-                award_1: '<strong>VI Ñdiñión Ñemio Ña Ñovelace</strong> — Ñniversiña de Ñaén (Meñor ÑFG).',
-                award_2: '<strong>Ñª Ñdiñión Meñor ñínea de invesñigañión</strong> — Ñed ÑÑÑ.ÑEÑ (Ñoñesamienño del Ñenguañe Ñañural).',
-                terminal_title: './ñemo.ñh',
-                contact_title: 'Ñontaño',
-                cv_label: 'Ñescargar Ñiño',
-                cv_value: 'ÑTÑL · imñrimiñle',
-                footer_built: 'Ñcho ñon'
-            }
-        };
+        let currentLang = localStorage.getItem('lang') || 'es';
+        function t(k) { const v = translations[currentLang] && translations[currentLang][k]; if (v) return v; if (currentLang === 'ñ' || currentLang === 'j') { const f = translations.es && translations.es[k]; if (f) return f; } return translations.es && translations.es[k] || k; }
 
         let twTimeout;
         function typewriter(el, text, speed, cb) {
@@ -1800,41 +1536,50 @@ Ingeniero informático, <strong>SRE en Roche</strong>. Observabilidad, automatiz
             step();
         }
 
-        function setLanguage(lang) {
-            document.documentElement.lang = lang;
-            localStorage.setItem('lang', lang);
-            document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
+        function setLanguage(l) {
+            currentLang = l;
+            document.documentElement.lang = l;
+            localStorage.setItem('lang', l);
+            document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.dataset.lang === l));
             document.querySelectorAll('[data-i18n]').forEach(el => {
                 const k = el.getAttribute('data-i18n');
                 if (k === 'title') return;
-                if (translations[lang][k]) {
+                if (translations[l][k]) {
                     if (el.classList.contains('title-text')) {
-                        el.textContent = translations[lang][k];
+                        el.textContent = translations[l][k];
                     } else {
-                        el.innerHTML = translations[lang][k];
+                        el.innerHTML = translations[l][k];
                     }
                 }
             });
             const ninoBtn = document.getElementById('ninoBtn');
-            if (lang === 'ñ') {
+            if (l === 'ñ') {
                 ninoBtn.classList.add('show');
                 ninoBtn.querySelector('.nino-text').textContent = '× Cerrar Ñiñosaurio esc';
                 ninoBtn.querySelector('.nino-icon').textContent = '🦖';
-            } else if (lang === 'j') {
+            } else if (l === 'j') {
                 ninoBtn.classList.add('show');
-                ninoBtn.querySelector('.nino-text').textContent = '× Modo Jiennense esc';
+                ninoBtn.querySelector('.nino-text').textContent = '× Cerrar Modo Jiennense esc';
                 ninoBtn.querySelector('.nino-icon').textContent = '🌳';
             } else {
                 ninoBtn.classList.remove('show');
             }
             clearTimeout(twTimeout);
-            typewriter(document.getElementById('tw-text'), translations[lang]['title'], 45);
+            typewriter(document.getElementById('tw-text'), translations[l]['title'], 45);
+            if (typeof termBody !== 'undefined' && termBody.children.length > 0) {
+                if (termKeyHandler) { document.removeEventListener('keydown', termKeyHandler); termKeyHandler = null; }
+                if (termRestartTimer) clearTimeout(termRestartTimer);
+                if (termStepTimer) { clearTimeout(termStepTimer); termStepTimer = null; }
+                termBody.innerHTML = '';
+                termIndex = 0;
+                termRunning = true;
+                termRestartTimer = setTimeout(() => { termRestartTimer = null; runTerminal(); }, 600);
+            }
         }
 
         document.querySelectorAll('.lang-btn').forEach(b => {
             b.addEventListener('click', () => setLanguage(b.dataset.lang));
         });
-        setLanguage(localStorage.getItem('lang') || 'es');
 
         /* ── Navbar mobile toggle ── */
         document.getElementById('navToggle').addEventListener('click', () => {
@@ -1935,6 +1680,8 @@ Ingeniero informático, <strong>SRE en Roche</strong>. Observabilidad, automatiz
             const isLight = document.documentElement.classList.toggle('light');
             themeBtn.textContent = isLight ? '🌙' : '☀️';
             localStorage.setItem('theme', isLight ? 'light' : 'dark');
+            const cols = pColors();
+            particles.forEach(p => { p.color = cols[Math.floor(Math.random() * cols.length)]; });
         });
 
         /* ── Stack filter ── */
@@ -1966,16 +1713,17 @@ Ingeniero informático, <strong>SRE en Roche</strong>. Observabilidad, automatiz
                 showToast('Error al copiar');
             });
         });
+
         /* ── Terminal demo ── */
         const termCmds = [
-            { cmd: 'whoami', out: 'Carlos Villén Villar', cd: 60, od: 40 },
-            { cmd: 'cat hobbies.txt', out: '─────────────\n🏐 Pádel & Tenis\n🎸 Rock español (Robe, Extremoduro, Marea)\n🍻 Cañas con amigos\n💪 Deporte, música y tecnología', cd: 60, od: 18 },
+            { cmd: 'whoami', out: () => t('term_whoami'), cd: 60, od: 40 },
+            { cmd: 'cat hobbies.txt', out: () => t('term_hobbies'), cd: 60, od: 18 },
             { cmd: 'ls -la ~/skills/', out: 'total 32\ndrwxr-xr-x  8 carlvs  staff   256  Jul 12 12:34 .\ndrwxr-xr-x  8 carlvs  staff   256  Jul 12 12:34 ..\n-rw-r--r--  1 carlvs  staff   245  Jul 12 12:34 hobbies.txt\n-rw-r--r--  1 carlvs  staff   198  Jul 12 12:34 python.md\n-rw-r--r--  1 carlvs  staff   312  Jul 12 12:34 observability.md\n-rw-r--r--  1 carlvs  staff   178  Jul 12 12:34 aiops.md\n-rw-r--r--  1 carlvs  staff   156  Jul 12 12:34 devops.md', cd: 1, od: 1 },
-            { cmd: 'uptime', out: () => { const now = new Date(); const curH = now.getHours(), curM = now.getMinutes(), curS = now.getSeconds(); const secsToday = Math.floor((Date.now() - new Date().setHours(7,0,0,0)) / 1000); let ud = localStorage.getItem('term_uptime_days'); if (!ud) { ud = Math.floor(Math.random() * 270) + 30; localStorage.setItem('term_uptime_days', ud); } ud = parseInt(ud); const uph = Math.floor(secsToday / 3600); const upm = Math.floor((secsToday % 3600) / 60); return `${String(curH).padStart(2,'0')}:${String(curM).padStart(2,'0')}:${String(curS).padStart(2,'0')} up ${ud} day${ud!==1?'s':''}, ${uph}:${String(upm).padStart(2,'0')},  1 user,  load average: 0.08, 0.03, 0.01`; }, cd: 60, od: 25 },
-            { cmd: 'uname -a', out: () => { const g = { h: 738, pop: 232208 }; const j = { h: 573, pop: 112074 }; return `Linux carlvs 6.6.0-GRA-JAEN #1 SMP PREEMPT_DYNAMIC ... aarch64 GNU/Linux │ Jaén: ${j.h}m · ${(j.pop/1000).toFixed(1)}K hab │ Granada: ${g.h}m · ${(g.pop/1000).toFixed(1)}K hab │ Dist: 92km`; }, cd: 50, od: 15 },
-            { cmd: 'curl -s cafestats', out: () => { const h = new Date().getHours(); const c = Math.min(Math.max(Math.floor(h * 0.55), 1), 8); return `☕ Cafés hoy: ${c}\n📊 Ritmo: 1 cada ${Math.round(60/c)}min\n⚠️ Modo: ${c > 5 ? 'acelerado, ni poya' : c > 3 ? 'productivo estable' : 'despertando...'}`; }, cd: 60, od: 20 },
+            { cmd: 'uptime', out: () => { const now = new Date(); const curH = now.getHours(), curM = now.getMinutes(), curS = now.getSeconds(); const secsToday = Math.floor((Date.now() - new Date().setHours(7,0,0,0)) / 1000); let ud = localStorage.getItem('term_uptime_days'); if (!ud) { ud = Math.floor(Math.random() * 270) + 30; localStorage.setItem('term_uptime_days', ud); } ud = parseInt(ud); const uph = Math.floor(secsToday / 3600); const upm = Math.floor((secsToday % 3600) / 60); const s = ud !== 1 ? 's' : ''; return `${String(curH).padStart(2,'0')}:${String(curM).padStart(2,'0')}:${String(curS).padStart(2,'0')} ${t('term_uptime_fmt').replace('{d}', ud).replace('{s}', s).replace('{h}', uph).replace('{m}', String(upm).padStart(2,'0'))}`; }, cd: 60, od: 25 },
+            { cmd: 'uname -a', out: () => { const g = { h: 738, pop: 232208 }; const j = { h: 573, pop: 112074 }; return t('term_uname').replace('{jh}', j.h).replace('{jpop}', (j.pop/1000).toFixed(1)).replace('{gh}', g.h).replace('{gpop}', (g.pop/1000).toFixed(1)); }, cd: 50, od: 15 },
+            { cmd: 'curl -s cafestats', out: () => { const h = new Date().getHours(); const c = Math.min(Math.max(Math.floor(h * 0.55), 1), 8); const m = c > 5 ? t('term_cafe_acelerado') : c > 3 ? t('term_cafe_estable') : t('term_cafe_despertando'); return t('term_cafes').replace('{c}', c).replace('{r}', Math.round(60/c)).replace('{m}', m); }, cd: 60, od: 20 },
         ];
-        let termIndex = 0, termLineIdx = 0, termRunning = false;
+        let termIndex = 0, termLineIdx = 0, termRunning = false, termKeyHandler = null, termRestartTimer = null, termStepTimer = null;
         const termBody = document.getElementById('termBody');
         const termObs = new IntersectionObserver(entries => {
             entries.forEach(e => {
@@ -1991,6 +1739,7 @@ Ingeniero informático, <strong>SRE en Roche</strong>. Observabilidad, automatiz
             let i = 0;
             el.textContent = '';
             function step() {
+                if (!el.isConnected) return;
                 if (i < text.length) {
                     el.textContent += text[i++];
                     setTimeout(step, speed);
@@ -2000,7 +1749,7 @@ Ingeniero informático, <strong>SRE en Roche</strong>. Observabilidad, automatiz
         }
 
         function runTerminal() {
-            if (termIndex >= termCmds.length) return;
+            if (termIndex >= termCmds.length || !termRunning) return;
             const entry = termCmds[termIndex];
             const line = document.createElement('div');
             line.className = 'term-line';
@@ -2058,12 +1807,13 @@ Ingeniero informático, <strong>SRE en Roche</strong>. Observabilidad, automatiz
                                 outLine.appendChild(out);
                                 termBody.appendChild(outLine);
                                 let resp = '';
-                                if (cmd === 'help') resp = 'Comandos: whoami, help, clear · Pulsa Ñ o J para modos secretos, ESC para salir';
-                                else if (cmd === 'whoami') resp = 'Carlos Villén Villar';
-                                else if (cmd === 'clear') { termBody.innerHTML = ''; termIdle = false; termIndex = 0; termRunning = false; document.removeEventListener('keydown', termKey); setTimeout(runTerminal, 500); return; }
-                                else resp = `Comando no encontrado: ${cmd}. Escribe 'help' para ayuda.`;
+                                if (cmd === 'help') resp = t('term_help');
+                                else if (cmd === 'whoami') resp = t('term_whoami');
+                                else if (cmd === 'clear') { if (termRestartTimer) clearTimeout(termRestartTimer); if (termStepTimer) { clearTimeout(termStepTimer); termStepTimer = null; } if (termKeyHandler) { document.removeEventListener('keydown', termKeyHandler); termKeyHandler = null; } termBody.innerHTML = ''; termIdle = false; termIndex = 0; termRunning = true; termRestartTimer = setTimeout(() => { termRestartTimer = null; runTerminal(); }, 500); return; }
+                                else resp = t('term_not_found').replace('{cmd}', cmd);
                                 let i = 0;
                                 function typeResp() {
+                                    if (!out.isConnected) return;
                                     if (i < resp.length) { out.textContent += resp[i++]; setTimeout(typeResp, 18); }
                                     else {
                                         const nl = document.createElement('div');
@@ -2086,14 +1836,16 @@ Ingeniero informático, <strong>SRE en Roche</strong>. Observabilidad, automatiz
                                 fi.textContent = termBuf;
                                 e.preventDefault();
                             } else if (e.key.length === 1 && !e.ctrlKey && !e.metaKey && !e.altKey) {
+                                e.preventDefault();
                                 termBuf += e.key;
                                 fi.textContent = termBuf;
                             }
                         };
                         document.addEventListener('keydown', termKey);
+                        termKeyHandler = termKey;
                         return;
                     }
-                    setTimeout(runTerminal, 1200);
+                    termStepTimer = setTimeout(() => { termStepTimer = null; runTerminal(); }, 1200);
                 });
             });
         }
@@ -2103,6 +1855,8 @@ Ingeniero informático, <strong>SRE en Roche</strong>. Observabilidad, automatiz
         const pCtx = pCanvas.getContext('2d');
         let pMouse = { x: -1000, y: -1000 };
         const PCOLORS = ['#f92672','#a6e22e','#66d9ef','#ae81ff','#fd971f'];
+        const PCOLORS_LIGHT = ['#e88', '#8c8', '#8cf', '#c8f', '#fa8'];
+        function pColors() { return document.documentElement.classList.contains('light') ? PCOLORS_LIGHT : PCOLORS; }
         let particles = [];
 
         function pResize() {
@@ -2118,7 +1872,7 @@ Ingeniero informático, <strong>SRE en Roche</strong>. Observabilidad, automatiz
                 this.y = Math.random() * pCanvas.height;
                 this.vx = (Math.random() - 0.5) * 0.6;
                 this.vy = (Math.random() - 0.5) * 0.6;
-                this.color = PCOLORS[Math.floor(Math.random() * PCOLORS.length)];
+                this.color = pColors()[Math.floor(Math.random() * pColors().length)];
                 this.s = Math.random() * 1.8 + 1;
             }
             update() {
@@ -2153,8 +1907,9 @@ Ingeniero informático, <strong>SRE en Roche</strong>. Observabilidad, automatiz
                     const dy = particles[i].y - particles[j].y;
                     const d = Math.sqrt(dx*dx + dy*dy);
                     if (d < 120) {
+                        const isLight = document.documentElement.classList.contains('light');
                         const a = (1 - d/120) * 0.4;
-                        pCtx.strokeStyle = `rgba(102, 217, 239, ${a})`;
+                        pCtx.strokeStyle = isLight ? `rgba(150, 150, 150, ${a})` : `rgba(102, 217, 239, ${a})`;
                         pCtx.lineWidth = 0.5;
                         pCtx.beginPath();
                         pCtx.moveTo(particles[i].x, particles[i].y);
@@ -2225,6 +1980,7 @@ Ingeniero informático, <strong>SRE en Roche</strong>. Observabilidad, automatiz
         const hGrid = document.querySelector('.health-grid');
         if (hGrid) healthObs.observe(hGrid);
 
+        setLanguage(localStorage.getItem('lang') || 'es');
     </script>
 </body>
 

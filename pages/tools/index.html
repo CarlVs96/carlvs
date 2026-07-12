@@ -34,6 +34,9 @@
         a:hover { color: #a6e22e; }
         strong { color: #fd971f; }
 
+        #particleCanvas { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+        html.light #particleCanvas { opacity: 0.5; }
+
         .navbar {
             position: fixed; top: 0; left: 0; right: 0;
             background: rgba(26,26,26,0.85);
@@ -70,13 +73,13 @@
         .nav-toggle { display: none; background: none; border: none; color: #f8f8f2; font-size: 1.3rem; cursor: pointer; }
         .lang-btn {
             background: none; border: 1px solid #3a3a3a; color: #75715e;
-            font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; padding: 0.2rem 0.4rem;
+            font-family: inherit; font-size: 0.75rem; padding: 0.35rem 0.7rem;
             border-radius: 4px; cursor: pointer; transition: all 0.3s ease;
-            text-transform: uppercase; letter-spacing: 0.05em; line-height: 1;
+            display: inline-flex; align-items: center; line-height: 1;
         }
         .lang-btn:hover { border-color: #66d9ef; color: #66d9ef; }
-        .lang-btn.active { background: #66d9ef; border-color: #66d9ef; color: #1a1a1a; font-weight: 700; }
-        .nav-right { display: flex; align-items: center; gap: 0.5rem; }
+        .lang-btn.active { background: #66d9ef; border-color: #66d9ef; color: #1a1a1a; }
+        .nav-right { display: flex; align-items: center; gap: 1rem; }
         @media (max-width: 768px) {
             .nav-links {
                 display: none; position: absolute; top: 60px; left: 0; right: 0;
@@ -442,9 +445,25 @@
         html.light .diff-line.add { background: rgba(166,226,46,0.15); }
         html.light .diff-line.del { background: rgba(249,38,114,0.1); }
         html.light .diff-ln { color: #bbb; }
+
+        /* ── Scroll progress ── */
+        #scroll-progress { position: fixed; top: 0; left: 0; height: 3px; background: linear-gradient(90deg, #f92672, #ae81ff, #66d9ef); z-index: 1001; width: 0%; transition: width 0.1s linear; }
+
+        /* ── Section reveal ── */
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.6s ease; }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+
+        /* ── Theme toggle ── */
+        .theme-btn { background: none; border: none; color: #75715e; font-size: 1.1rem; cursor: pointer; padding: 0.25rem; transition: color 0.3s ease; }
+        .theme-btn:hover { color: #fd971f; }
+
+        html.light .theme-btn { color: #999; }
+        html.light .theme-btn:hover { color: #fd971f; }
     </style>
 </head>
 <body>
+    <div id="scroll-progress"></div>
+    <canvas id="particleCanvas"></canvas>
 
     <nav class="navbar">
         <a href="/" class="nav-logo"><svg width="22" height="22" viewBox="0 0 32 32"><defs><linearGradient id="navLogoGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#f92672"/><stop offset="50%" stop-color="#ae81ff"/><stop offset="100%" stop-color="#66d9ef"/></linearGradient></defs><text x="16" y="22" font-family="monospace" font-size="14" font-weight="bold" fill="url(#navLogoGrad)" text-anchor="middle">CVs</text></svg>Carlos Villén Villar</a>
@@ -453,19 +472,20 @@
             <a href="/pages/tools/" class="active" data-i18n="nav_tools">Tools</a>
         </div>
         <div class="nav-right">
+            <button class="theme-btn" id="themeToggle" aria-label="Toggle theme">☀️</button>
             <button class="lang-btn active" data-lang="es" onclick="setLanguage('es')">ES</button>
             <button class="lang-btn" data-lang="en" onclick="setLanguage('en')">EN</button>
             <button class="nav-toggle" id="navToggle" aria-label="Menu">☰</button>
         </div>
     </nav>
 
-    <section class="tools-hero">
+    <section class="tools-hero section">
         <h1><i class="fas fa-tools"></i> <span data-i18n="hero_title">Toolkit</span></h1>
         <p data-i18n="hero_sub">Utilidades para el día a día — cron, timestamp, JSON, regex, base64, YAML, URL, base converter, diff</p>
         <div class="tool-count" data-i18n="hero_count">9 herramientas · todo en local, nada sale de tu navegador</div>
     </section>
 
-    <section class="tools-section">
+    <section class="tools-section section">
         <div class="tools-grid">
             <a href="#tool-cron" class="tool-card">
                 <div class="icon"><i class="fas fa-clock"></i></div>
@@ -1525,6 +1545,105 @@
         /* Auto-restore cron on load */
         setTimeout(parseCron, 100);
         setTimeout(tsConvert, 100);
+
+        /* ── Particle canvas ── */
+        const pCanvas = document.getElementById('particleCanvas');
+        const pCtx = pCanvas.getContext('2d');
+        let pMouse = { x: -1000, y: -1000 };
+        const PCOLORS = ['#f92672','#a6e22e','#66d9ef','#ae81ff','#fd971f'];
+        const PCOLORS_LIGHT = ['#e88', '#8c8', '#8cf', '#c8f', '#fa8'];
+        function pColors() { return document.documentElement.classList.contains('light') ? PCOLORS_LIGHT : PCOLORS; }
+        let particles = [];
+        function pResize() { pCanvas.width = window.innerWidth; pCanvas.height = window.innerHeight; }
+        window.addEventListener('resize', pResize);
+        pResize();
+        class Particle {
+            constructor() {
+                this.x = Math.random() * pCanvas.width;
+                this.y = Math.random() * pCanvas.height;
+                this.vx = (Math.random() - 0.5) * 0.6;
+                this.vy = (Math.random() - 0.5) * 0.6;
+                this.color = pColors()[Math.floor(Math.random() * pColors().length)];
+                this.s = Math.random() * 1.8 + 1;
+            }
+            update() {
+                const dx = pMouse.x - this.x, dy = pMouse.y - this.y;
+                const d = Math.sqrt(dx*dx + dy*dy);
+                if (d < 150) { const f = (150 - d) / 150; this.vx -= (dx/d) * f * 1.2; this.vy -= (dy/d) * f * 1.2; }
+                this.x += this.vx; this.y += this.vy;
+                this.vx *= 0.99; this.vy *= 0.99;
+                if (this.x < 0) { this.x = 0; this.vx *= -1; }
+                if (this.x > pCanvas.width) { this.x = pCanvas.width; this.vx *= -1; }
+                if (this.y < 0) { this.y = 0; this.vy *= -1; }
+                if (this.y > pCanvas.height) { this.y = pCanvas.height; this.vy *= -1; }
+            }
+            draw() {
+                pCtx.fillStyle = this.color;
+                pCtx.beginPath(); pCtx.arc(this.x, this.y, this.s, 0, Math.PI * 2); pCtx.fill();
+            }
+        }
+        for (let i = 0; i < 80; i++) particles.push(new Particle());
+        function drawLines() {
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i+1; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const d = Math.sqrt(dx*dx + dy*dy);
+                    if (d < 120) {
+                        const isLight = document.documentElement.classList.contains('light');
+                        const a = (1 - d/120) * 0.4;
+                        pCtx.strokeStyle = isLight ? `rgba(150,150,150,${a})` : `rgba(102,217,239,${a})`;
+                        pCtx.lineWidth = 0.5;
+                        pCtx.beginPath(); pCtx.moveTo(particles[i].x, particles[i].y); pCtx.lineTo(particles[j].x, particles[j].y); pCtx.stroke();
+                    }
+                }
+            }
+        }
+        function pAnimate() {
+            pCtx.clearRect(0, 0, pCanvas.width, pCanvas.height);
+            particles.forEach(p => { p.update(); p.draw(); });
+            drawLines();
+            requestAnimationFrame(pAnimate);
+        }
+        pAnimate();
+        document.addEventListener('mousemove', e => { pMouse.x = e.clientX; pMouse.y = e.clientY; });
+        document.addEventListener('mouseleave', () => { pMouse.x = -1000; pMouse.y = -1000; });
+
+        /* ── Scroll progress ── */
+        const progressBar = document.getElementById('scroll-progress');
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+            progressBar.style.width = pct + '%';
+        });
+
+        /* ── Section reveal ── */
+        document.querySelectorAll('.section').forEach(s => {
+            s.classList.add('reveal');
+            const rObs = new IntersectionObserver(entries => {
+                entries.forEach(e => {
+                    if (e.isIntersecting) e.target.classList.add('visible');
+                });
+            }, { threshold: 0.1 });
+            rObs.observe(s);
+        });
+
+        /* ── Light / Dark toggle ── */
+        const themeBtn = document.getElementById('themeToggle');
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'light') {
+            document.documentElement.classList.add('light');
+            themeBtn.textContent = '🌙';
+        }
+        themeBtn.addEventListener('click', () => {
+            const isLight = document.documentElement.classList.toggle('light');
+            themeBtn.textContent = isLight ? '🌙' : '☀️';
+            localStorage.setItem('theme', isLight ? 'light' : 'dark');
+            const cols = pColors();
+            particles.forEach(p => { p.color = cols[Math.floor(Math.random() * cols.length)]; });
+        });
+
     </script>
 </body>
 </html>

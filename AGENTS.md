@@ -16,6 +16,7 @@ Single-page scroll HTML personal site at `carlvs.dev`. No build tools, no packag
 ```
 /                   # Single-page scroll (hero + about + timeline + AIOps + stack + education + contact)
 /assets/img/        # Images (favicon, avatar)
+/assets/js/         # External JS (translations.js)
 /pages/tools/       # Micro-applications grid
 /about/             # Redirects to /#experience
 /tools/             # Legacy redirect → /pages/tools/
@@ -51,9 +52,11 @@ Each `.timeline-item` uses `IntersectionObserver` (threshold 0.15) to fade+slide
 
 ## i18n system
 
-- ES/EN/Ñ/J via JS translations object + `data-i18n` attributes in `<script>` at bottom of `index.html`.
+- ES/EN/Ñ/J via JS translations object + `data-i18n` attributes.
+- Translations in `assets/js/translations.js`, loaded via `<script>` tag before main inline script.
+- `t(k)` helper function resolves keys; Ñ/J fall back to ES for missing keys.
 - Language persisted in `localStorage` (key `lang`). Default: ES.
-- Add new keys to ES, EN, Ñ, and J objects.
+- Add new keys to ES and EN for full translation; Ñ and J fall back to ES if not provided.
 
 ## Color system (Monokai)
 
