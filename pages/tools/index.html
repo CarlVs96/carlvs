@@ -68,6 +68,15 @@
             left: 0; right: 0; height: 2px; background: #66d9ef;
         }
         .nav-toggle { display: none; background: none; border: none; color: #f8f8f2; font-size: 1.3rem; cursor: pointer; }
+        .lang-btn {
+            background: none; border: 1px solid #3a3a3a; color: #75715e;
+            font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; padding: 0.2rem 0.4rem;
+            border-radius: 4px; cursor: pointer; transition: all 0.3s ease;
+            text-transform: uppercase; letter-spacing: 0.05em; line-height: 1;
+        }
+        .lang-btn:hover { border-color: #66d9ef; color: #66d9ef; }
+        .lang-btn.active { background: #66d9ef; border-color: #66d9ef; color: #1a1a1a; font-weight: 700; }
+        .nav-right { display: flex; align-items: center; gap: 0.5rem; }
         @media (max-width: 768px) {
             .nav-links {
                 display: none; position: absolute; top: 60px; left: 0; right: 0;
@@ -378,6 +387,9 @@
         html.light .nav-links a:hover { color: #2d2d2d; }
         html.light .nav-links a.active { color: #f92672; }
         html.light .nav-links a.active::after { background: #f92672; }
+        html.light .lang-btn { border-color: #ddd; color: #999; }
+        html.light .lang-btn:hover { border-color: #f92672; color: #f92672; }
+        html.light .lang-btn.active { background: #f92672; border-color: #f92672; color: #fff; }
         html.light .tool-card { background: #fff; border-color: #ddd; }
         html.light .tool-card h3 { color: #2d2d2d; }
         html.light .tool-card:hover { border-color: #f92672; box-shadow: 0 4px 20px rgba(249,38,114,0.08); }
@@ -437,98 +449,102 @@
     <nav class="navbar">
         <a href="/" class="nav-logo"><svg width="22" height="22" viewBox="0 0 32 32"><defs><linearGradient id="navLogoGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#f92672"/><stop offset="50%" stop-color="#ae81ff"/><stop offset="100%" stop-color="#66d9ef"/></linearGradient></defs><text x="16" y="22" font-family="monospace" font-size="14" font-weight="bold" fill="url(#navLogoGrad)" text-anchor="middle">CVs</text></svg>Carlos Villén Villar</a>
         <div class="nav-links" id="navLinks">
-            <a href="/">Inicio</a>
-            <a href="/pages/tools/" class="active">Tools</a>
+            <a href="/" data-i18n="nav_home">Inicio</a>
+            <a href="/pages/tools/" class="active" data-i18n="nav_tools">Tools</a>
         </div>
-        <button class="nav-toggle" id="navToggle" aria-label="Menu">☰</button>
+        <div class="nav-right">
+            <button class="lang-btn active" data-lang="es" onclick="setLanguage('es')">ES</button>
+            <button class="lang-btn" data-lang="en" onclick="setLanguage('en')">EN</button>
+            <button class="nav-toggle" id="navToggle" aria-label="Menu">☰</button>
+        </div>
     </nav>
 
     <section class="tools-hero">
-        <h1><i class="fas fa-tools"></i> Toolkit</h1>
-        <p>Utilidades para el día a día — cron, timestamp, JSON, regex, base64, YAML, URL, base converter, diff</p>
-        <div class="tool-count">9 herramientas · todo en local, nada sale de tu navegador</div>
+        <h1><i class="fas fa-tools"></i> <span data-i18n="hero_title">Toolkit</span></h1>
+        <p data-i18n="hero_sub">Utilidades para el día a día — cron, timestamp, JSON, regex, base64, YAML, URL, base converter, diff</p>
+        <div class="tool-count" data-i18n="hero_count">9 herramientas · todo en local, nada sale de tu navegador</div>
     </section>
 
     <section class="tools-section">
         <div class="tools-grid">
             <a href="#tool-cron" class="tool-card">
                 <div class="icon"><i class="fas fa-clock"></i></div>
-                <h3>Cron Parser</h3>
-                <p>Traduce expresiones cron a texto legible y calcula las próximas ejecuciones.</p>
-                <span class="go-link">Usar <i class="fas fa-arrow-right"></i></span>
+                <h3 data-i18n="card_cron_title">Cron Parser</h3>
+                <p data-i18n="card_cron_desc">Traduce expresiones cron a texto legible y calcula las próximas ejecuciones.</p>
+                <span class="go-link" data-i18n="go_link">Usar <i class="fas fa-arrow-right"></i></span>
             </a>
             <a href="#tool-ts" class="tool-card">
                 <div class="icon"><i class="fas fa-calendar"></i></div>
-                <h3>Timestamp Converter</h3>
-                <p>Convierte timestamps Unix a fecha legible y viceversa en múltiples formatos.</p>
-                <span class="go-link">Usar <i class="fas fa-arrow-right"></i></span>
+                <h3 data-i18n="card_ts_title">Timestamp Converter</h3>
+                <p data-i18n="card_ts_desc">Convierte timestamps Unix a fecha legible y viceversa en múltiples formatos.</p>
+                <span class="go-link" data-i18n="go_link">Usar <i class="fas fa-arrow-right"></i></span>
             </a>
             <a href="#tool-json" class="tool-card">
                 <div class="icon"><i class="fas fa-file-code"></i></div>
-                <h3>JSON Formatter</h3>
-                <p>Formatea, valida y minifica JSON con syntax highlighting y detección de errores.</p>
-                <span class="go-link">Usar <i class="fas fa-arrow-right"></i></span>
+                <h3 data-i18n="card_json_title">JSON Formatter</h3>
+                <p data-i18n="card_json_desc">Formatea, valida y minifica JSON con syntax highlighting y detección de errores.</p>
+                <span class="go-link" data-i18n="go_link">Usar <i class="fas fa-arrow-right"></i></span>
             </a>
             <a href="#tool-regex" class="tool-card">
                 <div class="icon"><i class="fas fa-code"></i></div>
-                <h3>Regex Tester</h3>
-                <p>Prueba expresiones regulares en vivo con matches coloreados y grupos de captura.</p>
-                <span class="go-link">Usar <i class="fas fa-arrow-right"></i></span>
+                <h3 data-i18n="card_regex_title">Regex Tester</h3>
+                <p data-i18n="card_regex_desc">Prueba expresiones regulares en vivo con matches coloreados y grupos de captura.</p>
+                <span class="go-link" data-i18n="go_link">Usar <i class="fas fa-arrow-right"></i></span>
             </a>
             <a href="#tool-base64" class="tool-card">
                 <div class="icon"><i class="fas fa-lock"></i></div>
-                <h3>Base64</h3>
-                <p>Codifica y decodifica Base64 con detección automática del formato.</p>
-                <span class="go-link">Usar <i class="fas fa-arrow-right"></i></span>
+                <h3 data-i18n="card_base64_title">Base64</h3>
+                <p data-i18n="card_base64_desc">Codifica y decodifica Base64 con detección automática del formato.</p>
+                <span class="go-link" data-i18n="go_link">Usar <i class="fas fa-arrow-right"></i></span>
             </a>
             <a href="#tool-yaml" class="tool-card">
                 <div class="icon"><i class="fas fa-exchange-alt"></i></div>
-                <h3>YAML ↔ JSON</h3>
-                <p>Convierte entre YAML y JSON en ambos sentidos con detección automática.</p>
-                <span class="go-link">Usar <i class="fas fa-arrow-right"></i></span>
+                <h3 data-i18n="card_yaml_title">YAML ↔ JSON</h3>
+                <p data-i18n="card_yaml_desc">Convierte entre YAML y JSON en ambos sentidos con detección automática.</p>
+                <span class="go-link" data-i18n="go_link">Usar <i class="fas fa-arrow-right"></i></span>
             </a>
             <a href="#tool-url" class="tool-card">
                 <div class="icon"><i class="fas fa-link"></i></div>
-                <h3>URL Encoder/Decoder</h3>
-                <p>Codifica y decodifica parámetros URL con detección automática del formato.</p>
-                <span class="go-link">Usar <i class="fas fa-arrow-right"></i></span>
+                <h3 data-i18n="card_url_title">URL Encoder/Decoder</h3>
+                <p data-i18n="card_url_desc">Codifica y decodifica parámetros URL con detección automática del formato.</p>
+                <span class="go-link" data-i18n="go_link">Usar <i class="fas fa-arrow-right"></i></span>
             </a>
             <a href="#tool-baseconv" class="tool-card">
                 <div class="icon"><i class="fas fa-calculator"></i></div>
-                <h3>Base Converter</h3>
-                <p>Convierte números entre bases decimal, hex, binario y octal al instante.</p>
-                <span class="go-link">Usar <i class="fas fa-arrow-right"></i></span>
+                <h3 data-i18n="card_baseconv_title">Base Converter</h3>
+                <p data-i18n="card_baseconv_desc">Convierte números entre bases decimal, hex, binario y octal al instante.</p>
+                <span class="go-link" data-i18n="go_link">Usar <i class="fas fa-arrow-right"></i></span>
             </a>
             <a href="#tool-diff" class="tool-card">
                 <div class="icon"><i class="fas fa-columns"></i></div>
-                <h3>Diff Viewer</h3>
-                <p>Compara dos textos lado a lado y resalta las diferencias línea a línea.</p>
-                <span class="go-link">Usar <i class="fas fa-arrow-right"></i></span>
+                <h3 data-i18n="card_diff_title">Diff Viewer</h3>
+                <p data-i18n="card_diff_desc">Compara dos textos lado a lado y resalta las diferencias línea a línea.</p>
+                <span class="go-link" data-i18n="go_link">Usar <i class="fas fa-arrow-right"></i></span>
             </a>
         </div>
 
         <!-- ═══ CRON ═══ -->
         <section id="tool-cron" class="tool-section">
             <div class="tool-header">
-                <h2><i class="fas fa-clock"></i> Cron Parser</h2>
-                <a href="#top" class="tool-back"><i class="fas fa-arrow-up"></i> Volver</a>
+                <h2><i class="fas fa-clock"></i> <span data-i18n="sec_cron">Cron Parser</span></h2>
+                <a href="#top" class="tool-back"><i class="fas fa-arrow-up"></i> <span data-i18n="back">Volver</span></a>
             </div>
             <div class="tool-examples" id="cronExamples">
-                <button data-cron="*/5 * * * *">cada 5 min</button>
-                <button data-cron="0 * * * *">cada hora</button>
-                <button data-cron="0 9 * * 1-5">9 AM laborables</button>
-                <button data-cron="0 0 * * 0">domingo media noche</button>
+                <button data-cron="*/5 * * * *" data-i18n="cron_5min">cada 5 min</button>
+                <button data-cron="0 * * * *" data-i18n="cron_hour">cada hora</button>
+                <button data-cron="0 9 * * 1-5" data-i18n="cron_9am">9 AM laborables</button>
+                <button data-cron="0 0 * * 0" data-i18n="cron_sun">domingo media noche</button>
                 <button data-cron="@hourly">@hourly</button>
                 <button data-cron="@daily">@daily</button>
                 <button data-cron="@weekly">@weekly</button>
             </div>
             <div class="tool-input-group">
-                <label for="cronInput">Expresión cron</label>
+                <label for="cronInput" data-i18n="label_cron">Expresión cron</label>
                 <input type="text" id="cronInput" class="tool-input" placeholder="*/5 * * * *" autocomplete="off" spellcheck="false">
             </div>
             <div class="tool-status" id="cronStatus"></div>
             <div class="tool-output" id="cronOutput">
-                <button class="copy-btn" onclick="copyText('cronOutput')">📋 Copiar</button>
+                <button class="copy-btn" onclick="copyText('cronOutput')" data-i18n="copy">📋 Copiar</button>
                 <span id="cronDesc"></span>
                 <div id="cronTableContainer"></div>
             </div>
@@ -537,14 +553,14 @@
         <!-- ═══ TIMESTAMP ═══ -->
         <section id="tool-ts" class="tool-section">
             <div class="tool-header">
-                <h2><i class="fas fa-calendar"></i> Timestamp Converter</h2>
-                <a href="#top" class="tool-back"><i class="fas fa-arrow-up"></i> Volver</a>
+                <h2><i class="fas fa-calendar"></i> <span data-i18n="sec_ts">Timestamp Converter</span></h2>
+                <a href="#top" class="tool-back"><i class="fas fa-arrow-up"></i> <span data-i18n="back">Volver</span></a>
             </div>
             <div class="tool-actions">
-                <button class="tool-btn" onclick="tsNow()"><i class="fas fa-crosshairs"></i> Ahora</button>
+                <button class="tool-btn" onclick="tsNow()"><i class="fas fa-crosshairs"></i> <span data-i18n="ts_now">Ahora</span></button>
             </div>
             <div class="tool-input-group">
-                <label for="tsInput">Timestamp (ms, s) o fecha ISO</label>
+                <label for="tsInput" data-i18n="label_ts">Timestamp (ms, s) o fecha ISO</label>
                 <input type="text" id="tsInput" class="tool-input" placeholder="1735123800000 o 2025-12-25T10:30:00Z" autocomplete="off" spellcheck="false">
             </div>
             <div class="tool-status" id="tsStatus"></div>
@@ -554,37 +570,37 @@
         <!-- ═══ JSON ═══ -->
         <section id="tool-json" class="tool-section">
             <div class="tool-header">
-                <h2><i class="fas fa-file-code"></i> JSON Formatter</h2>
-                <a href="#top" class="tool-back"><i class="fas fa-arrow-up"></i> Volver</a>
+                <h2><i class="fas fa-file-code"></i> <span data-i18n="sec_json">JSON Formatter</span></h2>
+                <a href="#top" class="tool-back"><i class="fas fa-arrow-up"></i> <span data-i18n="back">Volver</span></a>
             </div>
             <div class="tool-actions">
-                <button class="tool-btn primary" onclick="jsonFormat()"><i class="fas fa-indent"></i> Formatear</button>
-                <button class="tool-btn" onclick="jsonMinify()"><i class="fas fa-compress"></i> Minificar</button>
-                <button class="tool-btn" onclick="jsonDownload()"><i class="fas fa-download"></i> Descargar</button>
+                <button class="tool-btn primary" onclick="jsonFormat()"><i class="fas fa-indent"></i> <span data-i18n="json_fmt">Formatear</span></button>
+                <button class="tool-btn" onclick="jsonMinify()"><i class="fas fa-compress"></i> <span data-i18n="json_min">Minificar</span></button>
+                <button class="tool-btn" onclick="jsonDownload()"><i class="fas fa-download"></i> <span data-i18n="json_dl">Descargar</span></button>
             </div>
             <div class="tool-input-group">
-                <label for="jsonInput">JSON</label>
+                <label for="jsonInput" data-i18n="label_json">JSON</label>
                 <textarea id="jsonInput" class="tool-textarea large" placeholder='{"nombre": "Carlos", "rol": "SRE"}' spellcheck="false"></textarea>
             </div>
             <div class="tool-status" id="jsonStatus"></div>
             <div class="tool-output" id="jsonOutput">
-                <button class="copy-btn" onclick="copyText('jsonOutput')">📋 Copiar</button>
+                <button class="copy-btn" onclick="copyText('jsonOutput')" data-i18n="copy">📋 Copiar</button>
             </div>
         </section>
 
         <!-- ═══ REGEX ═══ -->
         <section id="tool-regex" class="tool-section">
             <div class="tool-header">
-                <h2><i class="fas fa-code"></i> Regex Tester</h2>
-                <a href="#top" class="tool-back"><i class="fas fa-arrow-up"></i> Volver</a>
+                <h2><i class="fas fa-code"></i> <span data-i18n="sec_regex">Regex Tester</span></h2>
+                <a href="#top" class="tool-back"><i class="fas fa-arrow-up"></i> <span data-i18n="back">Volver</span></a>
             </div>
             <div class="tool-input-group">
-                <label for="regexPattern">Pattern</label>
+                <label for="regexPattern" data-i18n="label_regex_pat">Pattern</label>
                 <input type="text" id="regexPattern" class="tool-input" placeholder="\d{3}-\d{2}-\d{4}" autocomplete="off" spellcheck="false">
             </div>
             <div class="input-row">
                 <div class="tool-input-group">
-                    <label>Flags</label>
+                    <label data-i18n="label_flags">Flags</label>
                     <div class="flag-checkboxes" id="regexFlags">
                         <label><input type="checkbox" value="g" checked> <span>g</span></label>
                         <label><input type="checkbox" value="i"> <span>i</span></label>
@@ -596,12 +612,12 @@
                 </div>
             </div>
             <div class="tool-input-group">
-                <label for="regexText">Texto de prueba</label>
+                <label for="regexText" data-i18n="label_regex_text">Texto de prueba</label>
                 <textarea id="regexText" class="tool-textarea large" placeholder="123-45-6789&#10;987-65-4321&#10;Sin match aquí" spellcheck="false"></textarea>
             </div>
             <div class="tool-status" id="regexStatus"></div>
             <div class="tool-output" id="regexOutput">
-                <button class="copy-btn" onclick="copyText('regexOutput')">📋 Copiar</button>
+                <button class="copy-btn" onclick="copyText('regexOutput')" data-i18n="copy">📋 Copiar</button>
             </div>
             <div id="regexGroups" style="margin-top:0.5rem;"></div>
         </section>
@@ -609,123 +625,123 @@
         <!-- ═══ BASE64 ═══ -->
         <section id="tool-base64" class="tool-section">
             <div class="tool-header">
-                <h2><i class="fas fa-lock"></i> Base64</h2>
-                <a href="#top" class="tool-back"><i class="fas fa-arrow-up"></i> Volver</a>
+                <h2><i class="fas fa-lock"></i> <span data-i18n="sec_b64">Base64</span></h2>
+                <a href="#top" class="tool-back"><i class="fas fa-arrow-up"></i> <span data-i18n="back">Volver</span></a>
             </div>
             <div class="tool-actions">
-                <button class="tool-btn green" onclick="base64Encode()"><i class="fas fa-lock"></i> Encode</button>
-                <button class="tool-btn orange" onclick="base64Decode()"><i class="fas fa-unlock"></i> Decode</button>
-                <button class="tool-btn" onclick="base64Swap()"><i class="fas fa-exchange-alt"></i> ↻ Swap</button>
+                <button class="tool-btn green" onclick="base64Encode()"><i class="fas fa-lock"></i> <span data-i18n="encode">Encode</span></button>
+                <button class="tool-btn orange" onclick="base64Decode()"><i class="fas fa-unlock"></i> <span data-i18n="decode">Decode</span></button>
+                <button class="tool-btn" onclick="base64Swap()"><i class="fas fa-exchange-alt"></i> <span data-i18n="swap">↻ Swap</span></button>
             </div>
             <div class="tool-row">
                 <div class="tool-side">
                     <div class="tool-input-group">
-                        <label for="b64Input">Entrada</label>
+                        <label for="b64Input" data-i18n="label_input">Entrada</label>
                         <textarea id="b64Input" class="tool-textarea" placeholder="Texto plano o base64..." spellcheck="false"></textarea>
                     </div>
                 </div>
                 <div class="tool-side">
                     <div class="tool-input-group">
-                        <label for="b64Output">Resultado</label>
+                        <label for="b64Output" data-i18n="label_output">Resultado</label>
                         <textarea id="b64Output" class="tool-textarea" readonly spellcheck="false"></textarea>
                     </div>
                 </div>
             </div>
             <div class="tool-status" id="b64Status"></div>
             <div class="tool-actions">
-                <button class="tool-btn" onclick="copyTextarea('b64Output')"><i class="fas fa-copy"></i> Copiar resultado</button>
+                <button class="tool-btn" onclick="copyTextarea('b64Output')"><i class="fas fa-copy"></i> <span data-i18n="copy_result">Copiar resultado</span></button>
             </div>
         </section>
 
         <!-- ═══ YAML ↔ JSON ═══ -->
         <section id="tool-yaml" class="tool-section">
             <div class="tool-header">
-                <h2><i class="fas fa-exchange-alt"></i> YAML ↔ JSON</h2>
-                <a href="#top" class="tool-back"><i class="fas fa-arrow-up"></i> Volver</a>
+                <h2><i class="fas fa-exchange-alt"></i> <span data-i18n="sec_yaml">YAML ↔ JSON</span></h2>
+                <a href="#top" class="tool-back"><i class="fas fa-arrow-up"></i> <span data-i18n="back">Volver</span></a>
             </div>
             <div class="tool-actions">
-                <button class="tool-btn primary" onclick="yamlToJson()"><i class="fas fa-arrow-right"></i> → JSON</button>
-                <button class="tool-btn green" onclick="jsonToYaml()"><i class="fas fa-arrow-left"></i> → YAML</button>
-                <button class="tool-btn" onclick="yamlSwap()"><i class="fas fa-exchange-alt"></i> ↻ Swap</button>
+                <button class="tool-btn primary" onclick="yamlToJson()"><i class="fas fa-arrow-right"></i> <span data-i18n="to_json">→ JSON</span></button>
+                <button class="tool-btn green" onclick="jsonToYaml()"><i class="fas fa-arrow-left"></i> <span data-i18n="to_yaml">→ YAML</span></button>
+                <button class="tool-btn" onclick="yamlSwap()"><i class="fas fa-exchange-alt"></i> <span data-i18n="swap">↻ Swap</span></button>
             </div>
             <div class="tool-row">
                 <div class="tool-side">
                     <div class="tool-input-group">
-                        <label for="yamlInput">Entrada</label>
+                        <label for="yamlInput" data-i18n="label_input">Entrada</label>
                         <textarea id="yamlInput" class="tool-textarea large" placeholder="nombre: Carlos&#10;rol: SRE&#10;skills:&#10;  - Python&#10;  - Docker" spellcheck="false"></textarea>
                     </div>
                 </div>
                 <div class="tool-side">
                     <div class="tool-input-group">
-                        <label for="yamlOutput">Resultado</label>
+                        <label for="yamlOutput" data-i18n="label_output">Resultado</label>
                         <textarea id="yamlOutput" class="tool-textarea large" readonly spellcheck="false"></textarea>
                     </div>
                 </div>
             </div>
             <div class="tool-status" id="yamlStatus"></div>
             <div class="tool-actions">
-                <button class="tool-btn" onclick="copyTextarea('yamlOutput')"><i class="fas fa-copy"></i> Copiar resultado</button>
+                <button class="tool-btn" onclick="copyTextarea('yamlOutput')"><i class="fas fa-copy"></i> <span data-i18n="copy_result">Copiar resultado</span></button>
             </div>
         </section>
 
         <!-- ═══ URL ═══ -->
         <section id="tool-url" class="tool-section">
             <div class="tool-header">
-                <h2><i class="fas fa-link"></i> URL Encoder/Decoder</h2>
-                <a href="#top" class="tool-back"><i class="fas fa-arrow-up"></i> Volver</a>
+                <h2><i class="fas fa-link"></i> <span data-i18n="sec_url">URL Encoder/Decoder</span></h2>
+                <a href="#top" class="tool-back"><i class="fas fa-arrow-up"></i> <span data-i18n="back">Volver</span></a>
             </div>
             <div class="tool-actions">
-                <button class="tool-btn primary" onclick="urlEncode()"><i class="fas fa-lock"></i> Encode</button>
-                <button class="tool-btn green" onclick="urlDecode()"><i class="fas fa-unlock"></i> Decode</button>
-                <button class="tool-btn" onclick="urlSwap()"><i class="fas fa-exchange-alt"></i> ↻ Swap</button>
+                <button class="tool-btn primary" onclick="urlEncode()"><i class="fas fa-lock"></i> <span data-i18n="encode">Encode</span></button>
+                <button class="tool-btn green" onclick="urlDecode()"><i class="fas fa-unlock"></i> <span data-i18n="decode">Decode</span></button>
+                <button class="tool-btn" onclick="urlSwap()"><i class="fas fa-exchange-alt"></i> <span data-i18n="swap">↻ Swap</span></button>
             </div>
             <div class="tool-row">
                 <div class="tool-side">
                     <div class="tool-input-group">
-                        <label for="urlInput">Entrada</label>
+                        <label for="urlInput" data-i18n="label_input">Entrada</label>
                         <textarea id="urlInput" class="tool-textarea" placeholder="https://example.com?q=hola mundo" spellcheck="false"></textarea>
                     </div>
                 </div>
                 <div class="tool-side">
                     <div class="tool-input-group">
-                        <label for="urlOutput">Resultado</label>
+                        <label for="urlOutput" data-i18n="label_output">Resultado</label>
                         <textarea id="urlOutput" class="tool-textarea" readonly spellcheck="false"></textarea>
                     </div>
                 </div>
             </div>
             <div class="tool-status" id="urlStatus"></div>
             <div class="tool-actions">
-                <button class="tool-btn" onclick="copyTextarea('urlOutput')"><i class="fas fa-copy"></i> Copiar resultado</button>
+                <button class="tool-btn" onclick="copyTextarea('urlOutput')"><i class="fas fa-copy"></i> <span data-i18n="copy_result">Copiar resultado</span></button>
             </div>
         </section>
 
         <!-- ═══ BASE CONVERTER ═══ -->
         <section id="tool-baseconv" class="tool-section">
             <div class="tool-header">
-                <h2><i class="fas fa-calculator"></i> Base Converter</h2>
-                <a href="#top" class="tool-back"><i class="fas fa-arrow-up"></i> Volver</a>
+                <h2><i class="fas fa-calculator"></i> <span data-i18n="sec_bc">Base Converter</span></h2>
+                <a href="#top" class="tool-back"><i class="fas fa-arrow-up"></i> <span data-i18n="back">Volver</span></a>
             </div>
             <div class="tool-input-group">
-                <label for="bcInput">Valor</label>
+                <label for="bcInput" data-i18n="label_bc_val">Valor</label>
                 <input type="text" id="bcInput" class="tool-input" placeholder="255" autocomplete="off" spellcheck="false">
             </div>
             <div class="input-row" style="margin-bottom:0.8rem;">
                 <div class="tool-input-group">
-                    <label>Desde base</label>
+                    <label data-i18n="label_bc_from">Desde base</label>
                     <select id="bcFrom" class="tool-input">
-                        <option value="10">Decimal (10)</option>
-                        <option value="16">Hexadecimal (16)</option>
-                        <option value="2">Binario (2)</option>
-                        <option value="8">Octal (8)</option>
+                        <option value="10" data-i18n="bc_dec">Decimal (10)</option>
+                        <option value="16" data-i18n="bc_hex">Hexadecimal (16)</option>
+                        <option value="2" data-i18n="bc_bin">Binario (2)</option>
+                        <option value="8" data-i18n="bc_oct">Octal (8)</option>
                     </select>
                 </div>
                 <div class="tool-input-group">
                     <label> </label>
-                    <button class="tool-btn primary" onclick="bcConvert()" style="align-self:flex-end;"><i class="fas fa-arrow-right"></i> Convertir</button>
+                    <button class="tool-btn primary" onclick="bcConvert()" style="align-self:flex-end;"><i class="fas fa-arrow-right"></i> <span data-i18n="bc_convert">Convertir</span></button>
                 </div>
             </div>
             <div class="tool-output" id="bcOutput">
-                <button class="copy-btn" onclick="copyText('bcOutput')">📋 Copiar</button>
+                <button class="copy-btn" onclick="copyText('bcOutput')" data-i18n="copy">📋 Copiar</button>
             </div>
             <div class="tool-status" id="bcStatus"></div>
         </section>
@@ -733,23 +749,23 @@
         <!-- ═══ DIFF ═══ -->
         <section id="tool-diff" class="tool-section">
             <div class="tool-header">
-                <h2><i class="fas fa-columns"></i> Diff Viewer</h2>
-                <a href="#top" class="tool-back"><i class="fas fa-arrow-up"></i> Volver</a>
+                <h2><i class="fas fa-columns"></i> <span data-i18n="sec_diff">Diff Viewer</span></h2>
+                <a href="#top" class="tool-back"><i class="fas fa-arrow-up"></i> <span data-i18n="back">Volver</span></a>
             </div>
             <div class="tool-actions">
-                <button class="tool-btn primary" onclick="diffRun()"><i class="fas fa-play"></i> Comparar</button>
-                <button class="tool-btn" onclick="diffClear()"><i class="fas fa-trash"></i> Limpiar</button>
+                <button class="tool-btn primary" onclick="diffRun()"><i class="fas fa-play"></i> <span data-i18n="diff_cmp">Comparar</span></button>
+                <button class="tool-btn" onclick="diffClear()"><i class="fas fa-trash"></i> <span data-i18n="diff_clr">Limpiar</span></button>
             </div>
             <div class="tool-row">
                 <div class="tool-side">
                     <div class="tool-input-group">
-                        <label for="diffLeft">Texto original</label>
+                        <label for="diffLeft" data-i18n="label_diff_left">Texto original</label>
                         <textarea id="diffLeft" class="tool-textarea large" placeholder="Texto original..." spellcheck="false"></textarea>
                     </div>
                 </div>
                 <div class="tool-side">
                     <div class="tool-input-group">
-                        <label for="diffRight">Texto modificado</label>
+                        <label for="diffRight" data-i18n="label_diff_right">Texto modificado</label>
                         <textarea id="diffRight" class="tool-textarea large" placeholder="Texto modificado..." spellcheck="false"></textarea>
                     </div>
                 </div>
@@ -769,6 +785,127 @@
             document.documentElement.classList.add('light');
         }
 
+        /* ── i18n ── */
+        window.translations = {
+            es: {
+                hero_title: 'Toolkit',
+                hero_sub: 'Utilidades para el día a día — cron, timestamp, JSON, regex, base64, YAML, URL, base converter, diff',
+                hero_count: '9 herramientas · todo en local, nada sale de tu navegador',
+                nav_home: 'Inicio', nav_tools: 'Tools',
+                go_link: 'Usar \u{2192}',
+                card_cron_title: 'Cron Parser', card_cron_desc: 'Traduce expresiones cron a texto legible y calcula las próximas ejecuciones.',
+                card_ts_title: 'Timestamp Converter', card_ts_desc: 'Convierte timestamps Unix a fecha legible y viceversa en múltiples formatos.',
+                card_json_title: 'JSON Formatter', card_json_desc: 'Formatea, valida y minifica JSON con syntax highlighting y detección de errores.',
+                card_regex_title: 'Regex Tester', card_regex_desc: 'Prueba expresiones regulares en vivo con matches coloreados y grupos de captura.',
+                card_base64_title: 'Base64', card_base64_desc: 'Codifica y decodifica Base64 con detección automática del formato.',
+                card_yaml_title: 'YAML \u2194 JSON', card_yaml_desc: 'Convierte entre YAML y JSON en ambos sentidos con detección automática.',
+                card_url_title: 'URL Encoder/Decoder', card_url_desc: 'Codifica y decodifica parámetros URL con detección automática del formato.',
+                card_baseconv_title: 'Base Converter', card_baseconv_desc: 'Convierte números entre bases decimal, hex, binario y octal al instante.',
+                card_diff_title: 'Diff Viewer', card_diff_desc: 'Compara dos textos lado a lado y resalta las diferencias línea a línea.',
+                sec_cron: 'Cron Parser', sec_ts: 'Timestamp Converter', sec_json: 'JSON Formatter', sec_regex: 'Regex Tester',
+                sec_b64: 'Base64', sec_yaml: 'YAML \u2194 JSON', sec_url: 'URL Encoder/Decoder', sec_bc: 'Base Converter', sec_diff: 'Diff Viewer',
+                back: 'Volver',
+                copy: '\U0001f4cb Copiar', copy_result: 'Copiar resultado',
+                ts_now: 'Ahora', json_fmt: 'Formatear', json_min: 'Minificar', json_dl: 'Descargar',
+                encode: 'Encode', decode: 'Decode', swap: '\u21bb Swap',
+                to_json: '\u2192 JSON', to_yaml: '\u2192 YAML',
+                bc_convert: 'Convertir', diff_cmp: 'Comparar', diff_clr: 'Limpiar',
+                label_cron: 'Expresión cron', label_ts: 'Timestamp (ms, s) o fecha ISO', label_json: 'JSON',
+                label_regex_pat: 'Pattern', label_flags: 'Flags', label_regex_text: 'Texto de prueba',
+                label_input: 'Entrada', label_output: 'Resultado',
+                label_bc_val: 'Valor', label_bc_from: 'Desde base',
+                label_diff_left: 'Texto original', label_diff_right: 'Texto modificado',
+                bc_dec: 'Decimal (10)', bc_hex: 'Hexadecimal (16)', bc_bin: 'Binario (2)', bc_oct: 'Octal (8)',
+                cron_5min: 'cada 5 min', cron_hour: 'cada hora', cron_9am: '9 AM laborables', cron_sun: 'domingo media noche',
+                toast_nada: 'Nada que copiar', toast_copied: 'Copiado', toast_error: 'Error', toast_dl: 'Descargado',
+                status_valid: 'Expresión válida',
+                status_json: 'JSON válido', status_min: 'Minificado', status_bytes: ' bytes',
+                status_equal: 'Los textos son iguales',
+                b64_encoded: 'Codificado', b64_decoded: 'Decodificado', b64_raw: 'Decodificado (raw bytes)', b64_invalid: 'No válido como base64',
+                yaml_tojson: 'Convertido a JSON', yaml_toyaml: 'Convertido a YAML',
+                url_encoded: 'Codificado', url_decoded: 'Decodificado', url_invalid: 'No válido como URL encode',
+                bc_err: 'Número inválido para base ', bc_err2: 'No se puede interpretar como base ', bc_in10: ' en base 10',
+                bc_dec_lbl: 'Decimal (10)', bc_hex_lbl: 'Hexadecimal (16)', bc_bin_lbl: 'Binario (2)', bc_oct_lbl: 'Octal (8)',
+                diff_added: ' añadidas, ', diff_removed: ' eliminadas',
+                diff_hdr: '@@ líneas ', diff_hdr_end: ' @@',
+                regex_none: '\u2014 No se encontraron matches \u2014', regex_grp: 'Grupos de captura:',
+                regex_grp_hdr: 'Grupo', regex_val_hdr: 'Valor', regex_undef: '(undefined)',
+                ts_unrec: 'Formato no reconocido', ts_ms: 'Milisegundos', ts_s: 'Segundos',
+                ts_iso: 'ISO 8601', ts_local: 'Local', ts_utc: 'UTC', ts_localdt: 'Fecha local',
+                ts_rel: 'Relativo', ts_wday: 'Día de la semana',
+                ts_ago: 'hace ', ts_in: 'dentro de ', ts_now_label: 'ahora mismo',
+                unit_year: 'año', unit_month: 'mes', unit_week: 'semana', unit_day: 'día', unit_hour: 'hora', unit_min: 'minuto', unit_sec: 'segundo',
+            },
+            en: {
+                hero_title: 'Toolkit',
+                hero_sub: 'Daily tools — cron, timestamp, JSON, regex, base64, YAML, URL, base converter, diff',
+                hero_count: '9 tools · all local, nothing leaves your browser',
+                nav_home: 'Home', nav_tools: 'Tools',
+                go_link: 'Use \u{2192}',
+                card_cron_title: 'Cron Parser', card_cron_desc: 'Translate cron expressions to human-readable text and calculate next runs.',
+                card_ts_title: 'Timestamp Converter', card_ts_desc: 'Convert Unix timestamps to readable dates and vice versa in multiple formats.',
+                card_json_title: 'JSON Formatter', card_json_desc: 'Format, validate and minify JSON with syntax highlighting and error detection.',
+                card_regex_title: 'Regex Tester', card_regex_desc: 'Test regular expressions live with colored matches and capture groups.',
+                card_base64_title: 'Base64', card_base64_desc: 'Encode and decode Base64 with automatic format detection.',
+                card_yaml_title: 'YAML \u2194 JSON', card_yaml_desc: 'Convert between YAML and JSON both ways with auto-detection.',
+                card_url_title: 'URL Encoder/Decoder', card_url_desc: 'Encode and decode URL parameters with automatic format detection.',
+                card_baseconv_title: 'Base Converter', card_baseconv_desc: 'Convert numbers between decimal, hex, binary and octal instantly.',
+                card_diff_title: 'Diff Viewer', card_diff_desc: 'Compare two texts side by side and highlight line differences.',
+                sec_cron: 'Cron Parser', sec_ts: 'Timestamp Converter', sec_json: 'JSON Formatter', sec_regex: 'Regex Tester',
+                sec_b64: 'Base64', sec_yaml: 'YAML \u2194 JSON', sec_url: 'URL Encoder/Decoder', sec_bc: 'Base Converter', sec_diff: 'Diff Viewer',
+                back: 'Back',
+                copy: '\U0001f4cb Copy', copy_result: 'Copy result',
+                ts_now: 'Now', json_fmt: 'Format', json_min: 'Minify', json_dl: 'Download',
+                encode: 'Encode', decode: 'Decode', swap: '\u21bb Swap',
+                to_json: '\u2192 JSON', to_yaml: '\u2192 YAML',
+                bc_convert: 'Convert', diff_cmp: 'Compare', diff_clr: 'Clear',
+                label_cron: 'Cron expression', label_ts: 'Timestamp (ms, s) or ISO date', label_json: 'JSON',
+                label_regex_pat: 'Pattern', label_flags: 'Flags', label_regex_text: 'Test text',
+                label_input: 'Input', label_output: 'Output',
+                label_bc_val: 'Value', label_bc_from: 'From base',
+                label_diff_left: 'Original text', label_diff_right: 'Modified text',
+                bc_dec: 'Decimal (10)', bc_hex: 'Hexadecimal (16)', bc_bin: 'Binary (2)', bc_oct: 'Octal (8)',
+                cron_5min: 'every 5 min', cron_hour: 'every hour', cron_9am: '9 AM weekdays', cron_sun: 'Sunday midnight',
+                toast_nada: 'Nothing to copy', toast_copied: 'Copied', toast_error: 'Error', toast_dl: 'Downloaded',
+                status_valid: 'Valid expression',
+                status_json: 'Valid JSON', status_min: 'Minified', status_bytes: ' bytes',
+                status_equal: 'Texts are identical',
+                b64_encoded: 'Encoded', b64_decoded: 'Decoded', b64_raw: 'Decoded (raw bytes)', b64_invalid: 'Invalid base64',
+                yaml_tojson: 'Converted to JSON', yaml_toyaml: 'Converted to YAML',
+                url_encoded: 'Encoded', url_decoded: 'Decoded', url_invalid: 'Invalid URL encoding',
+                bc_err: 'Invalid number for base ', bc_err2: 'Cannot parse as base ', bc_in10: ' in base 10',
+                bc_dec_lbl: 'Decimal (10)', bc_hex_lbl: 'Hexadecimal (16)', bc_bin_lbl: 'Binary (2)', bc_oct_lbl: 'Octal (8)',
+                diff_added: ' added, ', diff_removed: ' removed',
+                diff_hdr: '@@ lines ', diff_hdr_end: ' @@',
+                regex_none: '\u2014 No matches found \u2014', regex_grp: 'Capture groups:',
+                regex_grp_hdr: 'Group', regex_val_hdr: 'Value', regex_undef: '(undefined)',
+                ts_unrec: 'Unrecognized format', ts_ms: 'Milliseconds', ts_s: 'Seconds',
+                ts_iso: 'ISO 8601', ts_local: 'Local', ts_utc: 'UTC', ts_localdt: 'Local date',
+                ts_rel: 'Relative', ts_wday: 'Weekday',
+                ts_ago: '', ts_in: 'in ', ts_now_label: 'just now',
+                unit_year: 'year', unit_month: 'month', unit_week: 'week', unit_day: 'day', unit_hour: 'hour', unit_min: 'minute', unit_sec: 'second',
+            }
+        };
+        window.lang = 'es';
+        function t(k) { return (translations[lang] && translations[lang][k]) || (translations.es && translations.es[k]) || k; }
+        function setLanguage(l) {
+            lang = l;
+            localStorage.setItem('lang', l);
+            document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.dataset.lang === l));
+            applyI18n();
+        }
+        function applyI18n() {
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.dataset.i18n;
+                const val = t(key);
+                if (el.tagName === 'OPTION') { el.textContent = val; }
+                else if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+                    if (el.placeholder !== undefined) el.placeholder = val;
+                }
+                else { el.innerHTML = val; }
+            });
+        }
+
         document.getElementById('navToggle').addEventListener('click', () => {
             document.getElementById('navLinks').classList.toggle('open');
         });
@@ -784,16 +921,16 @@
         function copyText(id) {
             const el = document.getElementById(id);
             const clone = el.cloneNode(true);
-            clone.querySelectorAll('.copy-btn').forEach(b => b.remove());
+            clone.querySelectorAll('.copy-btn, .go-link').forEach(b => b.remove());
             const text = clone.textContent.trim();
-            if (!text) return toast('Nada que copiar', true);
-            navigator.clipboard.writeText(text).then(() => toast('Copiado'), () => toast('Error', true));
+            if (!text) return toast(t('toast_nada'), true);
+            navigator.clipboard.writeText(text).then(() => toast(t('toast_copied')), () => toast(t('toast_error'), true));
         }
 
         function copyTextarea(id) {
             const el = document.getElementById(id);
-            if (!el.value) return toast('Nada que copiar', true);
-            navigator.clipboard.writeText(el.value).then(() => toast('Copiado'), () => toast('Error', true));
+            if (!el.value) return toast(t('toast_nada'), true);
+            navigator.clipboard.writeText(el.value).then(() => toast(t('toast_copied')), () => toast(t('toast_error'), true));
         }
 
         /* ── SessionStorage persistence ── */
@@ -875,7 +1012,7 @@
             try {
                 const desc = cronstrue.toString(input, { verbose: true, throwExceptionOnParseError: true });
                 descEl.textContent = desc;
-                status.innerHTML = '<span class="ok"><i class="fas fa-check-circle"></i> Expresión válida</span>';
+                status.innerHTML = '<span class="ok"><i class="fas fa-check-circle"></i> ' + t('status_valid') + '</span>';
 
                 const nextRuns = cronNext(input, 5);
                 if (nextRuns.length > 0) {
@@ -926,20 +1063,20 @@
             const status = document.getElementById('tsStatus');
             if (!date || isNaN(date.getTime())) {
                 grid.innerHTML = '';
-                status.innerHTML = '<span class="error"><i class="fas fa-exclamation-circle"></i> Formato no reconocido</span>';
+            status.innerHTML = '<span class="ok"><i class="fas fa-check-circle"></i> ' + t('ts_unrec') + '</span>';
                 return;
             }
             status.innerHTML = '<span class="ok"><i class="fas fa-check-circle"></i> ' + date.toISOString() + '</span>';
             const local = date.toLocaleString('es-ES', { timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone });
             const cards = [
-                { label: 'Milisegundos', value: date.getTime().toString() },
-                { label: 'Segundos', value: Math.floor(date.getTime() / 1000).toString() },
-                { label: 'ISO 8601', value: date.toISOString() },
-                { label: 'Local', value: local },
-                { label: 'UTC', value: date.toUTCString() },
-                { label: 'Fecha local', value: date.toLocaleDateString('es-ES') + ' ' + date.toLocaleTimeString('es-ES') },
-                { label: 'Relativo', value: tsRelative(date) },
-                { label: 'Día de la semana', value: date.toLocaleDateString('es-ES', { weekday: 'long' }) },
+                { label: t('ts_ms'), value: date.getTime().toString() },
+                { label: t('ts_s'), value: Math.floor(date.getTime() / 1000).toString() },
+                { label: t('ts_iso'), value: date.toISOString() },
+                { label: t('ts_local'), value: local },
+                { label: t('ts_utc'), value: date.toUTCString() },
+                { label: t('ts_localdt'), value: date.toLocaleDateString('es-ES') + ' ' + date.toLocaleTimeString('es-ES') },
+                { label: t('ts_rel'), value: tsRelative(date) },
+                { label: t('ts_wday'), value: date.toLocaleDateString('es-ES', { weekday: 'long' }) },
             ];
             grid.innerHTML = cards.map(c =>
                 `<div class="ts-card" onclick="tsCopy('${c.value.replace(/'/g, "\\'")}')" title="Copiar">
@@ -957,14 +1094,14 @@
             const diff = Date.now() - date.getTime();
             const abs = Math.abs(diff);
             const units = [
-                [31536000000, 'año'], [2592000000, 'mes'], [604800000, 'semana'],
-                [86400000, 'día'], [3600000, 'hora'], [60000, 'minuto'], [1000, 'segundo']
+                [31536000000, t('unit_year')], [2592000000, t('unit_month')], [604800000, t('unit_week')],
+                [86400000, t('unit_day')], [3600000, t('unit_hour')], [60000, t('unit_min')], [1000, t('unit_sec')]
             ];
             for (const [ms, label] of units) {
                 const n = Math.floor(abs / ms);
-                if (n >= 1) return (diff > 0 ? 'hace ' : 'dentro de ') + n + ' ' + label + (n !== 1 ? 's' : '');
+                if (n >= 1) return (diff > 0 ? t('ts_ago') : t('ts_in')) + n + ' ' + label + (n !== 1 ? 's' : '');
             }
-            return 'ahora mismo';
+            return t('ts_now_label');
         }
 
         function tsNow() {
@@ -999,9 +1136,9 @@
                 const obj = JSON.parse(input);
                 const colored = jsonColorize(obj);
                 output.innerHTML = '<button class="copy-btn" onclick="copyText(\'jsonOutput\')">📋 Copiar</button>' + colored;
-                status.innerHTML = '<span class="ok"><i class="fas fa-check-circle"></i> JSON válido · ' + new Blob([JSON.stringify(obj, null, 2)]).size + ' bytes</span>';
+                status.innerHTML = '<span class="ok"><i class="fas fa-check-circle"></i> ' + t('status_json') + ' · ' + new Blob([JSON.stringify(obj, null, 2)]).size + t('status_bytes') + '</span>';
             } catch (e) {
-                output.innerHTML = '<button class="copy-btn" onclick="copyText(\'jsonOutput\')">📋 Copiar</button><span style="color:#f92672">' + e.message + '</span>';
+                output.innerHTML = '<button class="copy-btn" onclick="copyText(\'jsonOutput\')" data-i18n="copy">' + t('copy') + '</button><span style="color:#f92672">' + e.message + '</span>';
                 status.innerHTML = '<span class="error"><i class="fas fa-exclamation-circle"></i> ' + e.message + '</span>';
             }
         }
@@ -1011,8 +1148,8 @@
             if (!input) return;
             try {
                 const min = JSON.stringify(JSON.parse(input));
-                document.getElementById('jsonOutput').innerHTML = '<button class="copy-btn" onclick="copyText(\'jsonOutput\')">📋 Copiar</button>' + min;
-                document.getElementById('jsonStatus').innerHTML = '<span class="ok"><i class="fas fa-check-circle"></i> Minificado · ' + min.length + ' bytes</span>';
+                document.getElementById('jsonOutput').innerHTML = '<button class="copy-btn" onclick="copyText(\'jsonOutput\')" data-i18n="copy">' + t('copy') + '</button>' + min;
+                document.getElementById('jsonStatus').innerHTML = '<span class="ok"><i class="fas fa-check-circle"></i> ' + t('status_min') + ' · ' + min.length + t('status_bytes') + '</span>';
             } catch (e) {
                 document.getElementById('jsonStatus').innerHTML = '<span class="error"><i class="fas fa-exclamation-circle"></i> ' + e.message + '</span>';
             }
@@ -1029,7 +1166,7 @@
                 a.download = 'data.json';
                 a.click();
                 URL.revokeObjectURL(a.href);
-                toast('Descargado');
+                toast(t('toast_dl'));
             } catch (e) {
                 document.getElementById('jsonStatus').innerHTML = '<span class="error"><i class="fas fa-exclamation-circle"></i> ' + e.message + '</span>';
             }
@@ -1065,7 +1202,7 @@
                 const re = new RegExp(pattern, flags);
                 const matches = Array.from(text.matchAll(re));
                 if (matches.length === 0) {
-                    output.innerHTML = '<button class="copy-btn" onclick="copyText(\'regexOutput\')">📋 Copiar</button><span style="color:#75715e">— No se encontraron matches —</span>';
+                    output.innerHTML = '<button class="copy-btn" onclick="copyText(\'regexOutput\')" data-i18n="copy">' + t('copy') + '</button><span style="color:#75715e">' + t('regex_none') + '</span>';
                     status.innerHTML = '<span class="error"><i class="fas fa-times-circle"></i> 0 matches</span>';
                     groupsDiv.innerHTML = '';
                     return;
@@ -1098,14 +1235,14 @@
                     result += text.slice(lastIdx);
                 }
 
-                output.innerHTML = '<button class="copy-btn" onclick="copyText(\'regexOutput\')">📋 Copiar</button>' + result;
+                output.innerHTML = '<button class="copy-btn" onclick="copyText(\'regexOutput\')" data-i18n="copy">' + t('copy') + '</button>' + result;
                 status.innerHTML = '<span class="regex-count">' + matches.length + ' match' + (matches.length !== 1 ? 'es' : '') + '</span>';
 
                 if (groupData.length > 0) {
-                    let gHtml = '<div style="margin-top:0.5rem;font-size:0.78rem;"><strong style="color:#a6e22e">Grupos de captura:</strong></div>';
+                    let gHtml = '<div style="margin-top:0.5rem;font-size:0.78rem;"><strong style="color:#a6e22e">' + t('regex_grp') + '</strong></div>';
                     groupData.forEach((g, i) => {
                         gHtml += '<div style="margin-top:0.3rem;font-size:0.75rem;color:#75715e;">Match ' + (i + 1) + ': <span style="color:#f8f8f2">' + g.full + '</span></div>';
-                        gHtml += '<table class="cron-table" style="font-size:0.75rem;"><tr><th>Grupo</th><th>Valor</th></tr>';
+                        gHtml += '<table class="cron-table" style="font-size:0.75rem;"><tr><th>' + t('regex_grp_hdr') + '</th><th>' + t('regex_val_hdr') + '</th></tr>';
                         for (const [k, v] of Object.entries(g.groups)) {
                             gHtml += '<tr><td style="color:#66d9ef">' + k + '</td><td>' + v + '</td></tr>';
                         }
@@ -1117,10 +1254,15 @@
                 }
 
             } catch (e) {
-                output.innerHTML = '<button class="copy-btn" onclick="copyText(\'regexOutput\')">📋 Copiar</button><span style="color:#f92672">' + e.message + '</span>';
+                output.innerHTML = '<button class="copy-btn" onclick="copyText(\'regexOutput\')" data-i18n="copy">' + t('copy') + '</button><span style="color:#f92672">' + e.message + '</span>';
                 status.innerHTML = '<span class="error"><i class="fas fa-exclamation-circle"></i> ' + e.message + '</span>';
                 groupsDiv.innerHTML = '';
             }
+
+            /* ── Copy button in all outputs ── */
+            document.querySelectorAll('.tool-output .copy-btn').forEach(btn => {
+                if (!btn.hasAttribute('data-i18n')) btn.innerHTML = t('copy');
+            });
         }
 
         document.getElementById('regexPattern').addEventListener('input', testRegex);
@@ -1138,7 +1280,7 @@
             try {
                 const encoded = btoa(unescape(encodeURIComponent(input)));
                 output.value = encoded;
-                status.innerHTML = '<span class="ok"><i class="fas fa-check-circle"></i> Codificado · ' + input.length + ' → ' + encoded.length + ' chars</span>';
+                status.innerHTML = '<span class="ok"><i class="fas fa-check-circle"></i> ' + t('b64_encoded') + ' · ' + input.length + ' \u2192 ' + encoded.length + ' chars</span>';
             } catch (e) {
                 status.innerHTML = '<span class="error"><i class="fas fa-exclamation-circle"></i> ' + e.message + '</span>';
             }
@@ -1152,14 +1294,14 @@
             try {
                 const decoded = decodeURIComponent(escape(atob(input)));
                 output.value = decoded;
-                status.innerHTML = '<span class="ok"><i class="fas fa-check-circle"></i> Decodificado · ' + input.length + ' → ' + decoded.length + ' chars</span>';
+                status.innerHTML = '<span class="ok"><i class="fas fa-check-circle"></i> ' + t('b64_decoded') + ' · ' + input.length + ' \u2192 ' + decoded.length + ' chars</span>';
             } catch (e) {
                 try {
                     const raw = atob(input);
                     output.value = raw;
-                    status.innerHTML = '<span class="ok"><i class="fas fa-check-circle"></i> Decodificado (raw bytes) · ' + raw.length + ' bytes</span>';
+                    status.innerHTML = '<span class="ok"><i class="fas fa-check-circle"></i> ' + t('b64_raw') + ' · ' + raw.length + ' bytes</span>';
                 } catch (e2) {
-                    status.innerHTML = '<span class="error"><i class="fas fa-exclamation-circle"></i> No válido como base64</span>';
+                    status.innerHTML = '<span class="error"><i class="fas fa-exclamation-circle"></i> ' + t('b64_invalid') + '</span>';
                 }
             }
         }
@@ -1193,7 +1335,7 @@
             try {
                 const obj = jsyaml.load(input);
                 output.value = JSON.stringify(obj, null, 2);
-                status.innerHTML = '<span class="ok"><i class="fas fa-check-circle"></i> Convertido a JSON</span>';
+                status.innerHTML = '<span class="ok"><i class="fas fa-check-circle"></i> ' + t('yaml_tojson') + '</span>';
             } catch (e) {
                 status.innerHTML = '<span class="error"><i class="fas fa-exclamation-circle"></i> ' + e.message + '</span>';
             }
@@ -1206,7 +1348,7 @@
             try {
                 const obj = JSON.parse(input);
                 output.value = jsyaml.dump(obj, { indent: 2, lineWidth: -1 });
-                status.innerHTML = '<span class="ok"><i class="fas fa-check-circle"></i> Convertido a YAML</span>';
+                status.innerHTML = '<span class="ok"><i class="fas fa-check-circle"></i> ' + t('yaml_toyaml') + '</span>';
             } catch (e) {
                 status.innerHTML = '<span class="error"><i class="fas fa-exclamation-circle"></i> ' + e.message + '</span>';
             }
@@ -1240,7 +1382,7 @@
             const status = document.getElementById('urlStatus');
             try {
                 output.value = encodeURIComponent(input);
-                status.innerHTML = '<span class="ok"><i class="fas fa-check-circle"></i> Codificado · ' + input.length + ' → ' + output.value.length + ' chars</span>';
+                status.innerHTML = '<span class="ok"><i class="fas fa-check-circle"></i> ' + t('url_encoded') + ' · ' + input.length + ' \u2192 ' + output.value.length + ' chars</span>';
             } catch (e) {
                 status.innerHTML = '<span class="error"><i class="fas fa-exclamation-circle"></i> ' + e.message + '</span>';
             }
@@ -1252,9 +1394,9 @@
             const status = document.getElementById('urlStatus');
             try {
                 output.value = decodeURIComponent(input);
-                status.innerHTML = '<span class="ok"><i class="fas fa-check-circle"></i> Decodificado · ' + output.value.length + ' chars</span>';
+                status.innerHTML = '<span class="ok"><i class="fas fa-check-circle"></i> ' + t('url_decoded') + ' · ' + output.value.length + ' chars</span>';
             } catch (e) {
-                status.innerHTML = '<span class="error"><i class="fas fa-exclamation-circle"></i> No válido como URL encode</span>';
+                status.innerHTML = '<span class="error"><i class="fas fa-exclamation-circle"></i> ' + t('url_invalid') + '</span>';
             }
         }
 
@@ -1282,17 +1424,17 @@
             if (!input) { output.innerHTML = '<button class="copy-btn" onclick="copyText(\'bcOutput\')">📋 Copiar</button>'; status.textContent = ''; return; }
             const val = parseInt(input, from);
             if (isNaN(val)) {
-                output.innerHTML = '<button class="copy-btn" onclick="copyText(\'bcOutput\')">📋 Copiar</button><span style="color:#f92672">Número inválido para base ' + from + '</span>';
-                status.innerHTML = '<span class="error"><i class="fas fa-exclamation-circle"></i> No se puede interpretar como base ' + from + '</span>';
+                output.innerHTML = '<button class="copy-btn" onclick="copyText(\'bcOutput\')" data-i18n="copy">' + t('copy') + '</button><span style="color:#f92672">' + t('bc_err') + from + '</span>';
+                status.innerHTML = '<span class="error"><i class="fas fa-exclamation-circle"></i> ' + t('bc_err2') + from + '</span>';
                 return;
             }
             const bases = [
-                [10, 'Decimal (10)', '#66d9ef'],
-                [16, 'Hexadecimal (16)', '#a6e22e'],
-                [2, 'Binario (2)', '#fd971f'],
-                [8, 'Octal (8)', '#ae81ff'],
+                [10, t('bc_dec_lbl'), '#66d9ef'],
+                [16, t('bc_hex_lbl'), '#a6e22e'],
+                [2, t('bc_bin_lbl'), '#fd971f'],
+                [8, t('bc_oct_lbl'), '#ae81ff'],
             ];
-            let html = '<button class="copy-btn" onclick="copyText(\'bcOutput\')">📋 Copiar</button>';
+            let html = '<button class="copy-btn" onclick="copyText(\'bcOutput\')" data-i18n="copy">' + t('copy') + '</button>';
             bases.forEach(([base, label, color]) => {
                 const v = val.toString(base).toUpperCase();
                 html += '<div style="display:flex;justify-content:space-between;align-items:center;padding:0.4rem 0;border-bottom:1px solid #2a2a2a;font-size:0.85rem;font-family:\'JetBrains Mono\',monospace;">';
@@ -1301,7 +1443,7 @@
                 html += '</div>';
             });
             output.innerHTML = html;
-            status.innerHTML = '<span class="ok"><i class="fas fa-check-circle"></i> ' + val.toString() + ' en base 10</span>';
+            status.innerHTML = '<span class="ok"><i class="fas fa-check-circle"></i> ' + val.toString() + t('bc_in10') + '</span>';
         }
 
         document.getElementById('bcInput').addEventListener('input', bcConvert);
@@ -1336,7 +1478,7 @@
                 const l = lLines[i] !== undefined ? lLines[i] : '';
                 const r = rLines[i] !== undefined ? rLines[i] : '';
                 if (l !== r) {
-                    if (!changed) { results.push({ type: 'hdr', text: '@@ líneas ' + (i + 1) + ' @@' }); changed = true; }
+                    if (!changed) { results.push({ type: 'hdr', text: t('diff_hdr') + (i + 1) + t('diff_hdr_end') }); changed = true; }
                     if (l !== undefined) results.push({ type: 'del', text: l, ln: i + 1 });
                     if (r !== undefined) results.push({ type: 'add', text: r, ln: i + 1 });
                     ctx = 0;
@@ -1352,11 +1494,11 @@
 
             if (results.length === 0) {
                 out.innerHTML = '';
-                status.innerHTML = '<span class="ok"><i class="fas fa-check-circle"></i> Los textos son iguales</span>';
+                status.innerHTML = '<span class="ok"><i class="fas fa-check-circle"></i> ' + t('status_equal') + '</span>';
                 return;
             }
 
-            status.innerHTML = '<span class="ok"><i class="fas fa-check-circle"></i> ' + results.filter(r => r.type === 'add').length + ' añadidas, ' + results.filter(r => r.type === 'del').length + ' eliminadas</span>';
+            status.innerHTML = '<span class="ok"><i class="fas fa-check-circle"></i> ' + results.filter(r => r.type === 'add').length + t('diff_added') + results.filter(r => r.type === 'del').length + t('diff_removed') + '</span>';
 
             const lHtml = results.map(r => '<div class="diff-line' + (r.type === 'eq' ? ' eq' : '') + (r.type === 'del' ? ' del' : '') + (r.type === 'hdr' ? ' hdr' : '') + '">' + (r.ln ? '<span class="diff-ln">' + r.ln + '</span>' : '') + r.text + '</div>').join('\n');
             const rHtml = results.map(r => '<div class="diff-line' + (r.type === 'eq' ? ' eq' : '') + (r.type === 'add' ? ' add' : '') + (r.type === 'hdr' ? ' hdr' : '') + '">' + (r.ln ? '<span class="diff-ln">' + r.ln + '</span>' : '') + r.text + '</div>').join('\n');
@@ -1375,7 +1517,10 @@
         document.getElementById('diffRight').addEventListener('input', diffRun);
 
         /* Update save keys */
-        SAVE_KEYS.push('urlInput', 'bcInput', 'diffLeft', 'diffRight');
+        SAVE_KEYS.push('urlInput', 'bcInput', 'diffLeft', 'diffRight', 'urlOutput');
+
+        /* Set initial language */
+        setLanguage(localStorage.getItem('lang') || 'es');
 
         /* Auto-restore cron on load */
         setTimeout(parseCron, 100);
