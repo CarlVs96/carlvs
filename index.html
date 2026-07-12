@@ -1368,11 +1368,13 @@ Ingeniero informático, <strong>SRE en Roche</strong>. Observabilidad, automatiz
             document.querySelectorAll('[data-i18n]').forEach(el => {
                 const k = el.getAttribute('data-i18n');
                 if (k === 'title') return;
-                if (translations[l][k]) {
+                let v = translations[l] && translations[l][k];
+                if (!v) v = translations.es && translations.es[k];
+                if (v) {
                     if (el.classList.contains('title-text')) {
-                        el.textContent = translations[l][k];
+                        el.textContent = v;
                     } else {
-                        el.innerHTML = translations[l][k];
+                        el.innerHTML = v;
                     }
                 }
             });
