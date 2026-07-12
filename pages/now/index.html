@@ -31,18 +31,6 @@
             text-align: center;
             padding: 2rem 1rem 0;
         }
-        #ascii-art {
-            font-size: 0.45rem;
-            line-height: 1.1;
-            color: #a6e22e;
-            opacity: 0.5;
-            user-select: none;
-            overflow-x: auto;
-            text-align: center;
-            margin-bottom: 0.5rem;
-            max-width: 100%;
-            white-space: pre;
-        }
         .now-hero h1 {
             font-size: 3rem;
             font-weight: 700;
@@ -68,11 +56,48 @@
             margin: 0 auto;
             padding: 2rem 1.5rem 4rem;
         }
-        .now-section {
+
+        /* ── ASCII + Work row ── */
+        .hero-work-row {
+            display: flex;
+            gap: 1.5rem;
             margin-bottom: 2rem;
+        }
+        #ascii-art {
+            flex: 0 0 auto;
+            font-size: 0.35rem;
+            line-height: 1.1;
+            color: #a6e22e;
+            opacity: 0.4;
+            user-select: none;
+            overflow: hidden;
+            white-space: pre;
+            max-width: 40%;
+        }
+        #ascii-art,
+        .section-work {
+            margin-bottom: 0;
+        }
+        .hero-work-row .now-section {
+            flex: 1;
+            margin-bottom: 0;
+        }
+
+        /* ── Now grid ── */
+        .now-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        /* ── Section card base ── */
+        .now-section {
             opacity: 0;
             transform: translateY(20px);
             transition: opacity 0.6s ease, transform 0.6s ease;
+            border-top: 3px solid transparent;
+            padding-top: 1rem;
         }
         .now-section.visible {
             opacity: 1;
@@ -98,6 +123,15 @@
         .now-section strong { color: #fd971f; }
         .now-section ul { padding-left: 1.25rem; margin: 0; }
         .now-section li { margin-bottom: 0.4rem; }
+
+        /* ── Section color borders ── */
+        .section-work    { border-top-color: #f92672; }
+        .section-learning { border-top-color: #66d9ef; }
+        .section-reading  { border-top-color: #ae81ff; }
+        .section-listening { border-top-color: #fd971f; }
+        .section-projects { border-top-color: #a6e22e; }
+        .section-travel   { border-top-color: #f92672; }
+        .section-life     { border-top-color: #66d9ef; }
 
         /* ── World map canvas ── */
         #world-map {
@@ -140,8 +174,19 @@
             .now-hero h1 { font-size: 2.2rem; }
             .now-hero { min-height: 30vh; }
             .now-content { padding: 1.5rem 1rem 3rem; }
+            .hero-work-row {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            #ascii-art {
+                max-width: 100%;
+                font-size: 0.25rem;
+            }
+            .now-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
             #world-map { height: 280px; }
-            #ascii-art { font-size: 0.3rem; }
         }
     </style>
 </head>
@@ -169,7 +214,17 @@
 
     <!-- Hero -->
     <section class="now-hero reveal">
-        <pre id="ascii-art">**************************************************************************************************************************************
+        <h1 data-i18n="now_title">Now</h1>
+        <p class="now-subtitle" data-i18n="now_subtitle">¿Qué estoy haciendo ahora?</p>
+        <p class="now-date">Julio 2026</p>
+    </section>
+
+    <!-- Content -->
+    <div class="now-content">
+
+        <!-- ASCII + Work row -->
+        <div class="hero-work-row">
+            <pre id="ascii-art">**************************************************************************************************************************************
 **************************************************************************************************************************************
 ********************************************************************#*****************************************************************
 ***********************************************************#*---::::....:+*+**********************************************************
@@ -243,59 +298,47 @@
 **%@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@%*
 **%@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@%*
 </pre>
-        <h1 data-i18n="now_title">Now</h1>
-        <p class="now-subtitle" data-i18n="now_subtitle">¿Qué estoy haciendo ahora?</p>
-        <p class="now-date">Julio 2026</p>
-    </section>
+            <section class="now-section section-work">
+                <h2 data-i18n="now_work_title">💼 Trabajo</h2>
+                <p data-i18n="now_work">Día a día en Roche, aprendiendo a integrar observabilidad, automatizar lo que pueda y meter IA donde toque. Me está gustando bastante, y me mantiene motivado cada día para aprender cosas nuevas.</p>
+            </section>
+        </div>
 
-    <!-- Content -->
-    <div class="now-content">
-
-        <!-- Work -->
-        <section class="now-section">
-            <h2 data-i18n="now_work_title">💼 Trabajo</h2>
-            <p data-i18n="now_work">Día a día en Roche, aprendiendo a integrar observabilidad, automatizar lo que pueda y meter IA donde toque. Me está gustando bastante, y me mantiene motivado cada día para aprender cosas nuevas.</p>
-        </section>
-
-        <!-- Learning -->
-        <section class="now-section">
-            <h2 data-i18n="now_learning_title">📚 Aprendiendo</h2>
-            <p data-i18n="now_learning">Rundeck, Temporal, y en general cómo hacer que sistemas hablen entre sí sin que se quemen.</p>
-        </section>
-
-        <!-- Reading -->
-        <section class="now-section">
-            <h2 data-i18n="now_reading_title">📖 Leyendo</h2>
-            <p data-i18n="now_reading">El Código Da Vinci (sí, llegué tarde).</p>
-        </section>
-
-        <!-- Listening -->
-        <section class="now-section">
-            <h2 data-i18n="now_listening_title">🎵 Escuchando</h2>
-            <p data-i18n="now_listening"><a href="https://www.youtube.com/watch?v=hbihilDlb1I" target="_blank" rel="noopener">Cartas desde Gaia</a> — Robe · Extremoduro · Marea · Platero y Tú · Rock español en bucle.</p>
-        </section>
-
-        <!-- Side projects -->
-        <section class="now-section">
-            <h2 data-i18n="now_projects_title">🛠️ Side Projects</h2>
-            <p data-i18n="now_projects">carlvs.dev, un capricho personal. Lo mantengo porque me gusta tener mi rinconcito en internet, sin prisas, sin más.</p>
-        </section>
+        <!-- Grid: Learning + Reading + Listening + Projects -->
+        <div class="now-grid">
+            <section class="now-section section-learning">
+                <h2 data-i18n="now_learning_title">📚 Aprendiendo</h2>
+                <p data-i18n="now_learning">Rundeck, Temporal, y en general cómo hacer que sistemas hablen entre sí sin que se quemen.</p>
+            </section>
+            <section class="now-section section-reading">
+                <h2 data-i18n="now_reading_title">📖 Leyendo</h2>
+                <p data-i18n="now_reading">El Código Da Vinci (sí, llegué tarde).</p>
+            </section>
+            <section class="now-section section-listening">
+                <h2 data-i18n="now_listening_title">🎵 Escuchando</h2>
+                <p data-i18n="now_listening"><a href="https://www.youtube.com/watch?v=hbihilDlb1I" target="_blank" rel="noopener">Cartas desde Gaia</a> — Robe · Extremoduro · Marea · Platero y Tú · Rock español en bucle.</p>
+            </section>
+            <section class="now-section section-projects">
+                <h2 data-i18n="now_projects_title">🛠️ Side Projects</h2>
+                <p data-i18n="now_projects">carlvs.dev, un capricho personal. Lo mantengo porque me gusta tener mi rinconcito en internet, sin prisas, sin más.</p>
+            </section>
+        </div>
 
         <!-- Travel -->
-        <section class="now-section">
+        <section class="now-section section-travel">
             <h2 data-i18n="now_travel_title">🌍 Países visitados</h2>
-            <p data-i18n="now_travel">15 países y contando. Cada punto en el mapa es un destino del que guardo algo.</p>
+            <p data-i18n="now_travel">13 países y contando. Cada punto en el mapa es un destino del que guardo algo.</p>
             <canvas id="world-map"></canvas>
             <div class="travel-list">
-                <span>🇪🇸 España</span><span>🇬🇮 Gibraltar</span><span>🇵🇹 Portugal</span><span>🇫🇷 Francia</span>
+                <span>🇪🇸 España</span><span>🇵🇹 Portugal</span><span>🇫🇷 Francia</span>
                 <span>🇩🇪 Alemania</span><span>🇬🇧 UK</span><span>🇨🇿 Rep. Checa</span><span>🇵🇱 Polonia</span>
                 <span>🇸🇰 Eslovaquia</span><span>🇳🇴 Noruega</span><span>🇸🇪 Suecia</span><span>🇮🇹 Italia</span>
-                <span>🇬🇷 Grecia</span><span>🇻🇦 Vaticano</span><span>🇧🇪 Bélgica</span>
+                <span>🇬🇷 Grecia</span><span>🇧🇪 Bélgica</span>
             </div>
         </section>
 
         <!-- Life -->
-        <section class="now-section">
+        <section class="now-section section-life">
             <h2 data-i18n="now_life_title">🎾 Vida</h2>
             <p data-i18n="now_life">Pádel · Tenis · Cañas con amigos · Rock español · Siempre aprendiendo algo nuevo.</p>
         </section>
@@ -352,7 +395,7 @@
         });
 
         /* ── Section reveal on scroll ── */
-        const sections = document.querySelectorAll('.now-section, #world-map');
+        const sections = document.querySelectorAll('.now-section');
         const revealObserver = new IntersectionObserver(entries => {
             entries.forEach(e => {
                 if (e.isIntersecting) e.target.classList.add('visible');
@@ -378,7 +421,6 @@
             const places = [
                 { lat: 37.18, lng: -3.60, name: 'Granada', home: true },
                 { lat: 40.42, lng: -3.70, name: 'España' },
-                { lat: 36.14, lng: -5.35, name: 'Gibraltar' },
                 { lat: 38.72, lng: -9.14, name: 'Portugal' },
                 { lat: 48.86, lng: 2.35, name: 'Francia' },
                 { lat: 52.52, lng: 13.41, name: 'Alemania' },
@@ -390,7 +432,6 @@
                 { lat: 59.33, lng: 18.07, name: 'Suecia' },
                 { lat: 41.90, lng: 12.50, name: 'Italia' },
                 { lat: 37.98, lng: 23.73, name: 'Grecia' },
-                { lat: 41.90, lng: 12.45, name: 'Vaticano' },
                 { lat: 50.85, lng: 4.35, name: 'Bélgica' },
             ];
 
