@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Now | CarlVs</title>
+    <meta name="description" content="¿Qué estoy haciendo ahora?">
+    <meta property="og:title" content="Now | CarlVs">
+    <meta property="og:description" content="¿Qué estoy haciendo ahora?">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://carlvs.dev/pages/now/">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Now | CarlVs">
+    <meta name="twitter:description" content="¿Qué estoy haciendo ahora?">
+    <link rel="canonical" href="https://carlvs.dev/pages/now/">
+    <link rel="icon" type="image/svg+xml" href="/assets/img/favicon.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/assets/css/common.css?v=20260712">
+    <style>
+        /* ── Now page reset extras ── */
+        html { scroll-behavior: smooth; }
+        body { background: #1a1a1a; }
+        .now-hero {
+            min-height: 40vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem 1rem 0;
+        }
+        .now-hero h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, #f92672, #ae81ff, #66d9ef);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .now-hero .now-subtitle {
+            font-size: 1rem;
+            color: #75715e;
+            margin-bottom: 0;
+        }
+        .now-hero .now-date {
+            font-size: 0.85rem;
+            color: #75715e;
+            margin-top: 0.5rem;
+        }
+
+        .now-content {
+            max-width: 680px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem 4rem;
+        }
+        .now-section {
+            margin-bottom: 3rem;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        .now-section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .now-section h2 {
+            font-size: 1.4rem;
+            color: #a6e22e;
+            margin-bottom: 0.75rem;
+        }
+        .now-section p, .now-section li {
+            color: #f8f8f2;
+            line-height: 1.7;
+            font-size: 0.95rem;
+        }
+        .now-section strong { color: #fd971f; }
+        .now-section ul { padding-left: 1.25rem; margin: 0; }
+        .now-section li { margin-bottom: 0.4rem; }
+
+        /* ── Globe ── */
+        #globe-container {
+            width: 100%;
+            max-width: 680px;
+            height: 420px;
+            margin: 0 auto 3rem;
+            border-radius: 12px;
+            overflow: hidden;
+            background: transparent;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        #globe-container.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .travel-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem 1rem;
+            margin-top: 1rem;
+        }
+        .travel-list span {
+            color: #66d9ef;
+            font-size: 0.85rem;
+        }
+
+        /* ── Light theme ── */
+        html.light body { background: #f5f5f5; }
+        html.light .now-section h2 { color: #2d2d2d; }
+        html.light .now-section p, html.light .now-section li { color: #2d2d2d; }
+        html.light .now-section strong { color: #fd971f; }
+        html.light .travel-list span { color: #f92672; }
+
+        /* ── Mobile ── */
+        @media (max-width: 768px) {
+            .now-hero h1 { font-size: 2.2rem; }
+            .now-hero { min-height: 30vh; }
+            .now-content { padding: 1.5rem 1rem 3rem; }
+            #globe-container { height: 280px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar" id="navbar">
+        <a href="/" class="nav-logo"><svg width="22" height="22" viewBox="0 0 32 32"><defs><linearGradient id="navLogoGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#f92672"/><stop offset="50%" stop-color="#ae81ff"/><stop offset="100%" stop-color="#66d9ef"/></linearGradient></defs><text x="16" y="22" font-family="monospace" font-size="14" font-weight="bold" fill="url(#navLogoGrad)" text-anchor="middle">CVs</text></svg>Carlos Villén Villar</a>
+        <div class="nav-links" id="navLinks">
+            <a href="/" data-i18n="nav_home">Inicio</a>
+            <a href="/pages/tools/" data-i18n="nav_tools">Tools</a>
+            <a href="/pages/now/" class="active" data-i18n="nav_now">Now</a>
+        </div>
+        <div class="nav-right">
+            <button class="theme-btn" id="themeToggle" aria-label="Toggle theme">☀️</button>
+            <div class="lang-switcher">
+                <button class="lang-btn active" data-lang="es">ES</button>
+                <button class="lang-btn" data-lang="en">EN</button>
+            </div>
+            <button class="nav-toggle" id="navToggle" aria-label="Menu">☰</button>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="now-hero reveal">
+        <h1 data-i18n="now_title">Now</h1>
+        <p class="now-subtitle" data-i18n="now_subtitle">¿Qué estoy haciendo ahora?</p>
+        <p class="now-date">Julio 2026</p>
+    </section>
+
+    <!-- Content -->
+    <div class="now-content">
+
+        <!-- Work -->
+        <section class="now-section">
+            <h2 data-i18n="now_work_title">💼 Trabajo</h2>
+            <p data-i18n="now_work"><strong>Site Reliability Engineer</strong> en Roche, equipo de Monitoring &amp; Observability. Automatización Python, pipelines OpenTelemetry, integración CMDB, tuning de alertas, y agentes LLM para triage de incidentes.</p>
+        </section>
+
+        <!-- Learning -->
+        <section class="now-section">
+            <h2 data-i18n="now_learning_title">📚 Aprendiendo</h2>
+            <p data-i18n="now_learning">Profundizando en <strong>arquitecturas cloud</strong> (AWS) y <strong>agentes AI</strong> aplicados a operaciones. Explorando <strong>Kubernetes</strong> y orquestación de contenedores.</p>
+        </section>
+
+        <!-- Reading -->
+        <section class="now-section">
+            <h2 data-i18n="now_reading_title">📖 Leyendo</h2>
+            <p data-i18n="now_reading"><strong>The Site Reliability Workbook</strong> (Google) · Documentación de OpenTelemetry · Papers sobre AIOps y detección de anomalías.</p>
+        </section>
+
+        <!-- Listening -->
+        <section class="now-section">
+            <h2 data-i18n="now_listening_title">🎵 Escuchando</h2>
+            <p data-i18n="now_listening">Robe · Extremoduro · Marea · Platero y Tú · Rock español en bucle.</p>
+        </section>
+
+        <!-- Side projects -->
+        <section class="now-section">
+            <h2 data-i18n="now_projects_title">🛠️ Side Projects</h2>
+            <p data-i18n="now_projects"><strong>carlvs.dev</strong> — portfolio SRE con terminal interactivo, health graphs, toolkit, y modo ñiñosaurio. Construido con HTML/CSS/JS vanilla, deploy automático con GitHub Actions.</p>
+        </section>
+
+        <!-- Travel -->
+        <section class="now-section">
+            <h2 data-i18n="now_travel_title">🌍 Países visitados</h2>
+            <p data-i18n="now_travel">15 países y contando. Cada punto en el mapa es un destino del que guardo algo.</p>
+            <div id="globe-container"></div>
+            <div class="travel-list">
+                <span>🇪🇸 España</span><span>🇬🇮 Gibraltar</span><span>🇵🇹 Portugal</span><span>🇫🇷 Francia</span>
+                <span>🇩🇪 Alemania</span><span>🇬🇧 UK</span><span>🇨🇿 Rep. Checa</span><span>🇵🇱 Polonia</span>
+                <span>🇸🇰 Eslovaquia</span><span>🇳🇴 Noruega</span><span>🇸🇪 Suecia</span><span>🇮🇹 Italia</span>
+                <span>🇬🇷 Grecia</span><span>🇻🇦 Vaticano</span><span>🇧🇪 Bélgica</span>
+            </div>
+        </section>
+
+        <!-- Life -->
+        <section class="now-section">
+            <h2 data-i18n="now_life_title">🎾 Vida</h2>
+            <p data-i18n="now_life">Pádel · Tenis · Cañas con amigos · Rock español · Siempre aprendiendo algo nuevo.</p>
+        </section>
+
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2026 Carlos Villén Villar · <span data-i18n="footer_built">Hecho con</span> ☕ &lt;/&gt;</p>
+    </footer>
+
+    <!-- Back to top -->
+    <button id="back-to-top" aria-label="Back to top">↑</button>
+
+    <script src="/assets/js/translations.js?v=20260712"></script>
+    <script src="/assets/js/common.js?v=20260712"></script>
+    <script src="https://unpkg.com/globe.gl"></script>
+    <script>
+        /* ── i18n ── */
+        let currentLang = localStorage.getItem('lang') || 'es';
+        function t(k) { const v = translations[currentLang] && translations[currentLang][k]; if (v) return v; if (currentLang === 'ñ' || currentLang === 'j') { const f = translations.es && translations.es[k]; if (f) return f; } return translations.es && translations.es[k] || k; }
+
+        function setLanguage(l) {
+            currentLang = l;
+            document.documentElement.lang = l;
+            localStorage.setItem('lang', l);
+            document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.dataset.lang === l));
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const k = el.getAttribute('data-i18n');
+                let v = translations[l] && translations[l][k];
+                if (!v) v = translations.es && translations.es[k];
+                if (v) {
+                    if (el.classList.contains('title-text')) {
+                        el.textContent = v;
+                    } else {
+                        el.innerHTML = v;
+                    }
+                }
+            });
+        }
+
+        document.querySelectorAll('.lang-btn').forEach(b => {
+            b.addEventListener('click', () => setLanguage(b.dataset.lang));
+        });
+        setLanguage(currentLang);
+
+        /* ── Mobile nav toggle ── */
+        document.getElementById('navToggle').addEventListener('click', () => {
+            document.getElementById('navLinks').classList.toggle('open');
+        });
+        document.querySelectorAll('.nav-links a').forEach(a => {
+            a.addEventListener('click', () => {
+                document.getElementById('navLinks').classList.remove('open');
+            });
+        });
+
+        /* ── Section reveal on scroll ── */
+        const sections = document.querySelectorAll('.now-section, #globe-container');
+        const revealObserver = new IntersectionObserver(entries => {
+            entries.forEach(e => {
+                if (e.isIntersecting) e.target.classList.add('visible');
+            });
+        }, { threshold: 0.15 });
+        sections.forEach(s => revealObserver.observe(s));
+
+        /* ── Back to top ── */
+        const backBtn = document.getElementById('back-to-top');
+        window.addEventListener('scroll', () => {
+            backBtn.classList.toggle('visible', window.scrollY > window.innerHeight * 0.6);
+        });
+        backBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        /* ── Globe ── */
+        (function() {
+            const container = document.getElementById('globe-container');
+            if (!container || typeof Globe === 'undefined') return;
+
+            const countries = [
+                { lat: 40.42, lng: -3.70, label: 'España' },
+                { lat: 36.14, lng: -5.35, label: 'Gibraltar' },
+                { lat: 38.72, lng: -9.14, label: 'Portugal' },
+                { lat: 48.86, lng: 2.35, label: 'Francia' },
+                { lat: 52.52, lng: 13.41, label: 'Alemania' },
+                { lat: 51.51, lng: -0.13, label: 'UK' },
+                { lat: 50.08, lng: 14.44, label: 'Rep. Checa' },
+                { lat: 52.23, lng: 21.01, label: 'Polonia' },
+                { lat: 48.15, lng: 17.11, label: 'Eslovaquia' },
+                { lat: 59.91, lng: 10.75, label: 'Noruega' },
+                { lat: 59.33, lng: 18.07, label: 'Suecia' },
+                { lat: 41.90, lng: 12.50, label: 'Italia' },
+                { lat: 37.98, lng: 23.73, label: 'Grecia' },
+                { lat: 41.90, lng: 12.45, label: 'Vaticano' },
+                { lat: 50.85, lng: 4.35, label: 'Bélgica' },
+            ];
+            const home = { lat: 37.18, lng: -3.60, label: 'Granada' };
+
+            const globe = Globe()(container)
+                .globeImageUrl('//unpkg.com/three-globe/example/img/earth-dark.jpg')
+                .backgroundImageUrl('//unpkg.com/three-globe/example/img/night-sky.png')
+                .width(container.offsetWidth)
+                .height(container.offsetHeight)
+                .pointsData([home, ...countries])
+                .pointLat(d => d.lat)
+                .pointLng(d => d.lng)
+                .pointColor(d => d.label === 'Granada' ? '#f92672' : '#a6e22e')
+                .pointAltitude(0.02)
+                .pointRadius(d => d.label === 'Granada' ? 0.12 : 0.08)
+                .pointsMerge(true)
+                .arcsData(countries.map(d => ({
+                    startLat: home.lat,
+                    startLng: home.lng,
+                    endLat: d.lat,
+                    endLng: d.lng,
+                })))
+                .arcColor(() => ['rgba(166,226,46,0.3)', 'rgba(166,226,46,0.1)'])
+                .arcDashLength(0.3)
+                .arcDashGap(0.1)
+                .arcDashAnimateTime(2000)
+                .arcStroke(0.4)
+                .labelData([home, ...countries])
+                .labelLat(d => d.lat)
+                .labelLng(d => d.lng)
+                .labelText(d => d.label)
+                .labelColor(() => '#f8f8f2')
+                .labelDotRadius(0)
+                .labelSize(0.8)
+                .labelResolution(2)
+                .pointOfView({ lat: 37, lng: -3, altitude: 2.5 })
+                .onGlobeReady(() => {
+                    container.classList.add('visible');
+                });
+
+            /* ── Responsive width ── */
+            window.addEventListener('resize', () => {
+                globe.width(container.offsetWidth).height(container.offsetHeight);
+            });
+
+            /* ── Autorotate, pause on hover ── */
+            let autorotate = true;
+            globe.controls().autoRotate = true;
+            globe.controls().autoRotateSpeed = 0.6;
+            container.addEventListener('mouseenter', () => { globe.controls().autoRotate = false; });
+            container.addEventListener('mouseleave', () => { globe.controls().autoRotate = true; });
+        })();
+    </script>
+</body>
+</html>
