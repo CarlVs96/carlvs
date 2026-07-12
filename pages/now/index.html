@@ -636,7 +636,8 @@
 
             function draw() {
                 const rect = canvas.parentNode.getBoundingClientRect();
-                const w = canvas.width = rect.width;
+                const cs = getComputedStyle(canvas.parentNode);
+                const w = canvas.width = rect.width - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
                 const h = canvas.height = 420;
                 canvas.style.width = w + 'px';
                 canvas.style.height = h + 'px';
