@@ -1687,9 +1687,10 @@ Ingeniero informático, <strong>SRE en Roche</strong>. Observabilidad, automatiz
                 tapTimestamps.push(now);
                 if (tapTimestamps.length === 3) {
                     setLanguage('ñ');
-                    tapTimestamps = [];
                 } else if (tapTimestamps.length === 5) {
                     setLanguage('j');
+                    tapTimestamps = [];
+                } else if (tapTimestamps.length > 5) {
                     tapTimestamps = [];
                 }
             });
