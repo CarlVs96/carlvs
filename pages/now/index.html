@@ -57,28 +57,27 @@
             padding: 2rem 1.5rem 4rem;
         }
 
-        /* ── ASCII + Work row ── */
+        /* ── ASCII + Vida stack ── */
         .hero-work-row {
             display: flex;
+            flex-direction: column;
             gap: 1.5rem;
             margin-bottom: 2rem;
         }
         #ascii-art {
+            width: 100%;
             flex: 0 0 auto;
-            font-size: 0.35rem;
+            font-size: 0.45rem;
             line-height: 1.1;
             color: #a6e22e;
             opacity: 0.4;
             user-select: none;
-            overflow: hidden;
+            overflow-x: auto;
             white-space: pre;
-            max-width: 40%;
-        }
-        #ascii-art {
             margin-bottom: 0;
         }
         .hero-work-row .now-section {
-            flex: 1;
+            width: 100%;
             margin-bottom: 0;
         }
 
