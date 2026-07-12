@@ -19,7 +19,6 @@
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/cronstrue@latest/dist/cronstrue.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/cron-parser@3/dist/cron-parser.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/js-yaml@4/dist/js-yaml.min.js"></script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -687,6 +686,55 @@
         });
 
         /* ── CRON PARSER ── */
+        function cronExpand(part, lo, hi) {
+            const s = new Set();
+            part.split(',').forEach(t => {
+                t = t.trim().replace('?', '*');
+                if (t === '*') { for (let i = lo; i <= hi; i++) s.add(i); return; }
+                if (t.includes('/')) {
+                    const [r, st] = t.split('/');
+                    const step = parseInt(st);
+                    let a = lo, b = hi;
+                    if (r !== '*') {
+                        if (r.includes('-')) { const sp = r.split('-'); a = +sp[0]; b = +sp[1]; }
+                        else a = +r;
+                    }
+                    for (let i = a; i <= b; i += step) s.add(i);
+                    return;
+                }
+                if (t.includes('-')) { const sp = t.split('-'); for (let i = +sp[0]; i <= +sp[1]; i++) s.add(i); return; }
+                const n = parseInt(t);
+                if (!isNaN(n)) s.add(n);
+            });
+            return s;
+        }
+
+        function cronMatch(d, fields) {
+            const dv = [d.getMinutes(), d.getHours(), d.getDate(), d.getMonth() + 1, d.getDay()];
+            for (let i = 0; i < 5; i++) if (!fields[i].has(dv[i]) && !(i === 4 && fields[i].has(7))) return false;
+            return true;
+        }
+
+        function cronNext(expr, count) {
+            const alias = { '@yearly': '0 0 1 1 *', '@annually': '0 0 1 1 *', '@monthly': '0 0 1 * *', '@weekly': '0 0 * * 0', '@daily': '0 0 * * *', '@midnight': '0 0 * * *', '@hourly': '0 * * * *' };
+            if (alias[expr.toLowerCase()]) expr = alias[expr.toLowerCase()];
+            const parts = expr.trim().split(/\s+/);
+            if (parts.length !== 5) throw new Error('Se requieren 5 campos');
+            const ranges = [[0,59],[0,23],[1,31],[1,12],[0,6]];
+            const fields = parts.map((p,i) => cronExpand(p, ranges[i][0], ranges[i][1]));
+            const res = [];
+            let d = new Date();
+            d.setSeconds(0,0); d.setMilliseconds(0);
+            d = new Date(d.getTime() + 60000);
+            let maxIt = 525600;
+            while (res.length < count && maxIt-- > 0) {
+                if (cronMatch(d, fields)) res.push(new Date(d));
+                d = new Date(d.getTime() + 60000);
+            }
+            if (res.length === 0) throw new Error('No se encontraron próximas ejecuciones');
+            return res;
+        }
+
         function parseCron() {
             const input = document.getElementById('cronInput').value.trim();
             const descEl = document.getElementById('cronDesc');
@@ -703,18 +751,7 @@
                 descEl.textContent = desc;
                 status.innerHTML = '<span class="ok"><i class="fas fa-check-circle"></i> Expresión válida</span>';
 
-                let cronExpr = input;
-                const aliasMap = { '@yearly': '0 0 1 1 *', '@annually': '0 0 1 1 *', '@monthly': '0 0 1 * *', '@weekly': '0 0 * * 0', '@daily': '0 0 * * *', '@midnight': '0 0 * * *', '@hourly': '0 * * * *' };
-                if (aliasMap[cronExpr.toLowerCase()]) cronExpr = aliasMap[cronExpr.toLowerCase()];
-
-                const nextRuns = [];
-                const interval = cronParser.parseExpression(cronExpr);
-                for (let i = 0; i < 5; i++) {
-                    const next = interval.next().toDate();
-                    if (!next || !next.getTime()) break;
-                    nextRuns.push(next);
-                }
-
+                const nextRuns = cronNext(input, 5);
                 if (nextRuns.length > 0) {
                     let html = '<table class="cron-table"><tr><th>#</th><th>Fecha</th><th>Hora (UTC)</th><th>Hora (local)</th></tr>';
                     nextRuns.forEach((d, i) => {
@@ -727,8 +764,6 @@
                     });
                     html += '</table>';
                     tableContainer.innerHTML = html;
-                } else {
-                    tableContainer.innerHTML = '';
                 }
             } catch (e) {
                 descEl.textContent = '';
