@@ -126,6 +126,7 @@
             color: #f92672;
         }
         .now-section strong { color: #fd971f; }
+        .now-section .proj-name { color: #fd971f; font-weight: 700; }
         .now-section ul { padding-left: 1.25rem; margin: 0; }
         .now-section li { margin-bottom: 0.4rem; }
 
@@ -156,6 +157,77 @@
         .section-projects h2::before { background: #a6e22e; }
         .section-travel h2::before   { background: #f92672; }
         .section-life h2::before     { background: #f92672; }
+
+        /* ── Mini music player ── */
+        .mini-player {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            background: #151515;
+            border: 1px solid #333;
+            border-radius: 10px;
+            padding: 0.85rem 1rem;
+            margin-top: 0.25rem;
+        }
+        html.light .mini-player {
+            background: #f5f5f5;
+            border-color: #e0e0e0;
+        }
+        .mp-play {
+            flex: 0 0 auto;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            border: none;
+            background: #a6e22e;
+            color: #151515;
+            font-size: 0.95rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.15s ease, background 0.2s ease, color 0.2s ease;
+        }
+        .mp-play:hover { transform: scale(1.08); }
+        .mp-play.playing { background: #f92672; color: #fff; }
+        .mp-info { flex: 1; min-width: 0; }
+        .mp-title {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: #f8f8f2;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .mp-title a { color: #f8f8f2; text-decoration: none; }
+        .mp-title a:hover { color: #66d9ef; }
+        .mp-artist {
+            font-size: 0.8rem;
+            color: #75715e;
+            margin-bottom: 0.45rem;
+        }
+        .mp-bar {
+            height: 4px;
+            background: #333;
+            border-radius: 2px;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        html.light .mp-bar { background: #ddd; }
+        .mp-progress {
+            height: 100%;
+            width: 0%;
+            background: #66d9ef;
+            border-radius: 2px;
+            transition: width 0.2s linear;
+        }
+        .mp-time {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.7rem;
+            color: #75715e;
+            margin-top: 0.3rem;
+        }
 
         /* ── World map canvas ── */
         #world-map {
@@ -341,11 +413,19 @@
             </section>
             <section class="now-section section-listening">
                 <h2 data-i18n="now_listening_title">Escuchando</h2>
-                <p data-i18n="now_listening"><a href="https://www.youtube.com/watch?v=hbihilDlb1I" target="_blank" rel="noopener">Cartas desde Gaia</a> — Robe · Extremoduro · Marea · Platero y Tú · Rock español en bucle.</p>
+                <div class="mini-player" id="miniPlayer">
+                    <button class="mp-play" id="mpPlay" aria-label="Play / Pause">&#9654;</button>
+                    <div class="mp-info">
+                        <div class="mp-title"><a href="https://www.youtube.com/watch?v=hbihilDlb1I" target="_blank" rel="noopener">Cartas desde Gaia</a></div>
+                        <div class="mp-artist">Robe</div>
+                        <div class="mp-bar"><div class="mp-progress" id="mpProgress"></div></div>
+                        <div class="mp-time"><span id="mpCur">0:00</span><span id="mpDur">3:48</span></div>
+                    </div>
+                </div>
             </section>
             <section class="now-section section-projects">
                 <h2 data-i18n="now_projects_title">Side Projects</h2>
-                <p data-i18n="now_projects">carlvs.dev, un capricho personal. Lo mantengo porque me gusta tener mi rinconcito en internet, sin prisas, sin más.</p>
+                <p data-i18n="now_projects"><span class="proj-name">carlvs.dev</span>, un capricho personal. Lo mantengo porque me gusta tener mi rinconcito en internet, sin prisas, sin más.</p>
             </section>
         </div>
 
@@ -696,6 +776,54 @@
             draw();
             canvas.classList.add('visible');
             window.addEventListener('resize', draw);
+        })();
+
+        /* ── Mini music player (simulated) ── */
+        (function() {
+            const player = document.getElementById('miniPlayer');
+            if (!player) return;
+            const btn = document.getElementById('mpPlay');
+            const progress = document.getElementById('mpProgress');
+            const curEl = document.getElementById('mpCur');
+            const durEl = document.getElementById('mpDur');
+            const bar = player.querySelector('.mp-bar');
+            const duration = 228; /* 3:48 */
+            let playing = false, current = 0, timer = null;
+
+            function fmt(s) {
+                const m = Math.floor(s / 60);
+                const sec = Math.floor(s % 60);
+                return m + ':' + (sec < 10 ? '0' : '') + sec;
+            }
+            durEl.textContent = fmt(duration);
+
+            function render() {
+                progress.style.width = (current / duration * 100) + '%';
+                curEl.textContent = fmt(current);
+            }
+            function tick() {
+                current += 1;
+                if (current >= duration) { current = duration; render(); pause(); return; }
+                render();
+            }
+            function play() {
+                playing = true;
+                btn.classList.add('playing');
+                btn.innerHTML = '&#10074;&#10074;';
+                timer = setInterval(tick, 1000);
+            }
+            function pause() {
+                playing = false;
+                btn.classList.remove('playing');
+                btn.innerHTML = '&#9654;';
+                clearInterval(timer);
+            }
+            btn.addEventListener('click', () => playing ? pause() : play());
+            bar.addEventListener('click', (e) => {
+                const r = bar.getBoundingClientRect();
+                current = Math.round((e.clientX - r.left) / r.width * duration);
+                render();
+            });
         })();
     </script>
 </body>
