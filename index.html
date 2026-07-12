@@ -2034,10 +2034,9 @@ Ingeniero informático, <strong>SRE en Roche</strong>. Observabilidad, automatiz
                         const fp = document.createElement('span');
                         fp.className = 'term-prompt';
                         fp.textContent = 'carlvs@dev:~$ ';
-                        const fi = document.createElement('span');
+                        let fi = document.createElement('span');
                         fi.className = 'term-input';
-                        fi.id = 'termInput';
-                        const fc = document.createElement('span');
+                        let fc = document.createElement('span');
                         fc.className = 'term-cursor';
                         finalLine.appendChild(fp);
                         finalLine.appendChild(fi);
@@ -2049,10 +2048,10 @@ Ingeniero informático, <strong>SRE en Roche</strong>. Observabilidad, automatiz
                             if (!termIdle) return;
                             if (e.key === 'Enter') {
                                 const cmd = termBuf.trim().toLowerCase();
-                                const prompt = 'carlvs@dev:~$ ';
-                                fi.textContent = '';
                                 termBuf = '';
-                                fc.style.display = 'none';
+                                fi.textContent = '';
+                                fc.remove();
+                                fc = null;
                                 const outLine = document.createElement('div');
                                 outLine.className = 'term-line';
                                 const out = document.createElement('span');
@@ -2072,17 +2071,14 @@ Ingeniero informático, <strong>SRE en Roche</strong>. Observabilidad, automatiz
                                         nl.className = 'term-line';
                                         const np = document.createElement('span');
                                         np.className = 'term-prompt';
-                                        np.textContent = prompt;
-                                        const ni = document.createElement('span');
-                                        ni.className = 'term-input';
-                                        ni.id = 'termInput';
-                                        const nc = document.createElement('span');
-                                        nc.className = 'term-cursor';
-                                        nc.style.display = 'inline-block';
-                                        nl.appendChild(np); nl.appendChild(ni); nl.appendChild(nc);
+                                        np.textContent = 'carlvs@dev:~$ ';
+                                        fi = document.createElement('span');
+                                        fi.className = 'term-input';
+                                        fc = document.createElement('span');
+                                        fc.className = 'term-cursor';
+                                        nl.appendChild(np); nl.appendChild(fi); nl.appendChild(fc);
                                         termBody.appendChild(nl);
                                         termBody.scrollTop = termBody.scrollHeight;
-                                        fc.style.display = '';
                                     }
                                 }
                                 typeResp();
