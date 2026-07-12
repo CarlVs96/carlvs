@@ -443,11 +443,16 @@
         html.light .diff-line.del { background: rgba(249,38,114,0.1); }
         html.light .diff-ln { color: #bbb; }
 
-        /* ── Page transitions ── */
-        @keyframes wipeIn { from { clip-path: inset(0 0 0 100%); } to { clip-path: inset(0 0 0 0); } }
-        @keyframes wipeOut { from { clip-path: inset(0 0 0 0); } to { clip-path: inset(0 0 0 100%); } }
-        ::view-transition-old(root) { animation: wipeOut 0.35s ease-in forwards; }
-        ::view-transition-new(root) { animation: wipeIn 0.35s ease-out forwards; }
+        /* ── Page transition wipe ── */
+        @keyframes pageWipe { from { clip-path: inset(0 0 0 100%); } to { clip-path: inset(0 0 0 0); } }
+        body::before {
+            content: ''; position: fixed; inset: 0;
+            z-index: 9999; background: #1a1a1a;
+            pointer-events: none;
+            animation: pageWipe 0.4s ease-out forwards;
+        }
+        html.light body::before { background: #f5f5f5; }
+        @media (prefers-reduced-motion: reduce) { body::before { display: none; } }
     </style>
 </head>
 <body>
@@ -1531,20 +1536,6 @@
         /* Auto-restore cron on load */
         setTimeout(parseCron, 100);
         setTimeout(tsConvert, 100);
-
-        /* ── Page transitions ── */
-        document.addEventListener('click', e => {
-            const a = e.target.closest('a[href]');
-            if (!a || a.hasAttribute('target') || a.getAttribute('href').startsWith('#') || a.getAttribute('href').startsWith('mailto:')) return;
-            if (a.hostname !== location.hostname) return;
-            if (a.pathname === location.pathname && a.hash === '') return;
-            e.preventDefault();
-            if (document.startViewTransition) {
-                document.startViewTransition(() => location.assign(a.href));
-            } else {
-                location.assign(a.href);
-            }
-        });
     </script>
 </body>
 </html>
