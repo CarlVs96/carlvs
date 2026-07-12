@@ -659,7 +659,9 @@
 
         function copyText(id) {
             const el = document.getElementById(id);
-            const text = el.textContent.replace(/^📋\s*Copiar\s*$/m, '').trim();
+            const clone = el.cloneNode(true);
+            clone.querySelectorAll('.copy-btn').forEach(b => b.remove());
+            const text = clone.textContent.trim();
             if (!text) return toast('Nada que copiar', true);
             navigator.clipboard.writeText(text).then(() => toast('Copiado'), () => toast('Error', true));
         }
