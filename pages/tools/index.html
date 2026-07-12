@@ -4,20 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tools | CarlVs</title>
-    <meta name="description" content="Micro-aplicaciones y herramientas útiles.">
+    <meta name="description" content="Toolkit para el día a día: cron, timestamp, JSON, regex, base64, YAML.">
     <meta property="og:title" content="Tools | CarlVs">
-    <meta property="og:description" content="Micro-aplicaciones y herramientas útiles.">
+    <meta property="og:description" content="Toolkit para el día a día: cron, timestamp, JSON, regex, base64, YAML.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://carlvs.dev/pages/tools/">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Tools | CarlVs">
-    <meta name="twitter:description" content="Micro-aplicaciones y herramientas útiles.">
+    <meta name="twitter:description" content="Toolkit para el día a día: cron, timestamp, JSON, regex, base64, YAML.">
     <link rel="canonical" href="https://carlvs.dev/pages/tools/">
     <link rel="icon" type="image/svg+xml" href="/assets/img/favicon.svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/cronstrue@latest/dist/cronstrue.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-yaml@4/dist/js-yaml.min.js"></script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
@@ -32,7 +34,6 @@
         a:hover { color: #a6e22e; }
         strong { color: #fd971f; }
 
-        /* ── Navbar ── */
         .navbar {
             position: fixed; top: 0; left: 0; right: 0;
             background: rgba(26,26,26,0.85);
@@ -56,7 +57,7 @@
             background: linear-gradient(135deg, #66d9ef 0%, #ae81ff 50%, #f92672 100%);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
         }
-        .nav-links { display: flex; gap: 1.5rem; }
+        .nav-links { display: flex; gap: 1.5rem; align-items: center; }
         .nav-links a {
             color: #75715e; font-size: 0.85rem; transition: color 0.3s ease; position: relative;
         }
@@ -66,9 +67,16 @@
             content: ''; position: absolute; bottom: -4px;
             left: 0; right: 0; height: 2px; background: #66d9ef;
         }
-        .nav-right { display: flex; align-items: center; gap: 1rem; }
         .nav-toggle { display: none; background: none; border: none; color: #f8f8f2; font-size: 1.3rem; cursor: pointer; }
-
+        .lang-btn {
+            background: none; border: 1px solid #3a3a3a; color: #75715e;
+            font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; padding: 0.2rem 0.4rem;
+            border-radius: 4px; cursor: pointer; transition: all 0.3s ease;
+            text-transform: uppercase; letter-spacing: 0.05em; line-height: 1;
+        }
+        .lang-btn:hover { border-color: #66d9ef; color: #66d9ef; }
+        .lang-btn.active { background: #66d9ef; border-color: #66d9ef; color: #1a1a1a; font-weight: 700; }
+        .nav-right { display: flex; align-items: center; gap: 0.5rem; }
         @media (max-width: 768px) {
             .nav-links {
                 display: none; position: absolute; top: 60px; left: 0; right: 0;
@@ -82,43 +90,34 @@
             .nav-logo { font-size: 0.9rem; gap: 0.25rem; }
         }
 
-        /* ── Hero ── */
         .tools-hero {
-            min-height: 40vh;
+            min-height: 35vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
-            padding: 6rem 2rem 3rem;
+            padding: 6rem 2rem 2rem;
         }
-        .tools-hero h1 {
-            font-size: 2.5rem;
-            color: #a6e22e;
-            margin-bottom: 1rem;
-        }
-        .tools-hero p {
-            color: #75715e;
-            font-size: 1rem;
-            max-width: 500px;
-        }
+        .tools-hero h1 { font-size: 2.2rem; color: #a6e22e; margin-bottom: 0.5rem; }
+        .tools-hero p { color: #75715e; font-size: 0.95rem; max-width: 500px; }
+        .tools-hero .tool-count { color: #75715e; font-size: 0.8rem; margin-top: 0.5rem; }
 
-        /* ── Tools grid ── */
         .tools-section {
-            padding: 0 2rem 5rem;
-            max-width: 900px;
+            padding: 0 2rem 3rem;
+            max-width: 960px;
             margin: 0 auto;
         }
         .tools-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-            gap: 1.2rem;
+            grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+            gap: 1rem;
         }
         .tool-card {
             background: #222;
             border: 1px solid #3a3a3a;
             border-radius: 12px;
-            padding: 1.5rem;
+            padding: 1.3rem;
             transition: all 0.3s ease;
             display: flex;
             flex-direction: column;
@@ -128,47 +127,251 @@
             transform: translateY(-3px);
             box-shadow: 0 4px 20px rgba(102, 217, 239, 0.1);
         }
-        .tool-card .icon {
-            font-size: 1.8rem;
-            color: #66d9ef;
+        .tool-card .icon { font-size: 1.5rem; color: #66d9ef; margin-bottom: 0.6rem; }
+        .tool-card h3 { font-size: 0.95rem; color: #f8f8f2; margin-bottom: 0.3rem; }
+        .tool-card p { font-size: 0.75rem; color: #75715e; line-height: 1.5; flex: 1; }
+        .tool-card .go-link {
+            font-size: 0.75rem; color: #a6e22e; margin-top: 0.6rem; display: inline-flex; align-items: center; gap: 0.3rem;
+        }
+
+        .tool-section {
+            padding: 2.5rem 0;
+            border-top: 1px solid #2a2a2a;
+        }
+        .tool-section:first-of-type { border-top: none; }
+        .tool-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.2rem;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        .tool-header h2 { font-size: 1.2rem; color: #a6e22e; display: flex; align-items: center; gap: 0.5rem; }
+        .tool-header h2 i { color: #66d9ef; font-size: 1rem; }
+        .tool-back { font-size: 0.75rem; color: #75715e; }
+        .tool-back:hover { color: #66d9ef; }
+
+        .tool-input-group { margin-bottom: 0.8rem; }
+        .tool-input-group label {
+            display: block; font-size: 0.75rem; color: #75715e; margin-bottom: 0.3rem;
+            font-weight: 500;
+        }
+        .tool-input, .tool-textarea {
+            width: 100%;
+            background: #2a2a2a;
+            border: 1px solid #3a3a3a;
+            border-radius: 6px;
+            color: #f8f8f2;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            padding: 0.6rem 0.8rem;
+            transition: border-color 0.3s ease;
+            outline: none;
+        }
+        .tool-input:focus, .tool-textarea:focus { border-color: #66d9ef; }
+        .tool-input::placeholder, .tool-textarea::placeholder { color: #555; }
+        .tool-textarea { min-height: 100px; resize: vertical; }
+        .tool-textarea.large { min-height: 160px; }
+
+        .tool-actions {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
             margin-bottom: 0.8rem;
         }
-        .tool-card h3 {
-            font-size: 1rem;
-            color: #f8f8f2;
-            margin-bottom: 0.4rem;
-        }
-        .tool-card p {
+        .tool-btn {
+            font-family: 'JetBrains Mono', monospace;
             font-size: 0.8rem;
-            color: #75715e;
+            padding: 0.45rem 1rem;
+            border-radius: 6px;
+            border: 1px solid #3a3a3a;
+            background: #2a2a2a;
+            color: #f8f8f2;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+        .tool-btn:hover { border-color: #66d9ef; color: #66d9ef; }
+        .tool-btn.primary {
+            background: #f92672;
+            border-color: #f92672;
+            color: #fff;
+        }
+        .tool-btn.primary:hover {
+            background: #e01e5f;
+            box-shadow: 0 0 12px rgba(249,38,114,0.3);
+        }
+        .tool-btn.green {
+            background: #a6e22e;
+            border-color: #a6e22e;
+            color: #1a1a1a;
+        }
+        .tool-btn.green:hover {
+            background: #8cce1e;
+            box-shadow: 0 0 12px rgba(166,226,46,0.3);
+        }
+        .tool-btn.orange {
+            background: #fd971f;
+            border-color: #fd971f;
+            color: #1a1a1a;
+        }
+        .tool-btn.orange:hover {
+            background: #e08610;
+            box-shadow: 0 0 12px rgba(253,151,31,0.3);
+        }
+        .tool-btn:disabled { opacity: 0.4; pointer-events: none; }
+
+        .tool-output {
+            background: #1a1a1a;
+            border: 1px solid #3a3a3a;
+            border-radius: 6px;
+            padding: 0.8rem 1rem;
+            font-size: 0.8rem;
             line-height: 1.6;
-            flex: 1;
+            min-height: 50px;
+            white-space: pre-wrap;
+            word-break: break-all;
+            overflow-x: auto;
+            max-height: 400px;
+            overflow-y: auto;
+            position: relative;
         }
-        .tool-card .coming-soon {
-            font-size: 0.75rem;
-            color: #f92672;
-            margin-top: 0.75rem;
-        }
-        .tool-card .status-badge {
-            display: inline-block;
-            background: #3a3a3a;
+        .tool-output .copy-btn {
+            position: absolute;
+            top: 0.5rem; right: 0.5rem;
+            background: #2a2a2a;
+            border: 1px solid #3a3a3a;
             color: #75715e;
+            font-size: 0.7rem;
             padding: 0.2rem 0.5rem;
             border-radius: 4px;
+            cursor: pointer;
+            font-family: 'JetBrains Mono', monospace;
+            transition: all 0.2s;
+        }
+        .tool-output .copy-btn:hover { color: #a6e22e; border-color: #a6e22e; }
+
+        .tool-examples {
+            display: flex;
+            gap: 0.4rem;
+            flex-wrap: wrap;
+            margin-bottom: 0.8rem;
+        }
+        .tool-examples button {
             font-size: 0.7rem;
-            margin-top: 0.75rem;
-            align-self: flex-start;
-        }
-
-        /* ── Empty state ── */
-        .empty-state {
-            text-align: center;
-            padding: 4rem 2rem;
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            border: 1px solid #3a3a3a;
+            background: transparent;
             color: #75715e;
+            cursor: pointer;
+            font-family: 'JetBrains Mono', monospace;
+            transition: all 0.2s;
         }
-        .empty-state i { font-size: 3rem; margin-bottom: 1rem; display: block; color: #3a3a3a; }
+        .tool-examples button:hover { color: #66d9ef; border-color: #66d9ef; }
 
-        /* ── Footer ── */
+        .tool-status {
+            font-size: 0.75rem;
+            color: #75715e;
+            margin-top: 0.4rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+        .tool-status .error { color: #f92672; }
+        .tool-status .ok { color: #a6e22e; }
+
+        .cron-table { width: 100%; border-collapse: collapse; margin-top: 0.5rem; font-size: 0.78rem; }
+        .cron-table th { text-align: left; color: #75715e; padding: 0.3rem 0.5rem; border-bottom: 1px solid #2a2a2a; font-weight: 500; }
+        .cron-table td { padding: 0.3rem 0.5rem; border-bottom: 1px solid #1a1a1a; color: #f8f8f2; }
+
+        .ts-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+        .ts-card {
+            background: #2a2a2a;
+            border: 1px solid #3a3a3a;
+            border-radius: 6px;
+            padding: 0.6rem 0.8rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .ts-card:hover { border-color: #66d9ef; }
+        .ts-card .ts-label { font-size: 0.65rem; color: #75715e; text-transform: uppercase; letter-spacing: 0.05em; }
+        .ts-card .ts-value { font-size: 0.85rem; color: #f8f8f2; margin-top: 0.15rem; word-break: break-all; }
+
+        .regex-mark { border-radius: 2px; padding: 0 1px; }
+        .regex-count { font-size: 0.85rem; color: #a6e22e; font-weight: 700; }
+
+        .flag-checkboxes {
+            display: flex;
+            gap: 0.3rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        .flag-checkboxes label {
+            font-size: 0.75rem;
+            color: #75715e;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.2rem;
+            padding: 0.15rem 0.4rem;
+            border: 1px solid #3a3a3a;
+            border-radius: 4px;
+            transition: all 0.2s;
+        }
+        .flag-checkboxes label:hover { border-color: #66d9ef; color: #f8f8f2; }
+        .flag-checkboxes input:checked + span { color: #66d9ef; }
+        .flag-checkboxes input { accent-color: #66d9ef; }
+
+        .tool-row {
+            display: flex;
+            gap: 0.8rem;
+        }
+        .tool-row .tool-side {
+            flex: 1;
+            min-width: 0;
+        }
+        @media (max-width: 640px) {
+            .ts-grid { grid-template-columns: 1fr; }
+            .tool-row { flex-direction: column; }
+        }
+
+        .tool-section .input-row {
+            display: flex;
+            gap: 0.5rem;
+            align-items: flex-end;
+        }
+        .tool-section .input-row .tool-input-group { flex: 1; margin-bottom: 0; }
+
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: #a6e22e;
+            color: #1a1a1a;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-weight: 700;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+            pointer-events: none;
+            z-index: 9999;
+        }
+        .toast.show { opacity: 1; transform: translateY(0); }
+        .toast.error { background: #f92672; color: #fff; }
+
         .footer {
             text-align: center;
             padding: 2rem;
@@ -177,7 +380,6 @@
         .footer p { color: #75715e; font-size: 0.8rem; }
         .footer a { color: #66d9ef; }
 
-        /* ── Light theme ── */
         html.light body { background: #fafafa; color: #2d2d2d; }
         html.light ::selection { background: #f92672; color: #fff; }
         html.light .navbar { background: rgba(250,250,250,0.85); border-bottom-color: #ddd; }
@@ -185,59 +387,1144 @@
         html.light .nav-links a:hover { color: #2d2d2d; }
         html.light .nav-links a.active { color: #f92672; }
         html.light .nav-links a.active::after { background: #f92672; }
-        html.light .tool-card { background: #f5f5f5; border-color: #ddd; }
+        html.light .lang-btn { border-color: #ddd; color: #999; }
+        html.light .lang-btn:hover { border-color: #f92672; color: #f92672; }
+        html.light .lang-btn.active { background: #f92672; border-color: #f92672; color: #fff; }
+        html.light .tool-card { background: #fff; border-color: #ddd; }
         html.light .tool-card h3 { color: #2d2d2d; }
-        html.light .tool-card:hover { border-color: #f92672; }
+        html.light .tool-card:hover { border-color: #f92672; box-shadow: 0 4px 20px rgba(249,38,114,0.08); }
         html.light .tool-card .icon { color: #f92672; }
         html.light .tools-hero h1 { color: #f92672; }
+        html.light .tool-section { border-top-color: #ddd; }
+        html.light .tool-header h2 { color: #f92672; }
+        html.light .tool-header h2 i { color: #f92672; }
+        html.light .tool-input, html.light .tool-textarea { background: #fff; border-color: #ddd; color: #2d2d2d; }
+        html.light .tool-input:focus, html.light .tool-textarea:focus { border-color: #f92672; }
+        html.light .tool-input::placeholder, html.light .tool-textarea::placeholder { color: #aaa; }
+        html.light .tool-output { background: #f5f5f5; border-color: #ddd; }
+        html.light .tool-btn { background: #eee; border-color: #ddd; color: #2d2d2d; }
+        html.light .tool-btn:hover { border-color: #f92672; color: #f92672; }
+        html.light .tool-btn.primary { background: #f92672; border-color: #f92672; color: #fff; }
+        html.light .tool-btn.primary:hover { background: #e01e5f; }
+        html.light .tool-btn.green { background: #a6e22e; border-color: #a6e22e; color: #fff; }
+        html.light .tool-btn.green:hover { background: #8cce1e; }
+        html.light .tool-btn.orange { background: #fd971f; border-color: #fd971f; color: #fff; }
+        html.light .tool-btn.orange:hover { background: #e08610; }
+        html.light .tool-examples button { border-color: #ddd; color: #999; }
+        html.light .tool-examples button:hover { border-color: #f92672; color: #f92672; }
+        html.light .tool-status { color: #999; }
+        html.light .cron-table th { color: #999; border-bottom-color: #ddd; }
+        html.light .cron-table td { border-bottom-color: #eee; color: #2d2d2d; }
+        html.light .ts-card { background: #fff; border-color: #ddd; }
+        html.light .ts-card .ts-value { color: #2d2d2d; }
+        html.light .ts-card:hover { border-color: #f92672; }
+        html.light .flag-checkboxes label { border-color: #ddd; color: #999; }
+        html.light .flag-checkboxes label:hover { border-color: #f92672; color: #2d2d2d; }
+        html.light .flag-checkboxes input:checked + span { color: #f92672; }
         html.light .footer { border-top-color: #ddd; }
+        html.light .tool-output .copy-btn { background: #eee; border-color: #ddd; color: #999; }
+        html.light .tool-output .copy-btn:hover { color: #f92672; border-color: #f92672; }
+
+        .diff-wrap { display: flex; gap: 0; border: 1px solid #3a3a3a; border-radius: 6px; overflow: hidden; font-size: 0.78rem; line-height: 1.6; margin-top: 0.5rem; }
+        .diff-pane { flex: 1; min-width: 0; overflow-x: auto; }
+        .diff-pane + .diff-pane { border-left: 1px solid #3a3a3a; }
+        .diff-line { padding: 0.1rem 0.6rem; white-space: pre-wrap; word-break: break-all; font-family: 'JetBrains Mono', monospace; }
+        .diff-line.add { background: rgba(166,226,46,0.12); color: #a6e22e; }
+        .diff-line.del { background: rgba(249,38,114,0.12); color: #f92672; }
+        .diff-line.eq { color: #a6a68a; }
+        .diff-line.hdr { background: #2a2a2a; color: #66d9ef; font-weight: 700; }
+        .diff-ln { display: inline-block; width: 1.2em; margin-right: 0.5rem; color: #555; text-align: right; user-select: none; }
+
+        html.light .diff-wrap { border-color: #ddd; }
+        html.light .diff-pane + .diff-pane { border-left-color: #ddd; }
+        html.light .diff-line.eq { color: #666; }
+        html.light .diff-line.hdr { background: #eee; }
+        html.light .diff-line.add { background: rgba(166,226,46,0.15); }
+        html.light .diff-line.del { background: rgba(249,38,114,0.1); }
+        html.light .diff-ln { color: #bbb; }
     </style>
 </head>
 <body>
 
-    <!-- Navbar -->
     <nav class="navbar">
         <a href="/" class="nav-logo"><svg width="22" height="22" viewBox="0 0 32 32"><defs><linearGradient id="navLogoGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#f92672"/><stop offset="50%" stop-color="#ae81ff"/><stop offset="100%" stop-color="#66d9ef"/></linearGradient></defs><text x="16" y="22" font-family="monospace" font-size="14" font-weight="bold" fill="url(#navLogoGrad)" text-anchor="middle">CVs</text></svg>Carlos Villén Villar</a>
         <div class="nav-links" id="navLinks">
-            <a href="/">Inicio</a>
-            <a href="/pages/tools/" class="active">Tools</a>
+            <a href="/" data-i18n="nav_home">Inicio</a>
+            <a href="/pages/tools/" class="active" data-i18n="nav_tools">Tools</a>
         </div>
         <div class="nav-right">
+            <button class="lang-btn active" data-lang="es" onclick="setLanguage('es')">ES</button>
+            <button class="lang-btn" data-lang="en" onclick="setLanguage('en')">EN</button>
             <button class="nav-toggle" id="navToggle" aria-label="Menu">☰</button>
         </div>
     </nav>
 
-    <!-- Hero -->
     <section class="tools-hero">
-        <h1><span data-i18n="title">Tools</span></h1>
-        <p><span data-i18n="subtitle">Micro-aplicaciones y utilidades</span></p>
+        <h1><i class="fas fa-tools"></i> <span data-i18n="hero_title">Toolkit</span></h1>
+        <p data-i18n="hero_sub">Utilidades para el día a día — cron, timestamp, JSON, regex, base64, YAML, URL, base converter, diff</p>
+        <div class="tool-count" data-i18n="hero_count">9 herramientas · todo en local, nada sale de tu navegador</div>
     </section>
 
-    <!-- Tools Grid -->
     <section class="tools-section">
-        <div class="tools-grid" id="toolsGrid">
-            <!-- Placeholder for future tools -->
+        <div class="tools-grid">
+            <a href="#tool-cron" class="tool-card">
+                <div class="icon"><i class="fas fa-clock"></i></div>
+                <h3 data-i18n="card_cron_title">Cron Parser</h3>
+                <p data-i18n="card_cron_desc">Traduce expresiones cron a texto legible y calcula las próximas ejecuciones.</p>
+                <span class="go-link" data-i18n="go_link">Usar <i class="fas fa-arrow-right"></i></span>
+            </a>
+            <a href="#tool-ts" class="tool-card">
+                <div class="icon"><i class="fas fa-calendar"></i></div>
+                <h3 data-i18n="card_ts_title">Timestamp Converter</h3>
+                <p data-i18n="card_ts_desc">Convierte timestamps Unix a fecha legible y viceversa en múltiples formatos.</p>
+                <span class="go-link" data-i18n="go_link">Usar <i class="fas fa-arrow-right"></i></span>
+            </a>
+            <a href="#tool-json" class="tool-card">
+                <div class="icon"><i class="fas fa-file-code"></i></div>
+                <h3 data-i18n="card_json_title">JSON Formatter</h3>
+                <p data-i18n="card_json_desc">Formatea, valida y minifica JSON con syntax highlighting y detección de errores.</p>
+                <span class="go-link" data-i18n="go_link">Usar <i class="fas fa-arrow-right"></i></span>
+            </a>
+            <a href="#tool-regex" class="tool-card">
+                <div class="icon"><i class="fas fa-code"></i></div>
+                <h3 data-i18n="card_regex_title">Regex Tester</h3>
+                <p data-i18n="card_regex_desc">Prueba expresiones regulares en vivo con matches coloreados y grupos de captura.</p>
+                <span class="go-link" data-i18n="go_link">Usar <i class="fas fa-arrow-right"></i></span>
+            </a>
+            <a href="#tool-base64" class="tool-card">
+                <div class="icon"><i class="fas fa-lock"></i></div>
+                <h3 data-i18n="card_base64_title">Base64</h3>
+                <p data-i18n="card_base64_desc">Codifica y decodifica Base64 con detección automática del formato.</p>
+                <span class="go-link" data-i18n="go_link">Usar <i class="fas fa-arrow-right"></i></span>
+            </a>
+            <a href="#tool-yaml" class="tool-card">
+                <div class="icon"><i class="fas fa-exchange-alt"></i></div>
+                <h3 data-i18n="card_yaml_title">YAML ↔ JSON</h3>
+                <p data-i18n="card_yaml_desc">Convierte entre YAML y JSON en ambos sentidos con detección automática.</p>
+                <span class="go-link" data-i18n="go_link">Usar <i class="fas fa-arrow-right"></i></span>
+            </a>
+            <a href="#tool-url" class="tool-card">
+                <div class="icon"><i class="fas fa-link"></i></div>
+                <h3 data-i18n="card_url_title">URL Encoder/Decoder</h3>
+                <p data-i18n="card_url_desc">Codifica y decodifica parámetros URL con detección automática del formato.</p>
+                <span class="go-link" data-i18n="go_link">Usar <i class="fas fa-arrow-right"></i></span>
+            </a>
+            <a href="#tool-baseconv" class="tool-card">
+                <div class="icon"><i class="fas fa-calculator"></i></div>
+                <h3 data-i18n="card_baseconv_title">Base Converter</h3>
+                <p data-i18n="card_baseconv_desc">Convierte números entre bases decimal, hex, binario y octal al instante.</p>
+                <span class="go-link" data-i18n="go_link">Usar <i class="fas fa-arrow-right"></i></span>
+            </a>
+            <a href="#tool-diff" class="tool-card">
+                <div class="icon"><i class="fas fa-columns"></i></div>
+                <h3 data-i18n="card_diff_title">Diff Viewer</h3>
+                <p data-i18n="card_diff_desc">Compara dos textos lado a lado y resalta las diferencias línea a línea.</p>
+                <span class="go-link" data-i18n="go_link">Usar <i class="fas fa-arrow-right"></i></span>
+            </a>
         </div>
-        <div class="empty-state">
-            <i class="fas fa-flask"></i>
-            <p data-i18n="empty">Próximamente — nuevas herramientas en camino</p>
-        </div>
-    </section>
 
-    <!-- Footer -->
+        <!-- ═══ CRON ═══ -->
+        <section id="tool-cron" class="tool-section">
+            <div class="tool-header">
+                <h2><i class="fas fa-clock"></i> <span data-i18n="sec_cron">Cron Parser</span></h2>
+                <a href="#top" class="tool-back"><i class="fas fa-arrow-up"></i> <span data-i18n="back">Volver</span></a>
+            </div>
+            <div class="tool-examples" id="cronExamples">
+                <button data-cron="*/5 * * * *" data-i18n="cron_5min">cada 5 min</button>
+                <button data-cron="0 * * * *" data-i18n="cron_hour">cada hora</button>
+                <button data-cron="0 9 * * 1-5" data-i18n="cron_9am">9 AM laborables</button>
+                <button data-cron="0 0 * * 0" data-i18n="cron_sun">domingo media noche</button>
+                <button data-cron="@hourly">@hourly</button>
+                <button data-cron="@daily">@daily</button>
+                <button data-cron="@weekly">@weekly</button>
+            </div>
+            <div class="tool-input-group">
+                <label for="cronInput" data-i18n="label_cron">Expresión cron</label>
+                <input type="text" id="cronInput" class="tool-input" placeholder="*/5 * * * *" autocomplete="off" spellcheck="false">
+            </div>
+            <div class="tool-status" id="cronStatus"></div>
+            <div class="tool-output" id="cronOutput">
+                <button class="copy-btn" onclick="copyText('cronOutput')" data-i18n="copy">📋 Copiar</button>
+                <span id="cronDesc"></span>
+                <div id="cronTableContainer"></div>
+            </div>
+        </section>
+
+        <!-- ═══ TIMESTAMP ═══ -->
+        <section id="tool-ts" class="tool-section">
+            <div class="tool-header">
+                <h2><i class="fas fa-calendar"></i> <span data-i18n="sec_ts">Timestamp Converter</span></h2>
+                <a href="#top" class="tool-back"><i class="fas fa-arrow-up"></i> <span data-i18n="back">Volver</span></a>
+            </div>
+            <div class="tool-actions">
+                <button class="tool-btn" onclick="tsNow()"><i class="fas fa-crosshairs"></i> <span data-i18n="ts_now">Ahora</span></button>
+            </div>
+            <div class="tool-input-group">
+                <label for="tsInput" data-i18n="label_ts">Timestamp (ms, s) o fecha ISO</label>
+                <input type="text" id="tsInput" class="tool-input" placeholder="1735123800000 o 2025-12-25T10:30:00Z" autocomplete="off" spellcheck="false">
+            </div>
+            <div class="tool-status" id="tsStatus"></div>
+            <div class="ts-grid" id="tsGrid"></div>
+        </section>
+
+        <!-- ═══ JSON ═══ -->
+        <section id="tool-json" class="tool-section">
+            <div class="tool-header">
+                <h2><i class="fas fa-file-code"></i> <span data-i18n="sec_json">JSON Formatter</span></h2>
+                <a href="#top" class="tool-back"><i class="fas fa-arrow-up"></i> <span data-i18n="back">Volver</span></a>
+            </div>
+            <div class="tool-actions">
+                <button class="tool-btn primary" onclick="jsonFormat()"><i class="fas fa-indent"></i> <span data-i18n="json_fmt">Formatear</span></button>
+                <button class="tool-btn" onclick="jsonMinify()"><i class="fas fa-compress"></i> <span data-i18n="json_min">Minificar</span></button>
+                <button class="tool-btn" onclick="jsonDownload()"><i class="fas fa-download"></i> <span data-i18n="json_dl">Descargar</span></button>
+            </div>
+            <div class="tool-input-group">
+                <label for="jsonInput" data-i18n="label_json">JSON</label>
+                <textarea id="jsonInput" class="tool-textarea large" placeholder='{"nombre": "Carlos", "rol": "SRE"}' spellcheck="false"></textarea>
+            </div>
+            <div class="tool-status" id="jsonStatus"></div>
+            <div class="tool-output" id="jsonOutput">
+                <button class="copy-btn" onclick="copyText('jsonOutput')" data-i18n="copy">📋 Copiar</button>
+            </div>
+        </section>
+
+        <!-- ═══ REGEX ═══ -->
+        <section id="tool-regex" class="tool-section">
+            <div class="tool-header">
+                <h2><i class="fas fa-code"></i> <span data-i18n="sec_regex">Regex Tester</span></h2>
+                <a href="#top" class="tool-back"><i class="fas fa-arrow-up"></i> <span data-i18n="back">Volver</span></a>
+            </div>
+            <div class="tool-input-group">
+                <label for="regexPattern" data-i18n="label_regex_pat">Pattern</label>
+                <input type="text" id="regexPattern" class="tool-input" placeholder="\d{3}-\d{2}-\d{4}" autocomplete="off" spellcheck="false">
+            </div>
+            <div class="input-row">
+                <div class="tool-input-group">
+                    <label data-i18n="label_flags">Flags</label>
+                    <div class="flag-checkboxes" id="regexFlags">
+                        <label><input type="checkbox" value="g" checked> <span>g</span></label>
+                        <label><input type="checkbox" value="i"> <span>i</span></label>
+                        <label><input type="checkbox" value="m"> <span>m</span></label>
+                        <label><input type="checkbox" value="s"> <span>s</span></label>
+                        <label><input type="checkbox" value="u"> <span>u</span></label>
+                        <label><input type="checkbox" value="y"> <span>y</span></label>
+                    </div>
+                </div>
+            </div>
+            <div class="tool-input-group">
+                <label for="regexText" data-i18n="label_regex_text">Texto de prueba</label>
+                <textarea id="regexText" class="tool-textarea large" placeholder="123-45-6789&#10;987-65-4321&#10;Sin match aquí" spellcheck="false"></textarea>
+            </div>
+            <div class="tool-status" id="regexStatus"></div>
+            <div class="tool-output" id="regexOutput">
+                <button class="copy-btn" onclick="copyText('regexOutput')" data-i18n="copy">📋 Copiar</button>
+            </div>
+            <div id="regexGroups" style="margin-top:0.5rem;"></div>
+        </section>
+
+        <!-- ═══ BASE64 ═══ -->
+        <section id="tool-base64" class="tool-section">
+            <div class="tool-header">
+                <h2><i class="fas fa-lock"></i> <span data-i18n="sec_b64">Base64</span></h2>
+                <a href="#top" class="tool-back"><i class="fas fa-arrow-up"></i> <span data-i18n="back">Volver</span></a>
+            </div>
+            <div class="tool-actions">
+                <button class="tool-btn green" onclick="base64Encode()"><i class="fas fa-lock"></i> <span data-i18n="encode">Encode</span></button>
+                <button class="tool-btn orange" onclick="base64Decode()"><i class="fas fa-unlock"></i> <span data-i18n="decode">Decode</span></button>
+                <button class="tool-btn" onclick="base64Swap()"><i class="fas fa-exchange-alt"></i> <span data-i18n="swap">↻ Swap</span></button>
+            </div>
+            <div class="tool-row">
+                <div class="tool-side">
+                    <div class="tool-input-group">
+                        <label for="b64Input" data-i18n="label_input">Entrada</label>
+                        <textarea id="b64Input" class="tool-textarea" placeholder="Texto plano o base64..." spellcheck="false"></textarea>
+                    </div>
+                </div>
+                <div class="tool-side">
+                    <div class="tool-input-group">
+                        <label for="b64Output" data-i18n="label_output">Resultado</label>
+                        <textarea id="b64Output" class="tool-textarea" readonly spellcheck="false"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="tool-status" id="b64Status"></div>
+            <div class="tool-actions">
+                <button class="tool-btn" onclick="copyTextarea('b64Output')"><i class="fas fa-copy"></i> <span data-i18n="copy_result">Copiar resultado</span></button>
+            </div>
+        </section>
+
+        <!-- ═══ YAML ↔ JSON ═══ -->
+        <section id="tool-yaml" class="tool-section">
+            <div class="tool-header">
+                <h2><i class="fas fa-exchange-alt"></i> <span data-i18n="sec_yaml">YAML ↔ JSON</span></h2>
+                <a href="#top" class="tool-back"><i class="fas fa-arrow-up"></i> <span data-i18n="back">Volver</span></a>
+            </div>
+            <div class="tool-actions">
+                <button class="tool-btn primary" onclick="yamlToJson()"><i class="fas fa-arrow-right"></i> <span data-i18n="to_json">→ JSON</span></button>
+                <button class="tool-btn green" onclick="jsonToYaml()"><i class="fas fa-arrow-left"></i> <span data-i18n="to_yaml">→ YAML</span></button>
+                <button class="tool-btn" onclick="yamlSwap()"><i class="fas fa-exchange-alt"></i> <span data-i18n="swap">↻ Swap</span></button>
+            </div>
+            <div class="tool-row">
+                <div class="tool-side">
+                    <div class="tool-input-group">
+                        <label for="yamlInput" data-i18n="label_input">Entrada</label>
+                        <textarea id="yamlInput" class="tool-textarea large" placeholder="nombre: Carlos&#10;rol: SRE&#10;skills:&#10;  - Python&#10;  - Docker" spellcheck="false"></textarea>
+                    </div>
+                </div>
+                <div class="tool-side">
+                    <div class="tool-input-group">
+                        <label for="yamlOutput" data-i18n="label_output">Resultado</label>
+                        <textarea id="yamlOutput" class="tool-textarea large" readonly spellcheck="false"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="tool-status" id="yamlStatus"></div>
+            <div class="tool-actions">
+                <button class="tool-btn" onclick="copyTextarea('yamlOutput')"><i class="fas fa-copy"></i> <span data-i18n="copy_result">Copiar resultado</span></button>
+            </div>
+        </section>
+
+        <!-- ═══ URL ═══ -->
+        <section id="tool-url" class="tool-section">
+            <div class="tool-header">
+                <h2><i class="fas fa-link"></i> <span data-i18n="sec_url">URL Encoder/Decoder</span></h2>
+                <a href="#top" class="tool-back"><i class="fas fa-arrow-up"></i> <span data-i18n="back">Volver</span></a>
+            </div>
+            <div class="tool-actions">
+                <button class="tool-btn primary" onclick="urlEncode()"><i class="fas fa-lock"></i> <span data-i18n="encode">Encode</span></button>
+                <button class="tool-btn green" onclick="urlDecode()"><i class="fas fa-unlock"></i> <span data-i18n="decode">Decode</span></button>
+                <button class="tool-btn" onclick="urlSwap()"><i class="fas fa-exchange-alt"></i> <span data-i18n="swap">↻ Swap</span></button>
+            </div>
+            <div class="tool-row">
+                <div class="tool-side">
+                    <div class="tool-input-group">
+                        <label for="urlInput" data-i18n="label_input">Entrada</label>
+                        <textarea id="urlInput" class="tool-textarea" placeholder="https://example.com?q=hola mundo" spellcheck="false"></textarea>
+                    </div>
+                </div>
+                <div class="tool-side">
+                    <div class="tool-input-group">
+                        <label for="urlOutput" data-i18n="label_output">Resultado</label>
+                        <textarea id="urlOutput" class="tool-textarea" readonly spellcheck="false"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="tool-status" id="urlStatus"></div>
+            <div class="tool-actions">
+                <button class="tool-btn" onclick="copyTextarea('urlOutput')"><i class="fas fa-copy"></i> <span data-i18n="copy_result">Copiar resultado</span></button>
+            </div>
+        </section>
+
+        <!-- ═══ BASE CONVERTER ═══ -->
+        <section id="tool-baseconv" class="tool-section">
+            <div class="tool-header">
+                <h2><i class="fas fa-calculator"></i> <span data-i18n="sec_bc">Base Converter</span></h2>
+                <a href="#top" class="tool-back"><i class="fas fa-arrow-up"></i> <span data-i18n="back">Volver</span></a>
+            </div>
+            <div class="tool-input-group">
+                <label for="bcInput" data-i18n="label_bc_val">Valor</label>
+                <input type="text" id="bcInput" class="tool-input" placeholder="255" autocomplete="off" spellcheck="false">
+            </div>
+            <div class="input-row" style="margin-bottom:0.8rem;">
+                <div class="tool-input-group">
+                    <label data-i18n="label_bc_from">Desde base</label>
+                    <select id="bcFrom" class="tool-input">
+                        <option value="10" data-i18n="bc_dec">Decimal (10)</option>
+                        <option value="16" data-i18n="bc_hex">Hexadecimal (16)</option>
+                        <option value="2" data-i18n="bc_bin">Binario (2)</option>
+                        <option value="8" data-i18n="bc_oct">Octal (8)</option>
+                    </select>
+                </div>
+                <div class="tool-input-group">
+                    <label> </label>
+                    <button class="tool-btn primary" onclick="bcConvert()" style="align-self:flex-end;"><i class="fas fa-arrow-right"></i> <span data-i18n="bc_convert">Convertir</span></button>
+                </div>
+            </div>
+            <div class="tool-output" id="bcOutput">
+                <button class="copy-btn" onclick="copyText('bcOutput')" data-i18n="copy">📋 Copiar</button>
+            </div>
+            <div class="tool-status" id="bcStatus"></div>
+        </section>
+
+        <!-- ═══ DIFF ═══ -->
+        <section id="tool-diff" class="tool-section">
+            <div class="tool-header">
+                <h2><i class="fas fa-columns"></i> <span data-i18n="sec_diff">Diff Viewer</span></h2>
+                <a href="#top" class="tool-back"><i class="fas fa-arrow-up"></i> <span data-i18n="back">Volver</span></a>
+            </div>
+            <div class="tool-actions">
+                <button class="tool-btn primary" onclick="diffRun()"><i class="fas fa-play"></i> <span data-i18n="diff_cmp">Comparar</span></button>
+                <button class="tool-btn" onclick="diffClear()"><i class="fas fa-trash"></i> <span data-i18n="diff_clr">Limpiar</span></button>
+            </div>
+            <div class="tool-row">
+                <div class="tool-side">
+                    <div class="tool-input-group">
+                        <label for="diffLeft" data-i18n="label_diff_left">Texto original</label>
+                        <textarea id="diffLeft" class="tool-textarea large" placeholder="Texto original..." spellcheck="false"></textarea>
+                    </div>
+                </div>
+                <div class="tool-side">
+                    <div class="tool-input-group">
+                        <label for="diffRight" data-i18n="label_diff_right">Texto modificado</label>
+                        <textarea id="diffRight" class="tool-textarea large" placeholder="Texto modificado..." spellcheck="false"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="tool-status" id="diffStatus"></div>
+            <div id="diffOutput"></div>
+        </section>
+
     <div class="footer">
         <p>© 2026 Carlos Villén Villar · <a href="/">carlvs.dev</a></p>
     </div>
 
-    <!-- Theme restoration -->
+    <div class="toast" id="toast"></div>
+
     <script>
         if (localStorage.getItem('theme') === 'light') {
             document.documentElement.classList.add('light');
         }
-        /* Navbar mobile toggle */
+
+        /* ── i18n ── */
+        window.translations = {
+            es: {
+                hero_title: 'Toolkit',
+                hero_sub: 'Utilidades para el día a día — cron, timestamp, JSON, regex, base64, YAML, URL, base converter, diff',
+                hero_count: '9 herramientas · todo en local, nada sale de tu navegador',
+                nav_home: 'Inicio', nav_tools: 'Tools',
+                go_link: 'Usar \u{2192}',
+                card_cron_title: 'Cron Parser', card_cron_desc: 'Traduce expresiones cron a texto legible y calcula las próximas ejecuciones.',
+                card_ts_title: 'Timestamp Converter', card_ts_desc: 'Convierte timestamps Unix a fecha legible y viceversa en múltiples formatos.',
+                card_json_title: 'JSON Formatter', card_json_desc: 'Formatea, valida y minifica JSON con syntax highlighting y detección de errores.',
+                card_regex_title: 'Regex Tester', card_regex_desc: 'Prueba expresiones regulares en vivo con matches coloreados y grupos de captura.',
+                card_base64_title: 'Base64', card_base64_desc: 'Codifica y decodifica Base64 con detección automática del formato.',
+                card_yaml_title: 'YAML \u2194 JSON', card_yaml_desc: 'Convierte entre YAML y JSON en ambos sentidos con detección automática.',
+                card_url_title: 'URL Encoder/Decoder', card_url_desc: 'Codifica y decodifica parámetros URL con detección automática del formato.',
+                card_baseconv_title: 'Base Converter', card_baseconv_desc: 'Convierte números entre bases decimal, hex, binario y octal al instante.',
+                card_diff_title: 'Diff Viewer', card_diff_desc: 'Compara dos textos lado a lado y resalta las diferencias línea a línea.',
+                sec_cron: 'Cron Parser', sec_ts: 'Timestamp Converter', sec_json: 'JSON Formatter', sec_regex: 'Regex Tester',
+                sec_b64: 'Base64', sec_yaml: 'YAML \u2194 JSON', sec_url: 'URL Encoder/Decoder', sec_bc: 'Base Converter', sec_diff: 'Diff Viewer',
+                back: 'Volver',
+                copy: '\u{1F4CB} Copiar', copy_result: 'Copiar resultado',
+                ts_now: 'Ahora', json_fmt: 'Formatear', json_min: 'Minificar', json_dl: 'Descargar',
+                encode: 'Encode', decode: 'Decode', swap: '\u21bb Swap',
+                to_json: '\u2192 JSON', to_yaml: '\u2192 YAML',
+                bc_convert: 'Convertir', diff_cmp: 'Comparar', diff_clr: 'Limpiar',
+                label_cron: 'Expresión cron', label_ts: 'Timestamp (ms, s) o fecha ISO', label_json: 'JSON',
+                label_regex_pat: 'Pattern', label_flags: 'Flags', label_regex_text: 'Texto de prueba',
+                label_input: 'Entrada', label_output: 'Resultado',
+                label_bc_val: 'Valor', label_bc_from: 'Desde base',
+                label_diff_left: 'Texto original', label_diff_right: 'Texto modificado',
+                bc_dec: 'Decimal (10)', bc_hex: 'Hexadecimal (16)', bc_bin: 'Binario (2)', bc_oct: 'Octal (8)',
+                cron_5min: 'cada 5 min', cron_hour: 'cada hora', cron_9am: '9 AM laborables', cron_sun: 'domingo media noche',
+                toast_nada: 'Nada que copiar', toast_copied: 'Copiado', toast_error: 'Error', toast_dl: 'Descargado',
+                status_valid: 'Expresión válida',
+                status_json: 'JSON válido', status_min: 'Minificado', status_bytes: ' bytes',
+                status_equal: 'Los textos son iguales',
+                b64_encoded: 'Codificado', b64_decoded: 'Decodificado', b64_raw: 'Decodificado (raw bytes)', b64_invalid: 'No válido como base64',
+                yaml_tojson: 'Convertido a JSON', yaml_toyaml: 'Convertido a YAML',
+                url_encoded: 'Codificado', url_decoded: 'Decodificado', url_invalid: 'No válido como URL encode',
+                bc_err: 'Número inválido para base ', bc_err2: 'No se puede interpretar como base ', bc_in10: ' en base 10',
+                bc_dec_lbl: 'Decimal (10)', bc_hex_lbl: 'Hexadecimal (16)', bc_bin_lbl: 'Binario (2)', bc_oct_lbl: 'Octal (8)',
+                diff_added: ' añadidas, ', diff_removed: ' eliminadas',
+                diff_hdr: '@@ líneas ', diff_hdr_end: ' @@',
+                regex_none: '\u2014 No se encontraron matches \u2014', regex_grp: 'Grupos de captura:',
+                regex_grp_hdr: 'Grupo', regex_val_hdr: 'Valor', regex_undef: '(undefined)',
+                ts_unrec: 'Formato no reconocido', ts_ms: 'Milisegundos', ts_s: 'Segundos',
+                ts_iso: 'ISO 8601', ts_local: 'Local', ts_utc: 'UTC', ts_localdt: 'Fecha local',
+                ts_rel: 'Relativo', ts_wday: 'Día de la semana',
+                ts_ago: 'hace ', ts_in: 'dentro de ', ts_now_label: 'ahora mismo',
+                unit_year: 'año', unit_month: 'mes', unit_week: 'semana', unit_day: 'día', unit_hour: 'hora', unit_min: 'minuto', unit_sec: 'segundo',
+            },
+            en: {
+                hero_title: 'Toolkit',
+                hero_sub: 'Daily tools — cron, timestamp, JSON, regex, base64, YAML, URL, base converter, diff',
+                hero_count: '9 tools · all local, nothing leaves your browser',
+                nav_home: 'Home', nav_tools: 'Tools',
+                go_link: 'Use \u{2192}',
+                card_cron_title: 'Cron Parser', card_cron_desc: 'Translate cron expressions to human-readable text and calculate next runs.',
+                card_ts_title: 'Timestamp Converter', card_ts_desc: 'Convert Unix timestamps to readable dates and vice versa in multiple formats.',
+                card_json_title: 'JSON Formatter', card_json_desc: 'Format, validate and minify JSON with syntax highlighting and error detection.',
+                card_regex_title: 'Regex Tester', card_regex_desc: 'Test regular expressions live with colored matches and capture groups.',
+                card_base64_title: 'Base64', card_base64_desc: 'Encode and decode Base64 with automatic format detection.',
+                card_yaml_title: 'YAML \u2194 JSON', card_yaml_desc: 'Convert between YAML and JSON both ways with auto-detection.',
+                card_url_title: 'URL Encoder/Decoder', card_url_desc: 'Encode and decode URL parameters with automatic format detection.',
+                card_baseconv_title: 'Base Converter', card_baseconv_desc: 'Convert numbers between decimal, hex, binary and octal instantly.',
+                card_diff_title: 'Diff Viewer', card_diff_desc: 'Compare two texts side by side and highlight line differences.',
+                sec_cron: 'Cron Parser', sec_ts: 'Timestamp Converter', sec_json: 'JSON Formatter', sec_regex: 'Regex Tester',
+                sec_b64: 'Base64', sec_yaml: 'YAML \u2194 JSON', sec_url: 'URL Encoder/Decoder', sec_bc: 'Base Converter', sec_diff: 'Diff Viewer',
+                back: 'Back',
+                copy: '\u{1F4CB} Copy', copy_result: 'Copy result',
+                ts_now: 'Now', json_fmt: 'Format', json_min: 'Minify', json_dl: 'Download',
+                encode: 'Encode', decode: 'Decode', swap: '\u21bb Swap',
+                to_json: '\u2192 JSON', to_yaml: '\u2192 YAML',
+                bc_convert: 'Convert', diff_cmp: 'Compare', diff_clr: 'Clear',
+                label_cron: 'Cron expression', label_ts: 'Timestamp (ms, s) or ISO date', label_json: 'JSON',
+                label_regex_pat: 'Pattern', label_flags: 'Flags', label_regex_text: 'Test text',
+                label_input: 'Input', label_output: 'Output',
+                label_bc_val: 'Value', label_bc_from: 'From base',
+                label_diff_left: 'Original text', label_diff_right: 'Modified text',
+                bc_dec: 'Decimal (10)', bc_hex: 'Hexadecimal (16)', bc_bin: 'Binary (2)', bc_oct: 'Octal (8)',
+                cron_5min: 'every 5 min', cron_hour: 'every hour', cron_9am: '9 AM weekdays', cron_sun: 'Sunday midnight',
+                toast_nada: 'Nothing to copy', toast_copied: 'Copied', toast_error: 'Error', toast_dl: 'Downloaded',
+                status_valid: 'Valid expression',
+                status_json: 'Valid JSON', status_min: 'Minified', status_bytes: ' bytes',
+                status_equal: 'Texts are identical',
+                b64_encoded: 'Encoded', b64_decoded: 'Decoded', b64_raw: 'Decoded (raw bytes)', b64_invalid: 'Invalid base64',
+                yaml_tojson: 'Converted to JSON', yaml_toyaml: 'Converted to YAML',
+                url_encoded: 'Encoded', url_decoded: 'Decoded', url_invalid: 'Invalid URL encoding',
+                bc_err: 'Invalid number for base ', bc_err2: 'Cannot parse as base ', bc_in10: ' in base 10',
+                bc_dec_lbl: 'Decimal (10)', bc_hex_lbl: 'Hexadecimal (16)', bc_bin_lbl: 'Binary (2)', bc_oct_lbl: 'Octal (8)',
+                diff_added: ' added, ', diff_removed: ' removed',
+                diff_hdr: '@@ lines ', diff_hdr_end: ' @@',
+                regex_none: '\u2014 No matches found \u2014', regex_grp: 'Capture groups:',
+                regex_grp_hdr: 'Group', regex_val_hdr: 'Value', regex_undef: '(undefined)',
+                ts_unrec: 'Unrecognized format', ts_ms: 'Milliseconds', ts_s: 'Seconds',
+                ts_iso: 'ISO 8601', ts_local: 'Local', ts_utc: 'UTC', ts_localdt: 'Local date',
+                ts_rel: 'Relative', ts_wday: 'Weekday',
+                ts_ago: '', ts_in: 'in ', ts_now_label: 'just now',
+                unit_year: 'year', unit_month: 'month', unit_week: 'week', unit_day: 'day', unit_hour: 'hour', unit_min: 'minute', unit_sec: 'second',
+            }
+        };
+        window.lang = 'es';
+        function t(k) { return (translations[lang] && translations[lang][k]) || (translations.es && translations.es[k]) || k; }
+        function setLanguage(l) {
+            lang = l;
+            localStorage.setItem('lang', l);
+            document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.dataset.lang === l));
+            applyI18n();
+        }
+        function applyI18n() {
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.dataset.i18n;
+                const val = t(key);
+                if (el.tagName === 'OPTION') { el.textContent = val; }
+                else if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+                    if (el.placeholder !== undefined) el.placeholder = val;
+                }
+                else { el.innerHTML = val; }
+            });
+        }
+
         document.getElementById('navToggle').addEventListener('click', () => {
             document.getElementById('navLinks').classList.toggle('open');
         });
+
+        function toast(msg, isError) {
+            const t = document.getElementById('toast');
+            t.textContent = msg;
+            t.className = 'toast show' + (isError ? ' error' : '');
+            clearTimeout(t._timer);
+            t._timer = setTimeout(() => t.classList.remove('show'), 2000);
+        }
+
+        function copyText(id) {
+            const el = document.getElementById(id);
+            const clone = el.cloneNode(true);
+            clone.querySelectorAll('.copy-btn, .go-link').forEach(b => b.remove());
+            const text = clone.textContent.trim();
+            if (!text) return toast(t('toast_nada'), true);
+            navigator.clipboard.writeText(text).then(() => toast(t('toast_copied')), () => toast(t('toast_error'), true));
+        }
+
+        function copyTextarea(id) {
+            const el = document.getElementById(id);
+            if (!el.value) return toast(t('toast_nada'), true);
+            navigator.clipboard.writeText(el.value).then(() => toast(t('toast_copied')), () => toast(t('toast_error'), true));
+        }
+
+        /* ── SessionStorage persistence ── */
+        const SAVE_KEYS = ['cronInput', 'tsInput', 'jsonInput', 'regexPattern', 'regexText', 'b64Input', 'yamlInput', 'yamlOutput'];
+        SAVE_KEYS.forEach(id => {
+            const el = document.getElementById(id);
+            if (!el) return;
+            const saved = sessionStorage.getItem('tool_' + id);
+            if (saved) el.value = saved;
+            el.addEventListener('input', () => sessionStorage.setItem('tool_' + id, el.value));
+        });
+        document.querySelectorAll('#regexFlags input').forEach(cb => {
+            const saved = sessionStorage.getItem('tool_regexFlags_' + cb.value);
+            if (saved === 'true') cb.checked = true;
+            cb.addEventListener('change', () => sessionStorage.setItem('tool_regexFlags_' + cb.value, cb.checked));
+        });
+
+        /* ── CRON PARSER ── */
+        function cronExpand(part, lo, hi) {
+            const s = new Set();
+            part.split(',').forEach(t => {
+                t = t.trim().replace('?', '*');
+                if (t === '*') { for (let i = lo; i <= hi; i++) s.add(i); return; }
+                if (t.includes('/')) {
+                    const [r, st] = t.split('/');
+                    const step = parseInt(st);
+                    let a = lo, b = hi;
+                    if (r !== '*') {
+                        if (r.includes('-')) { const sp = r.split('-'); a = +sp[0]; b = +sp[1]; }
+                        else a = +r;
+                    }
+                    for (let i = a; i <= b; i += step) s.add(i);
+                    return;
+                }
+                if (t.includes('-')) { const sp = t.split('-'); for (let i = +sp[0]; i <= +sp[1]; i++) s.add(i); return; }
+                const n = parseInt(t);
+                if (!isNaN(n)) s.add(n);
+            });
+            return s;
+        }
+
+        function cronMatch(d, fields) {
+            const dv = [d.getMinutes(), d.getHours(), d.getDate(), d.getMonth() + 1, d.getDay()];
+            for (let i = 0; i < 5; i++) if (!fields[i].has(dv[i]) && !(i === 4 && fields[i].has(7))) return false;
+            return true;
+        }
+
+        function cronNext(expr, count) {
+            const alias = { '@yearly': '0 0 1 1 *', '@annually': '0 0 1 1 *', '@monthly': '0 0 1 * *', '@weekly': '0 0 * * 0', '@daily': '0 0 * * *', '@midnight': '0 0 * * *', '@hourly': '0 * * * *' };
+            if (alias[expr.toLowerCase()]) expr = alias[expr.toLowerCase()];
+            const parts = expr.trim().split(/\s+/);
+            if (parts.length !== 5) throw new Error('Se requieren 5 campos');
+            const ranges = [[0,59],[0,23],[1,31],[1,12],[0,6]];
+            const fields = parts.map((p,i) => cronExpand(p, ranges[i][0], ranges[i][1]));
+            const res = [];
+            let d = new Date();
+            d.setSeconds(0,0); d.setMilliseconds(0);
+            d = new Date(d.getTime() + 60000);
+            let maxIt = 525600;
+            while (res.length < count && maxIt-- > 0) {
+                if (cronMatch(d, fields)) res.push(new Date(d));
+                d = new Date(d.getTime() + 60000);
+            }
+            if (res.length === 0) throw new Error('No se encontraron próximas ejecuciones');
+            return res;
+        }
+
+        function parseCron() {
+            const input = document.getElementById('cronInput').value.trim();
+            const descEl = document.getElementById('cronDesc');
+            const tableContainer = document.getElementById('cronTableContainer');
+            const status = document.getElementById('cronStatus');
+            if (!input) {
+                descEl.textContent = '';
+                tableContainer.innerHTML = '';
+                status.textContent = '';
+                return;
+            }
+            try {
+                const desc = cronstrue.toString(input, { verbose: true, throwExceptionOnParseError: true });
+                descEl.textContent = desc;
+                status.innerHTML = '<span class="ok"><i class="fas fa-check-circle"></i> ' + t('status_valid') + '</span>';
+
+                const nextRuns = cronNext(input, 5);
+                if (nextRuns.length > 0) {
+                    let html = '<table class="cron-table"><tr><th>#</th><th>Fecha</th><th>Hora (UTC)</th><th>Hora (local)</th></tr>';
+                    nextRuns.forEach((d, i) => {
+                        html += `<tr>
+                            <td>${i + 1}</td>
+                            <td>${d.toISOString().slice(0, 10)}</td>
+                            <td>${d.toISOString().slice(11, 19)}</td>
+                            <td>${d.toLocaleString('es-ES', { timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone })}</td>
+                        </tr>`;
+                    });
+                    html += '</table>';
+                    tableContainer.innerHTML = html;
+                }
+            } catch (e) {
+                descEl.textContent = '';
+                tableContainer.innerHTML = '';
+                status.innerHTML = '<span class="error"><i class="fas fa-exclamation-circle"></i> ' + e.message + '</span>';
+            }
+        }
+
+        document.getElementById('cronInput').addEventListener('input', parseCron);
+        document.getElementById('cronExamples').addEventListener('click', e => {
+            const btn = e.target.closest('button');
+            if (!btn) return;
+            document.getElementById('cronInput').value = btn.dataset.cron;
+            parseCron();
+        });
+
+        /* ── TIMESTAMP CONVERTER ── */
+        function tsDetect(val) {
+            val = val.trim();
+            if (!val) return null;
+            if (/^\d+$/.test(val)) {
+                const n = parseInt(val, 10);
+                if (n > 1e15) return new Date(n / 1000);
+                if (n > 1e12) return new Date(n);
+                return new Date(n * 1000);
+            }
+            const d = new Date(val);
+            if (!isNaN(d.getTime())) return d;
+            return null;
+        }
+
+        function tsRender(date) {
+            const grid = document.getElementById('tsGrid');
+            const status = document.getElementById('tsStatus');
+            if (!date || isNaN(date.getTime())) {
+                grid.innerHTML = '';
+            status.innerHTML = '<span class="ok"><i class="fas fa-check-circle"></i> ' + t('ts_unrec') + '</span>';
+                return;
+            }
+            status.innerHTML = '<span class="ok"><i class="fas fa-check-circle"></i> ' + date.toISOString() + '</span>';
+            const local = date.toLocaleString('es-ES', { timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone });
+            const cards = [
+                { label: t('ts_ms'), value: date.getTime().toString() },
+                { label: t('ts_s'), value: Math.floor(date.getTime() / 1000).toString() },
+                { label: t('ts_iso'), value: date.toISOString() },
+                { label: t('ts_local'), value: local },
+                { label: t('ts_utc'), value: date.toUTCString() },
+                { label: t('ts_localdt'), value: date.toLocaleDateString('es-ES') + ' ' + date.toLocaleTimeString('es-ES') },
+                { label: t('ts_rel'), value: tsRelative(date) },
+                { label: t('ts_wday'), value: date.toLocaleDateString('es-ES', { weekday: 'long' }) },
+            ];
+            grid.innerHTML = cards.map(c =>
+                `<div class="ts-card" onclick="tsCopy('${c.value.replace(/'/g, "\\'")}')" title="Copiar">
+                    <div class="ts-label">${c.label}</div>
+                    <div class="ts-value">${c.value}</div>
+                </div>`
+            ).join('');
+        }
+
+        function tsCopy(val) {
+            navigator.clipboard.writeText(val).then(() => toast('Copiado'));
+        }
+
+        function tsRelative(date) {
+            const diff = Date.now() - date.getTime();
+            const abs = Math.abs(diff);
+            const units = [
+                [31536000000, t('unit_year')], [2592000000, t('unit_month')], [604800000, t('unit_week')],
+                [86400000, t('unit_day')], [3600000, t('unit_hour')], [60000, t('unit_min')], [1000, t('unit_sec')]
+            ];
+            for (const [ms, label] of units) {
+                const n = Math.floor(abs / ms);
+                if (n >= 1) return (diff > 0 ? t('ts_ago') : t('ts_in')) + n + ' ' + label + (n !== 1 ? 's' : '');
+            }
+            return t('ts_now_label');
+        }
+
+        function tsNow() {
+            document.getElementById('tsInput').value = Date.now().toString();
+            tsConvert();
+        }
+
+        function tsConvert() {
+            const val = document.getElementById('tsInput').value;
+            const date = tsDetect(val);
+            tsRender(date);
+        }
+
+        document.getElementById('tsInput').addEventListener('input', tsConvert);
+
+        /* ── JSON FORMATTER ── */
+        function jsonColorize(obj) {
+            const json = JSON.stringify(obj, null, 2);
+            return json.replace(/("(?:\\.|[^"\\])*")\s*:/g, '<span style="color:#f92672">$1</span>:')
+                .replace(/:(\s*)"((?:\\.|[^"\\])*)"/g, ':<span style="color:#a6e22e">"$2"</span>')
+                .replace(/:(\s*)(true|false)/g, ':<span style="color:#66d9ef">$2</span>')
+                .replace(/:(\s*)(null)/g, ':<span style="color:#fd971f">$2</span>')
+                .replace(/:(\s*)(-?\d+\.?\d*)/g, ':<span style="color:#fd971f">$2</span>');
+        }
+
+        function jsonFormat() {
+            const input = document.getElementById('jsonInput').value.trim();
+            const output = document.getElementById('jsonOutput');
+            const status = document.getElementById('jsonStatus');
+            if (!input) { output.innerHTML = '<button class="copy-btn" onclick="copyText(\'jsonOutput\')">📋 Copiar</button>'; status.textContent = ''; return; }
+            try {
+                const obj = JSON.parse(input);
+                const colored = jsonColorize(obj);
+                output.innerHTML = '<button class="copy-btn" onclick="copyText(\'jsonOutput\')">📋 Copiar</button>' + colored;
+                status.innerHTML = '<span class="ok"><i class="fas fa-check-circle"></i> ' + t('status_json') + ' · ' + new Blob([JSON.stringify(obj, null, 2)]).size + t('status_bytes') + '</span>';
+            } catch (e) {
+                output.innerHTML = '<button class="copy-btn" onclick="copyText(\'jsonOutput\')" data-i18n="copy">' + t('copy') + '</button><span style="color:#f92672">' + e.message + '</span>';
+                status.innerHTML = '<span class="error"><i class="fas fa-exclamation-circle"></i> ' + e.message + '</span>';
+            }
+        }
+
+        function jsonMinify() {
+            const input = document.getElementById('jsonInput').value.trim();
+            if (!input) return;
+            try {
+                const min = JSON.stringify(JSON.parse(input));
+                document.getElementById('jsonOutput').innerHTML = '<button class="copy-btn" onclick="copyText(\'jsonOutput\')" data-i18n="copy">' + t('copy') + '</button>' + min;
+                document.getElementById('jsonStatus').innerHTML = '<span class="ok"><i class="fas fa-check-circle"></i> ' + t('status_min') + ' · ' + min.length + t('status_bytes') + '</span>';
+            } catch (e) {
+                document.getElementById('jsonStatus').innerHTML = '<span class="error"><i class="fas fa-exclamation-circle"></i> ' + e.message + '</span>';
+            }
+        }
+
+        function jsonDownload() {
+            const input = document.getElementById('jsonInput').value.trim();
+            if (!input) return;
+            try {
+                JSON.parse(input);
+                const blob = new Blob([JSON.stringify(JSON.parse(input), null, 2)], { type: 'application/json' });
+                const a = document.createElement('a');
+                a.href = URL.createObjectURL(blob);
+                a.download = 'data.json';
+                a.click();
+                URL.revokeObjectURL(a.href);
+                toast(t('toast_dl'));
+            } catch (e) {
+                document.getElementById('jsonStatus').innerHTML = '<span class="error"><i class="fas fa-exclamation-circle"></i> ' + e.message + '</span>';
+            }
+        }
+
+        /* Auto-format on paste */
+        document.getElementById('jsonInput').addEventListener('paste', () => setTimeout(jsonFormat, 50));
+
+        /* Ctrl+Shift+F to format JSON */
+        document.getElementById('jsonInput').addEventListener('keydown', e => {
+            if (e.ctrlKey && e.shiftKey && e.key === 'F') { e.preventDefault(); jsonFormat(); }
+        });
+
+        /* ── REGEX TESTER ── */
+        const REGEX_COLORS = ['#f92672', '#66d9ef', '#a6e22e', '#ae81ff', '#fd971f'];
+
+        function testRegex() {
+            const pattern = document.getElementById('regexPattern').value;
+            const text = document.getElementById('regexText').value;
+            const output = document.getElementById('regexOutput');
+            const status = document.getElementById('regexStatus');
+            const groupsDiv = document.getElementById('regexGroups');
+            const flags = Array.from(document.querySelectorAll('#regexFlags input:checked')).map(cb => cb.value).join('');
+
+            if (!pattern || !text) {
+                output.innerHTML = '<button class="copy-btn" onclick="copyText(\'regexOutput\')">📋 Copiar</button>';
+                status.textContent = '';
+                groupsDiv.innerHTML = '';
+                return;
+            }
+
+            try {
+                const re = new RegExp(pattern, flags);
+                const matches = Array.from(text.matchAll(re));
+                if (matches.length === 0) {
+                    output.innerHTML = '<button class="copy-btn" onclick="copyText(\'regexOutput\')" data-i18n="copy">' + t('copy') + '</button><span style="color:#75715e">' + t('regex_none') + '</span>';
+                    status.innerHTML = '<span class="error"><i class="fas fa-times-circle"></i> 0 matches</span>';
+                    groupsDiv.innerHTML = '';
+                    return;
+                }
+
+                let result = '';
+                let lastIdx = 0;
+                let colorIdx = 0;
+                const groupData = [];
+
+                for (const match of matches) {
+                    if (match.index > lastIdx) {
+                        result += text.slice(lastIdx, match.index);
+                    }
+                    result += '<span class="regex-mark" style="background:' + REGEX_COLORS[colorIdx % REGEX_COLORS.length] + '20;border-bottom:2px solid ' + REGEX_COLORS[colorIdx % REGEX_COLORS.length] + '">';
+                    result += match[0];
+                    result += '</span>';
+                    lastIdx = match.index + match[0].length;
+                    colorIdx++;
+
+                    if (match.length > 1) {
+                        const g = {};
+                        for (let i = 1; i < match.length; i++) {
+                            g['Grupo ' + i] = match[i] !== undefined ? match[i] : '(undefined)';
+                        }
+                        groupData.push({ full: match[0], groups: g });
+                    }
+                }
+                if (lastIdx < text.length) {
+                    result += text.slice(lastIdx);
+                }
+
+                output.innerHTML = '<button class="copy-btn" onclick="copyText(\'regexOutput\')" data-i18n="copy">' + t('copy') + '</button>' + result;
+                status.innerHTML = '<span class="regex-count">' + matches.length + ' match' + (matches.length !== 1 ? 'es' : '') + '</span>';
+
+                if (groupData.length > 0) {
+                    let gHtml = '<div style="margin-top:0.5rem;font-size:0.78rem;"><strong style="color:#a6e22e">' + t('regex_grp') + '</strong></div>';
+                    groupData.forEach((g, i) => {
+                        gHtml += '<div style="margin-top:0.3rem;font-size:0.75rem;color:#75715e;">Match ' + (i + 1) + ': <span style="color:#f8f8f2">' + g.full + '</span></div>';
+                        gHtml += '<table class="cron-table" style="font-size:0.75rem;"><tr><th>' + t('regex_grp_hdr') + '</th><th>' + t('regex_val_hdr') + '</th></tr>';
+                        for (const [k, v] of Object.entries(g.groups)) {
+                            gHtml += '<tr><td style="color:#66d9ef">' + k + '</td><td>' + v + '</td></tr>';
+                        }
+                        gHtml += '</table>';
+                    });
+                    groupsDiv.innerHTML = gHtml;
+                } else {
+                    groupsDiv.innerHTML = '';
+                }
+
+            } catch (e) {
+                output.innerHTML = '<button class="copy-btn" onclick="copyText(\'regexOutput\')" data-i18n="copy">' + t('copy') + '</button><span style="color:#f92672">' + e.message + '</span>';
+                status.innerHTML = '<span class="error"><i class="fas fa-exclamation-circle"></i> ' + e.message + '</span>';
+                groupsDiv.innerHTML = '';
+            }
+
+            /* ── Copy button in all outputs ── */
+            document.querySelectorAll('.tool-output .copy-btn').forEach(btn => {
+                if (!btn.hasAttribute('data-i18n')) btn.innerHTML = t('copy');
+            });
+        }
+
+        document.getElementById('regexPattern').addEventListener('input', testRegex);
+        document.getElementById('regexText').addEventListener('input', testRegex);
+        document.querySelectorAll('#regexFlags input').forEach(cb => cb.addEventListener('change', testRegex));
+
+        /* ── BASE64 ── */
+        let b64Mode = 'encode';
+
+        function base64Encode() {
+            const input = document.getElementById('b64Input').value;
+            const output = document.getElementById('b64Output');
+            const status = document.getElementById('b64Status');
+            b64Mode = 'encode';
+            try {
+                const encoded = btoa(unescape(encodeURIComponent(input)));
+                output.value = encoded;
+                status.innerHTML = '<span class="ok"><i class="fas fa-check-circle"></i> ' + t('b64_encoded') + ' · ' + input.length + ' \u2192 ' + encoded.length + ' chars</span>';
+            } catch (e) {
+                status.innerHTML = '<span class="error"><i class="fas fa-exclamation-circle"></i> ' + e.message + '</span>';
+            }
+        }
+
+        function base64Decode() {
+            const input = document.getElementById('b64Input').value.trim();
+            const output = document.getElementById('b64Output');
+            const status = document.getElementById('b64Status');
+            b64Mode = 'decode';
+            try {
+                const decoded = decodeURIComponent(escape(atob(input)));
+                output.value = decoded;
+                status.innerHTML = '<span class="ok"><i class="fas fa-check-circle"></i> ' + t('b64_decoded') + ' · ' + input.length + ' \u2192 ' + decoded.length + ' chars</span>';
+            } catch (e) {
+                try {
+                    const raw = atob(input);
+                    output.value = raw;
+                    status.innerHTML = '<span class="ok"><i class="fas fa-check-circle"></i> ' + t('b64_raw') + ' · ' + raw.length + ' bytes</span>';
+                } catch (e2) {
+                    status.innerHTML = '<span class="error"><i class="fas fa-exclamation-circle"></i> ' + t('b64_invalid') + '</span>';
+                }
+            }
+        }
+
+        function base64Swap() {
+            const input = document.getElementById('b64Input');
+            const output = document.getElementById('b64Output');
+            const tmp = input.value;
+            input.value = output.value;
+            output.value = tmp;
+            document.getElementById('b64Status').textContent = '';
+        }
+
+        /* Auto-detect on paste */
+        document.getElementById('b64Input').addEventListener('paste', () => {
+            setTimeout(() => {
+                const val = document.getElementById('b64Input').value.trim();
+                if (/^[A-Za-z0-9+/]*={0,2}$/.test(val) && val.length > 4) {
+                    base64Decode();
+                } else if (val) {
+                    base64Encode();
+                }
+            }, 50);
+        });
+
+        /* ── YAML ↔ JSON ── */
+        function yamlToJson() {
+            const input = document.getElementById('yamlInput').value;
+            const output = document.getElementById('yamlOutput');
+            const status = document.getElementById('yamlStatus');
+            try {
+                const obj = jsyaml.load(input);
+                output.value = JSON.stringify(obj, null, 2);
+                status.innerHTML = '<span class="ok"><i class="fas fa-check-circle"></i> ' + t('yaml_tojson') + '</span>';
+            } catch (e) {
+                status.innerHTML = '<span class="error"><i class="fas fa-exclamation-circle"></i> ' + e.message + '</span>';
+            }
+        }
+
+        function jsonToYaml() {
+            const input = document.getElementById('yamlInput').value;
+            const output = document.getElementById('yamlOutput');
+            const status = document.getElementById('yamlStatus');
+            try {
+                const obj = JSON.parse(input);
+                output.value = jsyaml.dump(obj, { indent: 2, lineWidth: -1 });
+                status.innerHTML = '<span class="ok"><i class="fas fa-check-circle"></i> ' + t('yaml_toyaml') + '</span>';
+            } catch (e) {
+                status.innerHTML = '<span class="error"><i class="fas fa-exclamation-circle"></i> ' + e.message + '</span>';
+            }
+        }
+
+        function yamlSwap() {
+            const input = document.getElementById('yamlInput');
+            const output = document.getElementById('yamlOutput');
+            const tmp = input.value;
+            input.value = output.value;
+            output.value = tmp;
+            document.getElementById('yamlStatus').textContent = '';
+        }
+
+        document.getElementById('yamlInput').addEventListener('paste', () => {
+            setTimeout(() => {
+                const val = document.getElementById('yamlInput').value.trim();
+                if (!val) return;
+                if (val.startsWith('{') || val.startsWith('[')) {
+                    jsonToYaml();
+                } else {
+                    yamlToJson();
+                }
+            }, 50);
+        });
+
+        /* ── URL ENCODER/DECODER ── */
+        function urlEncode() {
+            const input = document.getElementById('urlInput').value;
+            const output = document.getElementById('urlOutput');
+            const status = document.getElementById('urlStatus');
+            try {
+                output.value = encodeURIComponent(input);
+                status.innerHTML = '<span class="ok"><i class="fas fa-check-circle"></i> ' + t('url_encoded') + ' · ' + input.length + ' \u2192 ' + output.value.length + ' chars</span>';
+            } catch (e) {
+                status.innerHTML = '<span class="error"><i class="fas fa-exclamation-circle"></i> ' + e.message + '</span>';
+            }
+        }
+
+        function urlDecode() {
+            const input = document.getElementById('urlInput').value.trim();
+            const output = document.getElementById('urlOutput');
+            const status = document.getElementById('urlStatus');
+            try {
+                output.value = decodeURIComponent(input);
+                status.innerHTML = '<span class="ok"><i class="fas fa-check-circle"></i> ' + t('url_decoded') + ' · ' + output.value.length + ' chars</span>';
+            } catch (e) {
+                status.innerHTML = '<span class="error"><i class="fas fa-exclamation-circle"></i> ' + t('url_invalid') + '</span>';
+            }
+        }
+
+        function urlSwap() {
+            const a = document.getElementById('urlInput');
+            const b = document.getElementById('urlOutput');
+            const t = a.value; a.value = b.value; b.value = t;
+            document.getElementById('urlStatus').textContent = '';
+        }
+
+        document.getElementById('urlInput').addEventListener('paste', () => {
+            setTimeout(() => {
+                const val = document.getElementById('urlInput').value.trim();
+                if (/%[0-9A-Fa-f]{2}/.test(val)) urlDecode();
+                else if (val) urlEncode();
+            }, 50);
+        });
+
+        /* ── BASE CONVERTER ── */
+        function bcConvert() {
+            const input = document.getElementById('bcInput').value.trim();
+            const from = parseInt(document.getElementById('bcFrom').value);
+            const output = document.getElementById('bcOutput');
+            const status = document.getElementById('bcStatus');
+            if (!input) { output.innerHTML = '<button class="copy-btn" onclick="copyText(\'bcOutput\')">📋 Copiar</button>'; status.textContent = ''; return; }
+            const val = parseInt(input, from);
+            if (isNaN(val)) {
+                output.innerHTML = '<button class="copy-btn" onclick="copyText(\'bcOutput\')" data-i18n="copy">' + t('copy') + '</button><span style="color:#f92672">' + t('bc_err') + from + '</span>';
+                status.innerHTML = '<span class="error"><i class="fas fa-exclamation-circle"></i> ' + t('bc_err2') + from + '</span>';
+                return;
+            }
+            const bases = [
+                [10, t('bc_dec_lbl'), '#66d9ef'],
+                [16, t('bc_hex_lbl'), '#a6e22e'],
+                [2, t('bc_bin_lbl'), '#fd971f'],
+                [8, t('bc_oct_lbl'), '#ae81ff'],
+            ];
+            let html = '<button class="copy-btn" onclick="copyText(\'bcOutput\')" data-i18n="copy">' + t('copy') + '</button>';
+            bases.forEach(([base, label, color]) => {
+                const v = val.toString(base).toUpperCase();
+                html += '<div style="display:flex;justify-content:space-between;align-items:center;padding:0.4rem 0;border-bottom:1px solid #2a2a2a;font-size:0.85rem;font-family:\'JetBrains Mono\',monospace;">';
+                html += '<span style="color:' + color + ';font-weight:700;">' + label + '</span>';
+                html += '<span style="color:#f8f8f2;word-break:break-all;text-align:right;margin-left:1rem;">' + v + '</span>';
+                html += '</div>';
+            });
+            output.innerHTML = html;
+            status.innerHTML = '<span class="ok"><i class="fas fa-check-circle"></i> ' + val.toString() + t('bc_in10') + '</span>';
+        }
+
+        document.getElementById('bcInput').addEventListener('input', bcConvert);
+        document.getElementById('bcFrom').addEventListener('change', bcConvert);
+
+        /* ── DIFF VIEWER ── */
+        function diffRun() {
+            const left = document.getElementById('diffLeft').value;
+            const right = document.getElementById('diffRight').value;
+            const out = document.getElementById('diffOutput');
+            const status = document.getElementById('diffStatus');
+
+            if (!left && !right) {
+                out.innerHTML = '';
+                status.textContent = '';
+                return;
+            }
+
+            const lLines = left.split('\n');
+            const rLines = right.split('\n');
+            const maxLen = Math.max(lLines.length, rLines.length);
+            const results = [];
+
+            let ctx = 0;
+            let changed = false;
+            const maxWidth = Math.max(
+                left.split('\n').reduce((a, l) => Math.max(a, l.length), 0),
+                right.split('\n').reduce((a, l) => Math.max(a, l.length), 0)
+            );
+
+            for (let i = 0; i < maxLen; i++) {
+                const l = lLines[i] !== undefined ? lLines[i] : '';
+                const r = rLines[i] !== undefined ? rLines[i] : '';
+                if (l !== r) {
+                    if (!changed) { results.push({ type: 'hdr', text: t('diff_hdr') + (i + 1) + t('diff_hdr_end') }); changed = true; }
+                    if (l !== undefined) results.push({ type: 'del', text: l, ln: i + 1 });
+                    if (r !== undefined) results.push({ type: 'add', text: r, ln: i + 1 });
+                    ctx = 0;
+                } else {
+                    if (ctx < 3) {
+                        results.push({ type: 'eq', text: l, ln: i + 1 });
+                    }
+                    ctx++;
+                    if (ctx === 4) results.push({ type: 'eq', text: '...', ln: '' });
+                    if (ctx > 4) results.pop();
+                }
+            }
+
+            if (results.length === 0) {
+                out.innerHTML = '';
+                status.innerHTML = '<span class="ok"><i class="fas fa-check-circle"></i> ' + t('status_equal') + '</span>';
+                return;
+            }
+
+            status.innerHTML = '<span class="ok"><i class="fas fa-check-circle"></i> ' + results.filter(r => r.type === 'add').length + t('diff_added') + results.filter(r => r.type === 'del').length + t('diff_removed') + '</span>';
+
+            const lHtml = results.map(r => '<div class="diff-line' + (r.type === 'eq' ? ' eq' : '') + (r.type === 'del' ? ' del' : '') + (r.type === 'hdr' ? ' hdr' : '') + '">' + (r.ln ? '<span class="diff-ln">' + r.ln + '</span>' : '') + r.text + '</div>').join('\n');
+            const rHtml = results.map(r => '<div class="diff-line' + (r.type === 'eq' ? ' eq' : '') + (r.type === 'add' ? ' add' : '') + (r.type === 'hdr' ? ' hdr' : '') + '">' + (r.ln ? '<span class="diff-ln">' + r.ln + '</span>' : '') + r.text + '</div>').join('\n');
+
+            out.innerHTML = '<div class="diff-wrap"><div class="diff-pane">' + lHtml + '</div><div class="diff-pane">' + rHtml + '</div></div>';
+        }
+
+        function diffClear() {
+            document.getElementById('diffLeft').value = '';
+            document.getElementById('diffRight').value = '';
+            document.getElementById('diffOutput').innerHTML = '';
+            document.getElementById('diffStatus').textContent = '';
+        }
+
+        document.getElementById('diffLeft').addEventListener('input', diffRun);
+        document.getElementById('diffRight').addEventListener('input', diffRun);
+
+        /* Update save keys */
+        SAVE_KEYS.push('urlInput', 'bcInput', 'diffLeft', 'diffRight', 'urlOutput');
+
+        /* Set initial language */
+        setLanguage(localStorage.getItem('lang') || 'es');
+
+        /* Auto-restore cron on load */
+        setTimeout(parseCron, 100);
+        setTimeout(tsConvert, 100);
     </script>
 </body>
 </html>
