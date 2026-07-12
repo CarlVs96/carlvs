@@ -1557,7 +1557,6 @@ Ingeniero informático, <strong>SRE en Roche</strong>. Observabilidad, automatiz
         document.querySelectorAll('.lang-btn').forEach(b => {
             b.addEventListener('click', () => setLanguage(b.dataset.lang));
         });
-        setLanguage(localStorage.getItem('lang') || 'es');
 
         /* ── Navbar mobile toggle ── */
         document.getElementById('navToggle').addEventListener('click', () => {
@@ -1948,6 +1947,7 @@ Ingeniero informático, <strong>SRE en Roche</strong>. Observabilidad, automatiz
         const hGrid = document.querySelector('.health-grid');
         if (hGrid) healthObs.observe(hGrid);
 
+        setLanguage(localStorage.getItem('lang') || 'es');
     </script>
 </body>
 
