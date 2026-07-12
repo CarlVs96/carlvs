@@ -73,13 +73,12 @@
         .nav-toggle { display: none; background: none; border: none; color: #f8f8f2; font-size: 1.3rem; cursor: pointer; }
         .lang-btn {
             background: none; border: 1px solid #3a3a3a; color: #75715e;
-            font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; padding: 0.2rem 0.4rem;
+            font-family: inherit; font-size: 0.75rem; padding: 0.35rem 0.7rem;
             border-radius: 4px; cursor: pointer; transition: all 0.3s ease;
-            text-transform: uppercase; letter-spacing: 0.05em; line-height: 1;
         }
         .lang-btn:hover { border-color: #66d9ef; color: #66d9ef; }
-        .lang-btn.active { background: #66d9ef; border-color: #66d9ef; color: #1a1a1a; font-weight: 700; }
-        .nav-right { display: flex; align-items: center; gap: 0.5rem; }
+        .lang-btn.active { background: #66d9ef; border-color: #66d9ef; color: #1a1a1a; }
+        .nav-right { display: flex; align-items: center; gap: 1rem; }
         @media (max-width: 768px) {
             .nav-links {
                 display: none; position: absolute; top: 60px; left: 0; right: 0;
