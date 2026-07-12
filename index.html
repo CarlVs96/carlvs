@@ -1629,6 +1629,28 @@ Ingeniero informático, <strong>SRE en Roche</strong>. Observabilidad, automatiz
                                 else if (cmd === 'help') resp = t('term_help');
                                 else if (cmd === 'whoami') resp = t('term_whoami');
                                 else if (cmd === 'clear') { if (termRestartTimer) clearTimeout(termRestartTimer); if (termStepTimer) { clearTimeout(termStepTimer); termStepTimer = null; } if (termKeyHandler) { document.removeEventListener('keydown', termKeyHandler); termKeyHandler = null; } termBody.innerHTML = ''; termIdle = false; termIndex = 0; termRunning = true; termRestartTimer = setTimeout(() => { termRestartTimer = null; runTerminal(); }, 500); return; }
+                                else if (cmd === 'ñ') {
+                                    resp = '🦖 ' + (currentLang === 'en' ? 'Ñiñosaurio mode activated' : 'Modo Ñiñosaurio activado');
+                                    termIdle = false;
+                                    let _i = 0;
+                                    (function typeResp() {
+                                        if (!out.isConnected) return;
+                                        if (_i < resp.length) { out.textContent += resp[_i++]; setTimeout(typeResp, 18); }
+                                        else setTimeout(() => setLanguage('ñ'), 400);
+                                    })();
+                                    return;
+                                }
+                                else if (cmd === 'j') {
+                                    resp = '🌳 ' + (currentLang === 'en' ? 'Jiennense mode activated' : 'Modo Jiennense activado');
+                                    termIdle = false;
+                                    let _i = 0;
+                                    (function typeResp() {
+                                        if (!out.isConnected) return;
+                                        if (_i < resp.length) { out.textContent += resp[_i++]; setTimeout(typeResp, 18); }
+                                        else setTimeout(() => setLanguage('j'), 400);
+                                    })();
+                                    return;
+                                }
                                 else resp = t('term_not_found').replace('{cmd}', cmd);
                                 termIdle = false;
                                 let i = 0;
@@ -1676,6 +1698,7 @@ Ingeniero informático, <strong>SRE en Roche</strong>. Observabilidad, automatiz
 
         /* ── Ñ/J via keyboard ── */
         document.addEventListener('keydown', e => {
+            if (termKeyHandler) return;
             if (e.key === 'ñ' || e.key === 'Ñ') setLanguage('ñ');
             if (e.key === 'j' || e.key === 'J') setLanguage('j');
             if (e.key === 'Escape') setLanguage('es');
