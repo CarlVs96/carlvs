@@ -2049,7 +2049,6 @@ Ingeniero informático, <strong>SRE en Roche</strong>. Observabilidad, automatiz
                             if (e.key === 'Enter') {
                                 const cmd = termBuf.trim().toLowerCase();
                                 termBuf = '';
-                                fi.textContent = '';
                                 fc.remove();
                                 fc = null;
                                 const outLine = document.createElement('div');
@@ -2061,7 +2060,7 @@ Ingeniero informático, <strong>SRE en Roche</strong>. Observabilidad, automatiz
                                 let resp = '';
                                 if (cmd === 'help') resp = 'Comandos: whoami, help, clear · Pulsa Ñ o J para modos secretos, ESC para salir';
                                 else if (cmd === 'whoami') resp = 'Carlos Villén Villar';
-                                else if (cmd === 'clear') { termBody.innerHTML = ''; termIdle = false; termRunning = false; document.removeEventListener('keydown', termKey); setTimeout(runTerminal, 500); return; }
+                                else if (cmd === 'clear') { termBody.innerHTML = ''; termIdle = false; termIndex = 0; termRunning = false; document.removeEventListener('keydown', termKey); setTimeout(runTerminal, 500); return; }
                                 else resp = `Comando no encontrado: ${cmd}. Escribe 'help' para ayuda.`;
                                 let i = 0;
                                 function typeResp() {
