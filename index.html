@@ -1833,6 +1833,7 @@ Ingeniero informático, <strong>SRE en Roche</strong>. Observabilidad, automatiz
                                 fi.textContent = termBuf;
                                 e.preventDefault();
                             } else if (e.key.length === 1 && !e.ctrlKey && !e.metaKey && !e.altKey) {
+                                e.preventDefault();
                                 termBuf += e.key;
                                 fi.textContent = termBuf;
                             }
