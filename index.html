@@ -1611,6 +1611,7 @@ Ingeniero informático, <strong>SRE en Roche</strong>. Observabilidad, automatiz
                         const termKey = e => {
                             if (!termIdle) return;
                             if (e.key === 'Enter') {
+                                e.preventDefault();
                                 const cmd = termBuf.trim().toLowerCase();
                                 termBuf = '';
                                 fc.remove();
@@ -1622,10 +1623,12 @@ Ingeniero informático, <strong>SRE en Roche</strong>. Observabilidad, automatiz
                                 outLine.appendChild(out);
                                 termBody.appendChild(outLine);
                                 let resp = '';
-                                if (cmd === 'help') resp = t('term_help');
+                                if (cmd === '') resp = t('term_help');
+                                else if (cmd === 'help') resp = t('term_help');
                                 else if (cmd === 'whoami') resp = t('term_whoami');
                                 else if (cmd === 'clear') { if (termRestartTimer) clearTimeout(termRestartTimer); if (termStepTimer) { clearTimeout(termStepTimer); termStepTimer = null; } if (termKeyHandler) { document.removeEventListener('keydown', termKeyHandler); termKeyHandler = null; } termBody.innerHTML = ''; termIdle = false; termIndex = 0; termRunning = true; termRestartTimer = setTimeout(() => { termRestartTimer = null; runTerminal(); }, 500); return; }
                                 else resp = t('term_not_found').replace('{cmd}', cmd);
+                                termIdle = false;
                                 let i = 0;
                                 function typeResp() {
                                     if (!out.isConnected) return;
@@ -1643,6 +1646,7 @@ Ingeniero informático, <strong>SRE en Roche</strong>. Observabilidad, automatiz
                                         nl.appendChild(np); nl.appendChild(fi); nl.appendChild(fc);
                                         termBody.appendChild(nl);
                                         termBody.scrollTop = termBody.scrollHeight;
+                                        termIdle = true;
                                     }
                                 }
                                 typeResp();
