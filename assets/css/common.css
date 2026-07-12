@@ -50,6 +50,11 @@ a:hover { color: #a6e22e; }
     content: ''; position: absolute; bottom: -4px; left: 0; right: 0;
     height: 2px; background: #66d9ef;
 }
+.nav-sep {
+    color: #75715e;
+    margin: 0 0.25rem;
+    user-select: none;
+}
 .nav-right { display: flex; align-items: center; gap: 1rem; }
 .nav-toggle {
     display: none; background: none; border: none; color: #f8f8f2;
@@ -123,6 +128,7 @@ a:hover { color: #a6e22e; }
     }
     .nav-links.open { display: flex; }
     .nav-toggle { display: block; }
+    .nav-sep { display: none; }
 }
 
 /* ── Light theme (shared) ── */
@@ -133,6 +139,7 @@ html.light .nav-links a { color: #999; }
 html.light .nav-links a:hover { color: #2d2d2d; }
 html.light .nav-links a.active { color: #f92672; }
 html.light .nav-links a.active::after { background: #f92672; }
+html.light .nav-sep { color: #ccc; }
 html.light .lang-btn { border-color: #ddd; color: #999; }
 html.light .lang-btn:hover { border-color: #f92672; color: #f92672; }
 html.light .lang-btn.active { background: #f92672; color: #fff; border-color: #f92672; }
