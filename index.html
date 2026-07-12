@@ -1564,14 +1564,11 @@ Ingeniero informático, <strong>SRE en Roche</strong>. Observabilidad, automatiz
             clearTimeout(twTimeout);
             typewriter(document.getElementById('tw-text'), translations[l]['title'], 45);
             if (typeof termBody !== 'undefined' && termBody.children.length > 0) {
+                if (termKeyHandler) { document.removeEventListener('keydown', termKeyHandler); termKeyHandler = null; }
                 termBody.innerHTML = '';
                 termIndex = 0;
-                termRunning = false;
-                const termSection = document.getElementById('terminal');
-                const rect = termSection.getBoundingClientRect();
-                if (rect.top < window.innerHeight && rect.bottom > 0) {
-                    setTimeout(runTerminal, 600);
-                }
+                termRunning = true;
+                setTimeout(runTerminal, 600);
             }
         }
 
@@ -1720,7 +1717,7 @@ Ingeniero informático, <strong>SRE en Roche</strong>. Observabilidad, automatiz
             { cmd: 'uname -a', out: () => { const g = { h: 738, pop: 232208 }; const j = { h: 573, pop: 112074 }; return t('term_uname').replace('{jh}', j.h).replace('{jpop}', (j.pop/1000).toFixed(1)).replace('{gh}', g.h).replace('{gpop}', (g.pop/1000).toFixed(1)); }, cd: 50, od: 15 },
             { cmd: 'curl -s cafestats', out: () => { const h = new Date().getHours(); const c = Math.min(Math.max(Math.floor(h * 0.55), 1), 8); const m = c > 5 ? t('term_cafe_acelerado') : c > 3 ? t('term_cafe_estable') : t('term_cafe_despertando'); return t('term_cafes').replace('{c}', c).replace('{r}', Math.round(60/c)).replace('{m}', m); }, cd: 60, od: 20 },
         ];
-        let termIndex = 0, termLineIdx = 0, termRunning = false;
+        let termIndex = 0, termLineIdx = 0, termRunning = false, termKeyHandler = null;
         const termBody = document.getElementById('termBody');
         const termObs = new IntersectionObserver(entries => {
             entries.forEach(e => {
@@ -1805,7 +1802,7 @@ Ingeniero informático, <strong>SRE en Roche</strong>. Observabilidad, automatiz
                                 let resp = '';
                                 if (cmd === 'help') resp = t('term_help');
                                 else if (cmd === 'whoami') resp = t('term_whoami');
-                                else if (cmd === 'clear') { termBody.innerHTML = ''; termIdle = false; termIndex = 0; termRunning = false; document.removeEventListener('keydown', termKey); setTimeout(runTerminal, 500); return; }
+                                else if (cmd === 'clear') { termBody.innerHTML = ''; termIdle = false; termIndex = 0; termKeyHandler = null; document.removeEventListener('keydown', termKey); termRunning = true; setTimeout(() => { runTerminal(); }, 500); return; }
                                 else resp = t('term_not_found').replace('{cmd}', cmd);
                                 let i = 0;
                                 function typeResp() {
@@ -1836,6 +1833,7 @@ Ingeniero informático, <strong>SRE en Roche</strong>. Observabilidad, automatiz
                             }
                         };
                         document.addEventListener('keydown', termKey);
+                        termKeyHandler = termKey;
                         return;
                     }
                     setTimeout(runTerminal, 1200);
