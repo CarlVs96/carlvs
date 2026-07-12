@@ -34,6 +34,9 @@
         a:hover { color: #a6e22e; }
         strong { color: #fd971f; }
 
+        #particleCanvas { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+        html.light #particleCanvas { opacity: 0.5; }
+
         .navbar {
             position: fixed; top: 0; left: 0; right: 0;
             background: rgba(26,26,26,0.85);
@@ -445,6 +448,7 @@
     </style>
 </head>
 <body>
+    <canvas id="particleCanvas"></canvas>
 
     <nav class="navbar">
         <a href="/" class="nav-logo"><svg width="22" height="22" viewBox="0 0 32 32"><defs><linearGradient id="navLogoGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#f92672"/><stop offset="50%" stop-color="#ae81ff"/><stop offset="100%" stop-color="#66d9ef"/></linearGradient></defs><text x="16" y="22" font-family="monospace" font-size="14" font-weight="bold" fill="url(#navLogoGrad)" text-anchor="middle">CVs</text></svg>Carlos Villén Villar</a>
@@ -1525,6 +1529,77 @@
         /* Auto-restore cron on load */
         setTimeout(parseCron, 100);
         setTimeout(tsConvert, 100);
+
+        /* ── Particle canvas ── */
+        const pCanvas = document.getElementById('particleCanvas');
+        const pCtx = pCanvas.getContext('2d');
+        let pMouse = { x: -1000, y: -1000 };
+        const PCOLORS = ['#f92672','#a6e22e','#66d9ef','#ae81ff','#fd971f'];
+        const PCOLORS_LIGHT = ['#e88', '#8c8', '#8cf', '#c8f', '#fa8'];
+        function pColors() { return document.documentElement.classList.contains('light') ? PCOLORS_LIGHT : PCOLORS; }
+        let particles = [];
+        function pResize() { pCanvas.width = window.innerWidth; pCanvas.height = window.innerHeight; }
+        window.addEventListener('resize', pResize);
+        pResize();
+        class Particle {
+            constructor() {
+                this.x = Math.random() * pCanvas.width;
+                this.y = Math.random() * pCanvas.height;
+                this.vx = (Math.random() - 0.5) * 0.6;
+                this.vy = (Math.random() - 0.5) * 0.6;
+                this.color = pColors()[Math.floor(Math.random() * pColors().length)];
+                this.s = Math.random() * 1.8 + 1;
+            }
+            update() {
+                const dx = pMouse.x - this.x, dy = pMouse.y - this.y;
+                const d = Math.sqrt(dx*dx + dy*dy);
+                if (d < 150) { const f = (150 - d) / 150; this.vx -= (dx/d) * f * 1.2; this.vy -= (dy/d) * f * 1.2; }
+                this.x += this.vx; this.y += this.vy;
+                this.vx *= 0.99; this.vy *= 0.99;
+                if (this.x < 0) { this.x = 0; this.vx *= -1; }
+                if (this.x > pCanvas.width) { this.x = pCanvas.width; this.vx *= -1; }
+                if (this.y < 0) { this.y = 0; this.vy *= -1; }
+                if (this.y > pCanvas.height) { this.y = pCanvas.height; this.vy *= -1; }
+            }
+            draw() {
+                pCtx.fillStyle = this.color;
+                pCtx.beginPath(); pCtx.arc(this.x, this.y, this.s, 0, Math.PI * 2); pCtx.fill();
+            }
+        }
+        for (let i = 0; i < 80; i++) particles.push(new Particle());
+        function drawLines() {
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i+1; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const d = Math.sqrt(dx*dx + dy*dy);
+                    if (d < 120) {
+                        const isLight = document.documentElement.classList.contains('light');
+                        const a = (1 - d/120) * 0.4;
+                        pCtx.strokeStyle = isLight ? `rgba(150,150,150,${a})` : `rgba(102,217,239,${a})`;
+                        pCtx.lineWidth = 0.5;
+                        pCtx.beginPath(); pCtx.moveTo(particles[i].x, particles[i].y); pCtx.lineTo(particles[j].x, particles[j].y); pCtx.stroke();
+                    }
+                }
+            }
+        }
+        function pAnimate() {
+            pCtx.clearRect(0, 0, pCanvas.width, pCanvas.height);
+            particles.forEach(p => { p.update(); p.draw(); });
+            drawLines();
+            requestAnimationFrame(pAnimate);
+        }
+        pAnimate();
+        document.addEventListener('mousemove', e => { pMouse.x = e.clientX; pMouse.y = e.clientY; });
+        document.addEventListener('mouseleave', () => { pMouse.x = -1000; pMouse.y = -1000; });
+
+        const pThemeBtn = document.getElementById('themeToggle');
+        if (pThemeBtn) {
+            pThemeBtn.addEventListener('click', () => {
+                const cols = pColors();
+                particles.forEach(p => { p.color = cols[Math.floor(Math.random() * cols.length)]; });
+            });
+        }
     </script>
 </body>
 </html>
