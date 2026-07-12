@@ -638,15 +638,18 @@
             text-align: center;
             transition: all 0.3s ease;
             min-width: 180px;
+            min-height: 160px;
             display: flex;
             flex-direction: column;
             align-items: center;
+            justify-content: center;
         }
-        .contact-card.clickable { cursor: pointer; }
-        .contact-card.clickable:hover {
+        .contact-card:hover {
             border-color: #66d9ef;
             transform: translateY(-3px);
         }
+        a.contact-card { color: inherit; text-decoration: none; }
+        #emailCard { cursor: pointer; }
         .contact-card i {
             font-size: 1.5rem;
             color: #66d9ef;
@@ -663,15 +666,15 @@
             color: #75715e;
         }
         .contact-card .contact-form {
-            width: 100%; margin-top: 0;
+            width: 100%; margin: 0; padding: 0;
             max-height: 0; overflow: hidden;
-            transition: max-height 0.4s ease, margin-top 0.4s ease, opacity 0.3s ease;
-            opacity: 0;
+            transition: max-height 0.4s ease, margin 0.4s ease, opacity 0.3s ease;
+            opacity: 0; visibility: hidden;
         }
         .contact-card .contact-form.open {
             max-height: 300px;
             margin-top: 1rem;
-            opacity: 1;
+            opacity: 1; visibility: visible;
         }
         .contact-card .contact-form input,
         .contact-card .contact-form textarea {
@@ -921,6 +924,7 @@
         html.light .edu-card h3 { color: #2d2d2d; }
         html.light .edu-card p, html.light .edu-card li { color: #666; }
         html.light .contact-card { background: #f0f0f0; border-color: #ddd; }
+        html.light .contact-card:hover { border-color: #f92672; }
         html.light .contact-card .label { color: #2d2d2d; }
         html.light .contact-card .contact-form input,
         html.light .contact-card .contact-form textarea { background: #fff; border-color: #ddd; color: #2d2d2d; }
@@ -1290,7 +1294,7 @@ Ingeniero informático, <strong>SRE en Roche</strong>. Observabilidad, automatiz
         <h2 class="section-title"><span class="title-text" data-i18n="contact_title">Contacto</span></h2>
 
         <div class="contact-grid">
-            <div class="contact-card clickable" id="emailCard">
+            <div class="contact-card" id="emailCard">
                 <i class="fas fa-envelope"></i>
                 <span class="label">Email</span>
                 <span class="value">cvillenv@gmail.com</span>
